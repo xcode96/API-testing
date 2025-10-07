@@ -1,0 +1,64 @@
+import { kv, DATA_KEY } from './db';
+import { Quiz, User, AppSettings, Email } from '../types';
+import { INITIAL_QUIZZES } from '../quizzes';
+
+// This is an Edge Function for performance
+export const config = {
+  runtime: 'edge',
+};
+
+const initialUsers: User[] = [
+  { id: 1, fullName: 'Demo User', username: 'demo', password: 'demo', trainingStatus: 'not-started', lastScore: null, role: 'user', answers: [], moduleProgress: {} },
+  { id: 999, fullName: 'Default Admin', username: 'admin', password: 'dqadm', trainingStatus: 'not-started', lastScore: null, role: 'admin', answers: [], moduleProgress: {} },
+];
+
+const defaultSettings: AppSettings = {
+  logo: null,
+  companyFullName: 'Cyber Security Training Consortium',
+  signature1: null,
+  signature1Name: 'Dan Houser',
+  signature1Title: 'Chairperson',
+  signature2: null,
+  signature2Name: 'Laurie-Anne Bourdain',
+  signature2Title: 'Secretary',
+  courseName: 'Certified Cyber Security Professional',
+  certificationBodyText: 'Having met all of the certification requirements, adoption of the Code of Ethics, and successful performance on the required competency examination, subject to recertification every three years, this individual is entitled to all of the rights and privileges associated with this designation.',
+  certificationSeal: null,
+  certificationCycleYears: 3,
+};
+
+const getInitialData = () => ({
+    users: initialUsers,
+    quizzes: INITIAL_QUIZZES,
+    emailLog: [],
+    settings: defaultSettings,
+});
+
+export default async function GET(request: Request) {
+  if (!kv) {
+     return new Response(JSON.stringify({ error: 'KV store is not configured.' }), {
+      headers: { 'Content-Type': 'application/json' },
+      status: 500,
+    });
+  }
+
+  try {
+    let data = await kv.get(DATA_KEY);
+    if (!data) {
+        console.log('No data found in KV, returning initial data.');
+        data = getInitialData();
+        // Also save the initial data to the store for future requests
+        await kv.set(DATA_KEY, data);
+    }
+    return new Response(JSON.stringify(data), {
+      headers: { 'Content-Type': 'application/json' },
+      status: 200,
+    });
+  } catch (error) {
+    console.error('Failed to fetch data from KV:', error);
+    return new Response(JSON.stringify({ error: 'Failed to fetch data' }), {
+      headers: { 'Content-Type': 'application/json' },
+      status: 500,
+    });
+  }
+}
