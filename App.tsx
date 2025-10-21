@@ -1,4 +1,6 @@
 
+
+
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import ModuleList from './components/ModuleList';
@@ -8,9 +10,9 @@ import AdminPanel from './components/admin/AdminPanel';
 import UserLoginPage from './components/UserLoginPage';
 import FinalReport from './components/FinalReport';
 import CompletionScreen from './components/CompletionScreen';
-import { INITIAL_MODULES } from './constants';
+import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
-import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings } from './types';
+import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory } from './types';
 import { sendEmail } from './services/emailService';
 import { fetchData, saveData } from './services/api';
 
@@ -25,6 +27,10 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Make module categories stateful to allow dynamic creation
+  const [moduleCategoriesState, setModuleCategoriesState] = useState<ModuleCategory[]>([]);
+
+
   const saveTimeoutRef = useRef<number | null>(null);
   
   // Fetch initial data from the server
@@ -35,10 +41,50 @@ function App() {
         setUsers(data.users);
         setEmailLog(data.emailLog || []);
         setSettings(data.settings);
+        
+        // After fetching quizzes, build the initial module categories state
+        const existingQuizIds = new Set(data.quizzes.map(q => q.id));
+        let syncedModuleCategories = INITIAL_MODULE_CATEGORIES.map(category => ({
+            ...category,
+            modules: category.modules.filter(module => existingQuizIds.has(module.id))
+        }));
+
+        // Dynamically add categories for quizzes that don't have a hardcoded category
+        const knownCategoryIds = new Set(syncedModuleCategories.map(c => c.id));
+        const knownModuleIds = new Set(syncedModuleCategories.flatMap(c => c.modules).map(m => m.id));
+
+        data.quizzes.forEach((quiz, index) => {
+          if (!knownModuleIds.has(quiz.id)) {
+            const totalModules = syncedModuleCategories.flatMap(c => c.modules).length + index;
+            const iconKeys = Object.keys(ICONS);
+            const newIconKey = iconKeys[totalModules % iconKeys.length];
+            const newIcon = ICONS[newIconKey as keyof typeof ICONS];
+            const newTheme = THEMES[totalModules % THEMES.length];
+            
+            const newModule: Module = {
+              id: quiz.id,
+              title: quiz.name,
+              questions: quiz.questions.length,
+              icon: newIcon,
+              status: ModuleStatus.NotStarted,
+              theme: newTheme,
+            };
+            
+            const newCategory: ModuleCategory = {
+              id: quiz.id,
+              title: quiz.name,
+              modules: [newModule],
+            };
+            syncedModuleCategories.push(newCategory);
+          }
+        });
+
+        setModuleCategoriesState(syncedModuleCategories);
       })
       .catch(err => {
         console.error(err);
         setError("Failed to load application data. Please try again later.");
+        setModuleCategoriesState(INITIAL_MODULE_CATEGORIES); // Fallback on error
       })
       .finally(() => {
         setLoading(false);
@@ -64,6 +110,78 @@ function App() {
       }
     };
   }, [users, quizzes, emailLog, settings, loading]);
+
+  const handleCreateExamCategory = (title: string) => {
+    const newId = title.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
+    
+    // Check for duplicates
+    if (quizzes.some(q => q.id === newId) || moduleCategoriesState.some(c => c.id === newId)) {
+      alert("An exam category with a similar name already exists.");
+      return;
+    }
+
+    // Create new empty quiz
+    const newQuiz: Quiz = {
+      id: newId,
+      name: title,
+      questions: [],
+    };
+    setQuizzes(prev => [...prev, newQuiz]);
+
+    // Create new module category "folder"
+    const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
+    const iconKeys = Object.keys(ICONS);
+    const newIconKey = iconKeys[totalModules % iconKeys.length];
+    
+    const newModule: Module = {
+      id: newId,
+      title: title,
+      questions: 0,
+      icon: ICONS[newIconKey as keyof typeof ICONS],
+      status: ModuleStatus.NotStarted,
+      theme: THEMES[totalModules % THEMES.length],
+    };
+
+    const newCategory: ModuleCategory = {
+      id: newId,
+      title: title,
+      modules: [newModule],
+    };
+    setModuleCategoriesState(prev => [...prev, newCategory]);
+  };
+
+  const handleEditExamCategory = (categoryId: string, newTitle: string) => {
+      if (!newTitle || newTitle.trim() === "") {
+          alert("Category name cannot be empty.");
+          return;
+      }
+      // Update module category title and its inner module's title
+      setModuleCategoriesState(prev => prev.map(c =>
+          c.id === categoryId
+              ? { ...c, title: newTitle, modules: c.modules.map(m => m.id === categoryId ? { ...m, title: newTitle } : m) }
+              : c
+      ));
+      // Update quiz name
+      setQuizzes(prev => prev.map(q =>
+          q.id === categoryId
+              ? { ...q, name: newTitle }
+              : q
+      ));
+  };
+
+  const handleDeleteExamCategory = (categoryId: string) => {
+      if (window.confirm("Are you sure you want to delete this entire exam folder and all its questions? This action cannot be undone.")) {
+          // Remove module category
+          setModuleCategoriesState(prev => prev.filter(c => c.id !== categoryId));
+          // Remove associated quiz
+          setQuizzes(prev => prev.filter(q => q.id !== categoryId));
+          // Un-assign from all users
+          setUsers(prevUsers => prevUsers.map(user => ({
+              ...user,
+              assignedExams: user.assignedExams?.filter(id => id !== categoryId)
+          })));
+      }
+  };
   
   const handleSendNotification = (emailData: Omit<Email, 'id' | 'timestamp'>) => {
     sendEmail(emailData); // The mock service call
@@ -90,17 +208,27 @@ function App() {
   }, []);
 
 
-  const modules = useMemo<Module[]>(() => {
+  const moduleCategories = useMemo<ModuleCategory[]>(() => {
+    if (!currentUser) return [];
+    
     const currentProgress = currentUser?.moduleProgress || {};
-    return INITIAL_MODULES.map(staticModule => {
-      const quiz = quizzes.find(q => q.id === staticModule.id);
-      return {
-        ...staticModule,
-        status: currentProgress[staticModule.id] || ModuleStatus.NotStarted,
-        questions: quiz ? quiz.questions.length : 0,
-      };
-    });
-  }, [quizzes, currentUser]);
+    const assignedExamIds = new Set(currentUser?.assignedExams || []);
+
+    return moduleCategoriesState
+      .filter(category => assignedExamIds.has(category.id))
+      .map(category => ({
+        ...category,
+        modules: category.modules.map(staticModule => {
+          const quiz = quizzes.find(q => q.id === staticModule.id);
+          return {
+            ...staticModule,
+            status: currentProgress[staticModule.id] || ModuleStatus.NotStarted,
+            questions: quiz ? quiz.questions.length : 0,
+          };
+        }),
+      }))
+      .filter(category => category.modules.length > 0);
+  }, [quizzes, currentUser, moduleCategoriesState]);
 
   const handleModuleStatusChange = (moduleId: string, status: ModuleStatus) => {
     if (!currentUser) return;
@@ -142,7 +270,7 @@ function App() {
   };
 
   const handleStartQuiz = (moduleId: string) => {
-    const moduleToStart = modules.find(m => m.id === moduleId);
+    const moduleToStart = moduleCategories.flatMap(c => c.modules).find(m => m.id === moduleId);
 
     if (moduleToStart && moduleToStart.questions > 0) {
       handleModuleStatusChange(moduleId, ModuleStatus.InProgress);
@@ -196,12 +324,13 @@ function App() {
       setActiveAdminView('users');
   }
 
-  const { completedCount, progressPercentage } = useMemo(() => {
-    const completed = modules.filter(m => m.status === ModuleStatus.Completed).length;
-    const total = modules.length;
+  const { allModules, completedCount, progressPercentage } = useMemo(() => {
+    const flatModules = moduleCategories.flatMap(c => c.modules);
+    const completed = flatModules.filter(m => m.status === ModuleStatus.Completed).length;
+    const total = flatModules.length;
     const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-    return { completedCount: completed, progressPercentage: percentage };
-  }, [modules]);
+    return { allModules: flatModules, completedCount: completed, progressPercentage: percentage };
+  }, [moduleCategories]);
   
   useEffect(() => {
     if (!currentUser) return;
@@ -253,9 +382,9 @@ function App() {
 
   const activeModuleTheme = useMemo(() => {
      if (!activeModuleId) return undefined;
-     return modules.find(m => m.id === activeModuleId)?.theme;
-  }, [activeModuleId, modules]);
-  
+     return allModules.find(m => m.id === activeModuleId)?.theme;
+  }, [activeModuleId, allModules]);
+
   const renderContent = () => {
       if (view === 'user_login') {
         const regularUsers = users.filter(u => u.role === 'user');
@@ -280,6 +409,10 @@ function App() {
             onSendNotification={handleSendNotification}
             settings={settings!}
             onSettingsChange={setSettings}
+            moduleCategories={moduleCategoriesState} // Pass the full state for management
+            onCreateExamCategory={handleCreateExamCategory}
+            onEditExamCategory={handleEditExamCategory}
+            onDeleteExamCategory={handleDeleteExamCategory}
           />
         );
       }
@@ -314,7 +447,7 @@ function App() {
                 currentUser={currentUser}
                 userName={currentUser?.fullName || 'User'}
                 completedCount={completedCount}
-                totalCount={modules.length}
+                totalCount={allModules.length}
                 progress={progressPercentage}
                 onReset={resetProgress}
                 onAdminClick={() => setView('login')}
@@ -323,7 +456,7 @@ function App() {
             </div>
             <div className="lg:col-span-9">
               <ModuleList
-                modules={modules}
+                moduleCategories={moduleCategories}
                 onStartQuiz={handleStartQuiz}
               />
             </div>

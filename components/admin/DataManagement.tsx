@@ -1,14 +1,18 @@
-import React, { useRef, useState } from 'react';
-import { Quiz, Question } from '../../types';
+import React, { useRef, useState, useMemo } from 'react';
+import { Quiz, Question, ModuleCategory } from '../../types';
 import EditQuestionModal from './EditQuestionModal';
 
 interface DataManagementProps {
   quizzes: Quiz[];
   setQuizzes: React.Dispatch<React.SetStateAction<Quiz[]>>;
+  moduleCategories: ModuleCategory[];
+  questionFilter: string | null;
+  onEditExamCategory: (categoryId: string, newTitle: string) => void;
+  onDeleteExamCategory: (categoryId: string) => void;
 }
 
-const Accordion: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => {
-    const [isOpen, setIsOpen] = useState(false);
+const Accordion: React.FC<{ title: string; children: React.ReactNode, startOpen?: boolean }> = ({ title, children, startOpen = false }) => {
+    const [isOpen, setIsOpen] = useState(startOpen);
     return (
         <div className="border border-slate-200 rounded-lg bg-white/50">
             <button onClick={() => setIsOpen(!isOpen)} className="w-full flex justify-between items-center p-3 text-left hover:bg-slate-100/80 transition-colors">
@@ -23,10 +27,22 @@ const Accordion: React.FC<{ title: string; children: React.ReactNode }> = ({ tit
 }
 
 
-const DataManagement: React.FC<DataManagementProps> = ({ quizzes, setQuizzes }) => {
+const DataManagement: React.FC<DataManagementProps> = ({ quizzes, setQuizzes, moduleCategories, questionFilter, onEditExamCategory, onDeleteExamCategory }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
 
+    const filteredModuleCategories = useMemo(() => {
+        if (!questionFilter) {
+            return moduleCategories;
+        }
+        return moduleCategories
+            .map(category => ({
+                ...category,
+                modules: category.modules.filter(module => module.id === questionFilter)
+            }))
+            .filter(category => category.modules.length > 0);
+    }, [moduleCategories, questionFilter]);
+    
     const handleExport = () => {
         const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(
             JSON.stringify(quizzes, null, 2)
@@ -66,7 +82,7 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, setQuizzes }) 
         }
     };
     
-    const handleDelete = (questionId: number) => {
+    const handleDeleteQuestion = (questionId: number) => {
       if (window.confirm("Are you sure you want to delete this question? This action cannot be undone.")) {
           setQuizzes(prevQuizzes => 
               prevQuizzes.map(quiz => ({
@@ -90,6 +106,13 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, setQuizzes }) 
             })
         );
         setEditingQuestion(null);
+    };
+
+    const handleEditCategory = (categoryId: string, currentTitle: string) => {
+        const newTitle = window.prompt("Enter the new name for this exam folder:", currentTitle);
+        if (newTitle) {
+            onEditExamCategory(categoryId, newTitle);
+        }
     };
 
   return (
@@ -126,32 +149,60 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, setQuizzes }) 
         </div>
 
         <div className="border-t border-slate-200 pt-6">
-          <h3 className="text-xl font-semibold text-slate-800 mb-4">All Questions</h3>
-            <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
-            {quizzes.map(quiz => (
-              <Accordion key={quiz.id} title={`${quiz.name} (${quiz.questions.length} questions)`}>
-                  <div className="space-y-4">
-                      {quiz.questions.map(question => (
-                          <div key={question.id} className="p-4 bg-slate-50/80 rounded-lg border border-slate-200">
-                              <p className="font-semibold text-slate-700 mb-2">{question.question}</p>
-                              <ul className="list-disc list-inside text-sm text-slate-600 space-y-1 mb-3">
-                                  {question.options.map((opt, i) => (
-                                      <li key={i} className={opt === question.correctAnswer ? 'font-bold text-emerald-600' : ''}>
-                                          {opt}
-                                          {opt === question.correctAnswer && <span className="ml-2 text-xs">(Correct)</span>}
-                                      </li>
-                                  ))}
-                              </ul>
-                              <div className="flex justify-end gap-2">
-                                  <button onClick={() => setEditingQuestion(question)} className="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors p-1">Edit</button>
-                                  <button onClick={() => handleDelete(question.id)} className="text-sm font-semibold text-rose-500 hover:text-rose-700 transition-colors p-1">Delete</button>
-                              </div>
-                          </div>
-                      ))}
-                      {quiz.questions.length === 0 && <p className="text-slate-500 text-sm">No questions in this module yet.</p>}
+          <h3 className="text-xl font-semibold text-slate-800 mb-4">
+            {questionFilter 
+                ? moduleCategories.flatMap(c => c.modules).find(m => m.id === questionFilter)?.title 
+                : "All Questions"
+            }
+          </h3>
+            <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+              {filteredModuleCategories.map(category => {
+                const isManageable = category.modules.length === 1 && category.id === category.modules[0].id;
+                return(
+                <div key={category.id}>
+                   <div className="flex justify-between items-center mb-2 px-1">
+                      <h4 className="text-lg font-bold text-slate-600">{category.title}</h4>
+                      {isManageable && (
+                        <div className="flex items-center gap-2">
+                            <button onClick={() => handleEditCategory(category.id, category.title)} className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors p-1">Edit Name</button>
+                            <button onClick={() => onDeleteExamCategory(category.id)} className="text-xs font-semibold text-rose-500 hover:text-rose-700 transition-colors p-1">Delete Folder</button>
+                        </div>
+                      )}
                   </div>
-              </Accordion>
-            ))}
+
+                  <div className="space-y-3">
+                    {category.modules.map(module => {
+                      const quiz = quizzes.find(q => q.id === module.id);
+                      if (!quiz) return null;
+
+                      return (
+                        <Accordion key={module.id} title={`${module.title} (${quiz.questions.length} questions)`} startOpen={!!questionFilter}>
+                            <div className="space-y-4">
+                                {quiz.questions.map(question => (
+                                    <div key={question.id} className="p-4 bg-slate-50/80 rounded-lg border border-slate-200">
+                                        <p className="font-semibold text-slate-700 mb-2">{question.question}</p>
+                                        <ul className="list-disc list-inside text-sm text-slate-600 space-y-1 mb-3">
+                                            {question.options.map((opt, i) => (
+                                                <li key={i} className={opt === question.correctAnswer ? 'font-bold text-emerald-600' : ''}>
+                                                    {opt}
+                                                    {opt === question.correctAnswer && <span className="ml-2 text-xs">(Correct)</span>}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <div className="flex justify-end gap-2">
+                                            <button onClick={() => setEditingQuestion(question)} className="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors p-1">Edit</button>
+                                            <button onClick={() => handleDeleteQuestion(question.id)} className="text-sm font-semibold text-rose-500 hover:text-rose-700 transition-colors p-1">Delete</button>
+                                        </div>
+                                    </div>
+                                ))}
+                                {quiz.questions.length === 0 && <p className="text-slate-500 text-sm">No questions in this module yet.</p>}
+                            </div>
+                        </Accordion>
+                      );
+                    })}
+                  </div>
+                </div>
+              )})}
             </div>
         </div>
       </div>

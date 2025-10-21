@@ -1,10 +1,12 @@
+
 import React, { useState, useMemo, useEffect } from 'react';
 
 import { Question } from '../../types';
 
 interface QuestionFormProps {
   categories: string[];
-  onAddQuestion: (question: Question) => void;
+  onAddQuestion: (question: Omit<Question, 'id'>) => void;
+  activeCategory: string | null;
 }
 
 const initialFormState = {
@@ -14,17 +16,19 @@ const initialFormState = {
   correctAnswer: '',
 };
 
-const QuestionForm: React.FC<QuestionFormProps> = ({ categories, onAddQuestion }) => {
+const QuestionForm: React.FC<QuestionFormProps> = ({ categories, onAddQuestion, activeCategory }) => {
   const [formData, setFormData] = useState(initialFormState);
 
-  // Fix: Replaced incorrect useState with useEffect to set the initial category.
-  // This logic now correctly handles side-effects and prevents overwriting
-  // the selected category on re-renders.
   useEffect(() => {
-    if (categories.length > 0 && formData.category === '') {
-        setFormData(prev => ({ ...prev, category: categories[0] }));
+    // This effect syncs the form's category with the active filter from the parent component.
+    const categoryToSet = activeCategory || (categories.length > 0 ? categories[0] : '');
+    if (categoryToSet && categories.includes(categoryToSet)) {
+      setFormData(prev => ({ ...prev, category: categoryToSet }));
+    } else if (categories.length > 0 && !categories.includes(formData.category)) {
+      // If the current category is no longer valid (e.g., after an import), reset to the first available one.
+      setFormData(prev => ({ ...prev, category: categories[0] }));
     }
-  }, [categories, formData.category]);
+  }, [activeCategory, categories]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -39,15 +43,14 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ categories, onAddQuestion }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.question && formData.options.every(o => o) && formData.correctAnswer) {
+    if (formData.category && formData.question && formData.options.every(o => o) && formData.correctAnswer) {
       const newQuestion: Omit<Question, 'id'> = {
           category: formData.category,
           question: formData.question,
           options: formData.options,
           correctAnswer: formData.correctAnswer,
       };
-      // We pass the object without an ID, the parent will assign one
-      onAddQuestion(newQuestion as Question);
+      onAddQuestion(newQuestion);
       setFormData({
           ...initialFormState,
           category: formData.category // keep category selected
@@ -68,7 +71,9 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ categories, onAddQuestion }
           value={formData.category}
           onChange={handleInputChange}
           className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
+          disabled={categories.length === 0}
         >
+          {categories.length === 0 && <option>Create a category first</option>}
           {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
         </select>
       </div>

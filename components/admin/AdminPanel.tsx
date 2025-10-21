@@ -1,14 +1,18 @@
 
 
-import React from 'react';
-import { Quiz, Question, User, Email, AppSettings } from '../../types';
+
+
+
+
+import React, { useState, useMemo } from 'react';
+import { Quiz, User, Email, AppSettings, ModuleCategory, Question } from '../../types';
 import { AdminView } from '../../App';
 import AdminSidebar from './AdminSidebar';
-import QuestionForm from './QuestionForm';
 import DataManagement from './DataManagement';
 import UserManagement from './UserManagement';
 import NotificationLog from './NotificationLog';
 import SettingsPanel from './SettingsPanel';
+import QuestionForm from './QuestionForm';
 
 
 interface AdminPanelProps {
@@ -22,58 +26,149 @@ interface AdminPanelProps {
   emailLog: Email[];
   onSendNotification: (emailData: Omit<Email, 'id' | 'timestamp'>) => void;
   settings: AppSettings;
-  onSettingsChange: React.Dispatch<React.SetStateAction<AppSettings>>;
+  onSettingsChange: React.Dispatch<React.SetStateAction<AppSettings | null>>;
+  moduleCategories: ModuleCategory[];
+  onCreateExamCategory: (title: string) => void;
+  onEditExamCategory: (categoryId: string, newTitle: string) => void;
+  onDeleteExamCategory: (categoryId: string) => void;
 }
 
-const QuestionManagement: React.FC<{
-  quizzes: Quiz[]; 
-  setQuizzes: React.Dispatch<React.SetStateAction<Quiz[]>>
-}> = ({ quizzes, setQuizzes }) => {
+const AdminPanel: React.FC<AdminPanelProps> = ({
+  quizzes,
+  setQuizzes,
+  users,
+  setUsers,
+  onLogout,
+  activeView,
+  setActiveView,
+  emailLog,
+  onSendNotification,
+  settings,
+  onSettingsChange,
+  moduleCategories,
+  onCreateExamCategory,
+  onEditExamCategory,
+  onDeleteExamCategory,
+}) => {
+  const [questionFilter, setQuestionFilter] = useState<string | null>(null);
+  const [newCategoryName, setNewCategoryName] = useState('');
+
+  const handleCreateCategory = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newCategoryName.trim()) {
+      onCreateExamCategory(newCategoryName.trim());
+      setNewCategoryName('');
+    }
+  };
   
-  const addQuestion = (newQuestion: Question) => {
-    setQuizzes(prevQuizzes => {
-      return prevQuizzes.map(quiz => {
-        if (quiz.name === newQuestion.category) {
-          const updatedQuestions = [...quiz.questions, { ...newQuestion, id: Date.now() }];
-          return { ...quiz, questions: updatedQuestions };
-        }
-        return quiz;
+  const handleAddQuestion = (newQuestionData: Omit<Question, 'id'>) => {
+      setQuizzes(prevQuizzes => {
+          const newQuizzes = prevQuizzes.map(q => ({...q, questions: [...q.questions]}));
+          const quizIndex = newQuizzes.findIndex(q => q.name === newQuestionData.category);
+
+          if (quizIndex > -1) {
+              const newQuestion: Question = {
+                  ...newQuestionData,
+                  id: Date.now(),
+              };
+              newQuizzes[quizIndex].questions.push(newQuestion);
+              alert(`Question added to "${newQuestionData.category}"!`);
+          } else {
+              console.error(`Quiz category "${newQuestionData.category}" not found.`);
+              alert("Error: Could not find the selected quiz category to add the question to.");
+          }
+          return newQuizzes;
       });
-    });
+  };
+  
+  const activeCategoryName = useMemo(() => {
+      if (!questionFilter) return null;
+      // The filter is a module ID, which corresponds to a quiz ID
+      const quiz = quizzes.find(q => q.id === questionFilter);
+      return quiz ? quiz.name : null;
+  }, [questionFilter, quizzes]);
+
+
+  const renderActiveView = () => {
+    switch (activeView) {
+      case 'users':
+        return <UserManagement users={users} setUsers={setUsers} onSendNotification={onSendNotification} settings={settings} moduleCategories={moduleCategories} />;
+      case 'notifications':
+        return <NotificationLog emailLog={emailLog} />;
+      case 'settings':
+        return <SettingsPanel settings={settings} onSettingsChange={onSettingsChange as React.Dispatch<React.SetStateAction<AppSettings>>} />;
+      case 'questions':
+        return (
+          <>
+            <header className="mb-8">
+                <h1 className="text-3xl font-bold text-slate-800">Question Management</h1>
+                <p className="text-slate-500">Create, edit, and delete exam folders and their questions.</p>
+            </header>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              <div className="lg:col-span-8">
+                <div className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80 h-full">
+                  <DataManagement 
+                    quizzes={quizzes} 
+                    setQuizzes={setQuizzes} 
+                    moduleCategories={moduleCategories} 
+                    questionFilter={questionFilter}
+                    onEditExamCategory={onEditExamCategory}
+                    onDeleteExamCategory={onDeleteExamCategory}
+                  />
+                </div>
+              </div>
+
+              <div className="lg:col-span-4">
+                <div className="space-y-6 sticky top-8">
+                   <div className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80">
+                    <h2 className="text-xl font-semibold text-slate-800 mb-4">Create New Exam Folder</h2>
+                    <form onSubmit={handleCreateCategory} className="flex items-center gap-4">
+                        <input
+                          type="text"
+                          value={newCategoryName}
+                          onChange={(e) => setNewCategoryName(e.target.value)}
+                          placeholder="e.g., Marketing Compliance"
+                          className="flex-grow p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
+                        />
+                        <button
+                          type="submit"
+                          className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300 shadow-lg shadow-indigo-500/30"
+                        >
+                          Create
+                        </button>
+                    </form>
+                  </div>
+                  <div className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80">
+                    <h2 className="text-xl font-semibold text-slate-800 mb-4">Add New Question</h2>
+                     <QuestionForm
+                        categories={quizzes.map(q => q.name)}
+                        onAddQuestion={handleAddQuestion}
+                        activeCategory={activeCategoryName}
+                      />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+      default:
+        return null;
+    }
   };
 
   return (
-    <>
-       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-800">Question Management</h1>
-        <p className="text-slate-500">Manage quiz content and data workflow.</p>
-      </header>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-1 bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80">
-          <h2 className="text-xl font-semibold text-slate-800 mb-4">Add New Question</h2>
-          <QuestionForm categories={quizzes.map(q => q.name)} onAddQuestion={addQuestion} />
-        </div>
-        <div className="lg:col-span-2 bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80">
-            <h2 className="text-xl font-semibold text-slate-800 mb-4">Data Management</h2>
-          <DataManagement quizzes={quizzes} setQuizzes={setQuizzes} />
-        </div>
-      </div>
-    </>
-  )
-}
-
-const AdminPanel: React.FC<AdminPanelProps> = (props) => {
-  const { onLogout, activeView, setActiveView, quizzes, setQuizzes, users, setUsers, emailLog, onSendNotification, settings, onSettingsChange } = props;
-
-  return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-rose-50 text-slate-800 font-sans flex">
-      <AdminSidebar onLogout={onLogout} activeView={activeView} setActiveView={setActiveView} />
-      <main className="flex-1 p-8 overflow-auto">
-        
-        {activeView === 'questions' && <QuestionManagement quizzes={quizzes} setQuizzes={setQuizzes} />}
-        {activeView === 'users' && <UserManagement users={users} setUsers={setUsers} onSendNotification={onSendNotification} settings={settings} />}
-        {activeView === 'notifications' && <NotificationLog emailLog={emailLog} />}
-        {activeView === 'settings' && <SettingsPanel settings={settings} onSettingsChange={onSettingsChange} />}
+      <AdminSidebar 
+        onLogout={onLogout} 
+        activeView={activeView} 
+        setActiveView={setActiveView} 
+        moduleCategories={moduleCategories}
+        questionFilter={questionFilter}
+        setQuestionFilter={setQuestionFilter} 
+      />
+      <main className="flex-1 p-6 sm:p-8 md:p-10 overflow-y-auto">
+        {renderActiveView()}
       </main>
     </div>
   );

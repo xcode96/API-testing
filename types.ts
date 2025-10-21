@@ -32,6 +32,12 @@ export interface Module {
   };
 }
 
+export interface ModuleCategory {
+  id: string;
+  title: string;
+  modules: Module[];
+}
+
 export interface UserAnswer {
   questionId: number;
   questionText: string;
@@ -48,6 +54,7 @@ export interface User {
   trainingStatus: 'not-started' | 'in-progress' | 'passed' | 'failed';
   lastScore?: number | null;
   role: 'user' | 'admin';
+  assignedExams?: string[];
   submissionDate?: string;
   answers?: UserAnswer[];
   moduleProgress?: Record<string, ModuleStatus>;

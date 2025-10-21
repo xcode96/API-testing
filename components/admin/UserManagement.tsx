@@ -1,7 +1,8 @@
 
 
+
 import React, { useState, useMemo, useRef } from 'react';
-import { User, Email, AppSettings } from '../../types';
+import { User, Email, AppSettings, ModuleCategory } from '../../types';
 import UserDetailsModal from './ReportDetailsModal';
 import ShareFeedbackModal from './ShareFeedbackModal';
 import CertificateModal from './CertificateModal';
@@ -11,6 +12,7 @@ interface UserManagementProps {
     setUsers: React.Dispatch<React.SetStateAction<User[]>>;
     onSendNotification: (emailData: Omit<Email, 'id' | 'timestamp'>) => void;
     settings: AppSettings;
+    moduleCategories: ModuleCategory[];
 }
 
 const StatCard: React.FC<{ label: string; value: string | number; valueColor?: string }> = ({ label, value, valueColor = 'text-slate-800' }) => (
@@ -21,8 +23,8 @@ const StatCard: React.FC<{ label: string; value: string | number; valueColor?: s
 );
 
 
-const UserManagement: React.FC<UserManagementProps> = ({ users, setUsers, onSendNotification, settings }) => {
-    const [newUser, setNewUser] = useState({ fullName: '', username: '', password: '', role: 'user' as 'user' | 'admin' });
+const UserManagement: React.FC<UserManagementProps> = ({ users, setUsers, onSendNotification, settings, moduleCategories }) => {
+    const [newUser, setNewUser] = useState({ fullName: '', username: '', password: '', role: 'user' as 'user' | 'admin', assignedExams: [] as string[] });
     const [filter, setFilter] = useState('All');
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -30,6 +32,10 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, setUsers, onSend
     const [certificateUser, setCertificateUser] = useState<User | null>(null);
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
     const importFileInputRef = useRef<HTMLInputElement>(null);
+
+    const assignableCategories = useMemo(() => {
+        return moduleCategories;
+    }, [moduleCategories]);
     
     const handleOpenDetails = (user: User) => {
         setSelectedUser(user);
@@ -61,6 +67,15 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, setUsers, onSend
             setNewUser(prev => ({ ...prev, [name]: value }));
         }
     };
+    
+    const handleExamAssignmentChange = (categoryId: string) => {
+        setNewUser(prev => {
+            const newAssignedExams = prev.assignedExams.includes(categoryId)
+                ? prev.assignedExams.filter(id => id !== categoryId)
+                : [...prev.assignedExams, categoryId];
+            return { ...prev, assignedExams: newAssignedExams };
+        });
+    };
 
     const handleAddUser = (e: React.FormEvent) => {
         e.preventDefault();
@@ -78,6 +93,7 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, setUsers, onSend
                 trainingStatus: 'not-started',
                 lastScore: null,
                 role: newUser.role,
+                assignedExams: newUser.assignedExams,
                 answers: [],
                 moduleProgress: {},
             };
@@ -85,9 +101,9 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, setUsers, onSend
             onSendNotification({
                 to: 'admin@example.com',
                 subject: 'New User Registered',
-                body: `A new user has been registered:\n\nName: ${newUser.fullName}\nUsername: ${newUser.username}\nRole: ${newUser.role}`,
+                body: `A new user has been registered:\n\nName: ${newUser.fullName}\nUsername: ${newUser.username}\nRole: ${newUser.role}\nAssigned Exams: ${newUser.assignedExams.join(', ') || 'None'}`,
             });
-            setNewUser({ fullName: '', username: '', password: '', role: 'user' });
+            setNewUser({ fullName: '', username: '', password: '', role: 'user', assignedExams: [] });
         } else {
             alert("Please fill out all fields.");
         }
@@ -282,6 +298,22 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, setUsers, onSend
                                 <label className="block text-sm font-medium text-slate-600 mb-1">Password</label>
                                 <input type="password" name="password" value={newUser.password} onChange={handleInputChange} placeholder="Set a temporary password" className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
                             </div>
+                            <div>
+                                <label className="block text-sm font-medium text-slate-600 mb-2">Assign Exam Policies</label>
+                                <div className="space-y-2 max-h-32 overflow-y-auto pr-2 bg-slate-100/50 p-2 rounded-md border">
+                                {assignableCategories.length > 0 ? assignableCategories.map(cat => (
+                                    <label key={cat.id} className="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-slate-200/60">
+                                        <input
+                                            type="checkbox"
+                                            checked={newUser.assignedExams.includes(cat.id)}
+                                            onChange={() => handleExamAssignmentChange(cat.id)}
+                                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                        />
+                                        <span className="text-sm text-slate-700">{cat.title}</span>
+                                    </label>
+                                )) : <p className="text-sm text-slate-500 p-1">No assignable exams found.</p>}
+                                </div>
+                            </div>
                              <div>
                                 <label className="block text-sm font-medium text-slate-600 mb-1">Role</label>
                                 <select name="role" value={newUser.role} onChange={handleInputChange} className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors">
@@ -338,7 +370,9 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, setUsers, onSend
                                     <div className="flex flex-col sm:flex-row justify-between items-start">
                                         <div>
                                             <p className="font-bold text-slate-700 text-base">{user.fullName}</p>
-                                            <p className="text-slate-500">Username: {user.username}</p>
+                                            <p className="text-slate-500">@{user.username} &bull; <span className="font-medium">
+                                              Assigned: {user.assignedExams?.map(id => moduleCategories.find(c => c.id === id)?.title).join(', ') || 'None'}
+                                            </span></p>
                                         </div>
                                         <div className="flex items-center gap-2 mt-2 sm:mt-0 flex-shrink-0">
                                             {user.lastScore !== null && (
