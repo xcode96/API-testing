@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import ModuleList from './components/ModuleList';
@@ -14,21 +11,10 @@ import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
 import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question } from './types';
 import { sendEmail } from './services/emailService';
-import { fetchData, saveData, syncToGithub } from './services/api';
+import { fetchData, saveData, triggerGithubSync } from './services/api';
 
 type View = 'user_login' | 'dashboard' | 'login' | 'admin' | 'report' | 'completion';
 export type AdminView = 'users' | 'questions' | 'notifications' | 'settings';
-
-// Helper hook to get the previous value of a prop or state.
-function usePrevious<T>(value: T): T | undefined {
-  // Fix: Explicitly initialize useRef with `undefined` to resolve a potential
-  // toolchain issue with the no-argument overload of `useRef`.
-  const ref = useRef<T | undefined>(undefined);
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
 
 function App() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
@@ -43,7 +29,6 @@ function App() {
 
 
   const saveTimeoutRef = useRef<number | null>(null);
-  const prevUsers = usePrevious(users);
   
   // Fetch initial data from the server
   useEffect(() => {
@@ -122,30 +107,6 @@ function App() {
       }
     };
   }, [users, quizzes, emailLog, settings, loading]);
-
-  // Effect to sync to GitHub when a new admin user is created
-  useEffect(() => {
-    if (!prevUsers || loading || !settings) {
-      return; // Don't run on initial load or if data is not ready
-    }
-
-    // Check if a new user was added by comparing lengths
-    if (users.length > prevUsers.length) {
-      const prevUserIds = new Set(prevUsers.map(u => u.id));
-      const addedUser = users.find(u => !prevUserIds.has(u.id));
-
-      // If the newly added user is an admin, trigger the GitHub sync
-      if (addedUser && addedUser.role === 'admin') {
-        console.log("New admin user created, triggering GitHub sync...");
-        syncToGithub({
-          users,
-          quizzes,
-          emailLog,
-          settings,
-        });
-      }
-    }
-  }, [users, prevUsers, loading, settings, quizzes, emailLog]);
 
   const handleCreateExamCategory = (title: string) => {
     const newId = title.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
@@ -273,6 +234,20 @@ function App() {
         timestamp: new Date().toISOString(),
     };
     setEmailLog(prevLog => [newEmail, ...prevLog]);
+  };
+
+  const handleManualSync = () => {
+    if (loading || !settings) {
+        alert("Data is not ready to sync.");
+        return;
+    }
+    console.log("Manual sync triggered from admin panel...");
+    triggerGithubSync({
+        users,
+        quizzes,
+        emailLog,
+        settings,
+    });
   };
 
 
@@ -454,7 +429,7 @@ function App() {
             const updatedUsersForSync = users.map(u => u.id === currentUser.id ? updatedUser : u);
             
             // Perform the GitHub sync with the latest data
-            await syncToGithub({
+            await triggerGithubSync({
                 users: updatedUsersForSync,
                 quizzes,
                 emailLog,
@@ -518,6 +493,7 @@ function App() {
             onAddNewQuestion={handleAddNewQuestion}
             onUpdateQuestion={handleUpdateQuestion}
             onDeleteQuestion={handleDeleteQuestion}
+            onManualSync={handleManualSync}
           />
         );
       }

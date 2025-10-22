@@ -1,9 +1,3 @@
-
-
-
-
-
-
 import React, { useState, useMemo } from 'react';
 import { Quiz, User, Email, AppSettings, ModuleCategory, Question } from '../../types';
 import { AdminView } from '../../App';
@@ -33,6 +27,7 @@ interface AdminPanelProps {
   onAddNewQuestion: (question: Omit<Question, 'id'>) => void;
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
+  onManualSync: () => void;
 }
 
 const AdminPanel: React.FC<AdminPanelProps> = ({
@@ -53,6 +48,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onAddNewQuestion,
   onUpdateQuestion,
   onDeleteQuestion,
+  onManualSync,
 }) => {
   const [questionFilter, setQuestionFilter] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -76,7 +72,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   const renderActiveView = () => {
     switch (activeView) {
       case 'users':
-        return <UserManagement users={users} setUsers={setUsers} onSendNotification={onSendNotification} settings={settings} moduleCategories={moduleCategories} />;
+        return <UserManagement users={users} setUsers={setUsers} onSendNotification={onSendNotification} settings={settings} moduleCategories={moduleCategories} onManualSync={onManualSync} />;
       case 'notifications':
         return <NotificationLog emailLog={emailLog} />;
       case 'settings':
