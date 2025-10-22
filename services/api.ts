@@ -1,3 +1,4 @@
+
 import { Quiz, User, Email, AppSettings } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
 
@@ -110,15 +111,14 @@ export const saveData = async (data: AppData): Promise<void> => {
  * Triggers a server-side function to sync the application data to GitHub.
  * This is more secure as the PAT is not exposed on the client.
  * @param data The complete application data object to be saved.
+ * @returns A promise that resolves to an object indicating success or failure.
  */
-export const triggerGithubSync = async (data: AppData) => {
+export const triggerGithubSync = async (data: AppData): Promise<{ success: boolean; error?: string }> => {
     console.log("Attempting to trigger GitHub sync...");
     try {
         const response = await fetch('/api/sync-github', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
         });
 
@@ -126,14 +126,19 @@ export const triggerGithubSync = async (data: AppData) => {
             const result = await response.json();
             console.log('Successfully triggered GitHub sync. Commit:', result.commit);
             alert('Training data has been successfully synced to the GitHub repository.');
+            return { success: true };
         } else {
             const errorData = await response.json();
-            console.error('Failed to sync data to GitHub:', response.status, errorData.error);
-            const troubleshootingMessage = `\n\nTroubleshooting steps:\n1. Ensure the 'GITHUB_PAT' environment variable is set correctly in your Vercel project settings.\n2. Verify the Personal Access Token has 'repo' scope permissions.\n3. Check the Vercel deployment logs for more details.`;
-            alert(`Failed to sync data to GitHub. Status: ${response.status}.\nError: ${errorData.error}${troubleshootingMessage}`);
+            const errorMessage = errorData.error || 'An unknown error occurred.';
+            console.error('Failed to sync data to GitHub:', response.status, errorMessage);
+            // Simplified alert, directing user to the new permanent guide.
+            alert(`Failed to sync data to GitHub. Status: ${response.status}.\n\nError: ${errorMessage}\n\nPlease check the instructions in the Admin Panel > Settings page to configure your GitHub token.`);
+            return { success: false, error: errorMessage };
         }
     } catch (error) {
+        const errorMessage = (error instanceof Error) ? error.message : 'An unknown error occurred.';
         console.error('Failed to trigger GitHub sync:', error);
-        alert('An error occurred while trying to sync data to GitHub. Please check the browser console and server logs for details.');
+        alert(`An error occurred while trying to sync data to GitHub. Please check the browser console and the instructions in the Admin Panel > Settings page.`);
+        return { success: false, error: errorMessage };
     }
 };

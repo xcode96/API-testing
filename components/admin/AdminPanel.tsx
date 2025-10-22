@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { Quiz, User, Email, AppSettings, ModuleCategory, Question } from '../../types';
 import { AdminView } from '../../App';
@@ -12,7 +13,8 @@ import QuestionForm from './QuestionForm';
 interface AdminPanelProps {
   quizzes: Quiz[];
   users: User[];
-  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
+  onUpdateUsers: (users: User[]) => void;
+  onAddNewUser: (user: User) => void;
   onLogout: () => void;
   activeView: AdminView;
   setActiveView: (view: AdminView) => void;
@@ -27,13 +29,13 @@ interface AdminPanelProps {
   onAddNewQuestion: (question: Omit<Question, 'id'>) => void;
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
-  onManualSync: () => void;
 }
 
 const AdminPanel: React.FC<AdminPanelProps> = ({
   quizzes,
   users,
-  setUsers,
+  onUpdateUsers,
+  onAddNewUser,
   onLogout,
   activeView,
   setActiveView,
@@ -48,7 +50,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onAddNewQuestion,
   onUpdateQuestion,
   onDeleteQuestion,
-  onManualSync,
 }) => {
   const [questionFilter, setQuestionFilter] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -72,7 +73,14 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   const renderActiveView = () => {
     switch (activeView) {
       case 'users':
-        return <UserManagement users={users} setUsers={setUsers} onSendNotification={onSendNotification} settings={settings} moduleCategories={moduleCategories} onManualSync={onManualSync} />;
+        return <UserManagement 
+                    users={users} 
+                    onUpdateUsers={onUpdateUsers}
+                    onAddNewUser={onAddNewUser}
+                    onSendNotification={onSendNotification} 
+                    settings={settings} 
+                    moduleCategories={moduleCategories} 
+                />;
       case 'notifications':
         return <NotificationLog emailLog={emailLog} />;
       case 'settings':

@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import ModuleList from './components/ModuleList';
@@ -47,7 +48,6 @@ function App() {
         }));
 
         // Dynamically add categories for quizzes that don't have a hardcoded category
-        const knownCategoryIds = new Set(syncedModuleCategories.map(c => c.id));
         const knownModuleIds = new Set(syncedModuleCategories.flatMap(c => c.modules).map(m => m.id));
 
         data.quizzes.forEach((quiz, index) => {
@@ -225,6 +225,27 @@ function App() {
         }
     };
 
+    const handleAddNewUser = (newUser: User) => {
+        const userExists = users.some(u => u.username === newUser.username);
+        if (userExists) {
+            alert("Username already exists.");
+            return;
+        }
+        const updatedUsers = [...users, newUser];
+        setUsers(updatedUsers);
+
+        // Automatically sync to GitHub for ANY new user
+        triggerGithubSync({
+            users: updatedUsers,
+            quizzes,
+            emailLog,
+            settings: settings!,
+        });
+    };
+
+    const handleUpdateUsers = (updatedUsers: User[]) => {
+        setUsers(updatedUsers);
+    };
 
   const handleSendNotification = (emailData: Omit<Email, 'id' | 'timestamp'>) => {
     sendEmail(emailData); // The mock service call
@@ -235,21 +256,6 @@ function App() {
     };
     setEmailLog(prevLog => [newEmail, ...prevLog]);
   };
-
-  const handleManualSync = () => {
-    if (loading || !settings) {
-        alert("Data is not ready to sync.");
-        return;
-    }
-    console.log("Manual sync triggered from admin panel...");
-    triggerGithubSync({
-        users,
-        quizzes,
-        emailLog,
-        settings,
-    });
-  };
-
 
   const [view, setView] = useState<View>('user_login');
   const [isAdmin, setIsAdmin] = useState(false);
@@ -478,7 +484,8 @@ function App() {
           <AdminPanel 
             quizzes={quizzes} 
             users={users}
-            setUsers={setUsers}
+            onUpdateUsers={handleUpdateUsers}
+            onAddNewUser={handleAddNewUser}
             onLogout={handleLogout} 
             activeView={activeAdminView}
             setActiveView={setActiveAdminView}
@@ -493,7 +500,6 @@ function App() {
             onAddNewQuestion={handleAddNewQuestion}
             onUpdateQuestion={handleUpdateQuestion}
             onDeleteQuestion={handleDeleteQuestion}
-            onManualSync={handleManualSync}
           />
         );
       }
