@@ -56,7 +56,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, users }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
-              placeholder="admin"
+              placeholder="dqadm"
             />
           </div>
           {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
