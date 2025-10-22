@@ -17,7 +17,6 @@ import QuestionForm from './QuestionForm';
 
 interface AdminPanelProps {
   quizzes: Quiz[];
-  setQuizzes: React.Dispatch<React.SetStateAction<Quiz[]>>;
   users: User[];
   setUsers: React.Dispatch<React.SetStateAction<User[]>>;
   onLogout: () => void;
@@ -31,11 +30,13 @@ interface AdminPanelProps {
   onCreateExamCategory: (title: string) => void;
   onEditExamCategory: (categoryId: string, newTitle: string) => void;
   onDeleteExamCategory: (categoryId: string) => void;
+  onAddNewQuestion: (question: Omit<Question, 'id'>) => void;
+  onUpdateQuestion: (question: Question) => void;
+  onDeleteQuestion: (questionId: number) => void;
 }
 
 const AdminPanel: React.FC<AdminPanelProps> = ({
   quizzes,
-  setQuizzes,
   users,
   setUsers,
   onLogout,
@@ -49,6 +50,9 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onCreateExamCategory,
   onEditExamCategory,
   onDeleteExamCategory,
+  onAddNewQuestion,
+  onUpdateQuestion,
+  onDeleteQuestion,
 }) => {
   const [questionFilter, setQuestionFilter] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -59,26 +63,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
       onCreateExamCategory(newCategoryName.trim());
       setNewCategoryName('');
     }
-  };
-  
-  const handleAddQuestion = (newQuestionData: Omit<Question, 'id'>) => {
-      setQuizzes(prevQuizzes => {
-          const newQuizzes = prevQuizzes.map(q => ({...q, questions: [...q.questions]}));
-          const quizIndex = newQuizzes.findIndex(q => q.name === newQuestionData.category);
-
-          if (quizIndex > -1) {
-              const newQuestion: Question = {
-                  ...newQuestionData,
-                  id: Date.now(),
-              };
-              newQuizzes[quizIndex].questions.push(newQuestion);
-              alert(`Question added to "${newQuestionData.category}"!`);
-          } else {
-              console.error(`Quiz category "${newQuestionData.category}" not found.`);
-              alert("Error: Could not find the selected quiz category to add the question to.");
-          }
-          return newQuizzes;
-      });
   };
   
   const activeCategoryName = useMemo(() => {
@@ -110,11 +94,12 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                 <div className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80 h-full">
                   <DataManagement 
                     quizzes={quizzes} 
-                    setQuizzes={setQuizzes} 
                     moduleCategories={moduleCategories} 
                     questionFilter={questionFilter}
                     onEditExamCategory={onEditExamCategory}
                     onDeleteExamCategory={onDeleteExamCategory}
+                    onUpdateQuestion={onUpdateQuestion}
+                    onDeleteQuestion={onDeleteQuestion}
                   />
                 </div>
               </div>
@@ -143,7 +128,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                     <h2 className="text-xl font-semibold text-slate-800 mb-4">Add New Question</h2>
                      <QuestionForm
                         categories={quizzes.map(q => q.name)}
-                        onAddQuestion={handleAddQuestion}
+                        onAddQuestion={onAddNewQuestion}
                         activeCategory={activeCategoryName}
                       />
                   </div>

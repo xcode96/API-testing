@@ -52,16 +52,16 @@ export const INITIAL_MODULE_CATEGORIES: ModuleCategory[] = [
         id: 'it_security_policy',
         title: 'IT Security Policy',
         modules: [
-            { id: 'password_security', title: 'Password & Account Security', questions: 2, icon: ICONS.Key, status: ModuleStatus.NotStarted, theme: THEMES[0] },
-            { id: 'data_protection_handling', title: 'Data Protection & Handling', questions: 2, icon: ICONS.Download, status: ModuleStatus.NotStarted, theme: THEMES[1] },
-            { id: 'email_communication_security', title: 'Email & Communication Security', questions: 1, icon: ICONS.AtSymbol, status: ModuleStatus.NotStarted, theme: THEMES[2] },
-            { id: 'device_internet_usage', title: 'Device & Internet Usage', questions: 1, icon: ICONS.Device, status: ModuleStatus.NotStarted, theme: THEMES[3] },
-            { id: 'physical_security', title: 'Physical Security', questions: 1, icon: ICONS.Lock, status: ModuleStatus.NotStarted, theme: THEMES[4] },
-            { id: 'incident_reporting', title: 'Incident Reporting', questions: 1, icon: ICONS.Warning, status: ModuleStatus.NotStarted, theme: THEMES[5] },
-            { id: 'social_engineering_awareness', title: 'Social Engineering Awareness', questions: 1, icon: ICONS.ChatBubble, status: ModuleStatus.NotStarted, theme: THEMES[6] },
-            { id: 'acceptable_use_compliance', title: 'Acceptable Use & Compliance', questions: 1, icon: ICONS.Check, status: ModuleStatus.NotStarted, theme: THEMES[7] },
-            { id: 'remote_work_byod', title: 'Remote Work & BYOD', questions: 1, icon: ICONS.Home, status: ModuleStatus.NotStarted, theme: THEMES[8] },
-            { id: 'backup_recovery_awareness', title: 'Backup & Recovery Awareness', questions: 1, icon: ICONS.Clock, status: ModuleStatus.NotStarted, theme: THEMES[9] },
+            { id: 'password_security', title: 'Password & Account Security', subCategory: 'Password & Account Security', questions: 2, icon: ICONS.Key, status: ModuleStatus.NotStarted, theme: THEMES[0] },
+            { id: 'data_protection_handling', title: 'Data Protection & Handling', subCategory: 'Data Protection & Handling', questions: 2, icon: ICONS.Download, status: ModuleStatus.NotStarted, theme: THEMES[1] },
+            { id: 'email_communication_security', title: 'Email & Communication Security', subCategory: 'Email & Communication Security', questions: 1, icon: ICONS.AtSymbol, status: ModuleStatus.NotStarted, theme: THEMES[2] },
+            { id: 'device_internet_usage', title: 'Device & Internet Usage', subCategory: 'Device & Internet Usage', questions: 1, icon: ICONS.Device, status: ModuleStatus.NotStarted, theme: THEMES[3] },
+            { id: 'physical_security', title: 'Physical Security', subCategory: 'Physical Security', questions: 1, icon: ICONS.Lock, status: ModuleStatus.NotStarted, theme: THEMES[4] },
+            { id: 'incident_reporting', title: 'Incident Reporting', subCategory: 'Incident Reporting', questions: 1, icon: ICONS.Warning, status: ModuleStatus.NotStarted, theme: THEMES[5] },
+            { id: 'social_engineering_awareness', title: 'Social Engineering Awareness', subCategory: 'Social Engineering Awareness', questions: 1, icon: ICONS.ChatBubble, status: ModuleStatus.NotStarted, theme: THEMES[6] },
+            { id: 'acceptable_use_compliance', title: 'Acceptable Use & Compliance', subCategory: 'Acceptable Use & Compliance', questions: 1, icon: ICONS.Check, status: ModuleStatus.NotStarted, theme: THEMES[7] },
+            { id: 'remote_work_byod', title: 'Remote Work & BYOD', subCategory: 'Remote Work & BYOD', questions: 1, icon: ICONS.Home, status: ModuleStatus.NotStarted, theme: THEMES[8] },
+            { id: 'backup_recovery_awareness', title: 'Backup & Recovery Awareness', subCategory: 'Backup & Recovery Awareness', questions: 1, icon: ICONS.Clock, status: ModuleStatus.NotStarted, theme: THEMES[9] },
         ]
     },
     {
@@ -81,7 +81,12 @@ export const INITIAL_MODULE_CATEGORIES: ModuleCategory[] = [
         id: 'it_policy_exam',
         title: 'IT Department Policy',
         modules: [
-            { id: 'it_policy_exam', title: 'IT Policy Exam', questions: 1, icon: ICONS.DocumentText, status: ModuleStatus.NotStarted, theme: THEMES[11] },
+            { id: 'it_software_installation', title: 'Software Installation & Configuration Management', questions: 4, icon: ICONS.Download, status: ModuleStatus.NotStarted, theme: THEMES[4] },
+            { id: 'it_app_testing', title: 'Application Testing & Release Management', questions: 4, icon: ICONS.Check, status: ModuleStatus.NotStarted, theme: THEMES[7] },
+            { id: 'it_ticketing_change_control', title: 'Ticketing & Change Control', questions: 4, icon: ICONS.DocumentText, status: ModuleStatus.NotStarted, theme: THEMES[12] },
+            { id: 'it_security_compliance_dev', title: 'Security & Compliance in Development', questions: 4, icon: ICONS.ShieldCheck, status: ModuleStatus.NotStarted, theme: THEMES[16] },
+            { id: 'it_env_access_control', title: 'Environment & Access Control', questions: 4, icon: ICONS.Key, status: ModuleStatus.NotStarted, theme: THEMES[0] },
+            { id: 'it_dos_donts', title: 'Do’s and Don’ts of Enterprise Development', questions: 5, icon: ICONS.Warning, status: ModuleStatus.NotStarted, theme: THEMES[5] },
         ]
     },
     {
@@ -95,7 +100,16 @@ export const INITIAL_MODULE_CATEGORIES: ModuleCategory[] = [
         id: 'operation_exam',
         title: 'Operations Policy',
         modules: [
-            { id: 'operation_exam', title: 'Operation Exam', questions: 1, icon: ICONS.Cog, status: ModuleStatus.NotStarted, theme: THEMES[13] },
+            { id: 'op_bcp', title: 'Business Continuity Planning', questions: 1, icon: ICONS.Briefcase, status: ModuleStatus.NotStarted, theme: THEMES[0] },
+            { id: 'op_dr', title: 'Disaster Recovery', questions: 1, icon: ICONS.Server, status: ModuleStatus.NotStarted, theme: THEMES[1] },
+            { id: 'op_incident_mgmt', title: 'Incident Management', questions: 1, icon: ICONS.Warning, status: ModuleStatus.NotStarted, theme: THEMES[2] },
+            { id: 'op_physical_security_ops', title: 'Physical Security Policy', questions: 1, icon: ICONS.Lock, status: ModuleStatus.NotStarted, theme: THEMES[3] },
+            { id: 'op_vendor_mgmt', title: 'Vendor Management', questions: 1, icon: ICONS.Users, status: ModuleStatus.NotStarted, theme: THEMES[4] },
+            { id: 'op_supply_chain', title: 'Supply Chain Security', questions: 1, icon: ICONS.GlobeAlt, status: ModuleStatus.NotStarted, theme: THEMES[5] },
+            { id: 'op_health_safety', title: 'Health and Safety Policy', questions: 1, icon: ICONS.ShieldCheck, status: ModuleStatus.NotStarted, theme: THEMES[6] },
+            { id: 'op_qa', title: 'Quality Assurance', questions: 1, icon: ICONS.Check, status: ModuleStatus.NotStarted, theme: THEMES[7] },
+            { id: 'op_resource_mgmt', title: 'Resource Management', questions: 1, icon: ICONS.Cog, status: ModuleStatus.NotStarted, theme: THEMES[8] },
+            { id: 'op_logistics', title: 'Logistics and Distribution', questions: 1, icon: ICONS.BuildingOffice2, status: ModuleStatus.NotStarted, theme: THEMES[9] },
         ]
     },
     {
@@ -113,13 +127,13 @@ export const INITIAL_MODULE_CATEGORIES: ModuleCategory[] = [
         ]
     },
     {
-        id: 'developer_exam',
-        title: 'Developer Policy',
+        id: 'it_developer_policy',
+        title: 'IT Developer Policy',
         modules: [
-            { id: 'dev_secure_coding', title: 'Secure Coding Practices', questions: 2, icon: ICONS.ShieldCheck, status: ModuleStatus.NotStarted, theme: THEMES[16] },
-            { id: 'dev_api_security', title: 'API Security', questions: 1, icon: ICONS.GlobeAlt, status: ModuleStatus.NotStarted, theme: THEMES[17] },
-            { id: 'dev_dependency_management', title: 'Dependency Management', questions: 1, icon: ICONS.Cog, status: ModuleStatus.NotStarted, theme: THEMES[18] },
-            { id: 'dev_data_handling', title: 'Data Handling & Privacy', questions: 1, icon: ICONS.Briefcase, status: ModuleStatus.NotStarted, theme: THEMES[19] },
+            { id: 'it_dev_secure_coding', title: 'Secure Coding Practices', questions: 2, icon: ICONS.ShieldCheck, status: ModuleStatus.NotStarted, theme: THEMES[16] },
+            { id: 'it_dev_api_security', title: 'API Security', questions: 2, icon: ICONS.Key, status: ModuleStatus.NotStarted, theme: THEMES[0] },
+            { id: 'it_dev_dependency_mgmt', title: 'Dependency Management', questions: 2, icon: ICONS.GlobeAlt, status: ModuleStatus.NotStarted, theme: THEMES[9] },
+            { id: 'it_dev_data_handling', title: 'Data Handling & Privacy', questions: 2, icon: ICONS.Download, status: ModuleStatus.NotStarted, theme: THEMES[1] },
         ]
     }
 ];

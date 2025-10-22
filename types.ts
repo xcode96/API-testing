@@ -30,6 +30,7 @@ export interface Module {
     iconBg: string;
     iconColor: string;
   };
+  subCategory?: string;
 }
 
 export interface ModuleCategory {

@@ -208,24 +208,6 @@ export const INITIAL_QUIZZES: Quiz[] = [
     ]
   },
   {
-    id: 'it_policy_exam',
-    name: 'IT Policy Exam',
-    questions: [
-      {
-        id: 14,
-        category: 'IT Policy Exam',
-        question: "According to a typical IT policy, what should you do before installing new software on your work computer?",
-        options: [
-          "Install it right away if it's free",
-          "Ask a coworker if they have used it before",
-          "Get approval from the IT department",
-          "Use a personal credit card to buy it",
-        ],
-        correctAnswer: "Get approval from the IT department",
-      },
-    ]
-  },
-  {
     id: 'server_exam',
     name: 'Server Exam',
     questions: [
@@ -244,22 +226,164 @@ export const INITIAL_QUIZZES: Quiz[] = [
     ]
   },
   {
-    id: 'operation_exam',
-    name: 'Operation Exam',
-    questions: [
-      {
-        id: 16,
-        category: 'Operation Exam',
-        question: "What is the primary goal of a Business Continuity Plan (BCP)?",
-        options: [
-          'To ensure the company makes more profit',
-          'To give everyone extra vacation days after a disaster',
-          'To ensure critical business functions can continue during and after a disruption',
-          'To document all company hardware',
-        ],
-        correctAnswer: 'To ensure critical business functions can continue during and after a disruption',
-      },
-    ]
+    id: 'op_bcp',
+    name: 'Business Continuity Planning',
+    questions: [{
+      id: 301,
+      category: 'Business Continuity Planning',
+      question: "What is the primary goal of a Business Continuity Plan (BCP)?",
+      options: [
+        'To ensure the company makes more profit',
+        'To give everyone extra vacation days after a disaster',
+        'To ensure critical business functions can continue during and after a disruption',
+        'To document all company hardware',
+      ],
+      correctAnswer: 'To ensure critical business functions can continue during and after a disruption',
+    }]
+  },
+  {
+    id: 'op_dr',
+    name: 'Disaster Recovery',
+    questions: [{
+      id: 302,
+      category: 'Disaster Recovery',
+      question: "What is a key objective of a Disaster Recovery (DR) test?",
+      options: [
+        'To cause a real disaster to see what happens',
+        'To validate the DR plan and identify gaps in procedures',
+        'To give the IT team a day off from regular duties',
+        'To check if the internet is working at the recovery site',
+      ],
+      correctAnswer: 'To validate the DR plan and identify gaps in procedures',
+    }]
+  },
+  {
+    id: 'op_incident_mgmt',
+    name: 'Incident Management',
+    questions: [{
+      id: 303,
+      category: 'Incident Management',
+      question: "What is the first step in the incident management lifecycle after detection?",
+      options: [
+        'Resolution and recovery',
+        'Post-incident analysis',
+        'Containment, eradication, and recovery',
+        'Logging and categorization',
+      ],
+      correctAnswer: 'Logging and categorization',
+    }]
+  },
+  {
+    id: 'op_physical_security_ops',
+    name: 'Physical Security Policy',
+    questions: [{
+      id: 304,
+      category: 'Physical Security Policy',
+      question: "Which of the following helps prevent 'tailgating' into a secure office area?",
+      options: [
+        'Holding the door open for others',
+        'Ensuring each individual uses their own access card to enter',
+        'Disabling the access card reader',
+        'Leaving secure doors propped open for convenience',
+      ],
+      correctAnswer: 'Ensuring each individual uses their own access card to enter',
+    }]
+  },
+  {
+    id: 'op_vendor_mgmt',
+    name: 'Vendor Management',
+    questions: [{
+      id: 305,
+      category: 'Vendor Management',
+      question: "What is the purpose of a Service Level Agreement (SLA) with a vendor?",
+      options: [
+        "It's just a formality for the legal team.",
+        'It lists the names of the vendor employees.',
+        'It defines the expected level of service, responsibilities, and performance metrics.',
+        'It is a one-time invoice for services.',
+      ],
+      correctAnswer: 'It defines the expected level of service, responsibilities, and performance metrics.',
+    }]
+  },
+  {
+    id: 'op_supply_chain',
+    name: 'Supply Chain Security',
+    questions: [{
+      id: 306,
+      category: 'Supply Chain Security',
+      question: "A primary security risk in the supply chain is:",
+      options: [
+        'Late deliveries affecting production schedules',
+        'Counterfeit components or malicious software being introduced into products',
+        'Increased shipping costs',
+        'Damage to goods during transit',
+      ],
+      correctAnswer: 'Counterfeit components or malicious software being introduced into products',
+    }]
+  },
+  {
+    id: 'op_health_safety',
+    name: 'Health and Safety Policy',
+    questions: [{
+      id: 307,
+      category: 'Health and Safety Policy',
+      question: "Who is responsible for following health and safety guidelines in the workplace?",
+      options: [
+        'Only the Health and Safety officer',
+        'Only management',
+        'Every employee',
+        'Only new hires',
+      ],
+      correctAnswer: 'Every employee',
+    }]
+  },
+  {
+    id: 'op_qa',
+    name: 'Quality Assurance',
+    questions: [{
+      id: 308,
+      category: 'Quality Assurance',
+      question: "What is the main purpose of Quality Assurance (QA) in operations?",
+      options: [
+        'To find someone to blame when things go wrong',
+        'To slow down the production process',
+        'To proactively ensure that products or services meet specified quality standards',
+        'To check the work only after it is completed',
+      ],
+      correctAnswer: 'To proactively ensure that products or services meet specified quality standards',
+    }]
+  },
+  {
+    id: 'op_resource_mgmt',
+    name: 'Resource Management',
+    questions: [{
+      id: 309,
+      category: 'Resource Management',
+      question: "Effective resource management in operations primarily aims to:",
+      options: [
+        'Purchase the most expensive equipment available',
+        'Hire as many people as possible',
+        'Allocate and utilize resources efficiently to achieve organizational goals',
+        'Reduce the number of coffee breaks',
+      ],
+      correctAnswer: 'Allocate and utilize resources efficiently to achieve organizational goals',
+    }]
+  },
+  {
+    id: 'op_logistics',
+    name: 'Logistics and Distribution',
+    questions: [{
+      id: 310,
+      category: 'Logistics and Distribution',
+      question: "A key performance indicator (KPI) for logistics is 'On-Time Delivery Rate'. Why is this important?",
+      options: [
+        "It's not important, as long as the package arrives eventually.",
+        'It directly impacts customer satisfaction and operational efficiency.',
+        'It helps in calculating fuel costs.',
+        'It is only used for employee performance reviews.',
+      ],
+      correctAnswer: 'It directly impacts customer satisfaction and operational efficiency.',
+    }]
   },
   {
     id: 'legal_exam',
@@ -402,90 +526,6 @@ export const INITIAL_QUIZZES: Quiz[] = [
           'The process of removing personally identifiable information from data sets',
         ],
         correctAnswer: 'The process of removing personally identifiable information from data sets',
-      },
-    ]
-  },
-  {
-    id: 'dev_secure_coding',
-    name: 'Secure Coding Practices',
-    questions: [
-      {
-        id: 31,
-        category: 'Secure Coding Practices',
-        question: "What is the primary purpose of 'input sanitization' in a web application?",
-        options: [
-          'To make the user interface cleaner',
-          'To prevent malicious code injection attacks like SQL Injection and XSS',
-          'To automatically correct spelling errors in user input',
-          'To ensure the database runs faster',
-        ],
-        correctAnswer: 'To prevent malicious code injection attacks like SQL Injection and XSS',
-      },
-      {
-        id: 32,
-        category: 'Secure Coding Practices',
-        question: "What is a common vulnerability when you concatenate user input directly into a database query string?",
-        options: [
-          'Cross-Site Scripting (XSS)',
-          'Denial of Service (DoS)',
-          'SQL Injection (SQLi)',
-          'Man-in-the-Middle (MITM)',
-        ],
-        correctAnswer: 'SQL Injection (SQLi)',
-      },
-    ]
-  },
-  {
-    id: 'dev_api_security',
-    name: 'API Security',
-    questions: [
-      {
-        id: 33,
-        category: 'API Security',
-        question: "Which of the following is a common and secure method for authenticating API requests between services?",
-        options: [
-          'Sending username and password in the URL',
-          'Using temporary OAuth tokens or API keys in headers',
-          'Relying only on the client\'s IP address',
-          'No authentication is needed for internal APIs',
-        ],
-        correctAnswer: 'Using temporary OAuth tokens or API keys in headers',
-      },
-    ]
-  },
-  {
-    id: 'dev_dependency_management',
-    name: 'Dependency Management',
-    questions: [
-      {
-        id: 34,
-        category: 'Dependency Management',
-        question: "Why is it important to regularly scan and update third-party libraries used in your project?",
-        options: [
-          'To get the latest features and performance improvements',
-          'To reduce the size of the final application bundle',
-          'To patch known security vulnerabilities that could be exploited',
-          'To ensure the library license has not changed',
-        ],
-        correctAnswer: 'To patch known security vulnerabilities that could be exploited',
-      },
-    ]
-  },
-  {
-    id: 'dev_data_handling',
-    name: 'Data Handling & Privacy',
-    questions: [
-      {
-        id: 35,
-        category: 'Data Handling & Privacy',
-        question: "When storing user passwords in a database, what is the industry-standard best practice?",
-        options: [
-          'Store them in plain text for easy recovery',
-          'Encrypt them using a single, static key',
-          'Hash them using a strong, modern algorithm with a unique salt per user',
-          'Base64 encode them',
-        ],
-        correctAnswer: 'Hash them using a strong, modern algorithm with a unique salt per user',
       },
     ]
   },
@@ -698,5 +738,311 @@ export const INITIAL_QUIZZES: Quiz[] = [
         correctAnswer: "Understand employee experience and improve policies",
       },
     ]
-  }
+  },
+  {
+    id: 'it_dev_secure_coding',
+    name: 'Secure Coding Practices',
+    questions: [
+      {
+        id: 401,
+        category: 'Secure Coding Practices',
+        question: 'What is the primary purpose of input validation in secure coding?',
+        options: [
+          'To make the application run faster.',
+          'To ensure data fits into the database correctly.',
+          'To prevent malicious data (e.g., SQL injection, XSS) from being processed.',
+          'To format user input for display.',
+        ],
+        correctAnswer: 'To prevent malicious data (e.g., SQL injection, XSS) from being processed.',
+      },
+      {
+        id: 402,
+        category: 'Secure Coding Practices',
+        question: 'Which of the following is a best practice for handling errors and exceptions securely?',
+        options: [
+          'Display detailed error messages with stack traces to the user for easy debugging.',
+          'Write all errors to a public log file.',
+          'Use a generic error message for the user and log detailed information on the server-side.',
+          'Ignore all exceptions to prevent the application from crashing.',
+        ],
+        correctAnswer: 'Use a generic error message for the user and log detailed information on the server-side.',
+      },
+    ],
+  },
+  {
+    id: 'it_dev_api_security',
+    name: 'API Security',
+    questions: [
+      {
+        id: 403,
+        category: 'API Security',
+        question: 'What is a common method for authenticating API requests to ensure they come from a legitimate source?',
+        options: [
+          "Using the client's IP address.",
+          'Using API keys or OAuth 2.0 tokens.',
+          'Allowing all requests from any origin.',
+          'Checking the User-Agent string.',
+        ],
+        correctAnswer: 'Using API keys or OAuth 2.0 tokens.',
+      },
+      {
+        id: 404,
+        category: 'API Security',
+        question: 'To prevent unauthorized users from accessing sensitive data, what security control should be implemented at the API endpoint level?',
+        options: [
+          'Rate limiting to prevent too many requests.',
+          'Caching responses to improve performance.',
+          'Authorization checks to ensure the user has the correct permissions for the requested resource.',
+          'Logging the request payload.',
+        ],
+        correctAnswer: 'Authorization checks to ensure the user has the correct permissions for the requested resource.',
+      },
+    ],
+  },
+  {
+    id: 'it_dev_dependency_mgmt',
+    name: 'Dependency Management',
+    questions: [
+      {
+        id: 405,
+        category: 'Dependency Management',
+        question: 'What is a primary risk of using outdated third-party libraries in an application?',
+        options: [
+          'The library might be slower than newer versions.',
+          'The documentation might be hard to find.',
+          'The library may contain known security vulnerabilities that can be exploited.',
+          'The library might not be compatible with the latest operating systems.',
+        ],
+        correctAnswer: 'The library may contain known security vulnerabilities that can be exploited.',
+      },
+      {
+        id: 406,
+        category: 'Dependency Management',
+        question: 'What is the purpose of a software composition analysis (SCA) tool?',
+        options: [
+          'To compile the source code into an executable.',
+          'To automatically identify open-source components in a codebase and their known vulnerabilities.',
+          'To test the user interface of an application.',
+          'To format the source code according to style guides.',
+        ],
+        correctAnswer: 'To automatically identify open-source components in a codebase and their known vulnerabilities.',
+      },
+    ],
+  },
+  {
+    id: 'it_dev_data_handling',
+    name: 'Data Handling & Privacy',
+    questions: [
+      {
+        id: 407,
+        category: 'Data Handling & Privacy',
+        question: 'When storing sensitive user data, such as passwords, what is the most secure method?',
+        options: [
+          'Storing them in plaintext for easy retrieval.',
+          'Encrypting them with a reversible encryption algorithm.',
+          'Hashing them with a strong, salted hashing algorithm (e.g., bcrypt, Argon2).',
+          'Base64 encoding them.',
+        ],
+        correctAnswer: 'Hashing them with a strong, salted hashing algorithm (e.g., bcrypt, Argon2).',
+      },
+      {
+        id: 408,
+        category: 'Data Handling & Privacy',
+        question: 'What does the principle of "data minimization" mean in the context of privacy?',
+        options: [
+          'Collecting as much user data as possible for future use.',
+          'Storing data in the smallest possible file format.',
+          'Only collecting and retaining the absolute minimum amount of user data necessary for a specific purpose.',
+          'Deleting all user data after one day.',
+        ],
+        correctAnswer: 'Only collecting and retaining the absolute minimum amount of user data necessary for a specific purpose.',
+      },
+    ],
+  },
+  {
+    id: 'it_software_installation',
+    name: 'Software Installation & Configuration Management',
+    questions: [
+      {
+        id: 601, category: 'Software Installation & Configuration Management',
+        question: 'During enterprise software installation, which step ensures the integrity of the installer package before execution?',
+        options: ['Running antivirus only', 'Verifying digital signatures or checksum hashes (SHA256/MD5)', 'Checking file size', 'Installing directly from email'],
+        correctAnswer: 'Verifying digital signatures or checksum hashes (SHA256/MD5)',
+      },
+      {
+        id: 602, category: 'Software Installation & Configuration Management',
+        question: 'When deploying an internal application update, what’s the first mandatory pre-deployment step?',
+        options: ['Notify users', 'Backup existing system and verify rollback plan', 'Restart production server', 'Send approval email'],
+        correctAnswer: 'Backup existing system and verify rollback plan',
+      },
+      {
+        id: 603, category: 'Software Installation & Configuration Management',
+        question: 'Which environment is specifically used for final pre-production testing under real conditions?',
+        options: ['Development', 'Staging / UAT', 'Local machine', 'Sandbox only'],
+        correctAnswer: 'Staging / UAT',
+      },
+      {
+        id: 604, category: 'Software Installation & Configuration Management',
+        question: 'A developer receives an installation request for a licensed IDE. What should they do first?',
+        options: ['Download from a free source', 'Raise a request through the IT Asset Management system for license allocation', 'Install a trial version', 'Ask a colleague for setup'],
+        correctAnswer: 'Raise a request through the IT Asset Management system for license allocation',
+      },
+    ]
+  },
+  {
+    id: 'it_app_testing',
+    name: 'Application Testing & Release Management',
+    questions: [
+      {
+        id: 605, category: 'Application Testing & Release Management',
+        question: 'What’s the purpose of a smoke test after deployment?',
+        options: ['Full performance validation', 'Quick check that the core functions run after release', 'Security scan', 'Regression test'],
+        correctAnswer: 'Quick check that the core functions run after release',
+      },
+      {
+        id: 606, category: 'Application Testing & Release Management',
+        question: 'What is a UAT (User Acceptance Test) primarily focused on?',
+        options: ['Security vulnerabilities', 'Code efficiency', 'Business requirements validation', 'Developer preferences'],
+        correctAnswer: 'Business requirements validation',
+      },
+      {
+        id: 607, category: 'Application Testing & Release Management',
+        question: 'In CI/CD, which step ensures automatic rollback on deployment failure?',
+        options: ['Canary deployment', 'Static code analysis', 'Smoke testing', 'Manual patching'],
+        correctAnswer: 'Canary deployment',
+      },
+      {
+        id: 608, category: 'Application Testing & Release Management',
+        question: 'Before pushing a major release, what must the developer confirm?',
+        options: ['Approval from QA + Change Advisory Board (CAB)', 'Only QA testing done', 'Code committed to GitHub', 'Email sent to manager'],
+        correctAnswer: 'Approval from QA + Change Advisory Board (CAB)',
+      },
+    ]
+  },
+  {
+    id: 'it_ticketing_change_control',
+    name: 'Ticketing & Change Control',
+    questions: [
+      {
+        id: 609, category: 'Ticketing & Change Control',
+        question: 'A developer finds a bug in production. What’s the correct escalation process?',
+        options: ['Fix immediately on live system', 'Log an incident ticket → assign severity → wait for CAB approval for patch', 'Ignore if minor', 'Raise a personal Jira note'],
+        correctAnswer: 'Log an incident ticket → assign severity → wait for CAB approval for patch',
+      },
+      {
+        id: 610, category: 'Ticketing & Change Control',
+        question: 'What’s the main difference between a Change Request (CR) and an Incident Ticket?',
+        options: ['CR = planned improvement, Incident = unplanned issue', 'Both are same', 'CR only for hardware', 'Incident needs CAB approval'],
+        correctAnswer: 'CR = planned improvement, Incident = unplanned issue',
+      },
+      {
+        id: 611, category: 'Ticketing & Change Control',
+        question: 'Which role has authority to approve production deployment?',
+        options: ['Developer', 'QA Tester', 'Change Manager / CAB', 'Any senior staff'],
+        correctAnswer: 'Change Manager / CAB',
+      },
+      {
+        id: 612, category: 'Ticketing & Change Control',
+        question: 'What’s the first detail required in a service ticket for issue tracking?',
+        options: ['Issue summary, category, environment, and severity level', 'Only screenshot', 'Email CC list', 'Log file size'],
+        correctAnswer: 'Issue summary, category, environment, and severity level',
+      },
+    ]
+  },
+  {
+    id: 'it_security_compliance_dev',
+    name: 'Security & Compliance in Development',
+    questions: [
+      {
+        id: 613, category: 'Security & Compliance in Development',
+        question: 'If a developer needs to use third-party open-source libraries, what must they verify first?',
+        options: ['License compatibility and vulnerability assessment', 'File size and version number', 'Code readability', 'Whether it runs locally'],
+        correctAnswer: 'License compatibility and vulnerability assessment',
+      },
+      {
+        id: 614, category: 'Security & Compliance in Development',
+        question: 'Which tool can detect hardcoded secrets in source code before commit?',
+        options: ['SonarQube', 'GitGuardian / TruffleHog', 'Jenkins', 'Visual Studio'],
+        correctAnswer: 'GitGuardian / TruffleHog',
+      },
+      {
+        id: 615, category: 'Security & Compliance in Development',
+        question: 'What should developers never include in source code repositories?',
+        options: ['Configuration templates', 'API keys, passwords, certificates', 'Unit test files', 'README.md'],
+        correctAnswer: 'API keys, passwords, certificates',
+      },
+      {
+        id: 616, category: 'Security & Compliance in Development',
+        question: 'What’s the purpose of a Static Application Security Test (SAST)?',
+        options: ['To test UI layout', 'To detect code-level vulnerabilities before runtime', 'To measure CPU usage', 'To test network speed'],
+        correctAnswer: 'To detect code-level vulnerabilities before runtime',
+      },
+    ]
+  },
+  {
+    id: 'it_env_access_control',
+    name: 'Environment & Access Control',
+    questions: [
+      {
+        id: 617, category: 'Environment & Access Control',
+        question: 'Which practice ensures minimal risk when granting developer access to production systems?',
+        options: ['Role-based access control with temporary privilege escalation', 'Full admin access for all devs', 'Sharing root credentials', 'One shared account'],
+        correctAnswer: 'Role-based access control with temporary privilege escalation',
+      },
+      {
+        id: 618, category: 'Environment & Access Control',
+        question: 'When testing in an office environment, developers must:',
+        options: ['Use isolated staging servers, never live databases', 'Test directly on production', 'Copy data manually from prod', 'Use real customer credentials'],
+        correctAnswer: 'Use isolated staging servers, never live databases',
+      },
+      {
+        id: 619, category: 'Environment & Access Control',
+        question: 'For remote deployment, what’s the secure way to access production servers?',
+        options: ['Via approved VPN + MFA', 'Using any open SSH', 'RDP without password', 'Shared public Wi-Fi'],
+        correctAnswer: 'Via approved VPN + MFA',
+      },
+      {
+        id: 620, category: 'Environment & Access Control',
+        question: 'What is the most critical log type to verify after any deployment?',
+        options: ['Application and system logs', 'Browser history', 'Temporary files', 'Cache reports'],
+        correctAnswer: 'Application and system logs',
+      },
+    ]
+  },
+  {
+    id: 'it_dos_donts',
+    name: 'Do’s and Don’ts of Enterprise Development',
+    questions: [
+      {
+        id: 621, category: 'Do’s and Don’ts of Enterprise Development',
+        question: 'Developers must document changes in:',
+        options: ['Change logs or Git commit messages', 'Personal notes', 'Chat history', 'Email drafts'],
+        correctAnswer: 'Change logs or Git commit messages',
+      },
+      {
+        id: 622, category: 'Do’s and Don’ts of Enterprise Development',
+        question: 'If a developer identifies a vulnerability in their code, the best action is:',
+        options: ['Immediately report and patch through secure pipeline', 'Hide it until next sprint', 'Fix locally without audit', 'Ignore low risk'],
+        correctAnswer: 'Immediately report and patch through secure pipeline',
+      },
+      {
+        id: 623, category: 'Do’s and Don’ts of Enterprise Development',
+        question: 'What’s a common violation of software deployment policy?',
+        options: ['Deploying without QA sign-off or CAB approval', 'Tagging release in Git', 'Writing release notes', 'Verifying hash'],
+        correctAnswer: 'Deploying without QA sign-off or CAB approval',
+      },
+      {
+        id: 624, category: 'Do’s and Don’ts of Enterprise Development',
+        question: 'Why should test environments never contain live customer data?',
+        options: ['It violates data protection and privacy laws (GDPR, etc.)', 'It increases system speed', 'It helps debugging faster', 'It reduces QA work'],
+        correctAnswer: 'It violates data protection and privacy laws (GDPR, etc.)',
+      },
+      {
+        id: 625, category: 'Do’s and Don’ts of Enterprise Development',
+        question: 'Which practice ensures smooth handover between development and operations teams?',
+        options: ['Proper documentation + version control + change record updates', 'Sending a verbal summary', 'Keeping code locally', 'Skipping handover'],
+        correctAnswer: 'Proper documentation + version control + change record updates',
+      },
+    ]
+  },
 ];

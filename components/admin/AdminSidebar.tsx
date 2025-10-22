@@ -1,4 +1,5 @@
 
+
 import React, { useMemo } from 'react';
 import { AdminView } from '../../App';
 import { ModuleCategory } from '../../types';
@@ -27,10 +28,6 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, active, onClick }) => (
 );
 
 const AdminSidebar: React.FC<AdminSidebarProps> = ({ onLogout, activeView, setActiveView, moduleCategories, questionFilter, setQuestionFilter }) => {
-
-    const departmentalExams = useMemo(() => {
-        return moduleCategories.find(c => c.id === 'departmental_exams')?.modules || [];
-    }, [moduleCategories]);
     
     const handleQuestionViewChange = (filterId: string | null) => {
         setActiveView('questions');
@@ -75,13 +72,13 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onLogout, activeView, setAc
                           active={activeView === 'questions' && questionFilter === null} 
                           onClick={() => handleQuestionViewChange(null)} 
                         />
-                        {departmentalExams.map(module => (
+                        {moduleCategories.map(category => (
                              <NavItem 
-                                key={module.id} 
+                                key={category.id} 
                                 icon={icons.doc}
-                                label={module.title}
-                                active={activeView === 'questions' && questionFilter === module.id}
-                                onClick={() => handleQuestionViewChange(module.id)}
+                                label={category.title}
+                                active={activeView === 'questions' && questionFilter === category.id}
+                                onClick={() => handleQuestionViewChange(category.id)}
                              />
                         ))}
                     </div>

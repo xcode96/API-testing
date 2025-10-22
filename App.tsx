@@ -1,6 +1,7 @@
 
 
 
+
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import ModuleList from './components/ModuleList';
@@ -12,7 +13,7 @@ import FinalReport from './components/FinalReport';
 import CompletionScreen from './components/CompletionScreen';
 import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
-import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory } from './types';
+import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question } from './types';
 import { sendEmail } from './services/emailService';
 import { fetchData, saveData } from './services/api';
 
@@ -183,6 +184,52 @@ function App() {
       }
   };
   
+    const handleAddNewQuestion = (newQuestionData: Omit<Question, 'id'>) => {
+        setQuizzes(prevQuizzes => {
+            const newQuizzes = prevQuizzes.map(q => ({ ...q, questions: [...q.questions] }));
+            const quizIndex = newQuizzes.findIndex(q => q.name === newQuestionData.category);
+
+            if (quizIndex > -1) {
+                const newQuestion: Question = {
+                    ...newQuestionData,
+                    id: Date.now(),
+                };
+                newQuizzes[quizIndex].questions.push(newQuestion);
+                alert(`Question added to "${newQuestionData.category}"!`);
+            } else {
+                console.error(`Quiz category "${newQuestionData.category}" not found.`);
+                alert("Error: Could not find the selected quiz category to add the question to.");
+            }
+            return newQuizzes;
+        });
+    };
+
+    const handleUpdateQuestion = (updatedQuestion: Question) => {
+        setQuizzes(prevQuizzes =>
+            prevQuizzes.map(quiz => {
+                if (quiz.name === updatedQuestion.category) {
+                    return {
+                        ...quiz,
+                        questions: quiz.questions.map(q => q.id === updatedQuestion.id ? updatedQuestion : q)
+                    };
+                }
+                return quiz;
+            })
+        );
+    };
+
+    const handleDeleteQuestion = (questionId: number) => {
+        if (window.confirm("Are you sure you want to delete this question? This action cannot be undone.")) {
+            setQuizzes(prevQuizzes =>
+                prevQuizzes.map(quiz => ({
+                    ...quiz,
+                    questions: quiz.questions.filter(q => q.id !== questionId)
+                }))
+            );
+        }
+    };
+
+
   const handleSendNotification = (emailData: Omit<Email, 'id' | 'timestamp'>) => {
     sendEmail(emailData); // The mock service call
     const newEmail: Email = {
@@ -399,7 +446,6 @@ function App() {
         return (
           <AdminPanel 
             quizzes={quizzes} 
-            setQuizzes={setQuizzes} 
             users={users}
             setUsers={setUsers}
             onLogout={handleLogout} 
@@ -413,6 +459,9 @@ function App() {
             onCreateExamCategory={handleCreateExamCategory}
             onEditExamCategory={handleEditExamCategory}
             onDeleteExamCategory={handleDeleteExamCategory}
+            onAddNewQuestion={handleAddNewQuestion}
+            onUpdateQuestion={handleUpdateQuestion}
+            onDeleteQuestion={handleDeleteQuestion}
           />
         );
       }

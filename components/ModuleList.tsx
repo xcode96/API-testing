@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import ModuleItem from './ModuleItem';
-import { ModuleCategory } from '../types';
+import { ModuleCategory, Module } from '../types';
 import { INITIAL_MODULE_CATEGORIES } from '../constants';
 
 interface ModuleListProps {
@@ -10,6 +10,42 @@ interface ModuleListProps {
 
 const ModuleList: React.FC<ModuleListProps> = ({ moduleCategories, onStartQuiz }) => {
   const [openCategoryId, setOpenCategoryId] = useState<string | null>(INITIAL_MODULE_CATEGORIES[0]?.id || null);
+
+  const renderModules = (modules: Module[]) => {
+    const hasSubCategories = modules.some(m => m.subCategory);
+
+    if (!hasSubCategories) {
+      return modules.map(module => (
+        <ModuleItem
+          key={module.id}
+          module={module}
+          onStartQuiz={() => onStartQuiz(module.id)}
+        />
+      ));
+    }
+
+    const groupedModules = modules.reduce((acc, module) => {
+      const key = module.subCategory || 'General';
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(module);
+      return acc;
+    }, {} as Record<string, Module[]>);
+
+    return Object.entries(groupedModules).map(([subCategory, subModules]) => (
+      <div key={subCategory} className="space-y-4">
+        <h4 className="text-md font-bold text-slate-600 mt-4 px-2">{subCategory}</h4>
+        {subModules.map(module => (
+           <ModuleItem
+              key={module.id}
+              module={module}
+              onStartQuiz={() => onStartQuiz(module.id)}
+            />
+        ))}
+      </div>
+    ));
+  };
 
   return (
     <div>
@@ -31,13 +67,7 @@ const ModuleList: React.FC<ModuleListProps> = ({ moduleCategories, onStartQuiz }
             
             {openCategoryId === category.id && (
               <div id={`category-content-${category.id}`} className="p-4 sm:p-5 border-t border-slate-200 space-y-4">
-                {category.modules.map(module => (
-                  <ModuleItem
-                    key={module.id}
-                    module={module}
-                    onStartQuiz={() => onStartQuiz(module.id)}
-                  />
-                ))}
+                {renderModules(category.modules)}
               </div>
             )}
           </div>
