@@ -1,5 +1,6 @@
 
 
+
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import ModuleList from './components/ModuleList';
@@ -13,15 +14,16 @@ import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
 import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question } from './types';
 import { sendEmail } from './services/emailService';
-import { fetchData, saveData } from './services/api';
-import { syncToGithub } from './services/githubService';
+import { fetchData, saveData, syncToGithub } from './services/api';
 
 type View = 'user_login' | 'dashboard' | 'login' | 'admin' | 'report' | 'completion';
 export type AdminView = 'users' | 'questions' | 'notifications' | 'settings';
 
 // Helper hook to get the previous value of a prop or state.
 function usePrevious<T>(value: T): T | undefined {
-  const ref = useRef<T>();
+  // Fix: Explicitly initialize useRef with `undefined` to resolve a potential
+  // toolchain issue with the no-argument overload of `useRef`.
+  const ref = useRef<T | undefined>(undefined);
   useEffect(() => {
     ref.current = value;
   });
