@@ -123,7 +123,10 @@ export const INITIAL_MODULE_CATEGORIES: ModuleCategory[] = [
         id: 'data_analyst_exam',
         title: 'Data Analyst Policy',
         modules: [
-             { id: 'data_analyst_exam', title: 'Data Analyst Exam', questions: 1, icon: ICONS.ChartBar, status: ModuleStatus.NotStarted, theme: THEMES[15] },
+            { id: 'data_analyst_governance', title: 'Data Governance & Compliance', questions: 2, icon: ICONS.ShieldCheck, status: ModuleStatus.NotStarted, theme: THEMES[16] },
+            { id: 'data_analyst_handling', title: 'Secure Data Handling & Storage', questions: 2, icon: ICONS.Lock, status: ModuleStatus.NotStarted, theme: THEMES[4] },
+            { id: 'data_analyst_integrity', title: 'Data Quality & Integrity', questions: 2, icon: ICONS.Check, status: ModuleStatus.NotStarted, theme: THEMES[7] },
+            { id: 'data_analyst_ethics', title: 'Ethical Data Usage & Reporting', questions: 2, icon: ICONS.Scale, status: ModuleStatus.NotStarted, theme: THEMES[14] },
         ]
     },
     {

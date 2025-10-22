@@ -512,24 +512,6 @@ export const INITIAL_QUIZZES: Quiz[] = [
     ]
   },
   {
-    id: 'data_analyst_exam',
-    name: 'Data Analyst Exam',
-    questions: [
-      {
-        id: 18,
-        category: 'Data Analyst Exam',
-        question: "What is data anonymization?",
-        options: [
-          'Deleting all data older than one year',
-          'Making copies of data for backup',
-          'The process of encrypting data so it cannot be read',
-          'The process of removing personally identifiable information from data sets',
-        ],
-        correctAnswer: 'The process of removing personally identifiable information from data sets',
-      },
-    ]
-  },
-  {
     id: 'hr_recruitment_onboarding',
     name: 'Recruitment & Onboarding',
     questions: [
@@ -1044,5 +1026,125 @@ export const INITIAL_QUIZZES: Quiz[] = [
         correctAnswer: 'Proper documentation + version control + change record updates',
       },
     ]
+  },
+  {
+    id: 'data_analyst_governance',
+    name: 'Data Governance & Compliance',
+    questions: [
+      {
+        id: 701,
+        category: 'Data Governance & Compliance',
+        question: "What is considered Personally Identifiable Information (PII) under most data protection laws?",
+        options: [
+          "Anonymous survey results",
+          "A person's name combined with their email address",
+          "Publicly available company addresses",
+          "The number of employees in a company",
+        ],
+        correctAnswer: "A person's name combined with their email address",
+      },
+      {
+        id: 702,
+        category: 'Data Governance & Compliance',
+        question: "Under GDPR, what is a valid legal basis for processing personal data?",
+        options: [
+          "The data seems useful for future marketing.",
+          "The individual has given clear consent for a specific purpose.",
+          "The data was found on a public website.",
+          "A manager requested the data analysis.",
+        ],
+        correctAnswer: "The individual has given clear consent for a specific purpose.",
+      },
+    ],
+  },
+  {
+    id: 'data_analyst_handling',
+    name: 'Secure Data Handling & Storage',
+    questions: [
+      {
+        id: 703,
+        category: 'Secure Data Handling & Storage',
+        question: "When a dataset containing sensitive information is not in use, how should it be stored?",
+        options: [
+          "On an unencrypted USB drive for easy access.",
+          "In a password-protected spreadsheet on a shared network drive.",
+          "In an encrypted format on a secure, access-controlled server.",
+          "In a personal cloud storage account.",
+        ],
+        correctAnswer: "In an encrypted format on a secure, access-controlled server.",
+      },
+      {
+        id: 704,
+        category: 'Secure Data Handling & Storage',
+        question: "Before sharing aggregated data with another department, what is a crucial step?",
+        options: [
+          "Ensure no individual's data can be re-identified from the aggregated results.",
+          "Send the raw data first for them to check.",
+          "Password protect the file with '12345'.",
+          "Make sure the chart colors are on-brand.",
+        ],
+        correctAnswer: "Ensure no individual's data can be re-identified from the aggregated results.",
+      },
+    ],
+  },
+  {
+    id: 'data_analyst_integrity',
+    name: 'Data Quality & Integrity',
+    questions: [
+      {
+        id: 705,
+        category: 'Data Quality & Integrity',
+        question: "What is the purpose of data validation during the data ingestion process?",
+        options: [
+          "To make the dataset larger.",
+          "To check for and reject or correct inaccurate or improperly formatted data.",
+          "To automatically delete any null values.",
+          "To convert all text to uppercase.",
+        ],
+        correctAnswer: "To check for and reject or correct inaccurate or improperly formatted data.",
+      },
+      {
+        id: 706,
+        category: 'Data Quality & Integrity',
+        question: "Why is it important to document data transformations and cleaning steps?",
+        options: [
+          "It's not important if the final report looks correct.",
+          "To make the process seem more complex.",
+          "To ensure the analysis is reproducible, transparent, and auditable.",
+          "To create more files to store.",
+        ],
+        correctAnswer: "To ensure the analysis is reproducible, transparent, and auditable.",
+      },
+    ],
+  },
+  {
+    id: 'data_analyst_ethics',
+    name: 'Ethical Data Usage & Reporting',
+    questions: [
+      {
+        id: 707,
+        category: 'Ethical Data Usage & Reporting',
+        question: "If an analysis reveals a strong correlation that could lead to a biased business decision (e.g., against a protected group), what should a data analyst do?",
+        options: [
+          "Present the finding without context, as 'the data doesn't lie.'",
+          "Remove the finding from the report to avoid controversy.",
+          "Highlight the correlation but also point out the potential for bias and recommend further investigation.",
+          "Only show the data to managers who will agree with the biased outcome.",
+        ],
+        correctAnswer: "Highlight the correlation but also point out the potential for bias and recommend further investigation.",
+      },
+      {
+        id: 708,
+        category: 'Ethical Data Usage & Reporting',
+        question: "What is a primary ethical concern when visualizing data for a general audience?",
+        options: [
+          "Using colors that are not visually appealing.",
+          "The visualization could mislead or manipulate the audience's interpretation of the data.",
+          "The chart takes too long to load.",
+          "The title of the chart is too long.",
+        ],
+        correctAnswer: "The visualization could mislead or manipulate the audience's interpretation of the data.",
+      },
+    ],
   },
 ];
