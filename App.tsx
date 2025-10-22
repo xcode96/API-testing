@@ -1,7 +1,5 @@
 
 
-
-
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import ModuleList from './components/ModuleList';
@@ -16,9 +14,19 @@ import { PASSING_PERCENTAGE } from './quizzes';
 import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question } from './types';
 import { sendEmail } from './services/emailService';
 import { fetchData, saveData } from './services/api';
+import { syncToGithub } from './services/githubService';
 
 type View = 'user_login' | 'dashboard' | 'login' | 'admin' | 'report' | 'completion';
 export type AdminView = 'users' | 'questions' | 'notifications' | 'settings';
+
+// Helper hook to get the previous value of a prop or state.
+function usePrevious<T>(value: T): T | undefined {
+  const ref = useRef<T>();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
 
 function App() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
@@ -33,6 +41,7 @@ function App() {
 
 
   const saveTimeoutRef = useRef<number | null>(null);
+  const prevUsers = usePrevious(users);
   
   // Fetch initial data from the server
   useEffect(() => {
@@ -111,6 +120,30 @@ function App() {
       }
     };
   }, [users, quizzes, emailLog, settings, loading]);
+
+  // Effect to sync to GitHub when a new admin user is created
+  useEffect(() => {
+    if (!prevUsers || loading || !settings) {
+      return; // Don't run on initial load or if data is not ready
+    }
+
+    // Check if a new user was added by comparing lengths
+    if (users.length > prevUsers.length) {
+      const prevUserIds = new Set(prevUsers.map(u => u.id));
+      const addedUser = users.find(u => !prevUserIds.has(u.id));
+
+      // If the newly added user is an admin, trigger the GitHub sync
+      if (addedUser && addedUser.role === 'admin') {
+        console.log("New admin user created, triggering GitHub sync...");
+        syncToGithub({
+          users,
+          quizzes,
+          emailLog,
+          settings,
+        });
+      }
+    }
+  }, [users, prevUsers, loading, settings, quizzes, emailLog]);
 
   const handleCreateExamCategory = (title: string) => {
     const newId = title.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
@@ -380,46 +413,67 @@ function App() {
   }, [moduleCategories]);
   
   useEffect(() => {
-    if (!currentUser) return;
+    const handleCompletion = async () => {
+        if (!currentUser || !settings) return;
 
-    // 1. If training is completed, calculate score, set status, and transition to completion view
-    if (
-        progressPercentage === 100 &&
-        view === 'dashboard' &&
-        currentUser.trainingStatus === 'in-progress'
-    ) {
-        const answers = currentUser.answers || [];
-        const totalQuestions = quizzes.reduce((sum, quiz) => sum + quiz.questions.length, 0);
-        const correctAnswers = answers.filter(a => a.isCorrect).length;
-        const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
-        const didPass = score >= PASSING_PERCENTAGE;
+        // 1. If training is completed, calculate score, set status, and transition to completion view
+        if (
+            progressPercentage === 100 &&
+            view === 'dashboard' &&
+            currentUser.trainingStatus === 'in-progress'
+        ) {
+            const answers = currentUser.answers || [];
+            
+            // Correctly calculate total questions based on assigned modules for the current user
+            const assignedQuizIds = new Set(moduleCategories.flatMap(c => c.modules.map(m => m.id)));
+            const assignedQuizzes = quizzes.filter(q => assignedQuizIds.has(q.id));
+            const totalQuestions = assignedQuizzes.reduce((sum, quiz) => sum + quiz.questions.length, 0);
 
-        const updatedUser: User = {
-            ...currentUser,
-            trainingStatus: didPass ? 'passed' : 'failed',
-            lastScore: score,
-            submissionDate: new Date().toISOString(),
-        };
+            const correctAnswers = answers.filter(a => a.isCorrect).length;
+            const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+            const didPass = score >= PASSING_PERCENTAGE;
 
-        if (didPass) {
-          handleSendNotification({
-              to: updatedUser.username,
-              subject: "Congratulations on Passing Your Training!",
-              body: `Hi ${updatedUser.fullName},\n\nYou have successfully passed the Cyber Security training with a score of ${score}%.\n\nWell done!`,
-          });
+            const updatedUser: User = {
+                ...currentUser,
+                trainingStatus: didPass ? 'passed' : 'failed',
+                lastScore: score,
+                submissionDate: new Date().toISOString(),
+            };
+
+            if (didPass) {
+              handleSendNotification({
+                  to: updatedUser.username,
+                  subject: "Congratulations on Passing Your Training!",
+                  body: `Hi ${updatedUser.fullName},\n\nYou have successfully passed the Cyber Security training with a score of ${score}%.\n\nWell done!`,
+              });
+            }
+
+            // Create a temporary updated users array for the sync
+            const updatedUsersForSync = users.map(u => u.id === currentUser.id ? updatedUser : u);
+            
+            // Perform the GitHub sync with the latest data
+            await syncToGithub({
+                users: updatedUsersForSync,
+                quizzes,
+                emailLog,
+                settings,
+            });
+
+            // Now update the state locally
+            setCurrentUser(updatedUser);
+            setUsers(updatedUsersForSync);
+            setView('completion');
+            return; // Transitioned, so stop here.
         }
 
-        setCurrentUser(updatedUser);
-        setUsers(prevUsers => prevUsers.map(u => u.id === currentUser.id ? updatedUser : u));
-        setView('completion');
-        return; // Transitioned, so stop here.
-    }
+        // 2. If user logs in and has already passed/failed, show them the completion screen
+        if (view === 'dashboard' && ['passed', 'failed'].includes(currentUser.trainingStatus)) {
+            setView('completion');
+        }
+    };
 
-    // 2. If user logs in and has already passed/failed, show them the completion screen
-    if (view === 'dashboard' && ['passed', 'failed'].includes(currentUser.trainingStatus)) {
-        setView('completion');
-    }
-  }, [progressPercentage, view, currentUser, setUsers, quizzes]);
+    handleCompletion();
+  }, [progressPercentage, view, currentUser, quizzes, moduleCategories, users, emailLog, settings]);
 
 
   const activeQuiz = useMemo(() => {
