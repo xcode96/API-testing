@@ -1,5 +1,7 @@
 
 
+
+
 import React, { useState, useMemo } from 'react';
 import { Quiz, User, Email, AppSettings, ModuleCategory, Question } from '../../types';
 import { AdminView } from '../../App';
@@ -32,6 +34,7 @@ interface AdminPanelProps {
   onAddQuestionToNewSubTopic: (question: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => void;
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
+  onImportFolderStructure: (folderStructure: Record<string, any[]>, targetCategoryId: string) => void;
 }
 
 const AdminPanel: React.FC<AdminPanelProps> = ({
@@ -55,6 +58,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onAddQuestionToNewSubTopic,
   onUpdateQuestion,
   onDeleteQuestion,
+  onImportFolderStructure,
 }) => {
   const [questionFilter, setQuestionFilter] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -104,6 +108,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                     onDeleteExamCategory={onDeleteExamCategory}
                     onUpdateQuestion={onUpdateQuestion}
                     onDeleteQuestion={onDeleteQuestion}
+                    onImportFolderStructure={onImportFolderStructure}
                   />
                 </div>
               </div>

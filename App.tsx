@@ -89,7 +89,7 @@ function App() {
       });
   }, []);
 
-  // Save state to backend with debounce
+  // Save state to backend and sync to GitHub with debounce
   useEffect(() => {
     if (loading || !settings) return; // Don't save while loading or if settings are not loaded
 
@@ -98,8 +98,13 @@ function App() {
     }
 
     saveTimeoutRef.current = window.setTimeout(() => {
-      saveData({ users, quizzes, emailLog, settings })
+      const dataToSync = { users, quizzes, emailLog, settings };
+      // Save to Vercel KV
+      saveData(dataToSync)
         .catch(err => console.error("Failed to save data:", err));
+      // Sync to GitHub
+      triggerGithubSync(dataToSync)
+        .catch(err => console.error("Failed to sync data to GitHub:", err));
     }, 1000); // Debounce for 1 second
 
     return () => {
@@ -328,6 +333,95 @@ function App() {
         alert(`Sub-topic "${subTopicTitle}" created in folder "${parentCategory?.title}" and question added!`);
     };
 
+    const handleImportFolderStructure = (folderStructure: Record<string, Omit<Question, 'id' | 'category'>[]>, targetCategoryId: string) => {
+        const targetCategory = moduleCategoriesState.find(c => c.id === targetCategoryId);
+        if (!targetCategory) {
+          alert(`Error: Could not find the target exam folder with ID: ${targetCategoryId}`);
+          return;
+        }
+      
+        try {
+          const newQuizzes: Quiz[] = [];
+          const newModules: Module[] = [];
+          let questionsAddedCount = 0;
+          let subTopicsCreatedCount = 0;
+          
+          const existingModuleNames = new Set(targetCategory.modules.map(m => m.title.toLowerCase()));
+      
+          for (const subTopicTitle in folderStructure) {
+              if (Object.prototype.hasOwnProperty.call(folderStructure, subTopicTitle)) {
+                  
+                  if (existingModuleNames.has(subTopicTitle.toLowerCase())) {
+                      console.log(`Skipping sub-topic "${subTopicTitle}" as it already exists in the target folder.`);
+                      continue;
+                  }
+      
+                  const importedQuestions = folderStructure[subTopicTitle];
+                  if (!Array.isArray(importedQuestions) || importedQuestions.length === 0) {
+                      continue;
+                  }
+                  
+                  const baseId = Date.now() + questionsAddedCount;
+      
+                  const validatedQuestions: Question[] = importedQuestions.map((q, index) => {
+                      if (!q.question || !Array.isArray(q.options) || q.options.length === 0 || !q.correctAnswer) {
+                          throw new Error(`Question at index ${index} in sub-topic "${subTopicTitle}" is missing required fields.`);
+                      }
+                      return {
+                          ...q,
+                          id: baseId + index,
+                          category: subTopicTitle,
+                      } as Question;
+                  });
+                  
+                  const newQuizId = subTopicTitle.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
+                  
+                  const newQuiz: Quiz = {
+                      id: newQuizId,
+                      name: subTopicTitle,
+                      questions: validatedQuestions,
+                  };
+                  
+                  const totalModules = moduleCategoriesState.flatMap(c => c.modules).length + newModules.length;
+                  const iconKeys = Object.keys(ICONS);
+                  const newIconKey = iconKeys[totalModules % iconKeys.length];
+              
+                  const newModule: Module = {
+                      id: newQuizId,
+                      title: subTopicTitle,
+                      questions: validatedQuestions.length,
+                      icon: ICONS[newIconKey as keyof typeof ICONS],
+                      status: ModuleStatus.NotStarted,
+                      theme: THEMES[totalModules % THEMES.length],
+                  };
+                  
+                  newQuizzes.push(newQuiz);
+                  newModules.push(newModule);
+                  questionsAddedCount += validatedQuestions.length;
+                  subTopicsCreatedCount++;
+              }
+          }
+          
+          if (newQuizzes.length === 0) {
+              alert("Import finished. No new sub-topics were created because they already exist in this folder.");
+              return;
+          }
+      
+          setQuizzes(prevQuizzes => [...prevQuizzes, ...newQuizzes]);
+          setModuleCategoriesState(prevCategories =>
+              prevCategories.map(category =>
+                  category.id === targetCategoryId
+                      ? { ...category, modules: [...category.modules, ...newModules] }
+                      : category
+              )
+          );
+      
+          alert(`${subTopicsCreatedCount} new sub-topic(s) and ${questionsAddedCount} questions successfully imported into "${targetCategory.title}"!`);
+        } catch (error: any) {
+          alert(`Import failed: ${error.message}`);
+        }
+      };
+
     const handleUpdateQuestion = (updatedQuestion: Question) => {
         setQuizzes(prevQuizzes =>
             prevQuizzes.map(quiz => {
@@ -378,16 +472,7 @@ function App() {
             alert("Username already exists.");
             return;
         }
-        const updatedUsers = [...users, newUser];
-        setUsers(updatedUsers);
-
-        // Automatically sync to GitHub for ANY new user
-        triggerGithubSync({
-            users: updatedUsers,
-            quizzes,
-            emailLog,
-            settings: settings!,
-        });
+        setUsers(prevUsers => [...prevUsers, newUser]);
     };
 
     const handleUpdateUsers = (updatedUsers: User[]) => {
@@ -578,18 +663,9 @@ function App() {
               });
             }
 
-            // Create a temporary updated users array for the sync
             const updatedUsersForSync = users.map(u => u.id === currentUser.id ? updatedUser : u);
             
-            // Perform the GitHub sync with the latest data
-            await triggerGithubSync({
-                users: updatedUsersForSync,
-                quizzes,
-                emailLog,
-                settings,
-            });
-
-            // Now update the state locally
+            // State update will trigger the centralized, debounced sync effect
             setCurrentUser(updatedUser);
             setUsers(updatedUsersForSync);
             setView('completion');
@@ -649,6 +725,7 @@ function App() {
             onAddQuestionToNewSubTopic={handleAddQuestionToNewSubTopic}
             onUpdateQuestion={handleUpdateQuestion}
             onDeleteQuestion={handleDeleteQuestion}
+            onImportFolderStructure={handleImportFolderStructure}
           />
         );
       }

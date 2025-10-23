@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 
 interface GitHubSettings {
@@ -50,7 +51,8 @@ const GitHubSettingsModal: React.FC<GitHubSettingsModalProps> = ({ isOpen, onClo
 
     return (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-opacity" onClick={onClose}>
-            <div className="bg-slate-800 text-white rounded-2xl p-6 sm:p-8 max-w-lg w-full shadow-xl relative transform transition-all border border-slate-700" style={{'--tw-bg-opacity': 0.95}} onClick={e => e.stopPropagation()}>
+            {/* FIX: Replaced inline style for opacity with a standard Tailwind CSS class to resolve TypeScript error and improve consistency. */}
+            <div className="bg-slate-800/95 text-white rounded-2xl p-6 sm:p-8 max-w-lg w-full shadow-xl relative transform transition-all border border-slate-700" onClick={e => e.stopPropagation()}>
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold">GitHub Publish Settings</h2>
                     <button onClick={onClose} className="text-slate-400 hover:text-slate-200">

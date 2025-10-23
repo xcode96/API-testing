@@ -1,4 +1,5 @@
 
+
 import { Quiz, User, Email, AppSettings } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
 
@@ -151,24 +152,23 @@ const getFileSha = async (owner: string, repo: string, path: string, token: stri
  * @returns A promise that resolves to an object indicating success or failure.
  */
 export const triggerGithubSync = async (data: AppData): Promise<{ success: boolean; error?: string }> => {
-    console.log("Attempting to trigger client-side GitHub sync...");
-    
     const settingsStr = localStorage.getItem(GITHUB_SETTINGS_KEY);
+
+    // Silently skip sync if settings are not configured. This is an optional feature.
     if (!settingsStr) {
-        const message = 'GitHub settings not configured. Please go to Admin Panel > Settings to configure publishing.';
-        console.error(message);
-        alert(message);
-        return { success: false, error: 'GitHub settings not configured.' };
+        console.log("GitHub sync skipped: settings not configured.");
+        return { success: true }; // Return success to avoid console errors from the calling useEffect
     }
 
     const { owner, repo, path, token } = JSON.parse(settingsStr);
 
+    // Silently skip if settings are incomplete.
     if (!owner || !repo || !path || !token) {
-        const message = 'GitHub settings are incomplete. Please review your configuration in Admin Panel > Settings.';
-        console.error(message);
-        alert(message);
-        return { success: false, error: 'GitHub settings are incomplete.' };
+        console.error('GitHub sync skipped: settings are incomplete.');
+        return { success: true }; // Return success to avoid console errors
     }
+
+    console.log("Attempting to trigger client-side GitHub sync...");
 
     try {
         const fileSha = await getFileSha(owner, repo, path, token);
@@ -198,18 +198,20 @@ export const triggerGithubSync = async (data: AppData): Promise<{ success: boole
         if (response.ok) {
             const result = await response.json();
             console.log('Successfully synced data to GitHub:', result.commit.sha);
-            alert('Training data has been successfully published to your GitHub repository.');
+            // No alert on success for a better UX with automatic sync.
             return { success: true };
         } else {
             const errorData = await response.json();
             const errorMessage = errorData.message || 'An unknown error occurred.';
             console.error('Failed to sync data to GitHub:', response.status, errorMessage);
+            // Alert user on actual error so they can fix their config.
             alert(`Failed to publish data to GitHub. Status: ${response.status}.\n\nError: ${errorMessage}\n\nPlease check your settings and Personal Access Token.`);
             return { success: false, error: errorMessage };
         }
     } catch (error) {
         const errorMessage = (error instanceof Error) ? error.message : 'An unknown error occurred.';
         console.error('Failed to trigger GitHub sync:', error);
+        // Alert user on network/other errors.
         alert(`An error occurred while trying to publish data to GitHub. Please check the browser console.`);
         return { success: false, error: errorMessage };
     }
