@@ -114,8 +114,8 @@
       "fullName": "Manibharathi P",
       "username": "1",
       "password": "1",
-      "trainingStatus": "passed",
-      "lastScore": 75,
+      "trainingStatus": "not-started",
+      "lastScore": null,
       "role": "user",
       "assignedExams": [
         "data_analyst_exam",
@@ -123,71 +123,8 @@
         "audit_1761233417940",
         "it_company_master_policy_framework_1761233692829"
       ],
-      "answers": [
-        {
-          "questionId": 701,
-          "questionText": "What is considered Personally Identifiable Information (PII) under most data protection laws?",
-          "selectedAnswer": "A person's name combined with their email address",
-          "correctAnswer": "A person's name combined with their email address",
-          "isCorrect": true
-        },
-        {
-          "questionId": 702,
-          "questionText": "Under GDPR, what is a valid legal basis for processing personal data?",
-          "selectedAnswer": "The individual has given clear consent for a specific purpose.",
-          "correctAnswer": "The individual has given clear consent for a specific purpose.",
-          "isCorrect": true
-        },
-        {
-          "questionId": 703,
-          "questionText": "When a dataset containing sensitive information is not in use, how should it be stored?",
-          "selectedAnswer": "In an encrypted format on a secure, access-controlled server.",
-          "correctAnswer": "In an encrypted format on a secure, access-controlled server.",
-          "isCorrect": true
-        },
-        {
-          "questionId": 704,
-          "questionText": "Before sharing aggregated data with another department, what is a crucial step?",
-          "selectedAnswer": "Ensure no individual's data can be re-identified from the aggregated results.",
-          "correctAnswer": "Ensure no individual's data can be re-identified from the aggregated results.",
-          "isCorrect": true
-        },
-        {
-          "questionId": 705,
-          "questionText": "What is the purpose of data validation during the data ingestion process?",
-          "selectedAnswer": "To check for and reject or correct inaccurate or improperly formatted data.",
-          "correctAnswer": "To check for and reject or correct inaccurate or improperly formatted data.",
-          "isCorrect": true
-        },
-        {
-          "questionId": 706,
-          "questionText": "Why is it important to document data transformations and cleaning steps?",
-          "selectedAnswer": "To ensure the analysis is reproducible, transparent, and auditable.",
-          "correctAnswer": "To ensure the analysis is reproducible, transparent, and auditable.",
-          "isCorrect": true
-        },
-        {
-          "questionId": 707,
-          "questionText": "If an analysis reveals a strong correlation that could lead to a biased business decision (e.g., against a protected group), what should a data analyst do?",
-          "selectedAnswer": "Remove the finding from the report to avoid controversy.",
-          "correctAnswer": "Highlight the correlation but also point out the potential for bias and recommend further investigation.",
-          "isCorrect": false
-        },
-        {
-          "questionId": 708,
-          "questionText": "What is a primary ethical concern when visualizing data for a general audience?",
-          "selectedAnswer": "The chart takes too long to load.",
-          "correctAnswer": "The visualization could mislead or manipulate the audience's interpretation of the data.",
-          "isCorrect": false
-        }
-      ],
-      "moduleProgress": {
-        "data_analyst_governance": "Completed",
-        "data_analyst_handling": "Completed",
-        "data_analyst_integrity": "Completed",
-        "data_analyst_ethics": "Completed"
-      },
-      "submissionDate": "2025-10-23T14:50:20.161Z"
+      "answers": [],
+      "moduleProgress": {}
     },
     {
       "id": 1761232428006,
