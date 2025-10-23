@@ -5119,6 +5119,324 @@
           "correctAnswer": "Pending change requests with status"
         }
       ]
+    },
+    {
+      "id": "backup_&_disaster_recovery_1761233995658.502",
+      "name": "Backup & Disaster Recovery",
+      "questions": [
+        {
+          "id": 1761233996295.9539,
+          "category": "Backup & Disaster Recovery",
+          "question": "The “3‑2‑1” backup rule means:",
+          "options": [
+            "3 copies, 2 clouds, 1 tape",
+            "3 GB per backup, 2 GB compression, 1 GB encryption",
+            "3 copies, 2 media types, 1 off‑site",
+            "3 hours RPO, 2 hours RTO, 1 day testing"
+          ],
+          "correctAnswer": "3 copies, 2 media types, 1 off‑site"
+        },
+        {
+          "id": 1761233996251.92,
+          "category": "Backup & Disaster Recovery",
+          "question": "Maximum RPO permitted is:",
+          "options": [
+            "24 hours",
+            "1 hour",
+            "4 hours",
+            "30 minutes"
+          ],
+          "correctAnswer": "1 hour"
+        },
+        {
+          "id": 1761233996320.6487,
+          "category": "Backup & Disaster Recovery",
+          "question": "Maximum RTO permitted is:",
+          "options": [
+            "1 hour",
+            "4 hours",
+            "8 hours",
+            "24 hours"
+          ],
+          "correctAnswer": "4 hours"
+        },
+        {
+          "id": 1761233996161.2566,
+          "category": "Backup & Disaster Recovery",
+          "question": "How often must DR drills be performed?",
+          "options": [
+            "Annually",
+            "Twice per year",
+            "Quarterly",
+            "Monthly"
+          ],
+          "correctAnswer": "Quarterly"
+        },
+        {
+          "id": 1761233996081.1018,
+          "category": "Backup & Disaster Recovery",
+          "question": "Who owns the Backup & DR policy?",
+          "options": [
+            "CIO",
+            "CISO",
+            "HR",
+            "Legal"
+          ],
+          "correctAnswer": "CIO"
+        },
+        {
+          "id": 1761233995867.8408,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which of the following is mandatory for each backup?",
+          "options": [
+            "Coffee with the admin",
+            "Checksum verification"
+          ],
+          "correctAnswer": "Checksum verification"
+        },
+        {
+          "id": 1761233996299.1804,
+          "category": "Backup & Disaster Recovery",
+          "question": "Where must critical backups be stored?",
+          "options": [
+            "On‑prem only",
+            "Off‑site (cloud or remote site)"
+          ],
+          "correctAnswer": "Off‑site (cloud or remote site)"
+        },
+        {
+          "id": 1761233996237.793,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which cannot be a backup medium?",
+          "options": [
+            "Tape",
+            "Disk",
+            "Live production database",
+            "USB flash drive"
+          ],
+          "correctAnswer": "Live production database"
+        },
+        {
+          "id": 1761233996046.0764,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be included in the DR run‑book?",
+          "options": [
+            "Favorite songs",
+            "Step‑by‑step recovery procedures"
+          ],
+          "correctAnswer": "Step‑by‑step recovery procedures"
+        },
+        {
+          "id": 1761233996442.4336,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be done monthly?",
+          "options": [
+            "Celebrate after backup",
+            "Verify backup integrity"
+          ],
+          "correctAnswer": "Verify backup integrity"
+        },
+        {
+          "id": 1761233996528.0112,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be documented for each backup job?",
+          "options": [
+            "Number of coffee cups",
+            "Schedule, scope, retention period"
+          ],
+          "correctAnswer": "Schedule, scope, retention period"
+        },
+        {
+          "id": 1761233996029.343,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be performed before a major system upgrade?",
+          "options": [
+            "Order pizza",
+            "Full backup & verification"
+          ],
+          "correctAnswer": "Full backup & verification"
+        },
+        {
+          "id": 1761233995807.8467,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be retained for audit?",
+          "options": [
+            "Emoji count",
+            "Backup logs for at least 1 year"
+          ],
+          "correctAnswer": "Backup logs for at least 1 year"
+        },
+        {
+          "id": 1761233996532.4685,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which cannot be a DR site?",
+          "options": [
+            "Cloud region in a different country",
+            "Employee’s home laptop"
+          ],
+          "correctAnswer": "Employee’s home laptop"
+        },
+        {
+          "id": 1761233996458.9155,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be tested during a DR drill?",
+          "options": [
+            "Wi‑Fi password",
+            "Failover of critical services"
+          ],
+          "correctAnswer": "Failover of critical services"
+        },
+        {
+          "id": 1761233996407.7314,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be performed after a successful DR test?",
+          "options": [
+            "Celebrate with cake",
+            "Update run‑book with lessons learned"
+          ],
+          "correctAnswer": "Update run‑book with lessons learned"
+        },
+        {
+          "id": 1761233996558.8713,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be verified during a backup verification?",
+          "options": [
+            "Number of coffee mugs",
+            "Data integrity and restorability"
+          ],
+          "correctAnswer": "Data integrity and restorability"
+        },
+        {
+          "id": 1761233996273.38,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be included in the backup retention policy?",
+          "options": [
+            "Colour of the backup tape",
+            "Retention period per data class"
+          ],
+          "correctAnswer": "Retention period per data class"
+        },
+        {
+          "id": 1761233995833.1306,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be done when a backup fails?",
+          "options": [
+            "Ignore it",
+            "Raise an incident, investigate, remediate"
+          ],
+          "correctAnswer": "Raise an incident, investigate, remediate"
+        },
+        {
+          "id": 1761233996265.9343,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be documented in the disaster‑recovery SLA?",
+          "options": [
+            "Favourite pizza topping",
+            "RPO / RTO commitments"
+          ],
+          "correctAnswer": "RPO / RTO commitments"
+        },
+        {
+          "id": 1761233996132.1094,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be part of the DR strategy for critical apps?",
+          "options": [
+            "Daily coffee",
+            "Geographically separate replication"
+          ],
+          "correctAnswer": "Geographically separate replication"
+        },
+        {
+          "id": 1761233996591.484,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be performed after a major outage?",
+          "options": [
+            "Send a meme",
+            "Root‑cause analysis and corrective actions"
+          ],
+          "correctAnswer": "Root‑cause analysis and corrective actions"
+        },
+        {
+          "id": 1761233996103.7034,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be reviewed annually?",
+          "options": [
+            "Office décor",
+            "Backup & DR policy effectiveness"
+          ],
+          "correctAnswer": "Backup & DR policy effectiveness"
+        },
+        {
+          "id": 1761233995787.4214,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be done before de‑commissioning a backup server?",
+          "options": [
+            "Throw away the hard drives",
+            "Migrate backups, verify migration"
+          ],
+          "correctAnswer": "Migrate backups, verify migration"
+        },
+        {
+          "id": 1761233996486.4658,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be included in the DR communication plan?",
+          "options": [
+            "Number of emojis",
+            "Contact list, escalation matrix"
+          ],
+          "correctAnswer": "Contact list, escalation matrix"
+        },
+        {
+          "id": 1761233996415.4617,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be validated during a DR test?",
+          "options": [
+            "Coffee temperature",
+            "Data consistency across sites"
+          ],
+          "correctAnswer": "Data consistency across sites"
+        },
+        {
+          "id": 1761233995795.1633,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be recorded for each DR incident?",
+          "options": [
+            "Favorite music",
+            "Start/end time, systems affected, recovery steps"
+          ],
+          "correctAnswer": "Start/end time, systems affected, recovery steps"
+        },
+        {
+          "id": 1761233996591.3896,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be performed quarterly?",
+          "options": [
+            "Office party",
+            "Backup media rotation"
+          ],
+          "correctAnswer": "Backup media rotation"
+        },
+        {
+          "id": 1761233995821.0308,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be part of the capacity planning for backups?",
+          "options": [
+            "Number of snacks",
+            "Growth forecast, storage sizing"
+          ],
+          "correctAnswer": "Growth forecast, storage sizing"
+        },
+        {
+          "id": 1761233996181.1106,
+          "category": "Backup & Disaster Recovery",
+          "question": "Which must be communicated to the executive board after a DR event?",
+          "options": [
+            "Number of jokes told",
+            "Impact, financial loss, remediation plan"
+          ],
+          "correctAnswer": "Impact, financial loss, remediation plan"
+        }
+      ]
     }
   ],
   "emailLog": [
@@ -5970,6 +6288,17 @@
           "theme": {
             "iconBg": "bg-lime-100",
             "iconColor": "text-lime-500"
+          }
+        },
+        {
+          "id": "backup_&_disaster_recovery_1761233995658.502",
+          "title": "Backup & Disaster Recovery",
+          "questions": 30,
+          "iconKey": "Home",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-fuchsia-100",
+            "iconColor": "text-fuchsia-500"
           }
         }
       ]
