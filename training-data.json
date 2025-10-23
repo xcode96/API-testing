@@ -170,6 +170,20 @@
         "data_analyst_ethics": "Completed"
       },
       "submissionDate": "2025-10-23T14:50:20.161Z"
+    },
+    {
+      "id": 1761232428006,
+      "fullName": "Alex",
+      "username": "Alex",
+      "password": "1",
+      "trainingStatus": "not-started",
+      "lastScore": null,
+      "role": "user",
+      "assignedExams": [
+        "legal_exam"
+      ],
+      "answers": [],
+      "moduleProgress": {}
     }
   ],
   "quizzes": [
@@ -2185,6 +2199,13 @@
     }
   ],
   "emailLog": [
+    {
+      "to": "admin@example.com",
+      "subject": "New User Registered",
+      "body": "A new user has been registered:\n\nName: Alex\nUsername: Alex\nRole: user\nAssigned Exams: legal_exam",
+      "id": 1761232428007,
+      "timestamp": "2025-10-23T15:13:48.007Z"
+    },
     {
       "to": "admin@example.com",
       "subject": "New User Registered",
