@@ -172,6 +172,24 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
                         </button>
                     </div>
 
+                    <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
+                       <h3 className="font-semibold text-lg text-slate-700 mb-4">GitHub Synchronization</h3>
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-slate-600 mb-1">GitHub Owner / Organization</label>
+                                <input type="text" name="githubOwner" value={settings.githubOwner || ''} onChange={handleInputChange} placeholder="e.g., my-organization" className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
+                            </div>
+                           <div>
+                                <label className="block text-sm font-medium text-slate-600 mb-1">Repository Name</label>
+                                <input type="text" name="githubRepo" value={settings.githubRepo || ''} onChange={handleInputChange} placeholder="e.g., training-content" className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-slate-600 mb-1">File Path in Repository</label>
+                                <input type="text" name="githubPath" value={settings.githubPath || ''} onChange={handleInputChange} placeholder="e.g., training-data.json" className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
+                            </div>
+                        </div>
+                    </div>
+
                     <h2 className="text-2xl font-bold text-slate-800 pt-6 border-t border-slate-200">Certificate Settings</h2>
                     
                     <AssetUploader
