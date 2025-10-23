@@ -2223,6 +2223,372 @@
       "id": "audit_1761233128213",
       "name": "Audit",
       "questions": []
+    },
+    {
+      "id": "information_security_(infosec)_1761233270968.9993",
+      "name": "Information Security (InfoSec)",
+      "questions": [
+        {
+          "id": 1761233271736.3325,
+          "category": "Information Security (InfoSec)",
+          "question": "Which encryption algorithm is required for data at rest?",
+          "options": [
+            "RSA‑2048",
+            "AES‑256",
+            "SHA‑256",
+            "3DES"
+          ],
+          "correctAnswer": "AES‑256"
+        },
+        {
+          "id": 1761233270996.3604,
+          "category": "Information Security (InfoSec)",
+          "question": "Minimum TLS version for data in transit is:",
+          "options": [
+            "TLS 1.0",
+            "TLS 1.1",
+            "TLS 1.2+",
+            "SSL 3.0"
+          ],
+          "correctAnswer": "TLS 1.2+"
+        },
+        {
+          "id": 1761233271318.0374,
+          "category": "Information Security (InfoSec)",
+          "question": "How often must vulnerability scans be performed?",
+          "options": [
+            "Daily",
+            "Weekly",
+            "Monthly",
+            "Quarterly"
+          ],
+          "correctAnswer": "Monthly"
+        },
+        {
+          "id": 1761233271510.3936,
+          "category": "Information Security (InfoSec)",
+          "question": "Penetration testing frequency is:",
+          "options": [
+            "Annually",
+            "Quarterly",
+            "Every 6 months",
+            "Every 2 years"
+          ],
+          "correctAnswer": "Quarterly"
+        },
+        {
+          "id": 1761233271432.687,
+          "category": "Information Security (InfoSec)",
+          "question": "Which of the following is not a mandatory InfoSec control?",
+          "options": [
+            "MFA on all systems",
+            "Data encryption",
+            "Password expiration every 30 days *(optional)*",
+            "SOC 24×7 monitoring"
+          ],
+          "correctAnswer": "Password expiration every 30 days *(optional)*"
+        },
+        {
+          "id": 1761233271463.1946,
+          "category": "Information Security (InfoSec)",
+          "question": "The Incident Response (IR) plan must be tested:",
+          "options": [
+            "Every month",
+            "Bi‑annually",
+            "Only after a breach",
+            "Never"
+          ],
+          "correctAnswer": "Bi‑annually"
+        },
+        {
+          "id": 1761233271787.2834,
+          "category": "Information Security (InfoSec)",
+          "question": "Which SIEM platforms are approved in the framework?",
+          "options": [
+            "Splunk / QRadar",
+            "Elastic SIEM",
+            "Both Splunk and QRadar",
+            "ArcSight"
+          ],
+          "correctAnswer": "Both Splunk and QRadar"
+        },
+        {
+          "id": 1761233271960.9675,
+          "category": "Information Security (InfoSec)",
+          "question": "Which role owns InfoSec operations?",
+          "options": [
+            "IT Head",
+            "CISO",
+            "CIO",
+            "Legal Head"
+          ],
+          "correctAnswer": "CISO"
+        },
+        {
+          "id": 1761233271728.1868,
+          "category": "Information Security (InfoSec)",
+          "question": "What is the minimum password complexity requirement?",
+          "options": [
+            "6 chars, alphanum",
+            "8 chars, alphanum",
+            "12 chars, alphanum+spec",
+            "8 chars, alphanum+special"
+          ],
+          "correctAnswer": "12 chars, alphanum+spec"
+        },
+        {
+          "id": 1761233271461.013,
+          "category": "Information Security (InfoSec)",
+          "question": "MFA must be enabled for which of the following?",
+          "options": [
+            "Remote VPN only",
+            "All systems",
+            "Email only",
+            "Admin consoles only"
+          ],
+          "correctAnswer": "All systems"
+        },
+        {
+          "id": 1761233271247.6606,
+          "category": "Information Security (InfoSec)",
+          "question": "Which log type must be retained for at least 1 year?",
+          "options": [
+            "Application logs",
+            "Security event logs",
+            "System health logs",
+            "Debug logs"
+          ],
+          "correctAnswer": "Security event logs"
+        },
+        {
+          "id": 1761233271019.0986,
+          "category": "Information Security (InfoSec)",
+          "question": "Which of these is a continuous monitoring activity?",
+          "options": [
+            "Weekly patch audit",
+            "Monthly backup test",
+            "Real‑time SIEM alerts",
+            "Quarterly risk review"
+          ],
+          "correctAnswer": "Real‑time SIEM alerts"
+        },
+        {
+          "id": 1761233271664.4688,
+          "category": "Information Security (InfoSec)",
+          "question": "Which standard is not explicitly referenced in the InfoSec policy?",
+          "options": [
+            "ISO 27001",
+            "NIST",
+            "GDPR",
+            "PCI‑DSS"
+          ],
+          "correctAnswer": "PCI‑DSS"
+        },
+        {
+          "id": 1761233271068.0784,
+          "category": "Information Security (InfoSec)",
+          "question": "Who must approve a major security exception?",
+          "options": [
+            "IT Support Lead",
+            "CISO",
+            "HR Manager",
+            "Procurement"
+          ],
+          "correctAnswer": "CISO"
+        },
+        {
+          "id": 1761233271771.223,
+          "category": "Information Security (InfoSec)",
+          "question": "What is the minimum RPO for critical systems?",
+          "options": [
+            "24 hours",
+            "12 hours",
+            "1 hour",
+            "15 minutes"
+          ],
+          "correctAnswer": "1 hour"
+        },
+        {
+          "id": 1761233271680.6309,
+          "category": "Information Security (InfoSec)",
+          "question": "Which device must be encrypted before being issued to an employee?",
+          "options": [
+            "Desktop monitors",
+            "Laptops",
+            "Network printers",
+            "Fax machines"
+          ],
+          "correctAnswer": "Laptops"
+        },
+        {
+          "id": 1761233271564.501,
+          "category": "Information Security (InfoSec)",
+          "question": "Which statement about password vaults is correct?",
+          "options": [
+            "They are optional",
+            "Must be stored on a USB stick",
+            "Must be centrally managed and audited",
+            "Must be open‑source"
+          ],
+          "correctAnswer": "Must be centrally managed and audited"
+        },
+        {
+          "id": 1761233271837.7917,
+          "category": "Information Security (InfoSec)",
+          "question": "Remote workstations must connect through:",
+          "options": [
+            "Direct Internet",
+            "Corporate VPN with MFA",
+            "Guest Wi‑Fi",
+            "Third‑party cloud"
+          ],
+          "correctAnswer": "Corporate VPN with MFA"
+        },
+        {
+          "id": 1761233271434.459,
+          "category": "Information Security (InfoSec)",
+          "question": "Which of the following is a false statement?",
+          "options": [
+            "SOC must triage alerts 24×7",
+            "All endpoints must have AV",
+            "Patch management is optional",
+            "Encryption keys stored in HSM"
+          ],
+          "correctAnswer": "Patch management is optional"
+        },
+        {
+          "id": 1761233270997.4436,
+          "category": "Information Security (InfoSec)",
+          "question": "Which metric is used to measure security awareness effectiveness?",
+          "options": [
+            "Number of tickets",
+            "Phishing click‑through rate",
+            "Asset count",
+            "Server uptime"
+          ],
+          "correctAnswer": "Phishing click‑through rate"
+        },
+        {
+          "id": 1761233271438.1497,
+          "category": "Information Security (InfoSec)",
+          "question": "Which type of data is not covered by GDPR?",
+          "options": [
+            "Employee personal data",
+            "Customer PII",
+            "Anonymous aggregated statistics",
+            "Supplier contracts"
+          ],
+          "correctAnswer": "Anonymous aggregated statistics"
+        },
+        {
+          "id": 1761233271658.456,
+          "category": "Information Security (InfoSec)",
+          "question": "What is the required frequency for internal security audits?",
+          "options": [
+            "Monthly",
+            "Quarterly",
+            "Annually",
+            "Every 2 years"
+          ],
+          "correctAnswer": "Annually"
+        },
+        {
+          "id": 1761233271105.9302,
+          "category": "Information Security (InfoSec)",
+          "question": "Which of the following must be documented for every security incident?",
+          "options": [
+            "End‑user name",
+            "Timeline, impact, root cause",
+            "Vendor name",
+            "Office location"
+          ],
+          "correctAnswer": "Timeline, impact, root cause"
+        },
+        {
+          "id": 1761233271241.0298,
+          "category": "Information Security (InfoSec)",
+          "question": "Which control mitigates credential‑stuffing attacks?",
+          "options": [
+            "Anti‑virus",
+            "Rate‑limiting & CAPTCHA on login",
+            "Disk encryption",
+            "Patch management"
+          ],
+          "correctAnswer": "Rate‑limiting & CAPTCHA on login"
+        },
+        {
+          "id": 1761233271489.7505,
+          "category": "Information Security (InfoSec)",
+          "question": "Which of these is a mandatory component of the IR plan?",
+          "options": [
+            "Marketing communication",
+            "Defined communication chain (CISO → exec)",
+            "Holiday schedule",
+            "Vendor invoice"
+          ],
+          "correctAnswer": "Defined communication chain (CISO → exec)"
+        },
+        {
+          "id": 1761233271491.8325,
+          "category": "Information Security (InfoSec)",
+          "question": "Which cloud service model requires shared responsibility for security?",
+          "options": [
+            "SaaS only",
+            "All (IaaS, PaaS, SaaS)",
+            "On‑prem only",
+            "None"
+          ],
+          "correctAnswer": "All (IaaS, PaaS, SaaS)"
+        },
+        {
+          "id": 1761233271138.5044,
+          "category": "Information Security (InfoSec)",
+          "question": "Which of the following is not a permitted data classification level?",
+          "options": [
+            "Public",
+            "Internal",
+            "Restricted‑Top *(not defined)*",
+            "Confidential"
+          ],
+          "correctAnswer": "Restricted‑Top *(not defined)*"
+        },
+        {
+          "id": 1761233271856.128,
+          "category": "Information Security (InfoSec)",
+          "question": "Who signs off on the annual InfoSec policy review?",
+          "options": [
+            "IT Support Lead",
+            "CISO & Legal Head",
+            "HR Manager",
+            "Procurement"
+          ],
+          "correctAnswer": "CISO & Legal Head"
+        },
+        {
+          "id": 1761233271964.123,
+          "category": "Information Security (InfoSec)",
+          "question": "Which type of access review is mandated?",
+          "options": [
+            "Quarterly for all accounts",
+            "Annual for privileged accounts",
+            "Monthly for guest accounts",
+            "No review required"
+          ],
+          "correctAnswer": "Annual for privileged accounts"
+        },
+        {
+          "id": 1761233271571.5923,
+          "category": "Information Security (InfoSec)",
+          "question": "Which activity must be performed during a security tabletop exercise?",
+          "options": [
+            "Deploy new hardware",
+            "Simulate a ransomware incident",
+            "Install new software",
+            "Conduct a fire drill"
+          ],
+          "correctAnswer": "Simulate a ransomware incident"
+        }
+      ]
     }
   ],
   "emailLog": [
@@ -2986,6 +3352,17 @@
           "theme": {
             "iconBg": "bg-neutral-100",
             "iconColor": "text-neutral-500"
+          }
+        },
+        {
+          "id": "information_security_(infosec)_1761233270968.9993",
+          "title": "Information Security (InfoSec)",
+          "questions": 30,
+          "iconKey": "Key",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-rose-100",
+            "iconColor": "text-rose-500"
           }
         }
       ]
