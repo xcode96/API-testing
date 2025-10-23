@@ -93,6 +93,66 @@
       "role": "admin",
       "answers": [],
       "moduleProgress": {}
+    },
+    {
+      "id": 1761213597957,
+      "fullName": "1",
+      "username": "1",
+      "password": "1",
+      "trainingStatus": "in-progress",
+      "lastScore": null,
+      "role": "user",
+      "assignedExams": [
+        "server_exam"
+      ],
+      "answers": [
+        {
+          "questionId": 1761213506722,
+          "questionText": "Where should server logs be aggregated for analysis?",
+          "selectedAnswer": "In a centralized Security Information and Event Management (SIEM) system",
+          "correctAnswer": "In a centralized Security Information and Event Management (SIEM) system",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761213506723,
+          "questionText": "What is the minimum recommended retention period for security logs?",
+          "selectedAnswer": "90 days",
+          "correctAnswer": "90 days",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761213506724,
+          "questionText": "An alert should trigger when CPU usage exceeds 90 % for more than:",
+          "selectedAnswer": "5 seconds",
+          "correctAnswer": "10 minutes",
+          "isCorrect": false
+        },
+        {
+          "questionId": 1761213506719,
+          "questionText": "What does the principle of least privilege require?",
+          "selectedAnswer": "Limiting each account to only the permissions needed to perform its job",
+          "correctAnswer": "Limiting each account to only the permissions needed to perform its job",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761213506720,
+          "questionText": "What is Role‑Based Access Control (RBAC)?",
+          "selectedAnswer": "Assigning permissions based on a user’s job role rather than each individual account",
+          "correctAnswer": "Assigning permissions based on a user’s job role rather than each individual account",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761213506721,
+          "questionText": "Is Multi‑Factor Authentication required for privileged accounts?",
+          "selectedAnswer": "Yes, MFA must be enabled for any privileged access",
+          "correctAnswer": "Yes, MFA must be enabled for any privileged access",
+          "isCorrect": true
+        }
+      ],
+      "moduleProgress": {
+        "monitoring_&_logging_1761213506681": "Completed",
+        "access_control_&_iam_1761213506681": "Completed"
+      }
     }
   ],
   "quizzes": [
@@ -1409,9 +1469,713 @@
           "correctAnswer": "The visualization could mislead or manipulate the audience's interpretation of the data."
         }
       ]
+    },
+    {
+      "id": "password_&_account_security_1761213506681",
+      "name": "Password & Account Security",
+      "questions": [
+        {
+          "question": "What is the primary purpose of Multi‑Factor Authentication (MFA)?",
+          "options": [
+            "To make passwords longer",
+            "To add an extra layer of security beyond just a password",
+            "To share your account with a colleague safely",
+            "To automatically change your password every month"
+          ],
+          "correctAnswer": "To add an extra layer of security beyond just a password",
+          "id": 1761213506681,
+          "category": "Password & Account Security"
+        },
+        {
+          "question": "Which of these is the strongest password?",
+          "options": [
+            "Password123!",
+            "MyDogFido2024",
+            "R#8k&Zp@w!q2v$J9",
+            "qwertyuiop"
+          ],
+          "correctAnswer": "R#8k&Zp@w!q2v$J9",
+          "id": 1761213506682,
+          "category": "Password & Account Security"
+        },
+        {
+          "question": "What is the recommended minimum length for a strong corporate password?",
+          "options": [
+            "8 characters",
+            "10 characters",
+            "12 characters",
+            "16 characters"
+          ],
+          "correctAnswer": "12 characters",
+          "id": 1761213506683,
+          "category": "Password & Account Security"
+        }
+      ]
+    },
+    {
+      "id": "data_protection_&_handling_1761213506681",
+      "name": "Data Protection & Handling",
+      "questions": [
+        {
+          "question": "Where should you store confidential company files?",
+          "options": [
+            "On your personal Google Drive",
+            "In your email drafts folder",
+            "In company‑approved cloud storage or network drives",
+            "On a USB stick you keep on your desk"
+          ],
+          "correctAnswer": "In company‑approved cloud storage or network drives",
+          "id": 1761213506684,
+          "category": "Data Protection & Handling"
+        },
+        {
+          "question": "What does “data classification” help you do?",
+          "options": [
+            "Delete old files automatically",
+            "Understand the sensitivity of data and how to handle it",
+            "Share files more quickly with anyone",
+            "Encrypt your entire hard drive"
+          ],
+          "correctAnswer": "Understand the sensitivity of data and how to handle it",
+          "id": 1761213506685,
+          "category": "Data Protection & Handling"
+        },
+        {
+          "question": "What is the best practice for disposing of paper that contains confidential information?",
+          "options": [
+            "Recycle it in the office bin",
+            "Shred it before disposal",
+            "Throw it in regular trash",
+            "Burn it in an open fire"
+          ],
+          "correctAnswer": "Shred it before disposal",
+          "id": 1761213506686,
+          "category": "Data Protection & Handling"
+        }
+      ]
+    },
+    {
+      "id": "email_&_phishing_1761213506681",
+      "name": "Email & Phishing",
+      "questions": [
+        {
+          "question": "You receive an unexpected email with a link to reset your password. What should you do?",
+          "options": [
+            "Click the link and reset your password immediately",
+            "Forward the email to the IT department, then delete it",
+            "Ignore and delete the email without clicking the link",
+            "Reply to ask if the sender is legitimate"
+          ],
+          "correctAnswer": "Ignore and delete the email without clicking the link",
+          "id": 1761213506687,
+          "category": "Email & Phishing"
+        },
+        {
+          "question": "Which indicator most commonly suggests an email is a phishing attempt?",
+          "options": [
+            "A personalized greeting with your full name",
+            "A misspelled sender domain",
+            "An email sent from your company’s domain",
+            "An email with a professional signature"
+          ],
+          "correctAnswer": "A misspelled sender domain",
+          "id": 1761213506688,
+          "category": "Email & Phishing"
+        },
+        {
+          "question": "What should you do if you receive a suspicious attachment?",
+          "options": [
+            "Open it to see what it is",
+            "Delete the email and ignore it",
+            "Forward it to the IT/security team for analysis",
+            "Save it for later review"
+          ],
+          "correctAnswer": "Forward it to the IT/security team for analysis",
+          "id": 1761213506689,
+          "category": "Email & Phishing"
+        },
+        {
+          "question": "Why can the “display name” in an email be spoofed?",
+          "options": [
+            "Because the mail server always validates the name",
+            "Because email protocols separate the visible name from the actual sending address",
+            "Because the recipient’s inbox changes it automatically",
+            "Because the message is encrypted"
+          ],
+          "correctAnswer": "Because email protocols separate the visible name from the actual sending address",
+          "id": 1761213506690,
+          "category": "Email & Phishing"
+        }
+      ]
+    },
+    {
+      "id": "device_&_internet_usage_1761213506681",
+      "name": "Device & Internet Usage",
+      "questions": [
+        {
+          "question": "Why is it risky to use public Wi‑Fi without a VPN for work?",
+          "options": [
+            "It can be slow and unreliable",
+            "Attackers on the same network can intercept your data",
+            "It uses up your mobile data plan",
+            "It is always safe if the Wi‑Fi has a password"
+          ],
+          "correctAnswer": "Attackers on the same network can intercept your data",
+          "id": 1761213506691,
+          "category": "Device & Internet Usage"
+        },
+        {
+          "question": "Which action is recommended when using a personal device for work tasks?",
+          "options": [
+            "Install corporate endpoint security software",
+            "Disable all updates",
+            "Share the device password with coworkers",
+            "Use it without any security controls"
+          ],
+          "correctAnswer": "Install corporate endpoint security software",
+          "id": 1761213506692,
+          "category": "Device & Internet Usage"
+        },
+        {
+          "question": "What is the safest way to browse the internet on a public computer?",
+          "options": [
+            "Use the computer’s built‑in browser without any extra steps",
+            "Connect via a trusted VPN service",
+            "Turn off the firewall",
+            "Install a browser extension from an unknown source"
+          ],
+          "correctAnswer": "Connect via a trusted VPN service",
+          "id": 1761213506693,
+          "category": "Device & Internet Usage"
+        }
+      ]
+    },
+    {
+      "id": "physical_security_1761213506681",
+      "name": "Physical Security",
+      "questions": [
+        {
+          "question": "What does a “clean desk policy” primarily help prevent?",
+          "options": [
+            "Making the office look messy",
+            "Losing your coffee mug",
+            "Unauthorized access to sensitive information left on a desk",
+            "Forgetting your tasks for the day"
+          ],
+          "correctAnswer": "Unauthorized access to sensitive information left on a desk",
+          "id": 1761213506694,
+          "category": "Physical Security"
+        },
+        {
+          "question": "When leaving the office, where should you store your laptop?",
+          "options": [
+            "Leave it on the desk",
+            "Lock it in a cabinet or safe",
+            "Put it in a drawer without a lock",
+            "Give it to a colleague"
+          ],
+          "correctAnswer": "Lock it in a cabinet or safe",
+          "id": 1761213506695,
+          "category": "Physical Security"
+        },
+        {
+          "question": "What is the primary purpose of a security badge?",
+          "options": [
+            "To identify employee’s favorite coffee",
+            "To control physical access to restricted areas",
+            "To give discounts at the cafeteria",
+            "To track work hours"
+          ],
+          "correctAnswer": "To control physical access to restricted areas",
+          "id": 1761213506696,
+          "category": "Physical Security"
+        }
+      ]
+    },
+    {
+      "id": "incident_reporting_1761213506681",
+      "name": "Incident Reporting",
+      "questions": [
+        {
+          "question": "You accidentally click on a suspicious link in an email. What should be your immediate next step?",
+          "options": [
+            "Disconnect your computer from the network and report it to IT immediately",
+            "Run a virus scan and hope for the best",
+            "Delete the email and don’t tell anyone",
+            "Restart your computer"
+          ],
+          "correctAnswer": "Disconnect your computer from the network and report it to IT immediately",
+          "id": 1761213506697,
+          "category": "Incident Reporting"
+        },
+        {
+          "question": "If you suspect a malware infection on your workstation, who should you contact first?",
+          "options": [
+            "Your manager",
+            "The IT security team",
+            "The cleaning crew",
+            "A coworker outside IT"
+          ],
+          "correctAnswer": "The IT security team",
+          "id": 1761213506698,
+          "category": "Incident Reporting"
+        },
+        {
+          "question": "When should a security incident be reported?",
+          "options": [
+            "Only after it causes data loss",
+            "As soon as it is discovered",
+            "During the weekly team meeting",
+            "At the end of the month"
+          ],
+          "correctAnswer": "As soon as it is discovered",
+          "id": 1761213506699,
+          "category": "Incident Reporting"
+        }
+      ]
+    },
+    {
+      "id": "social_engineering_1761213506681",
+      "name": "Social Engineering",
+      "questions": [
+        {
+          "question": "An individual calls you claiming to be from IT support and asks for your password to fix an issue. How should you respond?",
+          "options": [
+            "Provide your password, as they are from IT",
+            "Ask them for their name and employee ID first",
+            "Refuse the request and report the call to the official IT department using a known number",
+            "Give them a temporary password"
+          ],
+          "correctAnswer": "Refuse the request and report the call to the official IT department using a known number",
+          "id": 1761213506700,
+          "category": "Social Engineering"
+        },
+        {
+          "question": "What is a common tactic used in pretexting attacks?",
+          "options": [
+            "Offering free software",
+            "Impersonating a trusted authority figure to obtain information",
+            "Sending newsletters",
+            "Scheduling meetings"
+          ],
+          "correctAnswer": "Impersonating a trusted authority figure to obtain information",
+          "id": 1761213506701,
+          "category": "Social Engineering"
+        },
+        {
+          "question": "Which scenario is a sign of a vishing (voice‑phishing) attack?",
+          "options": [
+            "A caller asks you to press a button on your phone",
+            "A caller requests your login credentials over the phone",
+            "A caller wants to schedule a video conference",
+            "A caller informs you about a weather forecast"
+          ],
+          "correctAnswer": "A caller requests your login credentials over the phone",
+          "id": 1761213506702,
+          "category": "Social Engineering"
+        }
+      ]
+    },
+    {
+      "id": "acceptable_use_&_compliance_1761213506681",
+      "name": "Acceptable Use & Compliance",
+      "questions": [
+        {
+          "question": "Is it acceptable to use your company email for personal activities like online shopping?",
+          "options": [
+            "Yes, as long as it’s not excessive",
+            "Only for emergencies",
+            "No, company resources should be used for business purposes only",
+            "Yes, it is more secure than a personal email"
+          ],
+          "correctAnswer": "No, company resources should be used for business purposes only",
+          "id": 1761213506703,
+          "category": "Acceptable Use & Compliance"
+        },
+        {
+          "question": "Which of the following activities typically violates an organization’s acceptable‑use policy?",
+          "options": [
+            "Using a company printer for work documents",
+            "Installing unauthorized software on a work computer",
+            "Accessing the corporate intranet",
+            "Attending a virtual meeting"
+          ],
+          "correctAnswer": "Installing unauthorized software on a work computer",
+          "id": 1761213506704,
+          "category": "Acceptable Use & Compliance"
+        },
+        {
+          "question": "How often should employees review the company’s acceptable‑use policy?",
+          "options": [
+            "Every day",
+            "Once a year",
+            "Only when a new policy is issued",
+            "Never; it’s optional"
+          ],
+          "correctAnswer": "Once a year",
+          "id": 1761213506705,
+          "category": "Acceptable Use & Compliance"
+        }
+      ]
+    },
+    {
+      "id": "remote_work_&_byod_1761213506681",
+      "name": "Remote Work & BYOD",
+      "questions": [
+        {
+          "question": "When working from home, which of the following is most important for security?",
+          "options": [
+            "Having a comfortable chair",
+            "Using a secure Wi‑Fi network with a strong password",
+            "Taking breaks every hour",
+            "Having a large monitor"
+          ],
+          "correctAnswer": "Using a secure Wi‑Fi network with a strong password",
+          "id": 1761213506706,
+          "category": "Remote Work & BYOD"
+        },
+        {
+          "question": "Which device is least appropriate for handling confidential company data from home?",
+          "options": [
+            "A corporate‑managed laptop",
+            "A personal smartphone without MDM",
+            "A desktop computer with company VPN installed",
+            "A tablet with encrypted storage"
+          ],
+          "correctAnswer": "A personal smartphone without MDM",
+          "id": 1761213506707,
+          "category": "Remote Work & BYOD"
+        },
+        {
+          "question": "What is a best practice for BYOD (Bring Your Own Device) security?",
+          "options": [
+            "Allow any app to be installed",
+            "Enforce device encryption and password protection",
+            "Disable all security updates",
+            "Share device credentials with coworkers"
+          ],
+          "correctAnswer": "Enforce device encryption and password protection",
+          "id": 1761213506708,
+          "category": "Remote Work & BYOD"
+        }
+      ]
+    },
+    {
+      "id": "backup_&_recovery_1761213506681",
+      "name": "Backup & Recovery",
+      "questions": [
+        {
+          "question": "What is the primary reason for regularly backing up company data?",
+          "options": [
+            "To free up space on your computer",
+            "To ensure data can be recovered in case of loss or corruption",
+            "To comply with email retention policies",
+            "To make files easier to search"
+          ],
+          "correctAnswer": "To ensure data can be recovered in case of loss or corruption",
+          "id": 1761213506709,
+          "category": "Backup & Recovery"
+        },
+        {
+          "question": "Where should backup copies be stored to reduce the risk of loss from a site‑specific disaster?",
+          "options": [
+            "On the same hard drive as the original data",
+            "Off‑site or in a cloud service with versioning",
+            "On an employee’s personal laptop",
+            "In a public folder on the network"
+          ],
+          "correctAnswer": "Off‑site or in a cloud service with versioning",
+          "id": 1761213506710,
+          "category": "Backup & Recovery"
+        },
+        {
+          "question": "How often should critical business data be backed up?",
+          "options": [
+            "Once a year",
+            "Daily or more frequently depending on change rate",
+            "Only when the server is upgraded",
+            "Whenever you feel like it"
+          ],
+          "correctAnswer": "Daily or more frequently depending on change rate",
+          "id": 1761213506711,
+          "category": "Backup & Recovery"
+        }
+      ]
+    },
+    {
+      "id": "server_hardening_1761213506681",
+      "name": "Server Hardening",
+      "questions": [
+        {
+          "question": "Why should unused services be disabled on a server?",
+          "options": [
+            "To reduce the attack surface",
+            "To improve CPU performance",
+            "To free up disk space",
+            "To make the OS look cleaner"
+          ],
+          "correctAnswer": "To reduce the attack surface",
+          "id": 1761213506712,
+          "category": "Server Hardening"
+        },
+        {
+          "question": "Which configuration reduces the attack surface of a database server?",
+          "options": [
+            "Allowing remote root login from any IP address",
+            "Running the database on the default port with default credentials",
+            "Restricting network access to trusted IP ranges and using strong authentication",
+            "Disabling all firewall rules"
+          ],
+          "correctAnswer": "Restricting network access to trusted IP ranges and using strong authentication",
+          "id": 1761213506713,
+          "category": "Server Hardening"
+        },
+        {
+          "question": "What does File Integrity Monitoring (FIM) help detect on a server?",
+          "options": [
+            "Changes to critical system files or configuration files that could indicate tampering",
+            "How fast the hard drive spins",
+            "Number of users logged in",
+            "Amount of RAM used"
+          ],
+          "correctAnswer": "Changes to critical system files or configuration files that could indicate tampering",
+          "id": 1761213506714,
+          "category": "Server Hardening"
+        },
+        {
+          "question": "Which SSH configuration best follows hardening guidelines?",
+          "options": [
+            "PermitRootLogin yes and PasswordAuthentication yes",
+            "PermitRootLogin no and use key‑based authentication only",
+            "Allow password authentication for all users",
+            "Disable all encryption"
+          ],
+          "correctAnswer": "PermitRootLogin no and use key‑based authentication only",
+          "id": 1761213506715,
+          "category": "Server Hardening"
+        }
+      ]
+    },
+    {
+      "id": "patch_management_1761213506681",
+      "name": "Patch Management",
+      "questions": [
+        {
+          "question": "What is the recommended timeframe for applying critical security patches?",
+          "options": [
+            "Within 72 hours after testing and approval",
+            "Within 30 days",
+            "Only during the annual maintenance window",
+            "Never, patches are optional"
+          ],
+          "correctAnswer": "Within 72 hours after testing and approval",
+          "id": 1761213506716,
+          "category": "Patch Management"
+        },
+        {
+          "question": "Who must approve a patch before it is deployed to production servers?",
+          "options": [
+            "The change advisory board (CAB)",
+            "All end‑users",
+            "The marketing department",
+            "The cleaning crew"
+          ],
+          "correctAnswer": "The change advisory board (CAB)",
+          "id": 1761213506717,
+          "category": "Patch Management"
+        },
+        {
+          "question": "Which tool is commonly used for automated patch deployment on Windows servers?",
+          "options": [
+            "WSUS (Windows Server Update Services)",
+            "Microsoft Word",
+            "Adobe Photoshop",
+            "Slack"
+          ],
+          "correctAnswer": "WSUS (Windows Server Update Services)",
+          "id": 1761213506718,
+          "category": "Patch Management"
+        }
+      ]
+    },
+    {
+      "id": "access_control_&_iam_1761213506681",
+      "name": "Access Control & IAM",
+      "questions": [
+        {
+          "question": "What does the principle of least privilege require?",
+          "options": [
+            "Giving every user admin rights",
+            "Limiting each account to only the permissions needed to perform its job",
+            "Allowing all users to access all data",
+            "Disabling all user accounts"
+          ],
+          "correctAnswer": "Limiting each account to only the permissions needed to perform its job",
+          "id": 1761213506719,
+          "category": "Access Control & IAM"
+        },
+        {
+          "question": "What is Role‑Based Access Control (RBAC)?",
+          "options": [
+            "Assigning permissions based on a user’s job role rather than each individual account",
+            "Giving everyone the same permissions",
+            "Blocking all access to the network",
+            "Encrypting all files automatically"
+          ],
+          "correctAnswer": "Assigning permissions based on a user’s job role rather than each individual account",
+          "id": 1761213506720,
+          "category": "Access Control & IAM"
+        },
+        {
+          "question": "Is Multi‑Factor Authentication required for privileged accounts?",
+          "options": [
+            "No, a password is enough",
+            "Yes, MFA must be enabled for any privileged access",
+            "Only for accounts used on weekends",
+            "Only if the user requests it"
+          ],
+          "correctAnswer": "Yes, MFA must be enabled for any privileged access",
+          "id": 1761213506721,
+          "category": "Access Control & IAM"
+        }
+      ]
+    },
+    {
+      "id": "monitoring_&_logging_1761213506681",
+      "name": "Monitoring & Logging",
+      "questions": [
+        {
+          "question": "Where should server logs be aggregated for analysis?",
+          "options": [
+            "On each individual server’s local hard‑drive only",
+            "In a centralized Security Information and Event Management (SIEM) system",
+            "Printed out and filed in a cabinet",
+            "Sent to a public forum"
+          ],
+          "correctAnswer": "In a centralized Security Information and Event Management (SIEM) system",
+          "id": 1761213506722,
+          "category": "Monitoring & Logging"
+        },
+        {
+          "question": "What is the minimum recommended retention period for security logs?",
+          "options": [
+            "7 days",
+            "30 days",
+            "90 days",
+            "5 years"
+          ],
+          "correctAnswer": "90 days",
+          "id": 1761213506723,
+          "category": "Monitoring & Logging"
+        },
+        {
+          "question": "An alert should trigger when CPU usage exceeds 90 % for more than:",
+          "options": [
+            "5 seconds",
+            "1 minute",
+            "10 minutes",
+            "1 hour"
+          ],
+          "correctAnswer": "10 minutes",
+          "id": 1761213506724,
+          "category": "Monitoring & Logging"
+        }
+      ]
+    },
+    {
+      "id": "encryption_1761213506681",
+      "name": "Encryption",
+      "questions": [
+        {
+          "question": "Which protocol should be used to protect data‑in‑transit for web services?",
+          "options": [
+            "TLS 1.2 or higher",
+            "FTP",
+            "HTTP",
+            "Telnet"
+          ],
+          "correctAnswer": "TLS 1.2 or higher",
+          "id": 1761213506725,
+          "category": "Encryption"
+        },
+        {
+          "question": "What encryption technology is recommended for full‑disk encryption on Windows laptops?",
+          "options": [
+            "BitLocker",
+            "RAR",
+            "ZIP",
+            "AES‑256‑CBC only for individual files"
+          ],
+          "correctAnswer": "BitLocker",
+          "id": 1761213506726,
+          "category": "Encryption"
+        },
+        {
+          "question": "Where should API keys, passwords, and certificates be stored for server applications?",
+          "options": [
+            "Hard‑coded in source code",
+            "In a dedicated secret‑management solution (e.g., HashiCorp Vault, Azure Key Vault)",
+            "In a publicly accessible wiki",
+            "On a sticky note attached to the monitor"
+          ],
+          "correctAnswer": "In a dedicated secret‑management solution (e.g., HashiCorp Vault, Azure Key Vault)",
+          "id": 1761213506727,
+          "category": "Encryption"
+        }
+      ]
+    },
+    {
+      "id": "disaster_recovery_&_business_continuity_1761213506681",
+      "name": "Disaster Recovery & Business Continuity",
+      "questions": [
+        {
+          "question": "What does Recovery Time Objective (RTO) define?",
+          "options": [
+            "The maximum acceptable amount of data loss",
+            "The maximum acceptable downtime after a disruption",
+            "The total cost of a disaster",
+            "The number of backups retained"
+          ],
+          "correctAnswer": "The maximum acceptable downtime after a disruption",
+          "id": 1761213506728,
+          "category": "Disaster Recovery & Business Continuity"
+        },
+        {
+          "question": "A disaster‑recovery site should be:",
+          "options": [
+            "In the same building as the primary data centre",
+            "Geographically distant enough to avoid the same regional disaster",
+            "Located on the same floor as the primary site",
+            "In a public park"
+          ],
+          "correctAnswer": "Geographically distant enough to avoid the same regional disaster",
+          "id": 1761213506729,
+          "category": "Disaster Recovery & Business Continuity"
+        },
+        {
+          "question": "How often should the DR plan be tested?",
+          "options": [
+            "Every week",
+            "Semi‑annually",
+            "Only after a real disaster",
+            "Never"
+          ],
+          "correctAnswer": "Semi‑annually",
+          "id": 1761213506730,
+          "category": "Disaster Recovery & Business Continuity"
+        }
+      ]
     }
   ],
-  "emailLog": [],
+  "emailLog": [
+    {
+      "to": "admin@example.com",
+      "subject": "New User Registered",
+      "body": "A new user has been registered:\n\nName: 1\nUsername: 1\nRole: user\nAssigned Exams: server_exam",
+      "id": 1761213597957,
+      "timestamp": "2025-10-23T09:59:57.957Z"
+    }
+  ],
   "settings": {
     "logo": null,
     "companyFullName": "Cyber Security Training Consortium",
@@ -1721,6 +2485,182 @@
           "theme": {
             "iconBg": "bg-yellow-100",
             "iconColor": "text-yellow-500"
+          }
+        },
+        {
+          "id": "password_&_account_security_1761213506681",
+          "title": "Password & Account Security",
+          "questions": 3,
+          "iconKey": "Device",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-indigo-100",
+            "iconColor": "text-indigo-500"
+          }
+        },
+        {
+          "id": "data_protection_&_handling_1761213506681",
+          "title": "Data Protection & Handling",
+          "questions": 3,
+          "iconKey": "Lock",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-cyan-100",
+            "iconColor": "text-cyan-500"
+          }
+        },
+        {
+          "id": "email_&_phishing_1761213506681",
+          "title": "Email & Phishing",
+          "questions": 4,
+          "iconKey": "Warning",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-orange-100",
+            "iconColor": "text-orange-500"
+          }
+        },
+        {
+          "id": "device_&_internet_usage_1761213506681",
+          "title": "Device & Internet Usage",
+          "questions": 3,
+          "iconKey": "ChatBubble",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-teal-100",
+            "iconColor": "text-teal-500"
+          }
+        },
+        {
+          "id": "physical_security_1761213506681",
+          "title": "Physical Security",
+          "questions": 3,
+          "iconKey": "Check",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-lime-100",
+            "iconColor": "text-lime-500"
+          }
+        },
+        {
+          "id": "incident_reporting_1761213506681",
+          "title": "Incident Reporting",
+          "questions": 3,
+          "iconKey": "Home",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-fuchsia-100",
+            "iconColor": "text-fuchsia-500"
+          }
+        },
+        {
+          "id": "social_engineering_1761213506681",
+          "title": "Social Engineering",
+          "questions": 3,
+          "iconKey": "Clock",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-sky-100",
+            "iconColor": "text-sky-500"
+          }
+        },
+        {
+          "id": "acceptable_use_&_compliance_1761213506681",
+          "title": "Acceptable Use & Compliance",
+          "questions": 3,
+          "iconKey": "Users",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-red-100",
+            "iconColor": "text-red-500"
+          }
+        },
+        {
+          "id": "remote_work_&_byod_1761213506681",
+          "title": "Remote Work & BYOD",
+          "questions": 3,
+          "iconKey": "DocumentText",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-green-100",
+            "iconColor": "text-green-500"
+          }
+        },
+        {
+          "id": "backup_&_recovery_1761213506681",
+          "title": "Backup & Recovery",
+          "questions": 3,
+          "iconKey": "Server",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-yellow-100",
+            "iconColor": "text-yellow-500"
+          }
+        },
+        {
+          "id": "server_hardening_1761213506681",
+          "title": "Server Hardening",
+          "questions": 4,
+          "iconKey": "Cog",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-purple-100",
+            "iconColor": "text-purple-500"
+          }
+        },
+        {
+          "id": "patch_management_1761213506681",
+          "title": "Patch Management",
+          "questions": 3,
+          "iconKey": "Scale",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-pink-100",
+            "iconColor": "text-pink-500"
+          }
+        },
+        {
+          "id": "access_control_&_iam_1761213506681",
+          "title": "Access Control & IAM",
+          "questions": 3,
+          "iconKey": "ChartBar",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-blue-100",
+            "iconColor": "text-blue-500"
+          }
+        },
+        {
+          "id": "monitoring_&_logging_1761213506681",
+          "title": "Monitoring & Logging",
+          "questions": 3,
+          "iconKey": "Briefcase",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-gray-100",
+            "iconColor": "text-gray-500"
+          }
+        },
+        {
+          "id": "encryption_1761213506681",
+          "title": "Encryption",
+          "questions": 3,
+          "iconKey": "ShieldCheck",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-stone-100",
+            "iconColor": "text-stone-500"
+          }
+        },
+        {
+          "id": "disaster_recovery_&_business_continuity_1761213506681",
+          "title": "Disaster Recovery & Business Continuity",
+          "questions": 3,
+          "iconKey": "GlobeAlt",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-zinc-100",
+            "iconColor": "text-zinc-500"
           }
         }
       ]
