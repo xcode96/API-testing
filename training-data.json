@@ -6276,6 +6276,360 @@
           "correctAnswer": "Log parsing, alert triage, escalation procedures"
         }
       ]
+    },
+    {
+      "id": "management_&_governance_1761234133160.8538",
+      "name": "Management & Governance",
+      "questions": [
+        {
+          "id": 1761234133823.6255,
+          "category": "Management & Governance",
+          "question": "Who is the policy owner for overall IT governance?",
+          "options": [
+            "CIO",
+            "CISO",
+            "HR",
+            "Legal"
+          ],
+          "correctAnswer": "CIO"
+        },
+        {
+          "id": 1761234134145.0835,
+          "category": "Management & Governance",
+          "question": "The IT Steering Committee meets:",
+          "options": [
+            "Daily",
+            "Monthly"
+          ],
+          "correctAnswer": "Monthly"
+        },
+        {
+          "id": 1761234133621.425,
+          "category": "Management & Governance",
+          "question": "Which role is responsible for InfoSec operations?",
+          "options": [
+            "CIO",
+            "CISO",
+            "HR",
+            "Finance"
+          ],
+          "correctAnswer": "CISO"
+        },
+        {
+          "id": 1761234133845.9482,
+          "category": "Management & Governance",
+          "question": "Which of the following cannot be a defined risk‑owner?",
+          "options": [
+            "Application Owner",
+            "Office cleaning staff"
+          ],
+          "correctAnswer": "Office cleaning staff"
+        },
+        {
+          "id": 1761234133601.377,
+          "category": "Management & Governance",
+          "question": "All policy changes must be approved by:",
+          "options": [
+            "Any manager",
+            "Policy Owner & Steering Committee"
+          ],
+          "correctAnswer": "Policy Owner & Steering Committee"
+        },
+        {
+          "id": 1761234133998.9277,
+          "category": "Management & Governance",
+          "question": "Which of the following must be part of the risk‑management framework?",
+          "options": [
+            "Colour of the floor tiles",
+            "Risk identification, assessment, mitigation, monitoring",
+            "Budget spreadsheets",
+            "Office party schedule"
+          ],
+          "correctAnswer": "Risk identification, assessment, mitigation, monitoring"
+        },
+        {
+          "id": 1761234133907.9487,
+          "category": "Management & Governance",
+          "question": "Which must be documented for every major project?",
+          "options": [
+            "Number of coffee cups",
+            "Business case, stakeholders, risk register",
+            "Team lunch menu",
+            "Favourite music playlist"
+          ],
+          "correctAnswer": "Business case, stakeholders, risk register"
+        },
+        {
+          "id": 1761234133985.7969,
+          "category": "Management & Governance",
+          "question": "Who signs off on the annual IT budget?",
+          "options": [
+            "IT Support Lead",
+            "CIO / CFO"
+          ],
+          "correctAnswer": "CIO / CFO"
+        },
+        {
+          "id": 1761234133414.9272,
+          "category": "Management & Governance",
+          "question": "Which must be included in the IT charter?",
+          "options": [
+            "Favourite sport",
+            "Mission, scope, authority, responsibilities",
+            "Company mascot",
+            "Coffee brand"
+          ],
+          "correctAnswer": "Mission, scope, authority, responsibilities"
+        },
+        {
+          "id": 1761234133284.3052,
+          "category": "Management & Governance",
+          "question": "Which must be reported to the executive board on a quarterly basis?",
+          "options": [
+            "Number of emojis used",
+            "Key performance indicators, risk status, audit findings",
+            "Office décor updates",
+            "Holiday schedule"
+          ],
+          "correctAnswer": "Key performance indicators, risk status, audit findings"
+        },
+        {
+          "id": 1761234133903.2073,
+          "category": "Management & Governance",
+          "question": "Which must be part of the delegation of authority matrix?",
+          "options": [
+            "Coffee‑break schedule",
+            "Who can approve spend, change, hire",
+            "Favourite snack list",
+            "Employee parking spots"
+          ],
+          "correctAnswer": "Who can approve spend, change, hire"
+        },
+        {
+          "id": 1761234133957.0247,
+          "category": "Management & Governance",
+          "question": "Which must be reviewed annually?",
+          "options": [
+            "Office décor",
+            "Governance framework effectiveness"
+          ],
+          "correctAnswer": "Governance framework effectiveness"
+        },
+        {
+          "id": 1761234133967.1675,
+          "category": "Management & Governance",
+          "question": "Which must be part of the service‑catalogue?",
+          "options": [
+            "Favourite snack",
+            "Service description, SLA, ownership",
+            "Coffee machine model",
+            "Team building activities"
+          ],
+          "correctAnswer": "Service description, SLA, ownership"
+        },
+        {
+          "id": 1761234133973.8625,
+          "category": "Management & Governance",
+          "question": "Which must be communicated when a new policy is released?",
+          "options": [
+            "New coffee flavours",
+            "Purpose, scope, responsibilities, compliance deadline",
+            "Office party invitation",
+            "Employee birthday list"
+          ],
+          "correctAnswer": "Purpose, scope, responsibilities, compliance deadline"
+        },
+        {
+          "id": 1761234133401.4868,
+          "category": "Management & Governance",
+          "question": "Which must be part of the IT risk register?",
+          "options": [
+            "Number of jokes",
+            "Risk description, likelihood, impact, owner, mitigation",
+            "Favourite colour",
+            "Coffee consumption rate"
+          ],
+          "correctAnswer": "Risk description, likelihood, impact, owner, mitigation"
+        },
+        {
+          "id": 1761234133540.8188,
+          "category": "Management & Governance",
+          "question": "Which must be performed after a major governance audit?",
+          "options": [
+            "Celebrate",
+            "Implement corrective actions, update policies"
+          ],
+          "correctAnswer": "Implement corrective actions, update policies"
+        },
+        {
+          "id": 1761234133557.7358,
+          "category": "Management & Governance",
+          "question": "Which must be included in the IT strategic plan?",
+          "options": [
+            "Preferred pizza topping",
+            "Vision, objectives, initiatives, resource plan",
+            "Team outing schedule",
+            "Coffee supplier contract"
+          ],
+          "correctAnswer": "Vision, objectives, initiatives, resource plan"
+        },
+        {
+          "id": 1761234133704.1868,
+          "category": "Management & Governance",
+          "question": "Which must be part of the escalation matrix?",
+          "options": [
+            "Snack preferences",
+            "Contact name, role, response time, escalation level",
+            "Favourite coffee blend",
+            "Office floor plan"
+          ],
+          "correctAnswer": "Contact name, role, response time, escalation level"
+        },
+        {
+          "id": 1761234133557.7676,
+          "category": "Management & Governance",
+          "question": "Which must be tracked in the CAPA system?",
+          "options": [
+            "Number of coffee cups",
+            "Non‑compliance incidents, corrective actions, verification",
+            "Employee birthdays",
+            "Office temperature"
+          ],
+          "correctAnswer": "Non‑compliance incidents, corrective actions, verification"
+        },
+        {
+          "id": 1761234133324.0164,
+          "category": "Management & Governance",
+          "question": "Which must be documented for vendor‑related risks?",
+          "options": [
+            "Favourite colour",
+            "Contract terms, security assessment, monitoring",
+            "Vendor’s favorite coffee",
+            "Office décor style"
+          ],
+          "correctAnswer": "Contract terms, security assessment, monitoring"
+        },
+        {
+          "id": 1761234133262.752,
+          "category": "Management & Governance",
+          "question": "Which must be reviewed before approving a large capital project?",
+          "options": [
+            "Number of emojis",
+            "Business case, ROI, risk assessment",
+            "Preferred lunch menu",
+            "Team’s favourite movie"
+          ],
+          "correctAnswer": "Business case, ROI, risk assessment"
+        },
+        {
+          "id": 1761234133367.1018,
+          "category": "Management & Governance",
+          "question": "Which must be part of the IT policies repository?",
+          "options": [
+            "Cat pictures",
+            "Version control, approval date, owner",
+            "Employee selfies",
+            "Coffee mug designs"
+          ],
+          "correctAnswer": "Version control, approval date, owner"
+        },
+        {
+          "id": 1761234134084.5815,
+          "category": "Management & Governance",
+          "question": "Which must be communicated to all staff after a policy breach?",
+          "options": [
+            "New coffee flavours",
+            "What happened, impact, remediation steps",
+            "Birthday cake details",
+            "Office renovation plan"
+          ],
+          "correctAnswer": "What happened, impact, remediation steps"
+        },
+        {
+          "id": 1761234134024.1633,
+          "category": "Management & Governance",
+          "question": "Which must be part of the continuous‑improvement process?",
+          "options": [
+            "Favorite meme",
+            "Metrics, feedback loops, action plans",
+            "Coffee tasting schedule",
+            "Holiday gift list"
+          ],
+          "correctAnswer": "Metrics, feedback loops, action plans"
+        },
+        {
+          "id": 1761234133533.5122,
+          "category": "Management & Governance",
+          "question": "Which must be documented in the project‑closeout report?",
+          "options": [
+            "Number of jokes told",
+            "Objectives met, lessons learned, financials",
+            "Team’s favourite coffee",
+            "Office decoration notes"
+          ],
+          "correctAnswer": "Objectives met, lessons learned, financials"
+        },
+        {
+          "id": 1761234133919.937,
+          "category": "Management & Governance",
+          "question": "Which must be included in the IT policy awareness campaign?",
+          "options": [
+            "Office décor",
+            "Poster, email, quiz, sign‑off",
+            "Team building outing",
+            "Coffee brand advertisement"
+          ],
+          "correctAnswer": "Poster, email, quiz, sign‑off"
+        },
+        {
+          "id": 1761234133313.4539,
+          "category": "Management & Governance",
+          "question": "Which must be part of the incident‑escalation policy?",
+          "options": [
+            "Coffee‑break timing",
+            "Severity levels, owners, communication channels",
+            "Favourite snack list",
+            "Office temperature thresholds"
+          ],
+          "correctAnswer": "Severity levels, owners, communication channels"
+        },
+        {
+          "id": 1761234133254.343,
+          "category": "Management & Governance",
+          "question": "Which must be reviewed after a merger or acquisition?",
+          "options": [
+            "Favourite snack",
+            "IT asset inventory, contracts, security posture",
+            "Office carpet colour",
+            "Company mascot"
+          ],
+          "correctAnswer": "IT asset inventory, contracts, security posture"
+        },
+        {
+          "id": 1761234133242.3577,
+          "category": "Management & Governance",
+          "question": "Which must be part of the data‑classification framework?",
+          "options": [
+            "Colour of the file folder",
+            "Classification level, handling requirements",
+            "Number of coffee cups per folder",
+            "Employee favourite colour"
+          ],
+          "correctAnswer": "Classification level, handling requirements"
+        },
+        {
+          "id": 1761234133253.9836,
+          "category": "Management & Governance",
+          "question": "Which must be included in the annual governance report?",
+          "options": [
+            "Number of emojis",
+            "Policy compliance status, risk heat‑map, audit results",
+            "Office party attendance",
+            "Coffee consumption trends"
+          ],
+          "correctAnswer": "Policy compliance status, risk heat‑map, audit results"
+        }
+      ]
     }
   ],
   "emailLog": [
@@ -7171,6 +7525,17 @@
           "theme": {
             "iconBg": "bg-green-100",
             "iconColor": "text-green-500"
+          }
+        },
+        {
+          "id": "management_&_governance_1761234133160.8538",
+          "title": "Management & Governance",
+          "questions": 30,
+          "iconKey": "Server",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-yellow-100",
+            "iconColor": "text-yellow-500"
           }
         }
       ]
