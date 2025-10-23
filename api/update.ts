@@ -1,5 +1,7 @@
 import { kv, DATA_KEY } from './db';
 
+export const maxDuration = 60; // Increase timeout to 60 seconds
+
 export default async function POST(request: Request) {
    if (!kv) {
      return new Response(JSON.stringify({ error: 'KV store is not configured.' }), {

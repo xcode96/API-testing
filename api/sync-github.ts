@@ -9,6 +9,8 @@
 // Fix: Import Buffer to make it available in the edge runtime.
 import { Buffer } from 'buffer';
 
+export const maxDuration = 60; // Increase timeout to 60 seconds
+
 // SECURITY WARNING: The PAT should be stored as a secure environment variable in your hosting provider (e.g., Vercel).
 const GITHUB_PAT = process.env.GITHUB_PAT;
 
