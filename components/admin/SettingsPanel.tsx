@@ -236,8 +236,8 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
                                     onChange={handleInputChange} 
                                     placeholder="Requires 'repo' scope" 
                                     className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
-                                 <p className="text-xs text-rose-600 mt-2 p-2 bg-rose-50 border border-rose-200 rounded-md">
-                                    <strong>Security Warning:</strong> Your PAT is saved with your application data. Ensure your data storage and repository are secure.
+                                <p className="text-xs text-slate-600 mt-2 p-2 bg-slate-100 border border-slate-200 rounded-md">
+                                    <strong>Security Note:</strong> Your PAT is required to authorize syncing. It is stored in your application's secure data store and will <strong>not</strong> be published to your GitHub repository.
                                 </p>
                             </div>
                         </div>

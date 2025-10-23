@@ -150,7 +150,13 @@ export const triggerGithubSync = async (data: AppData): Promise<{ success: boole
         }
 
         // Step 2: Prepare the content and create/update the file.
-        const contentToSave = JSON.stringify(data, null, 2);
+        // IMPORTANT: Create a deep copy of the data and remove the PAT before syncing to avoid leaking secrets.
+        const dataToSync = JSON.parse(JSON.stringify(data));
+        if (dataToSync.settings && dataToSync.settings.githubPat) {
+            delete dataToSync.settings.githubPat;
+        }
+
+        const contentToSave = JSON.stringify(dataToSync, null, 2);
         const encodedContent = Buffer.from(contentToSave, 'utf-8').toString('base64');
 
         const payload = {
