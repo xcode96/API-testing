@@ -2114,7 +2114,20 @@
     {
       "id": "demo_1761217489863",
       "name": "Demo",
-      "questions": []
+      "questions": [
+        {
+          "question": "training-data.json",
+          "options": [
+            "training-data.json",
+            "training-data.json",
+            "training-data.json",
+            "training-data.json"
+          ],
+          "correctAnswer": "training-data.json",
+          "id": 1761217513394,
+          "category": "Demo"
+        }
+      ]
     }
   ],
   "emailLog": [],
@@ -2850,7 +2863,7 @@
         {
           "id": "demo_1761217489863",
           "title": "Demo",
-          "questions": 0,
+          "questions": 1,
           "iconKey": "BuildingOffice2",
           "status": "Not Started",
           "theme": {
