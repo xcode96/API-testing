@@ -16,10 +16,6 @@ import { Buffer } from 'buffer';
 
 // SECURITY WARNING: The PAT should be stored as a secure environment variable in your hosting provider (e.g., Vercel).
 const GITHUB_PAT = process.env.GITHUB_PAT;
-const GITHUB_OWNER = 'xcode96';
-const GITHUB_REPO = 'API-testing';
-const FILE_PATH = 'training-data.json';
-const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
 
 // Helper to Base64 encode string content for the GitHub API.
 // In a Node.js/Edge environment, Buffer is the standard way.
@@ -28,12 +24,12 @@ const encodeContent = (content: string): string => {
 };
 
 // Function to get the current SHA of the file, required for updates.
-const getFileSha = async (): Promise<string | undefined> => {
+const getFileSha = async (apiUrl: string, pat: string): Promise<string | undefined> => {
     try {
-        const response = await fetch(GITHUB_API_URL, {
+        const response = await fetch(apiUrl, {
             method: 'GET',
             headers: {
-                'Authorization': `token ${GITHUB_PAT}`,
+                'Authorization': `token ${pat}`,
                 'Accept': 'application/vnd.github.v3+json',
                 'User-Agent': 'Cyber-Training-Dashboard-Sync'
             },
@@ -71,7 +67,21 @@ export default async function POST(request: Request) {
         });
     }
 
-    const fileSha = await getFileSha();
+    const { settings } = appData;
+    const githubOwner = settings?.githubOwner;
+    const githubRepo = settings?.githubRepo;
+    const filePath = settings?.githubPath;
+
+    if (!githubOwner || !githubRepo || !filePath) {
+         return new Response(JSON.stringify({ error: 'GitHub repository details are not configured in application settings.' }), {
+            headers: { 'Content-Type': 'application/json' },
+            status: 400,
+        });
+    }
+    
+    const GITHUB_API_URL = `https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${filePath}`;
+
+    const fileSha = await getFileSha(GITHUB_API_URL, GITHUB_PAT);
     const contentToSave = JSON.stringify(appData, null, 2);
     const encodedContent = encodeContent(contentToSave);
     const commitMessage = `Automated data sync: ${new Date().toISOString()}`;

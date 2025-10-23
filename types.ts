@@ -82,4 +82,7 @@ export interface AppSettings {
   certificationBodyText: string;
   certificationSeal: string | null;
   certificationCycleYears: number;
+  githubOwner?: string;
+  githubRepo?: string;
+  githubPath?: string;
 }

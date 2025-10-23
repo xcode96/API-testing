@@ -138,6 +138,42 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
             <div className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80">
                 <div className="space-y-6">
                     <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
+                        <h3 className="font-semibold text-lg text-slate-700 mb-4">GitHub Repository Configuration</h3>
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-slate-600 mb-1">Repository Owner</label>
+                                <input 
+                                    type="text" 
+                                    name="githubOwner" 
+                                    value={settings.githubOwner || ''} 
+                                    onChange={handleInputChange} 
+                                    placeholder="e.g., your-github-username" 
+                                    className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-slate-600 mb-1">Repository Name</label>
+                                <input 
+                                    type="text" 
+                                    name="githubRepo" 
+                                    value={settings.githubRepo || ''} 
+                                    onChange={handleInputChange} 
+                                    placeholder="e.g., your-repo-name" 
+                                    className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-slate-600 mb-1">File Path in Repo</label>
+                                <input 
+                                    type="text" 
+                                    name="githubPath" 
+                                    value={settings.githubPath || ''} 
+                                    onChange={handleInputChange} 
+                                    placeholder="e.g., data/quiz-data.json" 
+                                    className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
                         <h3 className="font-semibold text-lg text-slate-700 mb-2">GitHub Synchronization</h3>
                         <p className="text-sm text-slate-600 mb-4">
                             This application automatically backs up all user and quiz data to a GitHub repository. For this to work, a secure token must be configured on the server.
