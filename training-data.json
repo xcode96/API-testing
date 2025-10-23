@@ -17,7 +17,8 @@
         "legal_exam",
         "data_analyst_exam",
         "it_developer_policy",
-        "audit_1761233128213"
+        "audit_1761233128213",
+        "audit_1761233417940"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -33,7 +34,8 @@
       "assignedExams": [
         "it_security_policy",
         "it_developer_policy",
-        "audit_1761233128213"
+        "audit_1761233128213",
+        "audit_1761233417940"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -51,7 +53,8 @@
         "server_exam",
         "it_policy_exam",
         "operation_exam",
-        "audit_1761233128213"
+        "audit_1761233128213",
+        "audit_1761233417940"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -67,7 +70,8 @@
       "assignedExams": [
         "it_security_policy",
         "it_policy_exam",
-        "audit_1761233128213"
+        "audit_1761233128213",
+        "audit_1761233417940"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -83,7 +87,8 @@
       "assignedExams": [
         "it_security_policy",
         "data_analyst_exam",
-        "audit_1761233128213"
+        "audit_1761233128213",
+        "audit_1761233417940"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -109,7 +114,8 @@
       "role": "user",
       "assignedExams": [
         "data_analyst_exam",
-        "audit_1761233128213"
+        "audit_1761233128213",
+        "audit_1761233417940"
       ],
       "answers": [
         {
@@ -187,7 +193,8 @@
       "role": "user",
       "assignedExams": [
         "legal_exam",
-        "audit_1761233128213"
+        "audit_1761233128213",
+        "audit_1761233417940"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -202,7 +209,8 @@
       "role": "user",
       "assignedExams": [
         "it_developer_policy",
-        "audit_1761233128213"
+        "audit_1761233128213",
+        "audit_1761233417940"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -2218,6 +2226,11 @@
           "category": "Disaster Recovery & Business Continuity"
         }
       ]
+    },
+    {
+      "id": "audit_1761233417940",
+      "name": "AUDIT",
+      "questions": []
     }
   ],
   "emailLog": [
@@ -2964,6 +2977,23 @@
           "theme": {
             "iconBg": "bg-emerald-100",
             "iconColor": "text-emerald-500"
+          }
+        }
+      ]
+    },
+    {
+      "id": "audit_1761233417940",
+      "title": "AUDIT",
+      "modules": [
+        {
+          "id": "audit_1761233417940",
+          "title": "AUDIT",
+          "questions": 0,
+          "iconKey": "BuildingOffice2",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-neutral-100",
+            "iconColor": "text-neutral-500"
           }
         }
       ]
