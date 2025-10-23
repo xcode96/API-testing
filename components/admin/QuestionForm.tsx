@@ -1,83 +1,201 @@
 
-import React, { useState, useMemo, useEffect } from 'react';
 
-import { Question } from '../../types';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Question, ModuleCategory, Quiz } from '../../types';
 
 interface QuestionFormProps {
-  categories: string[];
+  moduleCategories: ModuleCategory[];
+  quizzes: Quiz[];
   onAddQuestion: (question: Omit<Question, 'id'>) => void;
-  activeCategory: string | null;
+  onAddQuestionToNewCategory: (question: Omit<Question, 'id'>, categoryTitle: string) => void;
+  onAddQuestionToNewSubTopic: (question: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => void;
+  activeFilterId: string | null;
 }
 
 const initialFormState = {
-  category: '',
   question: '',
   options: ['', '', '', ''],
   correctAnswer: '',
 };
 
-const QuestionForm: React.FC<QuestionFormProps> = ({ categories, onAddQuestion, activeCategory }) => {
+const CREATE_NEW_FOLDER_VALUE = '__CREATE_NEW_FOLDER__';
+const CREATE_NEW_SUBTOPIC_VALUE = '__CREATE_NEW_SUBTOPIC__';
+
+const QuestionForm: React.FC<QuestionFormProps> = ({
+  moduleCategories,
+  quizzes,
+  onAddQuestion,
+  onAddQuestionToNewCategory,
+  onAddQuestionToNewSubTopic,
+  activeFilterId,
+}) => {
   const [formData, setFormData] = useState(initialFormState);
+  const [selectedFolderId, setSelectedFolderId] = useState('');
+  const [selectedSubTopicId, setSelectedSubTopicId] = useState('');
+  const [newFolderName, setNewFolderName] = useState('');
+  const [newSubTopicName, setNewSubTopicName] = useState('');
 
   useEffect(() => {
-    // This effect syncs the form's category with the active filter from the parent component.
-    const categoryToSet = activeCategory || (categories.length > 0 ? categories[0] : '');
-    if (categoryToSet && categories.includes(categoryToSet)) {
-      setFormData(prev => ({ ...prev, category: categoryToSet }));
-    } else if (categories.length > 0 && !categories.includes(formData.category)) {
-      // If the current category is no longer valid (e.g., after an import), reset to the first available one.
-      setFormData(prev => ({ ...prev, category: categories[0] }));
+    if (activeFilterId) {
+      setSelectedFolderId(activeFilterId);
+      setSelectedSubTopicId('');
+    } else {
+      setSelectedFolderId('');
+      setSelectedSubTopicId('');
     }
-  }, [activeCategory, categories]);
+  }, [activeFilterId]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const isCreatingNewFolder = selectedFolderId === CREATE_NEW_FOLDER_VALUE;
+  const isCreatingNewSubTopic = selectedSubTopicId === CREATE_NEW_SUBTOPIC_VALUE;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...formData.options];
+    const oldOptionValue = newOptions[index];
     newOptions[index] = value;
-    setFormData(prev => ({ ...prev, options: newOptions }));
+    
+    if (formData.correctAnswer === oldOptionValue) {
+      setFormData(prev => ({ ...prev, options: newOptions, correctAnswer: '' }));
+    } else {
+      setFormData(prev => ({ ...prev, options: newOptions }));
+    }
+  };
+  
+  const handleFolderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setSelectedFolderId(e.target.value);
+      setSelectedSubTopicId('');
+  };
+
+  const handleSubTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setSelectedSubTopicId(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.category && formData.question && formData.options.every(o => o) && formData.correctAnswer) {
-      const newQuestion: Omit<Question, 'id'> = {
-          category: formData.category,
-          question: formData.question,
-          options: formData.options,
-          correctAnswer: formData.correctAnswer,
-      };
-      onAddQuestion(newQuestion);
-      setFormData({
-          ...initialFormState,
-          category: formData.category // keep category selected
-      });
-    } else {
-        alert("Please fill out all fields.");
+
+    const questionPayload: Omit<Question, 'id'> & { category: string } = {
+        category: '',
+        question: formData.question,
+        options: formData.options,
+        correctAnswer: formData.correctAnswer,
+    };
+    
+    if (!formData.question || !formData.options.every(o => o.trim()) || !formData.correctAnswer) {
+        alert("Please fill out the question, all four options, and select a correct answer.");
+        return;
     }
+
+    if (isCreatingNewFolder) {
+        if (!newFolderName.trim()) {
+            alert("Please provide a name for the new exam folder.");
+            return;
+        }
+        questionPayload.category = newFolderName.trim();
+        onAddQuestionToNewCategory(questionPayload, newFolderName.trim());
+        setNewFolderName('');
+        setSelectedFolderId('');
+    } else if (isCreatingNewSubTopic) {
+        if (!newSubTopicName.trim()) {
+            alert("Please provide a name for the new sub-topic.");
+            return;
+        }
+        if (!selectedFolderId) {
+            alert("Please select an exam folder for the new sub-topic.");
+            return;
+        }
+        questionPayload.category = newSubTopicName.trim();
+        onAddQuestionToNewSubTopic(questionPayload, newSubTopicName.trim(), selectedFolderId);
+        setNewSubTopicName('');
+        setSelectedSubTopicId('');
+    } else {
+        if (!selectedSubTopicId) {
+            alert("Please select an exam folder and a sub-topic.");
+            return;
+        }
+        const selectedQuiz = quizzes.find(q => q.id === selectedSubTopicId);
+        if (!selectedQuiz) {
+            alert("Selected sub-topic/quiz not found.");
+            return;
+        }
+        questionPayload.category = selectedQuiz.name;
+        onAddQuestion(questionPayload);
+    }
+    
+    setFormData(initialFormState);
   };
+  
+  const subTopicsForSelectedFolder = useMemo(() => {
+    if (!selectedFolderId || isCreatingNewFolder) return [];
+    const category = moduleCategories.find(c => c.id === selectedFolderId);
+    return category ? category.modules : [];
+  }, [selectedFolderId, moduleCategories, isCreatingNewFolder]);
   
   const validOptions = useMemo(() => formData.options.filter(o => o.trim() !== ''), [formData.options]);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-slate-600 mb-1">Category</label>
+        <label className="block text-sm font-medium text-slate-600 mb-1">Exam Folder</label>
         <select
-          name="category"
-          value={formData.category}
-          onChange={handleInputChange}
+          value={selectedFolderId}
+          onChange={handleFolderChange}
           className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
-          disabled={categories.length === 0}
         >
-          {categories.length === 0 && <option>Create a category first</option>}
-          {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+            <option value="" disabled>-- Select a folder --</option>
+            {moduleCategories.map(cat => <option key={cat.id} value={cat.id}>{cat.title}</option>)}
+            <option value={CREATE_NEW_FOLDER_VALUE}>+ Create new exam folder...</option>
         </select>
       </div>
-      <div>
+
+      {isCreatingNewFolder && (
+        <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
+          <label className="block text-sm font-medium text-slate-700 mb-1">New Folder Name</label>
+          <input
+            type="text"
+            value={newFolderName}
+            onChange={(e) => setNewFolderName(e.target.value)}
+            placeholder="e.g., Finance Department Policy"
+            className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
+            required={isCreatingNewFolder}
+          />
+        </div>
+      )}
+
+      {!isCreatingNewFolder && (
+          <div>
+            <label className="block text-sm font-medium text-slate-600 mb-1">Sub-Topic / Quiz</label>
+            <select
+              value={selectedSubTopicId}
+              onChange={handleSubTopicChange}
+              className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
+              disabled={!selectedFolderId || isCreatingNewFolder}
+            >
+                <option value="" disabled>-- Select a sub-topic --</option>
+                {subTopicsForSelectedFolder.map(mod => <option key={mod.id} value={mod.id}>{mod.title}</option>)}
+                <option value={CREATE_NEW_SUBTOPIC_VALUE}>+ Create new sub-topic...</option>
+            </select>
+          </div>
+      )}
+
+      {isCreatingNewSubTopic && !isCreatingNewFolder && (
+        <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
+          <label className="block text-sm font-medium text-slate-700 mb-1">New Sub-Topic Name</label>
+          <input
+            type="text"
+            value={newSubTopicName}
+            onChange={(e) => setNewSubTopicName(e.target.value)}
+            placeholder="e.g., Anti-Bribery Policy"
+            className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
+            required={isCreatingNewSubTopic}
+          />
+        </div>
+      )}
+
+      <div className="border-t border-slate-200 pt-4 mt-4">
         <label className="block text-sm font-medium text-slate-600 mb-1">Question Text</label>
         <textarea
           name="question"
@@ -85,6 +203,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ categories, onAddQuestion, 
           onChange={handleInputChange}
           rows={3}
           className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
+          required
         />
       </div>
       {formData.options.map((option, index) => (
@@ -95,6 +214,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ categories, onAddQuestion, 
             value={option}
             onChange={(e) => handleOptionChange(index, e.target.value)}
             className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
+            required
           />
         </div>
       ))}
@@ -103,9 +223,10 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ categories, onAddQuestion, 
         <select
           name="correctAnswer"
           value={formData.correctAnswer}
-          onChange={handleInputChange}
+          onChange={(e) => setFormData(prev => ({...prev, correctAnswer: e.target.value}))}
           disabled={validOptions.length === 0}
           className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors disabled:opacity-50"
+          required
         >
           <option value="" disabled>Select the correct answer</option>
           {validOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}

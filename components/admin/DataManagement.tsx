@@ -12,12 +12,12 @@ interface DataManagementProps {
   onDeleteQuestion: (questionId: number) => void;
 }
 
-const Accordion: React.FC<{ title: string; children: React.ReactNode, startOpen?: boolean }> = ({ title, children, startOpen = false }) => {
+const Accordion: React.FC<{ title: React.ReactNode; children: React.ReactNode, startOpen?: boolean }> = ({ title, children, startOpen = false }) => {
     const [isOpen, setIsOpen] = useState(startOpen);
     return (
         <div className="border border-slate-200 rounded-lg bg-white/50">
             <button onClick={() => setIsOpen(!isOpen)} className="w-full flex justify-between items-center p-3 text-left hover:bg-slate-100/80 transition-colors">
-                <span className="font-semibold text-slate-700">{title}</span>
+                <span className="font-semibold text-slate-700 flex-grow text-left">{title}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-slate-500 transition-transform ${isOpen ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
@@ -128,33 +128,22 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategori
         <div className="border-t border-slate-200 pt-6">
           <h3 className="text-xl font-semibold text-slate-800 mb-4">
             {questionFilter 
-                ? moduleCategories.find(c => c.id === questionFilter)?.title 
-                : "All Questions"
+                ? `Editing Folder: ${moduleCategories.find(c => c.id === questionFilter)?.title}`
+                : "All Exam Folders"
             }
           </h3>
             <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
               {filteredModuleCategories.map(category => {
-                const isManageable = category.modules.length === 1 && category.id === category.modules[0].id;
-                const isComplexCategory = category.modules.length > 1;
-                return(
-                <div key={category.id}>
-                   <div className="flex justify-between items-center mb-2 px-1">
-                      <h4 className="text-lg font-bold text-slate-600">{category.title}</h4>
-                      {isManageable && !isComplexCategory && (
-                        <div className="flex items-center gap-2">
-                            <button onClick={() => handleEditCategory(category.id, category.title)} className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors p-1">Edit Name</button>
-                            <button onClick={() => onDeleteExamCategory(category.id)} className="text-xs font-semibold text-rose-500 hover:text-rose-700 transition-colors p-1">Delete Folder</button>
-                        </div>
-                      )}
-                  </div>
-
+                const modulesContent = (
                   <div className="space-y-3">
                     {category.modules.map(module => {
                       const quiz = quizzes.find(q => q.id === module.id);
                       if (!quiz) return null;
+                      
+                      const shouldModuleStartOpen = !!questionFilter;
 
                       return (
-                        <Accordion key={module.id} title={`${module.title} (${quiz.questions.length} questions)`} startOpen={!!questionFilter}>
+                        <Accordion key={module.id} title={`${module.title} (${quiz.questions.length} questions)`} startOpen={shouldModuleStartOpen}>
                             <div className="space-y-4">
                                 {quiz.questions.map(question => (
                                     <div key={question.id} className="p-4 bg-slate-50/80 rounded-lg border border-slate-200">
@@ -179,8 +168,41 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategori
                       );
                     })}
                   </div>
-                </div>
-              )})}
+                );
+                
+                const editDeleteButtons = (
+                    <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                        <button onClick={() => handleEditCategory(category.id, category.title)} className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors p-1">Edit Name</button>
+                        <button onClick={() => onDeleteExamCategory(category.id)} className="text-xs font-semibold text-rose-500 hover:text-rose-700 transition-colors p-1">Delete Folder</button>
+                    </div>
+                );
+
+                if (questionFilter) {
+                    return (
+                        <div key={category.id}>
+                             <div className="flex justify-end items-center mb-2 px-1">
+                                {editDeleteButtons}
+                            </div>
+                            {modulesContent}
+                        </div>
+                    );
+                }
+
+                // "All questions" view: Each category is a collapsible accordion
+                const categoryTitleNode = (
+                    <div className="flex justify-between items-center w-full">
+                        <span>{category.title}</span>
+                        {editDeleteButtons}
+                    </div>
+                );
+
+                return (
+                    <Accordion key={category.id} title={categoryTitleNode} startOpen={false}>
+                        {modulesContent}
+                    </Accordion>
+                );
+
+              })}
             </div>
         </div>
       </div>

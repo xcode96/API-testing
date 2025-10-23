@@ -1,4 +1,5 @@
 
+
 import React, { useState, useMemo } from 'react';
 import { Quiz, User, Email, AppSettings, ModuleCategory, Question } from '../../types';
 import { AdminView } from '../../App';
@@ -23,10 +24,12 @@ interface AdminPanelProps {
   settings: AppSettings;
   onSettingsChange: React.Dispatch<React.SetStateAction<AppSettings | null>>;
   moduleCategories: ModuleCategory[];
-  onCreateExamCategory: (title: string) => void;
+  onCreateExamCategory: (title: string) => string | undefined;
   onEditExamCategory: (categoryId: string, newTitle: string) => void;
   onDeleteExamCategory: (categoryId: string) => void;
   onAddNewQuestion: (question: Omit<Question, 'id'>) => void;
+  onAddQuestionToNewCategory: (question: Omit<Question, 'id'>, categoryTitle: string) => void;
+  onAddQuestionToNewSubTopic: (question: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => void;
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
 }
@@ -48,6 +51,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onEditExamCategory,
   onDeleteExamCategory,
   onAddNewQuestion,
+  onAddQuestionToNewCategory,
+  onAddQuestionToNewSubTopic,
   onUpdateQuestion,
   onDeleteQuestion,
 }) => {
@@ -57,19 +62,14 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   const handleCreateCategory = (e: React.FormEvent) => {
     e.preventDefault();
     if (newCategoryName.trim()) {
-      onCreateExamCategory(newCategoryName.trim());
+      const newId = onCreateExamCategory(newCategoryName.trim());
+      if (newId) {
+        setQuestionFilter(newId);
+      }
       setNewCategoryName('');
     }
   };
   
-  const activeCategoryName = useMemo(() => {
-      if (!questionFilter) return null;
-      // The filter is a module ID, which corresponds to a quiz ID
-      const quiz = quizzes.find(q => q.id === questionFilter);
-      return quiz ? quiz.name : null;
-  }, [questionFilter, quizzes]);
-
-
   const renderActiveView = () => {
     switch (activeView) {
       case 'users':
@@ -131,9 +131,12 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                   <div className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80">
                     <h2 className="text-xl font-semibold text-slate-800 mb-4">Add New Question</h2>
                      <QuestionForm
-                        categories={quizzes.map(q => q.name)}
+                        moduleCategories={moduleCategories}
+                        quizzes={quizzes}
                         onAddQuestion={onAddNewQuestion}
-                        activeCategory={activeCategoryName}
+                        onAddQuestionToNewCategory={onAddQuestionToNewCategory}
+                        onAddQuestionToNewSubTopic={onAddQuestionToNewSubTopic}
+                        activeFilterId={questionFilter}
                       />
                   </div>
                 </div>

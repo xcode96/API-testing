@@ -1,4 +1,5 @@
 
+
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import ModuleList from './components/ModuleList';
@@ -108,13 +109,13 @@ function App() {
     };
   }, [users, quizzes, emailLog, settings, loading]);
 
-  const handleCreateExamCategory = (title: string) => {
+  const handleCreateExamCategory = (title: string): string | undefined => {
     const newId = title.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
     
     // Check for duplicates
-    if (quizzes.some(q => q.id === newId) || moduleCategoriesState.some(c => c.id === newId)) {
+    if (quizzes.some(q => q.name.toLowerCase() === title.toLowerCase()) || moduleCategoriesState.some(c => c.id === newId)) {
       alert("An exam category with a similar name already exists.");
-      return;
+      return undefined;
     }
 
     // Create new empty quiz
@@ -145,6 +146,7 @@ function App() {
       modules: [newModule],
     };
     setModuleCategoriesState(prev => [...prev, newCategory]);
+    return newId;
   };
 
   const handleEditExamCategory = (categoryId: string, newTitle: string) => {
@@ -167,17 +169,28 @@ function App() {
   };
 
   const handleDeleteExamCategory = (categoryId: string) => {
-      if (window.confirm("Are you sure you want to delete this entire exam folder and all its questions? This action cannot be undone.")) {
-          // Remove module category
-          setModuleCategoriesState(prev => prev.filter(c => c.id !== categoryId));
-          // Remove associated quiz
-          setQuizzes(prev => prev.filter(q => q.id !== categoryId));
-          // Un-assign from all users
-          setUsers(prevUsers => prevUsers.map(user => ({
-              ...user,
-              assignedExams: user.assignedExams?.filter(id => id !== categoryId)
-          })));
-      }
+    const categoryToDelete = moduleCategoriesState.find(c => c.id === categoryId);
+    if (!categoryToDelete) {
+        console.error("Category to delete not found:", categoryId);
+        return;
+    }
+
+    if (window.confirm(`Are you sure you want to delete the entire exam folder "${categoryToDelete.title}" and all its questions? This action cannot be undone.`)) {
+        // Get all module IDs within this category
+        const moduleIdsToDelete = new Set(categoryToDelete.modules.map(m => m.id));
+
+        // Remove the module category itself
+        setModuleCategoriesState(prev => prev.filter(c => c.id !== categoryId));
+        
+        // Remove all quizzes that were part of this category
+        setQuizzes(prev => prev.filter(q => !moduleIdsToDelete.has(q.id)));
+        
+        // Un-assign the main exam category from all users
+        setUsers(prevUsers => prevUsers.map(user => ({
+            ...user,
+            assignedExams: user.assignedExams?.filter(id => id !== categoryId)
+        })));
+    }
   };
   
     const handleAddNewQuestion = (newQuestionData: Omit<Question, 'id'>) => {
@@ -198,6 +211,95 @@ function App() {
             }
             return newQuizzes;
         });
+    };
+
+    const handleAddQuestionToNewCategory = (newQuestionData: Omit<Question, 'id'>, categoryTitle: string) => {
+      if (quizzes.some(q => q.name.toLowerCase() === categoryTitle.toLowerCase())) {
+        alert("An exam category with this name already exists. Please add the question to the existing category from the dropdown.");
+        return;
+      }
+      
+      const newId = categoryTitle.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
+
+      const newQuestion: Question = {
+        ...newQuestionData,
+        id: Date.now(),
+      };
+
+      const newQuiz: Quiz = {
+        id: newId,
+        name: categoryTitle,
+        questions: [newQuestion],
+      };
+      
+      const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
+      const iconKeys = Object.keys(ICONS);
+      const newIconKey = iconKeys[totalModules % iconKeys.length];
+      
+      const newModule: Module = {
+        id: newId,
+        title: categoryTitle,
+        questions: 1,
+        icon: ICONS[newIconKey as keyof typeof ICONS],
+        status: ModuleStatus.NotStarted,
+        theme: THEMES[totalModules % THEMES.length],
+      };
+
+      const newCategory: ModuleCategory = {
+        id: newId,
+        title: categoryTitle,
+        modules: [newModule],
+      };
+
+      setQuizzes(prev => [...prev, newQuiz]);
+      setModuleCategoriesState(prev => [...prev, newCategory]);
+      alert(`Category "${categoryTitle}" created and question added!`);
+    };
+
+    const handleAddQuestionToNewSubTopic = (newQuestionData: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => {
+        if (quizzes.some(q => q.name.toLowerCase() === subTopicTitle.toLowerCase())) {
+            alert("A quiz with this sub-topic name already exists. Please choose a different name.");
+            return;
+        }
+
+        const newQuizId = subTopicTitle.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
+        const newQuestion: Question = {
+            ...newQuestionData,
+            id: Date.now(),
+            category: subTopicTitle,
+        };
+        const newQuiz: Quiz = {
+            id: newQuizId,
+            name: subTopicTitle,
+            questions: [newQuestion],
+        };
+
+        const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
+        const iconKeys = Object.keys(ICONS);
+        const newIconKey = iconKeys[totalModules % iconKeys.length];
+        
+        const newModule: Module = {
+            id: newQuizId,
+            title: subTopicTitle,
+            questions: 1,
+            icon: ICONS[newIconKey as keyof typeof ICONS],
+            status: ModuleStatus.NotStarted,
+            theme: THEMES[totalModules % THEMES.length],
+        };
+
+        setQuizzes(prev => [...prev, newQuiz]);
+        setModuleCategoriesState(prev => prev.map(category => {
+            if (category.id === parentCategoryId) {
+                return {
+                    ...category,
+                    modules: [...category.modules, newModule]
+                };
+            }
+            return category;
+        }));
+
+        const parentCategory = moduleCategoriesState.find(c => c.id === parentCategoryId);
+        alert(`Sub-topic "${subTopicTitle}" created in folder "${parentCategory?.title}" and question added!`);
     };
 
     const handleUpdateQuestion = (updatedQuestion: Question) => {
@@ -498,6 +600,8 @@ function App() {
             onEditExamCategory={handleEditExamCategory}
             onDeleteExamCategory={handleDeleteExamCategory}
             onAddNewQuestion={handleAddNewQuestion}
+            onAddQuestionToNewCategory={handleAddQuestionToNewCategory}
+            onAddQuestionToNewSubTopic={handleAddQuestionToNewSubTopic}
             onUpdateQuestion={handleUpdateQuestion}
             onDeleteQuestion={handleDeleteQuestion}
           />
