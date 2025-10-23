@@ -3337,6 +3337,372 @@
           "correctAnswer": "Enable all inbound ports"
         }
       ]
+    },
+    {
+      "id": "application_development_&_deployment_1761233875059.317",
+      "name": "Application Development & Deployment",
+      "questions": [
+        {
+          "id": 1761233875413.462,
+          "category": "Application Development & Deployment",
+          "question": "Which SDLC phase includes threat modelling?",
+          "options": [
+            "Development",
+            "Design",
+            "Testing",
+            "Deployment"
+          ],
+          "correctAnswer": "Design"
+        },
+        {
+          "id": 1761233875096.769,
+          "category": "Application Development & Deployment",
+          "question": "Which secure‑coding guideline must be satisfied?",
+          "options": [
+            "OWASP Top 10",
+            "ISO 9001",
+            "ITIL",
+            "COBIT"
+          ],
+          "correctAnswer": "OWASP Top 10"
+        },
+        {
+          "id": 1761233875928.8843,
+          "category": "Application Development & Deployment",
+          "question": "Secrets (API keys, passwords) must be stored in:",
+          "options": [
+            "Plain‑text files",
+            "Secrets vault (e.g., HashiCorp Vault)",
+            "Email",
+            "Local workstation"
+          ],
+          "correctAnswer": "Secrets vault (e.g., HashiCorp Vault)"
+        },
+        {
+          "id": 1761233875703.7544,
+          "category": "Application Development & Deployment",
+          "question": "Code must be peer‑reviewed before merging. This is an example of:",
+          "options": [
+            "Continuous deployment",
+            "Change control",
+            "Incident response",
+            "Asset management"
+          ],
+          "correctAnswer": "Change control"
+        },
+        {
+          "id": 1761233875906.8174,
+          "category": "Application Development & Deployment",
+          "question": "Which CI/CD tool is explicitly allowed?",
+          "options": [
+            "Jenkins",
+            "GitLab CI / Azure DevOps",
+            "Bamboo",
+            "TeamCity"
+          ],
+          "correctAnswer": "GitLab CI / Azure DevOps"
+        },
+        {
+          "id": 1761233875598.706,
+          "category": "Application Development & Deployment",
+          "question": "Developers are prohibited from having direct production access. This is enforced by:",
+          "options": [
+            "VPN MFA",
+            "RBAC and jump‑servers",
+            "Antivirus",
+            "Disk encryption"
+          ],
+          "correctAnswer": "RBAC and jump‑servers"
+        },
+        {
+          "id": 1761233875798.0605,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is a mandatory pre‑release step?",
+          "options": [
+            "Send email to all staff",
+            "QA + CAB sign‑off",
+            "Update website banner",
+            "Post on social media"
+          ],
+          "correctAnswer": "QA + CAB sign‑off"
+        },
+        {
+          "id": 1761233875387.688,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is not a secure coding practice?",
+          "options": [
+            "Input validation",
+            "Hard‑coding credentials",
+            "Output encoding",
+            "Use of prepared statements"
+          ],
+          "correctAnswer": "Hard‑coding credentials"
+        },
+        {
+          "id": 1761233875358.1995,
+          "category": "Application Development & Deployment",
+          "question": "The owner of the Application Development policy is:",
+          "options": [
+            "HR Manager",
+            "DevOps Lead",
+            "CFO",
+            "Legal Head"
+          ],
+          "correctAnswer": "DevOps Lead"
+        },
+        {
+          "id": 1761233875549.7966,
+          "category": "Application Development & Deployment",
+          "question": "Which environment must NOT contain production data?",
+          "options": [
+            "Staging",
+            "Testing",
+            "Development",
+            "Sandbox"
+          ],
+          "correctAnswer": "Sandbox"
+        },
+        {
+          "id": 1761233875390.324,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is required for container images?",
+          "options": [
+            "No scanning",
+            "Vulnerability scanning before push",
+            "Use of root user",
+            "Unlimited size"
+          ],
+          "correctAnswer": "Vulnerability scanning before push"
+        },
+        {
+          "id": 1761233875492.2917,
+          "category": "Application Development & Deployment",
+          "question": "What is the minimum frequency for dependency‑check updates?",
+          "options": [
+            "Quarterly",
+            "Weekly",
+            "Monthly",
+            "Annually"
+          ],
+          "correctAnswer": "Weekly"
+        },
+        {
+          "id": 1761233876008.3457,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is the primary purpose of a CAB (Change Advisory Board)?",
+          "options": [
+            "Approve new hires",
+            "Assess risk & impact of changes",
+            "Order hardware",
+            "Conduct audits"
+          ],
+          "correctAnswer": "Assess risk & impact of changes"
+        },
+        {
+          "id": 1761233875275.8691,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is mandatory for every release branch?",
+          "options": [
+            "No naming convention",
+            "Semantic versioning",
+            "Random string",
+            "Date stamp only"
+          ],
+          "correctAnswer": "Semantic versioning"
+        },
+        {
+          "id": 1761233875936.2742,
+          "category": "Application Development & Deployment",
+          "question": "Which testing type focuses on security flaws?",
+          "options": [
+            "Unit testing",
+            "Integration testing",
+            "Static Application Security Testing (SAST)",
+            "Load testing"
+          ],
+          "correctAnswer": "Static Application Security Testing (SAST)"
+        },
+        {
+          "id": 1761233875754.869,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is the preferred method to manage database connection strings?",
+          "options": [
+            "Hard‑code in source",
+            "Store in secret manager and inject at runtime",
+            "Keep in Excel file",
+            "Email to dev team"
+          ],
+          "correctAnswer": "Store in secret manager and inject at runtime"
+        },
+        {
+          "id": 1761233875182.8926,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is not a required artifact in the release pipeline?",
+          "options": [
+            "Build artefact",
+            "User manual (optional)",
+            "Deployment script",
+            "Test report"
+          ],
+          "correctAnswer": "User manual (optional)"
+        },
+        {
+          "id": 1761233875101.4639,
+          "category": "Application Development & Deployment",
+          "question": "Which of these statements about infrastructure‑as‑code (IaC) is true?",
+          "options": [
+            "IaC eliminates need for security",
+            "IaC enables repeatable, version‑controlled infra",
+            "IaC is only for networking",
+            "IaC is a hardware technology"
+          ],
+          "correctAnswer": "IaC enables repeatable, version‑controlled infra"
+        },
+        {
+          "id": 1761233875353.7742,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is required for a production rollback?",
+          "options": [
+            "Documented rollback plan",
+            "New feature demo",
+            "Marketing approval",
+            "Vendor contract"
+          ],
+          "correctAnswer": "Documented rollback plan"
+        },
+        {
+          "id": 1761233875856.4539,
+          "category": "Application Development & Deployment",
+          "question": "Which tool would you use for dynamic application security testing (DAST)?",
+          "options": [
+            "SonarQube",
+            "OWASP ZAP",
+            "GitLab CI",
+            "Jira"
+          ],
+          "correctAnswer": "OWASP ZAP"
+        },
+        {
+          "id": 1761233875377.8145,
+          "category": "Application Development & Deployment",
+          "question": "Which of these is a mandatory compliance check before shipping to customers?",
+          "options": [
+            "Color scheme review",
+            "Data protection & privacy assessment",
+            "Font size check",
+            "Logo placement"
+          ],
+          "correctAnswer": "Data protection & privacy assessment"
+        },
+        {
+          "id": 1761233875215.4746,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following best describes “Shift‑Left” testing?",
+          "options": [
+            "Testing after production",
+            "Testing early in the SDLC",
+            "Only security testing",
+            "Only performance testing"
+          ],
+          "correctAnswer": "Testing early in the SDLC"
+        },
+        {
+          "id": 1761233875800.6106,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is not a recommended practice for API design?",
+          "options": [
+            "Use of RESTful verbs",
+            "Exposing internal DB schema",
+            "Versioning endpoints",
+            "Proper authentication"
+          ],
+          "correctAnswer": "Exposing internal DB schema"
+        },
+        {
+          "id": 1761233875394.7576,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following must be included in the deployment checklist?",
+          "options": [
+            "Coffee for engineers",
+            "Verification of environment variables",
+            "Number of emojis in commit messages",
+            "Length of README"
+          ],
+          "correctAnswer": "Verification of environment variables"
+        },
+        {
+          "id": 1761233875205.3894,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is required for handling third‑party libraries?",
+          "options": [
+            "Trust them implicitly",
+            "Perform license and vulnerability review",
+            "Store them on USB",
+            "Delete after use"
+          ],
+          "correctAnswer": "Perform license and vulnerability review"
+        },
+        {
+          "id": 1761233876048.9678,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is not a part of the Development policy scope?",
+          "options": [
+            "Code Review",
+            "Hardware procurement",
+            "CI/CD",
+            "Secure coding"
+          ],
+          "correctAnswer": "Hardware procurement"
+        },
+        {
+          "id": 1761233875434.068,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is mandatory for handling security incidents discovered in code?",
+          "options": [
+            "Ignore it",
+            "Escalate to InfoSec & patch",
+            "Post on internal blog",
+            "Delete the vulnerable code"
+          ],
+          "correctAnswer": "Escalate to InfoSec & patch"
+        },
+        {
+          "id": 1761233875190.4521,
+          "category": "Application Development & Deployment",
+          "question": "Which of these is the primary purpose of feature toggles?",
+          "options": [
+            "Hide broken features from customers",
+            "Gradual rollout and rollback",
+            "Reduce code size",
+            "Increase compile time"
+          ],
+          "correctAnswer": "Gradual rollout and rollback"
+        },
+        {
+          "id": 1761233875273.5342,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following is required for static code analysis?",
+          "options": [
+            "Manual review only",
+            "Automated tooling integrated in CI",
+            "No analysis",
+            "Only after release"
+          ],
+          "correctAnswer": "Automated tooling integrated in CI"
+        },
+        {
+          "id": 1761233875934.851,
+          "category": "Application Development & Deployment",
+          "question": "Which of the following statements about container registry security is true?",
+          "options": [
+            "No scanning required",
+            "Images must be signed and scanned",
+            "Use public images only",
+            "Unlimited image size"
+          ],
+          "correctAnswer": "Images must be signed and scanned"
+        }
+      ]
     }
   ],
   "emailLog": [
@@ -4133,6 +4499,17 @@
           "theme": {
             "iconBg": "bg-amber-100",
             "iconColor": "text-amber-500"
+          }
+        },
+        {
+          "id": "application_development_&_deployment_1761233875059.317",
+          "title": "Application Development & Deployment",
+          "questions": 30,
+          "iconKey": "Device",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-indigo-100",
+            "iconColor": "text-indigo-500"
           }
         }
       ]
