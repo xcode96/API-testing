@@ -135,13 +135,11 @@ export const triggerGithubSync = async (data: AppData): Promise<{ success: boole
             const errorData = await response.json();
             const errorMessage = errorData.details || errorData.error || 'An unknown error occurred during sync.';
             console.error('Failed to sync data via server:', response.status, errorMessage);
-            alert(`GitHub Sync Error: ${errorMessage}`);
             return { success: false, error: errorMessage };
         }
     } catch (error) {
         const errorMessage = (error instanceof Error) ? error.message : 'An unknown network error occurred.';
         console.error('Failed to trigger GitHub sync request:', error);
-        alert(`Could not connect to the sync service. Please check your network connection or the server logs.`);
         return { success: false, error: errorMessage };
     }
 };

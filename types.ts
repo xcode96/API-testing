@@ -86,3 +86,9 @@ export interface AppSettings {
   githubRepo?: string;
   githubPath?: string;
 }
+
+export type GithubSyncStatus =
+  | { status: 'idle' }
+  | { status: 'syncing' }
+  | { status: 'success'; timestamp: string }
+  | { status: 'error'; message: string };

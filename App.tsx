@@ -9,7 +9,7 @@ import FinalReport from './components/FinalReport';
 import CompletionScreen from './components/CompletionScreen';
 import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
-import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question } from './types';
+import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question, GithubSyncStatus } from './types';
 import { sendEmail } from './services/emailService';
 import { fetchData, saveData, triggerGithubSync } from './services/api';
 
@@ -26,6 +26,7 @@ function App() {
 
   // Make module categories stateful to allow dynamic creation
   const [moduleCategoriesState, setModuleCategoriesState] = useState<ModuleCategory[]>([]);
+  const [githubSyncStatus, setGithubSyncStatus] = useState<GithubSyncStatus>({ status: 'idle' });
 
 
   const saveTimeoutRef = useRef<number | null>(null);
@@ -99,13 +100,24 @@ function App() {
     }
 
     saveTimeoutRef.current = window.setTimeout(() => {
+      setGithubSyncStatus({ status: 'syncing' });
       const dataToSync = { users, quizzes, emailLog, settings, moduleCategories: moduleCategoriesState };
       // Save to Vercel KV
       saveData(dataToSync)
         .catch(err => console.error("Failed to save data:", err));
       // Sync to GitHub
       triggerGithubSync(dataToSync)
-        .catch(err => console.error("Failed to sync data to GitHub:", err));
+        .then(result => {
+            if (result.success) {
+                setGithubSyncStatus({ status: 'success', timestamp: new Date().toISOString() });
+            } else {
+                setGithubSyncStatus({ status: 'error', message: result.error || 'Unknown sync error' });
+            }
+        })
+        .catch(err => {
+            setGithubSyncStatus({ status: 'error', message: (err as Error).message });
+            console.error("Failed to sync data to GitHub:", err);
+        });
     }, 1000); // Debounce for 1 second
 
     return () => {
@@ -732,6 +744,7 @@ function App() {
             onUpdateQuestion={handleUpdateQuestion}
             onDeleteQuestion={handleDeleteQuestion}
             onImportFolderStructure={handleImportFolderStructure}
+            githubSyncStatus={githubSyncStatus}
           />
         );
       }
