@@ -49,35 +49,101 @@ const getInitialData = (): AppData => ({
 
 const LOCAL_STORAGE_KEY = 'cyber-security-training-data-local-backup';
 
+/**
+ * Fetches data from GitHub repository as a secondary source of truth.
+ * @param settings The application settings containing GitHub configuration.
+ * @returns The fetched AppData or null if it fails.
+ */
+async function fetchFromGithub(settings: AppSettings): Promise<AppData | null> {
+    const { githubOwner, githubRepo, githubPath, githubPat } = settings;
+
+    if (!githubOwner || !githubRepo || !githubPath || !githubPat) {
+        console.log("GitHub sync settings not configured for fetching.");
+        return null;
+    }
+
+    const GITHUB_API_URL = `https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}`;
+
+    try {
+        const response = await fetch(GITHUB_API_URL, {
+            headers: {
+                'Authorization': `token ${githubPat}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'User-Agent': 'Cyber-Training-Dashboard-Fetch'
+            },
+        });
+
+        if (!response.ok) {
+            if (response.status === 404) {
+                console.log("Data file not found on GitHub repository.");
+            } else {
+                 const errorData = await response.json().catch(() => ({}));
+                 console.error(`GitHub API Error (${response.status}): ${errorData.message || 'Failed to fetch from GitHub.'}`);
+            }
+            return null;
+        }
+
+        const fileData = await response.json();
+        if (fileData.content) {
+            const decodedContent = Buffer.from(fileData.content, 'base64').toString('utf-8');
+            const githubData = JSON.parse(decodedContent);
+            
+            // The PAT is not in the synced file, but we need it for subsequent operations.
+            // So, we need to merge the fetched settings with the PAT from our local settings.
+            githubData.settings.githubPat = githubPat;
+            
+            return githubData as AppData;
+        }
+        return null;
+    } catch (error) {
+        console.error("Error fetching data from GitHub:", error);
+        return null;
+    }
+}
 
 export const fetchData = async (): Promise<AppData> => {
+    // First, try fetching from the primary API (Vercel KV)
     try {
         const response = await fetch('/api/data');
         if (!response.ok) {
             throw new Error(`Server responded with status: ${response.status}`);
         }
         const serverData = await response.json();
-        // Sync server data to local storage for offline use/backup
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(serverData));
+        console.log("Successfully fetched data from primary API.");
         return serverData;
     } catch (error) {
-        console.warn(
-            'API fetch failed. This is expected in a local environment without a running Vercel dev server. Falling back to local storage.',
-            error
-        );
-
-        const localData = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (localData) {
-            try {
-                return JSON.parse(localData);
-            } catch (e) {
-                console.error('Failed to parse local storage data, returning initial data.', e);
-                // Fall through to return initial data
-            }
-        }
-        
-        return getInitialData();
+        console.warn('Primary API fetch failed. This is expected in a local environment. Falling back.', error);
     }
+    
+    // If API fails, try to use GitHub as a secondary source of truth, using local settings.
+    const localDataString = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (localDataString) {
+        try {
+            const localData = JSON.parse(localDataString);
+            if (localData.settings) {
+                console.log("Attempting to fetch latest data from GitHub as a fallback...");
+                const githubData = await fetchFromGithub(localData.settings);
+                if (githubData) {
+                    // GitHub data is the freshest, use it.
+                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(githubData));
+                    console.log("Successfully fetched and synced from GitHub.");
+                    return githubData;
+                }
+            }
+            // If GitHub fetch fails or is not configured, we proceed with local data.
+            console.log("Using data from local storage.");
+            return localData;
+        } catch (e) {
+            console.error('Failed to parse local storage data.', e);
+        }
+    }
+
+    // If all else fails, return initial default data.
+    console.log("No data found in API or local storage, returning initial data.");
+    const initialData = getInitialData();
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(initialData));
+    return initialData;
 };
 
 export const saveData = async (data: AppData): Promise<void> => {
