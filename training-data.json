@@ -5646,6 +5646,327 @@
           "correctAnswer": "Battery runtime & load capacity"
         }
       ]
+    },
+    {
+      "id": "email_&_communication_1761234070856.0903",
+      "name": "Email & Communication",
+      "questions": [
+        {
+          "id": 1761234071817.012,
+          "category": "Email & Communication",
+          "question": "Official company communication must use:",
+          "options": [
+            "Personal email",
+            "Company‑issued email",
+            "Social media",
+            "Messaging app only"
+          ],
+          "correctAnswer": "Company‑issued email"
+        },
+        {
+          "id": 1761234071777.2893,
+          "category": "Email & Communication",
+          "question": "Auto‑forwarding corporate email to a personal address is:",
+          "options": [
+            "Allowed with manager consent",
+            "Prohibited",
+            "Recommended for backup",
+            "Optional"
+          ],
+          "correctAnswer": "Prohibited"
+        },
+        {
+          "id": 1761234071419.9504,
+          "category": "Email & Communication",
+          "question": "Every external email must contain:",
+          "options": [
+            "Employee photo",
+            "Legal disclaimer",
+            "Coupon code",
+            "Emoji"
+          ],
+          "correctAnswer": "Legal disclaimer"
+        },
+        {
+          "id": 1761234071322.9858,
+          "category": "Email & Communication",
+          "question": "Owner of the Email & Communication policy:",
+          "options": [
+            "CIO",
+            "CISO",
+            "HR Manager",
+            "Legal Head"
+          ],
+          "correctAnswer": "Legal Head"
+        },
+        {
+          "id": 1761234070935.6914,
+          "category": "Email & Communication",
+          "question": "Attachments are scanned for malware by:",
+          "options": [
+            "End‑user AV only",
+            "Email gateway scanner"
+          ],
+          "correctAnswer": "Email gateway scanner"
+        },
+        {
+          "id": 1761234071427.8333,
+          "category": "Email & Communication",
+          "question": "Use of personal instant‑messaging apps for work purposes is:",
+          "options": [
+            "Encouraged",
+            "Allowed only for approved business use",
+            "Forbidden",
+            "Neutral"
+          ],
+          "correctAnswer": "Allowed only for approved business use"
+        },
+        {
+          "id": 1761234071116.349,
+          "category": "Email & Communication",
+          "question": "Which of the following is not permitted in the subject line of a company email?",
+          "options": [
+            "Project ID",
+            "Confidential data without encryption tag"
+          ],
+          "correctAnswer": "Confidential data without encryption tag"
+        },
+        {
+          "id": 1761234070954.9775,
+          "category": "Email & Communication",
+          "question": "Email retention period for business records is:",
+          "options": [
+            "30 days",
+            "90 days",
+            "1 year (minimum)"
+          ],
+          "correctAnswer": "1 year (minimum)"
+        },
+        {
+          "id": 1761234071787.5256,
+          "category": "Email & Communication",
+          "question": "What must be done before sending bulk marketing email?",
+          "options": [
+            "Pick a fun subject",
+            "Obtain opt‑in consent & include unsubscribe link"
+          ],
+          "correctAnswer": "Obtain opt‑in consent & include unsubscribe link"
+        },
+        {
+          "id": 1761234070943.0542,
+          "category": "Email & Communication",
+          "question": "Phishing‑simulation emails are sent how often?",
+          "options": [
+            "Daily",
+            "Quarterly",
+            "Never",
+            "Once a year"
+          ],
+          "correctAnswer": "Quarterly"
+        },
+        {
+          "id": 1761234071652.5056,
+          "category": "Email & Communication",
+          "question": "Which cannot be used to protect email confidentiality?",
+          "options": [
+            "TLS",
+            "Plain‑text SMTP"
+          ],
+          "correctAnswer": "Plain‑text SMTP"
+        },
+        {
+          "id": 1761234071412.0415,
+          "category": "Email & Communication",
+          "question": "When an employee leaves, their mailbox must be:",
+          "options": [
+            "Archived indefinitely",
+            "Disabled within 1 hour and exported if required"
+          ],
+          "correctAnswer": "Disabled within 1 hour and exported if required"
+        },
+        {
+          "id": 1761234071783.1108,
+          "category": "Email & Communication",
+          "question": "Which is a required element of an email signature?",
+          "options": [
+            "Favorite quote",
+            "Legal disclaimer & contact info"
+          ],
+          "correctAnswer": "Legal disclaimer & contact info"
+        },
+        {
+          "id": 1761234071865.096,
+          "category": "Email & Communication",
+          "question": "Use of personal cloud storage to share work files is:",
+          "options": [
+            "Allowed",
+            "Prohibited unless approved"
+          ],
+          "correctAnswer": "Prohibited unless approved"
+        },
+        {
+          "id": 1761234070974.9255,
+          "category": "Email & Communication",
+          "question": "Which must be logged for every email‑gateway alert?",
+          "options": [
+            "Number of emojis",
+            "Timestamp, sender, recipient, rule triggered"
+          ],
+          "correctAnswer": "Timestamp, sender, recipient, rule triggered"
+        },
+        {
+          "id": 1761234071244.9136,
+          "category": "Email & Communication",
+          "question": "Which is mandatory for sending classified information via email?",
+          "options": [
+            "Plain‑text",
+            "End‑to‑end encryption"
+          ],
+          "correctAnswer": "End‑to‑end encryption"
+        },
+        {
+          "id": 1761234071462.6584,
+          "category": "Email & Communication",
+          "question": "Which must be included in a “Do‑Not‑Reply” automated email?",
+          "options": [
+            "Company mascot",
+            "Clear purpose & contact alternative"
+          ],
+          "correctAnswer": "Clear purpose & contact alternative"
+        },
+        {
+          "id": 1761234071533.94,
+          "category": "Email & Communication",
+          "question": "What must be performed after a mass‑mailing failure?",
+          "options": [
+            "Celebrate the error",
+            "Investigate root cause & remediate"
+          ],
+          "correctAnswer": "Investigate root cause & remediate"
+        },
+        {
+          "id": 1761234071281.0876,
+          "category": "Email & Communication",
+          "question": "Which must be part of the email archiving solution?",
+          "options": [
+            "Fancy UI",
+            "Searchable, tamper‑evident storage"
+          ],
+          "correctAnswer": "Searchable, tamper‑evident storage"
+        },
+        {
+          "id": 1761234071150.8777,
+          "category": "Email & Communication",
+          "question": "The policy states that “email for personal use” is:",
+          "options": [
+            "Allowed up to 10 % of the day",
+            "Strictly prohibited",
+            "Allowed up to 30 %",
+            "Allowed with manager approval"
+          ],
+          "correctAnswer": "Strictly prohibited"
+        },
+        {
+          "id": 1761234071687.9648,
+          "category": "Email & Communication",
+          "question": "Which must be verified before adding a new mail domain?",
+          "options": [
+            "Colour of the logo",
+            "DMARC/DKIM/SPF alignment"
+          ],
+          "correctAnswer": "DMARC/DKIM/SPF alignment"
+        },
+        {
+          "id": 1761234071399.2825,
+          "category": "Email & Communication",
+          "question": "What must be done when an email contains PII and is sent externally?",
+          "options": [
+            "Ignore it",
+            "Apply encryption & add classification label"
+          ],
+          "correctAnswer": "Apply encryption & add classification label"
+        },
+        {
+          "id": 1761234071598.8599,
+          "category": "Email & Communication",
+          "question": "Which cannot be a justified reason to bypass the email disclaimer?",
+          "options": [
+            "Regulatory requirement",
+            "Personal preference"
+          ],
+          "correctAnswer": "Personal preference"
+        },
+        {
+          "id": 1761234071578.9858,
+          "category": "Email & Communication",
+          "question": "Which must be documented when an employee reports a phishing email?",
+          "options": [
+            "Number of emojis",
+            "Incident ticket, analysis, user education"
+          ],
+          "correctAnswer": "Incident ticket, analysis, user education"
+        },
+        {
+          "id": 1761234071261.544,
+          "category": "Email & Communication",
+          "question": "Which must be performed annually?",
+          "options": [
+            "Office decorating",
+            "Review of email security controls"
+          ],
+          "correctAnswer": "Review of email security controls"
+        },
+        {
+          "id": 1761234071327.057,
+          "category": "Email & Communication",
+          "question": "Which must be included in the email‑gateway change‑control?",
+          "options": [
+            "Number of coffee cups",
+            "Scope, impact, rollback plan"
+          ],
+          "correctAnswer": "Scope, impact, rollback plan"
+        },
+        {
+          "id": 1761234071615.5542,
+          "category": "Email & Communication",
+          "question": "Which must be communicated to all staff after a major email‑service outage?",
+          "options": [
+            "New coffee flavours",
+            "Outage timeline, impact, restoration ETA"
+          ],
+          "correctAnswer": "Outage timeline, impact, restoration ETA"
+        },
+        {
+          "id": 1761234071570.934,
+          "category": "Email & Communication",
+          "question": "Which must be done before de‑commissioning the corporate email server?",
+          "options": [
+            "Throw away the hardware",
+            "Migrate mailboxes, verify delivery, retire DNS records"
+          ],
+          "correctAnswer": "Migrate mailboxes, verify delivery, retire DNS records"
+        },
+        {
+          "id": 1761234070935.5146,
+          "category": "Email & Communication",
+          "question": "Which must be retained for audit purposes?",
+          "options": [
+            "Favourite meme",
+            "Email logs, security alerts, disposition records"
+          ],
+          "correctAnswer": "Email logs, security alerts, disposition records"
+        },
+        {
+          "id": 1761234071690.5012,
+          "category": "Email & Communication",
+          "question": "Which must be part of the training curriculum for new hires?",
+          "options": [
+            "How to brew tea",
+            "Email security best practices & policy overview"
+          ],
+          "correctAnswer": "Email security best practices & policy overview"
+        }
+      ]
     }
   ],
   "emailLog": [
@@ -6519,6 +6840,17 @@
           "theme": {
             "iconBg": "bg-sky-100",
             "iconColor": "text-sky-500"
+          }
+        },
+        {
+          "id": "email_&_communication_1761234070856.0903",
+          "title": "Email & Communication",
+          "questions": 30,
+          "iconKey": "Users",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-red-100",
+            "iconColor": "text-red-500"
           }
         }
       ]
