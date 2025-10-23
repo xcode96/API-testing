@@ -85,6 +85,7 @@ export interface AppSettings {
   githubOwner?: string;
   githubRepo?: string;
   githubPath?: string;
+  githubPat?: string;
 }
 
 export type GithubSyncStatus =

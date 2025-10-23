@@ -29,6 +29,7 @@ const defaultSettings: AppSettings = {
   githubOwner: 'xcode96',
   githubRepo: 'API-testing',
   githubPath: 'training-data.json',
+  githubPat: '',
 };
 
 const getInitialData = () => ({

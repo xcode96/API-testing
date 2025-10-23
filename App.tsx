@@ -26,7 +26,7 @@ function App() {
 
   const [moduleCategoriesState, setModuleCategoriesState] = useState<ModuleCategory[]>([]);
   const [githubSyncStatus, setGithubSyncStatus] = useState<GithubSyncStatus>({ status: 'idle' });
-
+  
   const saveTimeoutRef = useRef<number | null>(null);
   
   useEffect(() => {
@@ -89,10 +89,11 @@ function App() {
     }
 
     saveTimeoutRef.current = window.setTimeout(() => {
-      setGithubSyncStatus({ status: 'syncing' });
       const dataToSync = { users, quizzes, emailLog, settings, moduleCategories: moduleCategoriesState };
       saveData(dataToSync)
         .catch(err => console.error("Failed to save data:", err));
+      
+      setGithubSyncStatus({ status: 'syncing' });
       triggerGithubSync(dataToSync)
         .then(result => {
             if (result.success) {
@@ -102,8 +103,8 @@ function App() {
             }
         })
         .catch(err => {
-            setGithubSyncStatus({ status: 'error', message: (err as Error).message });
             console.error("Failed to sync data to GitHub:", err);
+            setGithubSyncStatus({ status: 'error', message: err.message || 'Client-side error during sync' });
         });
     }, 1000);
 
@@ -166,220 +167,412 @@ function App() {
   };
 
   const handleEditExamCategory = (categoryId: string, newTitle: string) => {
-      if (!newTitle || newTitle.trim() === "") {
-          alert("Category name cannot be empty.");
-          return;
+      if (!newTitle || newTitle.trim() === '') return;
+      const trimmedTitle = newTitle.trim();
+
+      setModuleCategoriesState(prev => prev.map(cat => 
+          cat.id === categoryId ? { ...cat, title: trimmedTitle } : cat
+      ));
+      
+      const category = moduleCategoriesState.find(c => c.id === categoryId);
+      if (category && category.modules.length === 1 && category.modules[0].id === category.id) {
+          setQuizzes(prev => prev.map(quiz => 
+              quiz.id === categoryId ? { ...quiz, name: trimmedTitle } : quiz
+          ));
       }
-      setModuleCategoriesState(prev => prev.map(c => c.id === categoryId ? { ...c, title: newTitle, modules: c.modules.map(m => m.id === categoryId ? { ...m, title: newTitle } : m) } : c ));
-      setQuizzes(prev => prev.map(q => q.id === categoryId ? { ...q, name: newTitle } : q ));
   };
 
   const handleDeleteExamCategory = (categoryId: string) => {
+    if (!window.confirm("Are you sure you want to delete this entire exam folder and all its questions? This cannot be undone.")) return;
+
     const categoryToDelete = moduleCategoriesState.find(c => c.id === categoryId);
     if (!categoryToDelete) return;
-    if (window.confirm(`Are you sure you want to delete the entire exam folder "${categoryToDelete.title}" and all its questions? This action cannot be undone.`)) {
-        const moduleIdsToDelete = new Set(categoryToDelete.modules.map(m => m.id));
-        setModuleCategoriesState(prev => prev.filter(c => c.id !== categoryId));
-        setQuizzes(prev => prev.filter(q => !moduleIdsToDelete.has(q.id)));
-        setUsers(prevUsers => prevUsers.map(user => ({ ...user, assignedExams: user.assignedExams?.filter(id => id !== categoryId) })));
+
+    const moduleIdsToDelete = new Set(categoryToDelete.modules.map(m => m.id));
+
+    setModuleCategoriesState(prev => prev.filter(c => c.id !== categoryId));
+    setQuizzes(prev => prev.filter(q => !moduleIdsToDelete.has(q.id)));
+  };
+
+  const handleAddNewQuestion = (question: Omit<Question, 'id' | 'category'>, quizId: string) => {
+    const newQuestion: Question = {
+        id: Date.now(),
+        category: quizzes.find(q => q.id === quizId)?.name || 'Uncategorized',
+        ...question,
+    };
+    
+    let updatedQuizzes: Quiz[] = [];
+    setQuizzes(prev => {
+        updatedQuizzes = prev.map(quiz => 
+            quiz.id === quizId 
+                ? { ...quiz, questions: [...quiz.questions, newQuestion] } 
+                : quiz
+        );
+        return updatedQuizzes;
+    });
+
+    setModuleCategoriesState(prev => prev.map(category => ({
+        ...category,
+        modules: category.modules.map(module => {
+            if (module.id === quizId) {
+                const updatedQuiz = updatedQuizzes.find(q => q.id === quizId);
+                return { ...module, questions: updatedQuiz ? updatedQuiz.questions.length : module.questions };
+            }
+            return module;
+        })
+    })));
+  };
+
+  const handleAddQuestionToNewCategory = (question: Omit<Question, 'id'>, categoryTitle: string) => {
+      const newId = handleCreateExamCategory(categoryTitle);
+      if (newId) {
+        const newQuestion: Question = {
+            id: Date.now(),
+            ...question,
+        };
+        setQuizzes(prev => prev.map(quiz => 
+            quiz.id === newId 
+              ? { ...quiz, questions: [newQuestion] }
+              : quiz
+        ));
+         setModuleCategoriesState(prev => prev.map(category => ({
+            ...category,
+            modules: category.modules.map(module => {
+                if (module.id === newId) {
+                    return { ...module, questions: 1 };
+                }
+                return module;
+            })
+        })));
+      }
+  };
+  
+  const handleAddQuestionToNewSubTopic = (question: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => {
+      const newSubTopicId = subTopicTitle.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
+      
+      if (quizzes.some(q => q.name.toLowerCase() === subTopicTitle.toLowerCase())) {
+          alert("A sub-topic with this name already exists in another folder. Please choose a unique name.");
+          return;
+      }
+
+      const newQuestion: Question = { id: Date.now(), ...question };
+      const newQuiz: Quiz = { id: newSubTopicId, name: subTopicTitle, questions: [newQuestion] };
+
+      setQuizzes(prev => [...prev, newQuiz]);
+
+      const parentCategory = moduleCategoriesState.find(c => c.id === parentCategoryId);
+      if (parentCategory) {
+          const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
+          const newTheme = THEMES[totalModules % THEMES.length];
+          const iconKeys = Object.keys(ICONS);
+          const newIconKey = iconKeys[totalModules % iconKeys.length];
+
+          const newModule: Module = {
+              id: newSubTopicId,
+              title: subTopicTitle,
+              questions: 1,
+              iconKey: newIconKey,
+              status: ModuleStatus.NotStarted,
+              theme: newTheme,
+          };
+
+          setModuleCategoriesState(prev => prev.map(cat => 
+              cat.id === parentCategoryId
+                  ? { ...cat, modules: [...cat.modules, newModule] }
+                  : cat
+          ));
+      }
+  };
+
+  const handleUpdateQuestion = (updatedQuestion: Question) => {
+    setQuizzes(prev => prev.map(quiz => ({
+        ...quiz,
+        questions: quiz.questions.map(q => q.id === updatedQuestion.id ? updatedQuestion : q)
+    })));
+  };
+  
+  const handleDeleteQuestion = (questionId: number) => {
+    let quizIdContainingQuestion: string | null = null;
+    let updatedQuizzes: Quiz[] = [];
+
+    setQuizzes(prev => {
+        updatedQuizzes = prev.map(quiz => {
+            const initialLength = quiz.questions.length;
+            const updatedQuestions = quiz.questions.filter(q => q.id !== questionId);
+            if (updatedQuestions.length < initialLength) {
+                quizIdContainingQuestion = quiz.id;
+            }
+            return { ...quiz, questions: updatedQuestions };
+        });
+        return updatedQuizzes;
+    });
+
+    if (quizIdContainingQuestion) {
+        const finalQuizId = quizIdContainingQuestion;
+        setModuleCategoriesState(prev => prev.map(category => ({
+            ...category,
+            modules: category.modules.map(module => {
+                if (module.id === finalQuizId) {
+                     const updatedQuiz = updatedQuizzes.find(q => q.id === finalQuizId);
+                     return { ...module, questions: updatedQuiz ? updatedQuiz.questions.length : module.questions };
+                }
+                return module;
+            })
+        })));
     }
   };
   
-    const handleAddNewQuestion = (newQuestionData: Omit<Question, 'id' | 'category'>, quizId: string) => {
-        const quizToUpdate = quizzes.find(q => q.id === quizId);
-        if (!quizToUpdate) {
-            alert("Error: Could not find the selected quiz to add the question to.");
-            return;
-        }
-        const newQuestion: Question = { ...newQuestionData, id: Date.now(), category: quizToUpdate.name };
-        const newQuizzes = quizzes.map(q => q.id === quizId ? { ...q, questions: [...q.questions, newQuestion] } : q);
-        setQuizzes(newQuizzes);
-        const newQuestionCount = (newQuizzes.find(q => q.id === quizId))?.questions.length || 0;
-        setModuleCategoriesState(prev => prev.map(c => ({ ...c, modules: c.modules.map(m => m.id === quizId ? { ...m, questions: newQuestionCount } : m) })));
-        alert(`Question added to "${quizToUpdate.name}"!`);
-    };
-
-    const handleAddQuestionToNewCategory = (newQuestionData: Omit<Question, 'id'>, categoryTitle: string) => {
-      if (quizzes.some(q => q.name.toLowerCase() === categoryTitle.toLowerCase())) {
-        alert("An exam category with this name already exists.");
+  const handleImportFolderStructure = (folderStructure: Record<string, Omit<Question, 'id'|'category'>[]>, targetCategoryId: string) => {
+    const targetCategory = moduleCategoriesState.find(c => c.id === targetCategoryId);
+    if (!targetCategory) {
+        alert("Target import folder not found.");
         return;
-      }
-      const newId = categoryTitle.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
-      const newQuestion: Question = { ...newQuestionData, id: Date.now() };
-      const newQuiz: Quiz = { id: newId, name: categoryTitle, questions: [newQuestion] };
-      const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
-      const iconKeys = Object.keys(ICONS);
-      const newIconKey = iconKeys[totalModules % iconKeys.length];
-      const newModule: Module = { id: newId, title: categoryTitle, questions: 1, iconKey: newIconKey, status: ModuleStatus.NotStarted, theme: THEMES[totalModules % THEMES.length] };
-      const newCategory: ModuleCategory = { id: newId, title: categoryTitle, modules: [newModule] };
-      setQuizzes(prev => [...prev, newQuiz]);
-      setModuleCategoriesState(prev => [...prev, newCategory]);
-      setUsers(prevUsers => prevUsers.map(user => {
-          if (user.role === 'user') {
-              const assignedExams = new Set(user.assignedExams || []);
-              assignedExams.add(newId);
-              return { ...user, assignedExams: Array.from(assignedExams) };
-          }
-          return user;
-      }));
-      alert(`Category "${categoryTitle}" created and question added!`);
-    };
-
-    const handleAddQuestionToNewSubTopic = (newQuestionData: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => {
-        if (quizzes.some(q => q.name.toLowerCase() === subTopicTitle.toLowerCase())) {
-            alert("A quiz with this sub-topic name already exists.");
-            return;
-        }
-        const newQuizId = subTopicTitle.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
-        const newQuestion: Question = { ...newQuestionData, id: Date.now(), category: subTopicTitle };
-        const newQuiz: Quiz = { id: newQuizId, name: subTopicTitle, questions: [newQuestion] };
-        const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
-        const iconKeys = Object.keys(ICONS);
-        const newIconKey = iconKeys[totalModules % iconKeys.length];
-        const newModule: Module = { id: newQuizId, title: subTopicTitle, questions: 1, iconKey: newIconKey, status: ModuleStatus.NotStarted, theme: THEMES[totalModules % THEMES.length] };
-        setQuizzes(prev => [...prev, newQuiz]);
-        setModuleCategoriesState(prev => prev.map(c => c.id === parentCategoryId ? { ...c, modules: [...c.modules, newModule] } : c));
-        const parentCategory = moduleCategoriesState.find(c => c.id === parentCategoryId);
-        alert(`Sub-topic "${subTopicTitle}" created in "${parentCategory?.title}" and question added!`);
-    };
-
-    const handleUpdateQuestion = (updatedQuestion: Question) => {
-        setQuizzes(prevQuizzes => prevQuizzes.map(quiz => ({ ...quiz, questions: quiz.questions.map(q => q.id === updatedQuestion.id ? updatedQuestion : q) })));
-    };
-
-    const handleDeleteQuestion = (questionId: number) => {
-        if (!window.confirm("Are you sure you want to delete this question?")) return;
-        let quizIdOfDeletedQuestion: string | null = null;
-        const newQuizzes = quizzes.map(quiz => {
-            const updatedQuestions = quiz.questions.filter(q => q.id !== questionId);
-            if (updatedQuestions.length < quiz.questions.length) quizIdOfDeletedQuestion = quiz.id;
-            return { ...quiz, questions: updatedQuestions };
-        });
-        setQuizzes(newQuizzes);
-        if (quizIdOfDeletedQuestion) {
-            const finalQuizId = quizIdOfDeletedQuestion;
-            setModuleCategoriesState(prev => prev.map(c => ({...c, modules: c.modules.map(m => m.id === finalQuizId ? { ...m, questions: newQuizzes.find(q => q.id === finalQuizId)?.questions.length || 0 } : m)})));
-        }
-    };
-
-    const handleImportFolderStructure = (folderStructure: Record<string, Omit<Question, 'id'|'category'>[]>, targetCategoryId: string) => {
-        const newQuizzes: Quiz[] = [];
-        const newModules: Module[] = [];
-        const existingQuizNames = new Set(quizzes.map(q => q.name.toLowerCase()));
-        for (const subTopicTitle in folderStructure) {
-            if (Object.prototype.hasOwnProperty.call(folderStructure, subTopicTitle)) {
-                if (existingQuizNames.has(subTopicTitle.toLowerCase())) continue;
-                const questionsData = folderStructure[subTopicTitle];
-                const newQuizId = subTopicTitle.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
-                const newQuestions: Question[] = questionsData.map((q, i) => ({ ...q, id: Date.now() + i, category: subTopicTitle }));
-                newQuizzes.push({ id: newQuizId, name: subTopicTitle, questions: newQuestions });
-                const totalModules = moduleCategoriesState.flatMap(c => c.modules).length + newModules.length;
-                const iconKeys = Object.keys(ICONS);
-                const newIconKey = iconKeys[totalModules % iconKeys.length];
-                newModules.push({ id: newQuizId, title: subTopicTitle, questions: newQuestions.length, iconKey: newIconKey, status: ModuleStatus.NotStarted, theme: THEMES[totalModules % THEMES.length] });
-            }
-        }
-        if (newQuizzes.length > 0) {
-            setQuizzes(prev => [...prev, ...newQuizzes]);
-            setModuleCategoriesState(prev => prev.map(c => c.id === targetCategoryId ? { ...c, modules: [...c.modules, ...newModules] } : c));
-            alert(`Successfully imported ${newModules.length} new sub-topic(s).`);
-        } else {
-            alert("No new sub-topics imported; they may already exist.");
-        }
-    };
-
-    const handleUpdateUsers = (updatedUsers: User[]) => setUsers(updatedUsers);
-    const handleAddNewUser = (user: User) => setUsers(prev => [...prev, user]);
-
-    const handleSendNotification = (emailData: Omit<Email, 'id' | 'timestamp'>) => {
-        const newEmail: Email = { ...emailData, id: Date.now(), timestamp: new Date().toISOString() };
-        sendEmail(emailData);
-        setEmailLog(prev => [newEmail, ...prev]);
-    };
-
-    const handleCompletion = (score: number, answers: UserAnswer[], quizId: string) => {
-        if (!currentUser) return;
-        const newModuleProgress = { ...(currentUser.moduleProgress || {}), [quizId]: ModuleStatus.Completed };
-        const allUserAnswers = [...(currentUser.answers || []).filter(a => !answers.map(qa => qa.questionId).includes(a.questionId)), ...answers];
-        let updatedUser: User = { ...currentUser, moduleProgress: newModuleProgress, answers: allUserAnswers };
-        const allModulesForUser = moduleCategoriesState.filter(c => currentUser.assignedExams?.includes(c.id)).flatMap(c => c.modules);
-        const completedModulesCount = Object.values(newModuleProgress).filter(s => s === ModuleStatus.Completed).length;
-        if (completedModulesCount === allModulesForUser.length) {
-            const totalCorrect = allUserAnswers.filter(a => a.isCorrect).length;
-            const totalQuestions = allUserAnswers.length;
-            const finalScore = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
-            updatedUser = { ...updatedUser, lastScore: finalScore, trainingStatus: finalScore >= PASSING_PERCENTAGE ? 'passed' : 'failed', submissionDate: new Date().toISOString() };
-            setView('completion');
-        } else {
-            setActiveQuizId(null);
-        }
-        setCurrentUser(updatedUser);
-        setUsers(users.map(u => u.id === currentUser.id ? updatedUser : u));
-    };
-
-    const handleResetProgress = () => {
-        if (!currentUser || !window.confirm("Are you sure?")) return;
-        const resetUser = { ...currentUser, moduleProgress: {}, answers: [], lastScore: null, trainingStatus: 'not-started' as const };
-        setCurrentUser(resetUser);
-        setUsers(users.map(u => u.id === currentUser.id ? resetUser : u));
-    };
-
-    const userModules = useMemo(() => {
-        if (!currentUser) return [];
-        return moduleCategoriesState
-          .filter(c => currentUser.assignedExams?.includes(c.id))
-          .map(category => ({
-              ...category,
-              modules: category.modules.map(module => ({
-                  ...module,
-                  status: currentUser.moduleProgress?.[module.id] || ModuleStatus.NotStarted,
-              }))
-          }));
-    }, [currentUser, moduleCategoriesState]);
-
-    const { completedCount, totalCount, progress } = useMemo(() => {
-        if (!currentUser) return { completedCount: 0, totalCount: 0, progress: 0 };
-        const modules = userModules.flatMap(c => c.modules);
-        const completed = modules.filter(m => m.status === ModuleStatus.Completed).length;
-        const total = modules.length;
-        return { completedCount: completed, totalCount: total, progress: total > 0 ? Math.round((completed / total) * 100) : 0 };
-    }, [userModules, currentUser]);
-
-    if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-    if (error) return <div className="min-h-screen flex items-center justify-center text-red-500">{error}</div>;
-
-    const activeQuiz = activeQuizId ? quizzes.find(q => q.id === activeQuizId) : null;
-    const activeModule = activeQuizId ? userModules.flatMap(c => c.modules).find(m => m.id === activeQuizId) : null;
-
-    switch (view) {
-        case 'login': return <LoginPage onLogin={handleAdminLogin} users={users} />;
-        case 'user_login': return <UserLoginPage users={users} onLogin={handleUserLogin} />;
-        case 'admin': return settings ? <AdminPanel quizzes={quizzes} users={users} onUpdateUsers={handleUpdateUsers} onAddNewUser={handleAddNewUser} onLogout={handleLogout} activeView={adminView} setActiveView={setAdminView} emailLog={emailLog} onSendNotification={handleSendNotification} settings={settings} onSettingsChange={setSettings} moduleCategories={moduleCategoriesState} onCreateExamCategory={handleCreateExamCategory} onEditExamCategory={handleEditExamCategory} onDeleteExamCategory={handleDeleteExamCategory} onAddNewQuestion={handleAddNewQuestion} onAddQuestionToNewCategory={handleAddQuestionToNewCategory} onAddQuestionToNewSubTopic={handleAddQuestionToNewSubTopic} onUpdateQuestion={handleUpdateQuestion} onDeleteQuestion={handleDeleteQuestion} onImportFolderStructure={handleImportFolderStructure} githubSyncStatus={githubSyncStatus} /> : null;
-        case 'completion': return <CompletionScreen currentUser={currentUser} onGenerateReport={() => setView('report')} onLogout={handleLogout} />;
-        case 'report': return currentUser?.answers ? <FinalReport answers={currentUser.answers} onBack={() => setView('dashboard')} /> : null;
-        case 'dashboard':
-        default:
-            return (
-                <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-rose-50 text-slate-800 font-sans">
-                    <main className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                            <div className="lg:col-span-4 xl:col-span-3">
-                                {currentUser && <Sidebar userName={currentUser.fullName} completedCount={completedCount} totalCount={totalCount} progress={progress} onReset={handleResetProgress} onAdminClick={() => setView('login')} onLogout={handleLogout} currentUser={currentUser} />}
-                            </div>
-                            <div className="lg:col-span-8 xl:col-span-9">
-                                {activeQuiz && activeModule ? (
-                                    <div className="flex justify-center">
-                                        <QuizView quiz={activeQuiz} theme={activeModule.theme} onComplete={(score, answers) => handleCompletion(score, answers, activeQuiz.id)} />
-                                    </div>
-                                ) : (
-                                    <ModuleList moduleCategories={userModules} onStartQuiz={setActiveQuizId} />
-                                )}
-                            </div>
-                        </div>
-                    </main>
-                </div>
-            );
     }
+
+    let newQuizzes: Quiz[] = [];
+    let newModules: Module[] = [];
+    const existingModuleNames = new Set(targetCategory.modules.map(m => m.title.toLowerCase()));
+    const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
+    let moduleCounter = 0;
+
+    for (const subTopicName in folderStructure) {
+        if (existingModuleNames.has(subTopicName.toLowerCase())) {
+            console.warn(`Skipping import for sub-topic "${subTopicName}" as it already exists in the target folder.`);
+            continue;
+        }
+
+        const questionsData = folderStructure[subTopicName];
+        const newSubTopicId = subTopicName.toLowerCase().replace(/\s+/g, '_') + `_${Date.now() + Math.random()}`;
+        
+        const newQuestions: Question[] = questionsData.map((q, index) => ({
+            id: Date.now() + Math.random() * 1000 + index,
+            category: subTopicName,
+            ...q,
+        }));
+
+        newQuizzes.push({ id: newSubTopicId, name: subTopicName, questions: newQuestions });
+        
+        const currentModuleIndex = totalModules + moduleCounter;
+        const iconKeys = Object.keys(ICONS);
+        
+        newModules.push({
+            id: newSubTopicId,
+            title: subTopicName,
+            questions: newQuestions.length,
+            iconKey: iconKeys[currentModuleIndex % iconKeys.length],
+            status: ModuleStatus.NotStarted,
+            theme: THEMES[currentModuleIndex % THEMES.length],
+        });
+        moduleCounter++;
+    }
+
+    if (newQuizzes.length > 0) {
+        setQuizzes(prev => [...prev, ...newQuizzes]);
+        setModuleCategoriesState(prev => prev.map(cat => 
+            cat.id === targetCategoryId
+                ? { ...cat, modules: [...cat.modules, ...newModules] }
+                : cat
+        ));
+        alert(`Successfully imported ${newModules.length} new sub-topics.`);
+    } else {
+        alert("No new sub-topics to import. All sub-topics in the file may already exist in the target folder.");
+    }
+  };
+
+  const handleCompletion = (quizId: string, score: number, answers: UserAnswer[]) => {
+    if (currentUser) {
+      const updatedUser = {
+        ...currentUser,
+        answers: [...(currentUser.answers || []), ...answers],
+        moduleProgress: {
+          ...(currentUser.moduleProgress || {}),
+          [quizId]: ModuleStatus.Completed,
+        },
+      };
+      
+      const allModulesForUser = allUserModules.filter(m => currentUser.assignedExams?.includes(m.parentCategoryId));
+      const completedModules = Object.values(updatedUser.moduleProgress || {}).filter(status => status === ModuleStatus.Completed).length;
+      
+      if (completedModules === allModulesForUser.length) {
+          const finalScore = Math.round(
+              (updatedUser.answers.filter(a => a.isCorrect).length / updatedUser.answers.length) * 100
+          );
+          updatedUser.lastScore = finalScore;
+          updatedUser.trainingStatus = finalScore >= PASSING_PERCENTAGE ? 'passed' : 'failed';
+          updatedUser.submissionDate = new Date().toISOString();
+          setView('completion');
+      }
+
+      const updatedUsers = users.map(u => (u.id === currentUser.id ? updatedUser : u));
+      setUsers(updatedUsers);
+      setCurrentUser(updatedUser);
+      setActiveQuizId(null);
+    }
+  };
+
+  const handleStartQuiz = (quizId: string) => {
+    if (currentUser) {
+        const updatedUser = {
+            ...currentUser,
+            moduleProgress: {
+                ...(currentUser.moduleProgress || {}),
+                [quizId]: ModuleStatus.InProgress,
+            }
+        };
+        const updatedUsers = users.map(u => u.id === currentUser.id ? updatedUser : u);
+        setUsers(updatedUsers);
+        setCurrentUser(updatedUser);
+    }
+    setActiveQuizId(quizId);
+  };
+  
+  const handleResetProgress = () => {
+    if (currentUser && window.confirm("Are you sure you want to reset your progress? All completed modules will be marked as 'Not Started'.")) {
+      const updatedUser = { 
+        ...currentUser, 
+        moduleProgress: {},
+        answers: [],
+        trainingStatus: 'not-started' as const,
+        lastScore: null,
+        submissionDate: undefined,
+       };
+      const updatedUsers = users.map(u => u.id === currentUser.id ? updatedUser : u);
+      setUsers(updatedUsers);
+      setCurrentUser(updatedUser);
+      setView('dashboard');
+    }
+  };
+  
+  const handleSendNotification = (emailData: Omit<Email, 'id' | 'timestamp'>) => {
+    const newEmail: Email = {
+      ...emailData,
+      id: Date.now(),
+      timestamp: new Date().toISOString(),
+    };
+    setEmailLog(prev => [newEmail, ...prev]);
+    sendEmail(emailData);
+  };
+  
+  const handleUpdateUsers = (updatedUsers: User[]) => {
+    setUsers(updatedUsers);
+  };
+
+  const handleAddNewUser = (user: User) => {
+      setUsers(prev => [...prev, user]);
+  };
+  
+  const allUserModules = useMemo(() => {
+    return moduleCategoriesState.flatMap(category => category.modules.map(module => ({ ...module, parentCategoryId: category.id })));
+  }, [moduleCategoriesState]);
+
+  const userModules = useMemo(() => {
+    if (!currentUser) return [];
+    
+    const userAssignedCategories = new Set(currentUser.assignedExams || []);
+    
+    return moduleCategoriesState
+      .filter(category => userAssignedCategories.has(category.id))
+      .map(category => ({
+        ...category,
+        modules: category.modules.map(module => ({
+          ...module,
+          status: currentUser.moduleProgress?.[module.id] || ModuleStatus.NotStarted,
+        })),
+      }));
+  }, [currentUser, moduleCategoriesState]);
+  
+  const { completedModulesCount, totalModulesCount, overallProgress } = useMemo(() => {
+    if (!currentUser) return { completedModulesCount: 0, totalModulesCount: 0, overallProgress: 0 };
+    const relevantModules = allUserModules.filter(m => currentUser.assignedExams?.includes(m.parentCategoryId));
+    const completed = relevantModules.filter(module => currentUser.moduleProgress?.[module.id] === ModuleStatus.Completed).length;
+    const total = relevantModules.length;
+    const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+    return { completedModulesCount: completed, totalModulesCount: total, overallProgress: progress };
+  }, [currentUser, allUserModules]);
+  
+  const activeQuiz = useMemo(() => {
+    if (!activeQuizId) return null;
+    return quizzes.find(q => q.id === activeQuizId) || null;
+  }, [activeQuizId, quizzes]);
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+  
+  if (error) {
+     return <div className="min-h-screen flex items-center justify-center text-red-500">{error}</div>;
+  }
+
+  const renderView = () => {
+    switch (view) {
+      case 'user_login':
+        return <UserLoginPage users={users} onLogin={handleUserLogin} />;
+      case 'login':
+        return <LoginPage onLogin={handleAdminLogin} users={users} />;
+      case 'admin':
+        return (
+          <AdminPanel
+            quizzes={quizzes}
+            users={users}
+            onUpdateUsers={handleUpdateUsers}
+            onAddNewUser={handleAddNewUser}
+            onLogout={handleLogout}
+            activeView={adminView}
+            setActiveView={setAdminView}
+            emailLog={emailLog}
+            onSendNotification={handleSendNotification}
+            settings={settings!}
+            onSettingsChange={setSettings}
+            moduleCategories={moduleCategoriesState}
+            onCreateExamCategory={handleCreateExamCategory}
+            onEditExamCategory={handleEditExamCategory}
+            onDeleteExamCategory={handleDeleteExamCategory}
+            onAddNewQuestion={handleAddNewQuestion}
+            onAddQuestionToNewCategory={handleAddQuestionToNewCategory}
+            onAddQuestionToNewSubTopic={handleAddQuestionToNewSubTopic}
+            onUpdateQuestion={handleUpdateQuestion}
+            onDeleteQuestion={handleDeleteQuestion}
+            onImportFolderStructure={handleImportFolderStructure}
+            githubSyncStatus={githubSyncStatus}
+          />
+        );
+      case 'report':
+        return <FinalReport answers={currentUser?.answers || []} onBack={() => setView('dashboard')} />;
+      case 'completion':
+        return <CompletionScreen currentUser={currentUser} onGenerateReport={() => setView('report')} onLogout={handleLogout} />;
+      case 'dashboard':
+      default:
+        return (
+          <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-rose-50 text-slate-800 font-sans">
+            <div className="container mx-auto p-4 sm:p-6 md:p-8">
+              <main className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div className="lg:col-span-4">
+                  <Sidebar
+                    userName={currentUser?.fullName || 'User'}
+                    completedCount={completedModulesCount}
+                    totalCount={totalModulesCount}
+                    progress={overallProgress}
+                    onReset={handleResetProgress}
+                    onAdminClick={() => setView('login')}
+                    onLogout={handleLogout}
+                    currentUser={currentUser}
+                  />
+                </div>
+                <div className="lg:col-span-8">
+                  {activeQuiz ? (
+                    <QuizView quiz={activeQuiz} onComplete={(score, answers) => handleCompletion(activeQuiz.id, score, answers)} />
+                  ) : (
+                    <ModuleList moduleCategories={userModules} onStartQuiz={handleStartQuiz} />
+                  )}
+                </div>
+              </main>
+            </div>
+          </div>
+        );
+    }
+  };
+
+  return <>{renderView()}</>;
 }
 
 export default App;

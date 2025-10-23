@@ -1,5 +1,6 @@
 import { Quiz, User, Email, AppSettings, ModuleCategory } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
+import { Buffer } from 'buffer';
 
 export interface AppData {
     users: User[];
@@ -35,6 +36,7 @@ const defaultSettings: AppSettings = {
   githubOwner: 'xcode96',
   githubRepo: 'API-testing',
   githubPath: 'training-data.json',
+  githubPat: '',
 };
 
 const getInitialData = (): AppData => ({
@@ -109,37 +111,74 @@ export const saveData = async (data: AppData): Promise<void> => {
     }
 };
 
-// --- GITHUB SYNC LOGIC ---
+// --- GITHUB SYNC LOGIC (CLIENT-SIDE) ---
 
 /**
- * Triggers a server-side sync of application data to the configured GitHub repository
- * by calling the Vercel Edge Function at /api/sync-github.
+ * Triggers a client-side sync of application data to the configured GitHub repository.
  * @param data The complete application data object to be saved.
- * @returns A promise that resolves to an object indicating success or failure.
+ * @returns An object indicating success or failure.
  */
 export const triggerGithubSync = async (data: AppData): Promise<{ success: boolean; error?: string }> => {
-    console.log("Attempting to trigger server-side GitHub sync...");
+    const { settings } = data;
+    const { githubOwner, githubRepo, githubPath, githubPat } = settings;
+
+    if (!githubOwner || !githubRepo || !githubPath || !githubPat) {
+        return { success: false, error: "GitHub sync settings are incomplete. Please configure all fields in Admin > Settings." };
+    }
+
+    const GITHUB_API_URL = `https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}`;
+
     try {
-        const response = await fetch('/api/sync-github', {
-            method: 'POST',
+        // Step 1: Get the current SHA of the file to perform an update.
+        let sha: string | undefined;
+        const getResponse = await fetch(GITHUB_API_URL, {
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `token ${githubPat}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'User-Agent': 'Cyber-Training-Dashboard-Sync'
             },
-            body: JSON.stringify(data),
         });
 
-        if (response.ok) {
-            console.log('Successfully triggered server-side sync.');
+        if (getResponse.ok) {
+            const fileData = await getResponse.json();
+            sha = fileData.sha;
+        } else if (getResponse.status !== 404) {
+            // A 404 means the file doesn't exist, which is fine (we'll create it).
+            // Any other error is a problem (e.g., 401 Bad Credentials, 403 Forbidden).
+            const errorData = await getResponse.json().catch(() => ({ message: 'Could not parse GitHub error response.' }));
+            throw new Error(`GitHub API Error (${getResponse.status}): ${errorData.message || 'Could not retrieve file information. Check repository path and token permissions.'}`);
+        }
+
+        // Step 2: Prepare the content and create/update the file.
+        const contentToSave = JSON.stringify(data, null, 2);
+        const encodedContent = Buffer.from(contentToSave, 'utf-8').toString('base64');
+
+        const payload = {
+            message: `Automated data sync: ${new Date().toISOString()}`,
+            content: encodedContent,
+            sha: sha, // Include SHA if it's an update, otherwise it's undefined for creation.
+        };
+
+        const putResponse = await fetch(GITHUB_API_URL, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${githubPat}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json',
+                'User-Agent': 'Cyber-Training-Dashboard-Sync'
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (putResponse.ok) {
+            console.log('Successfully synced data to GitHub.');
             return { success: true };
         } else {
-            const errorData = await response.json();
-            const errorMessage = errorData.details || errorData.error || 'An unknown error occurred during sync.';
-            console.error('Failed to sync data via server:', response.status, errorMessage);
-            return { success: false, error: errorMessage };
+            const errorData = await putResponse.json().catch(() => ({ message: 'Could not parse GitHub error response.' }));
+            throw new Error(`GitHub API Error (${putResponse.status}): ${errorData.message || 'Failed to save file to repository.'}`);
         }
-    } catch (error) {
-        const errorMessage = (error instanceof Error) ? error.message : 'An unknown network error occurred.';
-        console.error('Failed to trigger GitHub sync request:', error);
-        return { success: false, error: errorMessage };
+    } catch (error: any) {
+        console.error("Client-side GitHub Sync Error:", error);
+        return { success: false, error: error.message || 'A network error occurred during sync.' };
     }
 };

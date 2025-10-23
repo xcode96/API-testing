@@ -9,30 +9,41 @@ interface SettingsPanelProps {
 
 const SyncStatusIndicator: React.FC<{ status: GithubSyncStatus }> = ({ status }) => {
     switch (status.status) {
+        case 'idle':
+            return (
+                <div className="flex items-center gap-2 text-sm text-slate-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 5a1 1 0 112 0v2a1 1 0 11-2 0V5zm1 11a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" /></svg>
+                    <span>Status: Idle. Sync is triggered by changes.</span>
+                </div>
+            );
         case 'syncing':
             return (
-                <div className="flex items-center gap-2 text-sm text-amber-600 font-semibold">
-                    <svg className="animate-spin h-4 w-4 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                    Syncing...
+                <div className="flex items-center gap-2 text-sm text-amber-600">
+                     <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    <span>Syncing changes...</span>
                 </div>
             );
         case 'success':
             return (
-                <div className="flex items-center gap-2 text-sm text-emerald-600 font-semibold">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-                    Last synced: {new Date(status.timestamp).toLocaleTimeString()}
+                <div className="flex items-center gap-2 text-sm text-emerald-600">
+                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                    <span>Last synced: {new Date(status.timestamp).toLocaleString()}</span>
                 </div>
             );
         case 'error':
+             const isConfigError = status.message.includes('not configured');
+            const colorClass = isConfigError ? 'text-amber-700' : 'text-rose-700';
+            const icon = isConfigError ? (
+                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M8.257 3.099c.636-1.21 2.37-1.21 3.006 0l5.362 10.243c.64 1.22-.245 2.658-1.503 2.658H4.398c-1.258 0-2.143-1.438-1.503-2.658L8.257 3.099zM10 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 6zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" /></svg>
+            ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /></svg>
+            );
             return (
-                <div className="flex items-start gap-2 text-sm text-rose-600 font-semibold" title={status.message}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /></svg>
-                    <span className="truncate">Error: {status.message}</span>
+                <div className={`flex items-start gap-2 text-sm ${colorClass}`}>
+                    <div className="flex-shrink-0 mt-0.5">{icon}</div>
+                    <span>Error: {status.message}</span>
                 </div>
             );
-        case 'idle':
-        default:
-             return <div className="text-sm text-slate-500">Awaiting changes...</div>;
     }
 };
 
@@ -166,8 +177,25 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
             </header>
             <div className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80">
                 <div className="space-y-6">
-                    <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
-                        <h3 className="font-semibold text-lg text-slate-700 mb-4">GitHub Repository Configuration</h3>
+                     <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
+                        <h3 className="font-semibold text-lg text-slate-700 mb-2">GitHub Synchronization</h3>
+                         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 my-4 text-sm text-blue-800">
+                            <h4 className="font-bold mb-2">How to get a Personal Access Token (PAT):</h4>
+                            <ol className="list-decimal list-inside space-y-1">
+                                <li>
+                                    Click here to go to the 
+                                    <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener noreferrer" className="font-semibold underline hover:text-blue-600"> GitHub Token Creation Page</a>.
+                                </li>
+                                <li>Give your token a descriptive name (e.g., "CyberTrainingAppSync").</li>
+                                <li>Set an expiration date for security.</li>
+                                <li>Under "Scopes", make sure to check the entire <strong className="font-semibold">"repo"</strong> scope.</li>
+                                <li>Click "Generate token" and copy the token.</li>
+                                <li>Paste the token in the input field below.</li>
+                            </ol>
+                        </div>
+                         <div className="my-4">
+                            <SyncStatusIndicator status={githubSyncStatus} />
+                        </div>
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-slate-600 mb-1">Repository Owner</label>
@@ -196,41 +224,22 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
                                     name="githubPath" 
                                     value={settings.githubPath || ''} 
                                     onChange={handleInputChange} 
-                                    placeholder="e.g., data/quiz-data.json" 
+                                    placeholder="e.g., data/training-data.json" 
                                     className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
-                        <div className="flex justify-between items-center mb-2">
-                           <h3 className="font-semibold text-lg text-slate-700">GitHub Synchronization</h3>
-                           <SyncStatusIndicator status={githubSyncStatus} />
-                        </div>
-                        <p className="text-sm text-slate-600 mb-4">
-                            This application automatically backs up all user and quiz data to a GitHub repository. For this to work, a secure token must be configured on the server.
-                        </p>
-                        <div className="bg-rose-50 border border-rose-200 rounded-lg p-4">
-                            <h4 className="font-bold text-rose-700">Action Required: Configure Environment Variable</h4>
-                            <p className="text-sm text-rose-600 mt-2 mb-3">
-                                If you are seeing sync errors, it is because the Personal Access Token (PAT) is not set up correctly on your Vercel hosting environment.
-                            </p>
-                            <p className="text-sm font-semibold text-slate-700 mb-2">Follow these steps to fix the issue:</p>
-                            <ol className="list-decimal list-inside text-sm text-slate-600 space-y-2">
-                                <li>Go to your project's dashboard on <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="text-indigo-600 font-semibold underline">Vercel</a>.</li>
-                                <li>Navigate to the <strong>Settings</strong> tab, then click on <strong>Environment Variables</strong>.</li>
-                                <li>
-                                    Add a new variable with the following details:
-                                    <ul className="list-disc list-inside mt-2 pl-4 space-y-1">
-                                        <li><strong>Key:</strong> <code className="bg-slate-200 text-slate-800 px-1.5 py-0.5 rounded-md text-xs font-mono">GITHUB_PAT</code></li>
-                                        <li><strong>Value:</strong> Paste your Personal Access Token here.</li>
-                                        <li>Ensure your token has <code className="bg-slate-200 text-slate-800 px-1.5 py-0.5 rounded-md text-xs font-mono">'repo'</code> scope permissions.</li>
-                                        <li>Ensure all environments (Production, Preview, Development) are checked.</li>
-                                    </ul>
-                                </li>
-                                <li>Save the variable.</li>
-                                <li>Go to the <strong>Deployments</strong> tab and <strong>re-deploy</strong> your latest production build to apply the new variable.</li>
-                            </ol>
+                            <div>
+                                <label className="block text-sm font-medium text-slate-600 mb-1">Paste your Personal Access Token (PAT)</label>
+                                <input 
+                                    type="password" 
+                                    name="githubPat" 
+                                    value={settings.githubPat || ''} 
+                                    onChange={handleInputChange} 
+                                    placeholder="Requires 'repo' scope" 
+                                    className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
+                                 <p className="text-xs text-rose-600 mt-2 p-2 bg-rose-50 border border-rose-200 rounded-md">
+                                    <strong>Security Warning:</strong> Your PAT is saved with your application data. Ensure your data storage and repository are secure.
+                                </p>
+                            </div>
                         </div>
                     </div>
                     
