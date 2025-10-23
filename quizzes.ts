@@ -1,2864 +1,1150 @@
-{
-  "users": [
-    {
-      "id": 1,
-      "fullName": "Demo User",
-      "username": "demo",
-      "password": "demo",
-      "trainingStatus": "not-started",
-      "lastScore": null,
-      "role": "user",
-      "assignedExams": [
-        "it_security_policy",
-        "hr_exam",
-        "it_policy_exam",
-        "server_exam",
-        "operation_exam",
-        "legal_exam",
-        "data_analyst_exam",
-        "it_developer_policy"
+import { Quiz } from './types';
+
+export const PASSING_PERCENTAGE = 70;
+
+export const INITIAL_QUIZZES: Quiz[] = [
+  {
+    id: 'password_security',
+    name: "Password & Account Security",
+    questions: [
+      {
+        id: 1,
+        category: "Password & Account Security",
+        question: "What is the primary purpose of Multi-Factor Authentication (MFA)?",
+        options: [
+          "To make passwords longer",
+          "To add an extra layer of security beyond just a password",
+          "To share your account with a colleague safely",
+          "To automatically change your password every month",
+        ],
+        correctAnswer: "To add an extra layer of security beyond just a password",
+      },
+      {
+        id: 2,
+        category: "Password & Account Security",
+        question: "Which of these is the strongest password?",
+        options: [
+          "Password123!",
+          "MyDogFido2024",
+          "R#8k&Zp@w!q2v$J9",
+          "qwertyuiop",
+        ],
+        correctAnswer: "R#8k&Zp@w!q2v$J9",
+      },
+    ],
+  },
+  {
+    id: 'data_protection_handling',
+    name: "Data Protection & Handling",
+    questions: [
+       {
+        id: 3,
+        category: "Data Protection & Handling",
+        question: "Where should you store confidential company files?",
+        options: [
+          "On your personal Google Drive",
+          "In your email drafts folder",
+          "In company-approved cloud storage or network drives",
+          "On a USB stick you keep on your desk",
+        ],
+        correctAnswer: "In company-approved cloud storage or network drives",
+      },
+       {
+        id: 4,
+        category: "Data Protection & Handling",
+        question: "What does 'data classification' help you do?",
+        options: [
+          "Delete old files automatically",
+          "Understand the sensitivity of data and how to handle it",
+          "Share files more quickly with anyone",
+          "Encrypt your entire hard drive",
+        ],
+        correctAnswer: "Understand the sensitivity of data and how to handle it",
+      },
+    ]
+  },
+  {
+    id: 'email_communication_security',
+    name: "Email & Communication Security",
+    questions: [
+      {
+        id: 5,
+        category: "Email & Communication Security",
+        question: "You receive an unexpected email with a link to reset your password. What should you do?",
+        options: [
+          "Click the link and reset your password immediately",
+          "Forward the email to the IT department, then delete it",
+          "Ignore and delete the email without clicking the link",
+          "Reply to ask if the sender is legitimate",
+        ],
+        correctAnswer: "Ignore and delete the email without clicking the link",
+      },
+    ]
+  },
+  {
+    id: 'device_internet_usage',
+    name: "Device & Internet Usage",
+    questions: [
+      {
+        id: 6,
+        category: "Device & Internet Usage",
+        question: "Why is it risky to use public Wi-Fi without a VPN for work?",
+        options: [
+          "It can be slow and unreliable",
+          "Attackers on the same network can intercept your data",
+          "It uses up your mobile data plan",
+          "It is always safe if the Wi-Fi has a password",
+        ],
+        correctAnswer: "Attackers on the same network can intercept your data",
+      },
+    ]
+  },
+  {
+    id: 'physical_security',
+    name: "Physical Security",
+    questions: [
+      {
+        id: 7,
+        category: "Physical Security",
+        question: "What does a 'clean desk policy' primarily help prevent?",
+        options: [
+          "Making the office look messy",
+          "Losing your coffee mug",
+          "Unauthorized access to sensitive information left on a desk",
+          "Forgetting your tasks for the day",
+        ],
+        correctAnswer: "Unauthorized access to sensitive information left on a desk",
+      },
+    ]
+  },
+  {
+    id: 'incident_reporting',
+    name: "Incident Reporting",
+    questions: [
+      {
+        id: 8,
+        category: "Incident Reporting",
+        question: "You accidentally click on a suspicious link in an email. What should be your immediate next step?",
+        options: [
+          "Disconnect your computer from the network and report it to IT immediately",
+          "Run a virus scan and hope for the best",
+          "Delete the email and don't tell anyone",
+          "Restart your computer",
+        ],
+        correctAnswer: "Disconnect your computer from the network and report it to IT immediately",
+      },
+    ]
+  },
+  {
+    id: 'social_engineering_awareness',
+    name: "Social Engineering Awareness",
+    questions: [
+      {
+        id: 9,
+        category: "Social Engineering Awareness",
+        question: "An individual calls you claiming to be from IT support and asks for your password to fix an issue. How should you respond?",
+        options: [
+          "Provide your password, as they are from IT",
+          "Ask them for their name and employee ID first",
+          "Refuse the request and report the call to the official IT department using a known number",
+          "Give them a temporary password",
+        ],
+        correctAnswer: "Refuse the request and report the call to the official IT department using a known number",
+      },
+    ]
+  },
+  {
+    id: 'acceptable_use_compliance',
+    name: "Acceptable Use & Compliance",
+    questions: [
+      {
+        id: 10,
+        category: "Acceptable Use & Compliance",
+        question: "Is it acceptable to use your company email for personal activities like online shopping?",
+        options: [
+          "Yes, as long as it's not excessive",
+          "Only for emergencies",
+          "No, company resources should be used for business purposes only",
+          "Yes, it is more secure than a personal email",
+        ],
+        correctAnswer: "No, company resources should be used for business purposes only",
+      },
+    ]
+  },
+  {
+    id: 'remote_work_byod',
+    name: "Remote Work & BYOD",
+    questions: [
+      {
+        id: 11,
+        category: "Remote Work & BYOD",
+        question: "When working from home, which of the following is most important for security?",
+        options: [
+          "Having a comfortable chair",
+          "Using a secure Wi-Fi network with a strong password",
+          "Taking breaks every hour",
+          "Having a large monitor",
+        ],
+        correctAnswer: "Using a secure Wi-Fi network with a strong password",
+      },
+    ]
+  },
+  {
+    id: 'backup_recovery_awareness',
+    name: "Backup & Recovery Awareness",
+    questions: [
+      {
+        id: 12,
+        category: "Backup & Recovery Awareness",
+        question: "What is the primary reason for regularly backing up company data?",
+        options: [
+          "To free up space on your computer",
+          "To ensure data can be recovered in case of loss or corruption",
+          "To comply with email retention policies",
+          "To make files easier to search",
+        ],
+        correctAnswer: "To ensure data can be recovered in case of loss or corruption",
+      },
+    ]
+  },
+  {
+    id: 'server_exam',
+    name: 'Server Exam',
+    questions: [
+      {
+        id: 15,
+        category: 'Server Exam',
+        question: "Who should be allowed access to the company's server room?",
+        options: [
+          'All employees',
+          'Only authorized personnel with a specific need to be there',
+          'The cleaning staff at any time',
+          'Any manager who asks for the key',
+        ],
+        correctAnswer: 'Only authorized personnel with a specific need to be there',
+      },
+    ]
+  },
+  {
+    id: 'op_bcp',
+    name: 'Business Continuity Planning',
+    questions: [{
+      id: 301,
+      category: 'Business Continuity Planning',
+      question: "What is the primary goal of a Business Continuity Plan (BCP)?",
+      options: [
+        'To ensure the company makes more profit',
+        'To give everyone extra vacation days after a disaster',
+        'To ensure critical business functions can continue during and after a disruption',
+        'To document all company hardware',
       ],
-      "answers": [],
-      "moduleProgress": {}
-    },
-    {
-      "id": 2,
-      "fullName": "Dev Lead",
-      "username": "dev",
-      "password": "dev",
-      "trainingStatus": "not-started",
-      "lastScore": null,
-      "role": "user",
-      "assignedExams": [
-        "it_security_policy",
-        "it_developer_policy"
+      correctAnswer: 'To ensure critical business functions can continue during and after a disruption',
+    }]
+  },
+  {
+    id: 'op_dr',
+    name: 'Disaster Recovery',
+    questions: [{
+      id: 302,
+      category: 'Disaster Recovery',
+      question: "What is a key objective of a Disaster Recovery (DR) test?",
+      options: [
+        'To cause a real disaster to see what happens',
+        'To validate the DR plan and identify gaps in procedures',
+        'To give the IT team a day off from regular duties',
+        'To check if the internet is working at the recovery site',
       ],
-      "answers": [],
-      "moduleProgress": {}
-    },
-    {
-      "id": 3,
-      "fullName": "Sys Admin",
-      "username": "server",
-      "password": "server",
-      "trainingStatus": "not-started",
-      "lastScore": null,
-      "role": "user",
-      "assignedExams": [
-        "it_security_policy",
-        "server_exam",
-        "it_policy_exam",
-        "operation_exam"
+      correctAnswer: 'To validate the DR plan and identify gaps in procedures',
+    }]
+  },
+  {
+    id: 'op_incident_mgmt',
+    name: 'Incident Management',
+    questions: [{
+      id: 303,
+      category: 'Incident Management',
+      question: "What is the first step in the incident management lifecycle after detection?",
+      options: [
+        'Resolution and recovery',
+        'Post-incident analysis',
+        'Containment, eradication, and recovery',
+        'Logging and categorization',
       ],
-      "answers": [],
-      "moduleProgress": {}
-    },
-    {
-      "id": 4,
-      "fullName": "IT Support",
-      "username": "it",
-      "password": "it",
-      "trainingStatus": "not-started",
-      "lastScore": null,
-      "role": "user",
-      "assignedExams": [
-        "it_security_policy",
-        "it_policy_exam"
+      correctAnswer: 'Logging and categorization',
+    }]
+  },
+  {
+    id: 'op_physical_security_ops',
+    name: 'Physical Security Policy',
+    questions: [{
+      id: 304,
+      category: 'Physical Security Policy',
+      question: "Which of the following helps prevent 'tailgating' into a secure office area?",
+      options: [
+        'Holding the door open for others',
+        'Ensuring each individual uses their own access card to enter',
+        'Disabling the access card reader',
+        'Leaving secure doors propped open for convenience',
       ],
-      "answers": [],
-      "moduleProgress": {}
-    },
-    {
-      "id": 5,
-      "fullName": "Data Analyst",
-      "username": "analyst",
-      "password": "analyst",
-      "trainingStatus": "not-started",
-      "lastScore": null,
-      "role": "user",
-      "assignedExams": [
-        "it_security_policy",
-        "data_analyst_exam"
+      correctAnswer: 'Ensuring each individual uses their own access card to enter',
+    }]
+  },
+  {
+    id: 'op_vendor_mgmt',
+    name: 'Vendor Management',
+    questions: [{
+      id: 305,
+      category: 'Vendor Management',
+      question: "What is the purpose of a Service Level Agreement (SLA) with a vendor?",
+      options: [
+        "It's just a formality for the legal team.",
+        'It lists the names of the vendor employees.',
+        'It defines the expected level of service, responsibilities, and performance metrics.',
+        'It is a one-time invoice for services.',
       ],
-      "answers": [],
-      "moduleProgress": {}
-    },
-    {
-      "id": 999,
-      "fullName": "Default Admin",
-      "username": "admin",
-      "password": "dqadm",
-      "trainingStatus": "not-started",
-      "lastScore": null,
-      "role": "admin",
-      "answers": [],
-      "moduleProgress": {}
-    },
-    {
-      "id": 1761208486957,
-      "fullName": "1",
-      "username": "1",
-      "password": "1",
-      "trainingStatus": "not-started",
-      "lastScore": null,
-      "role": "user",
-      "assignedExams": [
-        "server_exam"
+      correctAnswer: 'It defines the expected level of service, responsibilities, and performance metrics.',
+    }]
+  },
+  {
+    id: 'op_supply_chain',
+    name: 'Supply Chain Security',
+    questions: [{
+      id: 306,
+      category: 'Supply Chain Security',
+      question: "A primary security risk in the supply chain is:",
+      options: [
+        'Late deliveries affecting production schedules',
+        'Counterfeit components or malicious software being introduced into products',
+        'Increased shipping costs',
+        'Damage to goods during transit',
       ],
-      "answers": [],
-      "moduleProgress": {}
-    },
-    {
-      "id": 1761211541459,
-      "fullName": "2",
-      "username": "2",
-      "password": "2",
-      "trainingStatus": "not-started",
-      "lastScore": null,
-      "role": "user",
-      "assignedExams": [
-        "server_exam"
+      correctAnswer: 'Counterfeit components or malicious software being introduced into products',
+    }]
+  },
+  {
+    id: 'op_health_safety',
+    name: 'Health and Safety Policy',
+    questions: [{
+      id: 307,
+      category: 'Health and Safety Policy',
+      question: "Who is responsible for following health and safety guidelines in the workplace?",
+      options: [
+        'Only the Health and Safety officer',
+        'Only management',
+        'Every employee',
+        'Only new hires',
       ],
-      "answers": [],
-      "moduleProgress": {}
-    }
-  ],
-  "quizzes": [
-    {
-      "id": "password_security",
-      "name": "Password & Account Security",
-      "questions": [
-        {
-          "id": 1,
-          "category": "Password & Account Security",
-          "question": "What is the primary purpose of Multi-Factor Authentication (MFA)?",
-          "options": [
-            "To make passwords longer",
-            "To add an extra layer of security beyond just a password",
-            "To share your account with a colleague safely",
-            "To automatically change your password every month"
-          ],
-          "correctAnswer": "To add an extra layer of security beyond just a password"
-        },
-        {
-          "id": 2,
-          "category": "Password & Account Security",
-          "question": "Which of these is the strongest password?",
-          "options": [
-            "Password123!",
-            "MyDogFido2024",
-            "R#8k&Zp@w!q2v$J9",
-            "qwertyuiop"
-          ],
-          "correctAnswer": "R#8k&Zp@w!q2v$J9"
-        }
-      ]
-    },
-    {
-      "id": "data_protection_handling",
-      "name": "Data Protection & Handling",
-      "questions": [
-        {
-          "id": 3,
-          "category": "Data Protection & Handling",
-          "question": "Where should you store confidential company files?",
-          "options": [
-            "On your personal Google Drive",
-            "In your email drafts folder",
-            "In company-approved cloud storage or network drives",
-            "On a USB stick you keep on your desk"
-          ],
-          "correctAnswer": "In company-approved cloud storage or network drives"
-        },
-        {
-          "id": 4,
-          "category": "Data Protection & Handling",
-          "question": "What does 'data classification' help you do?",
-          "options": [
-            "Delete old files automatically",
-            "Understand the sensitivity of data and how to handle it",
-            "Share files more quickly with anyone",
-            "Encrypt your entire hard drive"
-          ],
-          "correctAnswer": "Understand the sensitivity of data and how to handle it"
-        }
-      ]
-    },
-    {
-      "id": "email_communication_security",
-      "name": "Email & Communication Security",
-      "questions": [
-        {
-          "id": 5,
-          "category": "Email & Communication Security",
-          "question": "You receive an unexpected email with a link to reset your password. What should you do?",
-          "options": [
-            "Click the link and reset your password immediately",
-            "Forward the email to the IT department, then delete it",
-            "Ignore and delete the email without clicking the link",
-            "Reply to ask if the sender is legitimate"
-          ],
-          "correctAnswer": "Ignore and delete the email without clicking the link"
-        }
-      ]
-    },
-    {
-      "id": "device_internet_usage",
-      "name": "Device & Internet Usage",
-      "questions": [
-        {
-          "id": 6,
-          "category": "Device & Internet Usage",
-          "question": "Why is it risky to use public Wi-Fi without a VPN for work?",
-          "options": [
-            "It can be slow and unreliable",
-            "Attackers on the same network can intercept your data",
-            "It uses up your mobile data plan",
-            "It is always safe if the Wi-Fi has a password"
-          ],
-          "correctAnswer": "Attackers on the same network can intercept your data"
-        }
-      ]
-    },
-    {
-      "id": "physical_security",
-      "name": "Physical Security",
-      "questions": [
-        {
-          "id": 7,
-          "category": "Physical Security",
-          "question": "What does a 'clean desk policy' primarily help prevent?",
-          "options": [
-            "Making the office look messy",
-            "Losing your coffee mug",
-            "Unauthorized access to sensitive information left on a desk",
-            "Forgetting your tasks for the day"
-          ],
-          "correctAnswer": "Unauthorized access to sensitive information left on a desk"
-        }
-      ]
-    },
-    {
-      "id": "incident_reporting",
-      "name": "Incident Reporting",
-      "questions": [
-        {
-          "id": 8,
-          "category": "Incident Reporting",
-          "question": "You accidentally click on a suspicious link in an email. What should be your immediate next step?",
-          "options": [
-            "Disconnect your computer from the network and report it to IT immediately",
-            "Run a virus scan and hope for the best",
-            "Delete the email and don't tell anyone",
-            "Restart your computer"
-          ],
-          "correctAnswer": "Disconnect your computer from the network and report it to IT immediately"
-        }
-      ]
-    },
-    {
-      "id": "social_engineering_awareness",
-      "name": "Social Engineering Awareness",
-      "questions": [
-        {
-          "id": 9,
-          "category": "Social Engineering Awareness",
-          "question": "An individual calls you claiming to be from IT support and asks for your password to fix an issue. How should you respond?",
-          "options": [
-            "Provide your password, as they are from IT",
-            "Ask them for their name and employee ID first",
-            "Refuse the request and report the call to the official IT department using a known number",
-            "Give them a temporary password"
-          ],
-          "correctAnswer": "Refuse the request and report the call to the official IT department using a known number"
-        }
-      ]
-    },
-    {
-      "id": "acceptable_use_compliance",
-      "name": "Acceptable Use & Compliance",
-      "questions": [
-        {
-          "id": 10,
-          "category": "Acceptable Use & Compliance",
-          "question": "Is it acceptable to use your company email for personal activities like online shopping?",
-          "options": [
-            "Yes, as long as it's not excessive",
-            "Only for emergencies",
-            "No, company resources should be used for business purposes only",
-            "Yes, it is more secure than a personal email"
-          ],
-          "correctAnswer": "No, company resources should be used for business purposes only"
-        }
-      ]
-    },
-    {
-      "id": "remote_work_byod",
-      "name": "Remote Work & BYOD",
-      "questions": [
-        {
-          "id": 11,
-          "category": "Remote Work & BYOD",
-          "question": "When working from home, which of the following is most important for security?",
-          "options": [
-            "Having a comfortable chair",
-            "Using a secure Wi-Fi network with a strong password",
-            "Taking breaks every hour",
-            "Having a large monitor"
-          ],
-          "correctAnswer": "Using a secure Wi-Fi network with a strong password"
-        }
-      ]
-    },
-    {
-      "id": "backup_recovery_awareness",
-      "name": "Backup & Recovery Awareness",
-      "questions": [
-        {
-          "id": 12,
-          "category": "Backup & Recovery Awareness",
-          "question": "What is the primary reason for regularly backing up company data?",
-          "options": [
-            "To free up space on your computer",
-            "To ensure data can be recovered in case of loss or corruption",
-            "To comply with email retention policies",
-            "To make files easier to search"
-          ],
-          "correctAnswer": "To ensure data can be recovered in case of loss or corruption"
-        }
-      ]
-    },
-    {
-      "id": "server_exam",
-      "name": "Server Exam",
-      "questions": [
-        {
-          "id": 15,
-          "category": "Server Exam",
-          "question": "Who should be allowed access to the company's server room?",
-          "options": [
-            "All employees",
-            "Only authorized personnel with a specific need to be there",
-            "The cleaning staff at any time",
-            "Any manager who asks for the key"
-          ],
-          "correctAnswer": "Only authorized personnel with a specific need to be there"
-        }
-      ]
-    },
-    {
-      "id": "op_bcp",
-      "name": "Business Continuity Planning",
-      "questions": [
-        {
-          "id": 301,
-          "category": "Business Continuity Planning",
-          "question": "What is the primary goal of a Business Continuity Plan (BCP)?",
-          "options": [
-            "To ensure the company makes more profit",
-            "To give everyone extra vacation days after a disaster",
-            "To ensure critical business functions can continue during and after a disruption",
-            "To document all company hardware"
-          ],
-          "correctAnswer": "To ensure critical business functions can continue during and after a disruption"
-        }
-      ]
-    },
-    {
-      "id": "op_dr",
-      "name": "Disaster Recovery",
-      "questions": [
-        {
-          "id": 302,
-          "category": "Disaster Recovery",
-          "question": "What is a key objective of a Disaster Recovery (DR) test?",
-          "options": [
-            "To cause a real disaster to see what happens",
-            "To validate the DR plan and identify gaps in procedures",
-            "To give the IT team a day off from regular duties",
-            "To check if the internet is working at the recovery site"
-          ],
-          "correctAnswer": "To validate the DR plan and identify gaps in procedures"
-        }
-      ]
-    },
-    {
-      "id": "op_incident_mgmt",
-      "name": "Incident Management",
-      "questions": [
-        {
-          "id": 303,
-          "category": "Incident Management",
-          "question": "What is the first step in the incident management lifecycle after detection?",
-          "options": [
-            "Resolution and recovery",
-            "Post-incident analysis",
-            "Containment, eradication, and recovery",
-            "Logging and categorization"
-          ],
-          "correctAnswer": "Logging and categorization"
-        }
-      ]
-    },
-    {
-      "id": "op_physical_security_ops",
-      "name": "Physical Security Policy",
-      "questions": [
-        {
-          "id": 304,
-          "category": "Physical Security Policy",
-          "question": "Which of the following helps prevent 'tailgating' into a secure office area?",
-          "options": [
-            "Holding the door open for others",
-            "Ensuring each individual uses their own access card to enter",
-            "Disabling the access card reader",
-            "Leaving secure doors propped open for convenience"
-          ],
-          "correctAnswer": "Ensuring each individual uses their own access card to enter"
-        }
-      ]
-    },
-    {
-      "id": "op_vendor_mgmt",
-      "name": "Vendor Management",
-      "questions": [
-        {
-          "id": 305,
-          "category": "Vendor Management",
-          "question": "What is the purpose of a Service Level Agreement (SLA) with a vendor?",
-          "options": [
-            "It's just a formality for the legal team.",
-            "It lists the names of the vendor employees.",
-            "It defines the expected level of service, responsibilities, and performance metrics.",
-            "It is a one-time invoice for services."
-          ],
-          "correctAnswer": "It defines the expected level of service, responsibilities, and performance metrics."
-        }
-      ]
-    },
-    {
-      "id": "op_supply_chain",
-      "name": "Supply Chain Security",
-      "questions": [
-        {
-          "id": 306,
-          "category": "Supply Chain Security",
-          "question": "A primary security risk in the supply chain is:",
-          "options": [
-            "Late deliveries affecting production schedules",
-            "Counterfeit components or malicious software being introduced into products",
-            "Increased shipping costs",
-            "Damage to goods during transit"
-          ],
-          "correctAnswer": "Counterfeit components or malicious software being introduced into products"
-        }
-      ]
-    },
-    {
-      "id": "op_health_safety",
-      "name": "Health and Safety Policy",
-      "questions": [
-        {
-          "id": 307,
-          "category": "Health and Safety Policy",
-          "question": "Who is responsible for following health and safety guidelines in the workplace?",
-          "options": [
-            "Only the Health and Safety officer",
-            "Only management",
-            "Every employee",
-            "Only new hires"
-          ],
-          "correctAnswer": "Every employee"
-        }
-      ]
-    },
-    {
-      "id": "op_qa",
-      "name": "Quality Assurance",
-      "questions": [
-        {
-          "id": 308,
-          "category": "Quality Assurance",
-          "question": "What is the main purpose of Quality Assurance (QA) in operations?",
-          "options": [
-            "To find someone to blame when things go wrong",
-            "To slow down the production process",
-            "To proactively ensure that products or services meet specified quality standards",
-            "To check the work only after it is completed"
-          ],
-          "correctAnswer": "To proactively ensure that products or services meet specified quality standards"
-        }
-      ]
-    },
-    {
-      "id": "op_resource_mgmt",
-      "name": "Resource Management",
-      "questions": [
-        {
-          "id": 309,
-          "category": "Resource Management",
-          "question": "Effective resource management in operations primarily aims to:",
-          "options": [
-            "Purchase the most expensive equipment available",
-            "Hire as many people as possible",
-            "Allocate and utilize resources efficiently to achieve organizational goals",
-            "Reduce the number of coffee breaks"
-          ],
-          "correctAnswer": "Allocate and utilize resources efficiently to achieve organizational goals"
-        }
-      ]
-    },
-    {
-      "id": "op_logistics",
-      "name": "Logistics and Distribution",
-      "questions": [
-        {
-          "id": 310,
-          "category": "Logistics and Distribution",
-          "question": "A key performance indicator (KPI) for logistics is 'On-Time Delivery Rate'. Why is this important?",
-          "options": [
-            "It's not important, as long as the package arrives eventually.",
-            "It directly impacts customer satisfaction and operational efficiency.",
-            "It helps in calculating fuel costs.",
-            "It is only used for employee performance reviews."
-          ],
-          "correctAnswer": "It directly impacts customer satisfaction and operational efficiency."
-        }
-      ]
-    },
-    {
-      "id": "legal_exam",
-      "name": "Legal Exam",
-      "questions": [
-        {
-          "id": 17,
-          "category": "Legal Exam",
-          "question": "Under regulations like GDPR, what is a key responsibility of a company after a data breach involving personal information?",
-          "options": [
-            "To wait a year to see if anyone notices",
-            "To notify the affected individuals and relevant authorities without undue delay",
-            "To offer discounts on future products",
-            "To blame the IT department"
-          ],
-          "correctAnswer": "To notify the affected individuals and relevant authorities without undue delay"
-        },
-        {
-          "id": 22,
-          "category": "Legal Exam",
-          "question": "An employee creates a new software tool during work hours using company equipment. Who typically owns the intellectual property (IP) of this tool?",
-          "options": [
-            "The employee, because they wrote the code.",
-            "The company, as it was created within the scope of employment.",
-            "It is open-source and owned by the public.",
-            "The employee's direct manager."
-          ],
-          "correctAnswer": "The company, as it was created within the scope of employment."
-        },
-        {
-          "id": 23,
-          "category": "Legal Exam",
-          "question": "What is the primary risk of using unlicensed software on a company computer?",
-          "options": [
-            "The software might run slower than the licensed version.",
-            "It can lead to legal action, fines, and security vulnerabilities.",
-            "It takes up more hard drive space.",
-            "The IT department cannot update it."
-          ],
-          "correctAnswer": "It can lead to legal action, fines, and security vulnerabilities."
-        },
-        {
-          "id": 24,
-          "category": "Legal Exam",
-          "question": "After signing an NDA with a client, you are having a casual conversation with a friend who works in the same industry. What information can you share about the client?",
-          "options": [
-            "Only high-level project details that seem harmless.",
-            "Specific technical challenges you are facing.",
-            "No confidential information covered by the NDA should be discussed.",
-            "The client's company name is okay to mention."
-          ],
-          "correctAnswer": "No confidential information covered by the NDA should be discussed."
-        },
-        {
-          "id": 25,
-          "category": "Legal Exam",
-          "question": "What is the main purpose of a company's records retention policy?",
-          "options": [
-            "To ensure all documents are deleted after one year.",
-            "To free up server storage space.",
-            "To legally dictate how long documents must be kept for compliance and business needs.",
-            "To make it harder to find old emails."
-          ],
-          "correctAnswer": "To legally dictate how long documents must be kept for compliance and business needs."
-        },
-        {
-          "id": 26,
-          "category": "Legal Exam",
-          "question": "If you report illegal or unethical activity within the company in good faith, what does a whistleblower policy protect you from?",
-          "options": [
-            "Receiving a bonus for the report.",
-            "Retaliation, such as being fired or demoted.",
-            "Having to work overtime.",
-            "Publicly speaking about the issue."
-          ],
-          "correctAnswer": "Retaliation, such as being fired or demoted."
-        },
-        {
-          "id": 27,
-          "category": "Legal Exam",
-          "question": "A potential vendor offers you expensive tickets to a major sports event to \"thank you for considering their product.\" What is the safest course of action under a typical anti-bribery policy?",
-          "options": [
-            "Accept the tickets as it's a normal part of business.",
-            "Accept the tickets but don't let it influence your decision.",
-            "Politely decline the gift and report the offer to your legal or compliance department.",
-            "Ask if they can give you cash instead."
-          ],
-          "correctAnswer": "Politely decline the gift and report the offer to your legal or compliance department."
-        },
-        {
-          "id": 28,
-          "category": "Legal Exam",
-          "question": "You overhear a confidential conversation about an upcoming company merger that has not been publicly announced. What should you do with this information?",
-          "options": [
-            "Buy stock in the company before the news is public to make a profit.",
-            "Tell your friends and family so they can buy stock.",
-            "Avoid trading the company's stock and keep the information confidential.",
-            "Post about it on social media."
-          ],
-          "correctAnswer": "Avoid trading the company's stock and keep the information confidential."
-        },
-        {
-          "id": 29,
-          "category": "Legal Exam",
-          "question": "What is a key guideline in most corporate social media policies regarding discussing work-related matters?",
-          "options": [
-            "You can post anything as long as your profile is private.",
-            "It's okay to complain about clients if you don't use their names.",
-            "Do not share confidential company information, and maintain a professional tone.",
-            "Tag the company in all your posts to increase engagement."
-          ],
-          "correctAnswer": "Do not share confidential company information, and maintain a professional tone."
-        },
-        {
-          "id": 30,
-          "category": "Legal Exam",
-          "question": "What does the \"right to be forgotten\" under GDPR and similar privacy laws mean for a company?",
-          "options": [
-            "The company must delete an individual's personal data upon request, under certain conditions.",
-            "The company can choose to ignore requests from former customers.",
-            "The company only has to anonymize the data, not delete it.",
-            "It only applies to data that is less than a year old."
-          ],
-          "correctAnswer": "The company must delete an individual's personal data upon request, under certain conditions."
-        }
-      ]
-    },
-    {
-      "id": "hr_recruitment_onboarding",
-      "name": "Recruitment & Onboarding",
-      "questions": [
-        {
-          "id": 50,
-          "category": "Recruitment & Onboarding",
-          "question": "What is the HR team’s responsibility during recruitment?",
-          "options": [
-            "Hire candidates without verification",
-            "Conduct fair and transparent selection based on skill and merit",
-            "Hire only referrals",
-            "Skip interview process"
-          ],
-          "correctAnswer": "Conduct fair and transparent selection based on skill and merit"
-        },
-        {
-          "id": 51,
-          "category": "Recruitment & Onboarding",
-          "question": "During onboarding, new employees must:",
-          "options": [
-            "Ignore policy training",
-            "Submit required documents and complete induction",
-            "Delay joining formalities",
-            "Skip HR introduction"
-          ],
-          "correctAnswer": "Submit required documents and complete induction"
-        }
-      ]
-    },
-    {
-      "id": "hr_attendance_leave",
-      "name": "Attendance & Leave Policy",
-      "questions": [
-        {
-          "id": 52,
-          "category": "Attendance & Leave Policy",
-          "question": "What is the standard procedure for applying for leave?",
-          "options": [
-            "Inform verbally",
-            "Apply through official HR portal or leave system",
-            "Message colleagues",
-            "Don’t apply if it’s short leave"
-          ],
-          "correctAnswer": "Apply through official HR portal or leave system"
-        },
-        {
-          "id": 53,
-          "category": "Attendance & Leave Policy",
-          "question": "Repeated late arrivals may lead to:",
-          "options": [
-            "Bonus",
-            "HR notice or disciplinary action",
-            "Extra holidays",
-            "No issue"
-          ],
-          "correctAnswer": "HR notice or disciplinary action"
-        }
-      ]
-    },
-    {
-      "id": "hr_workplace_conduct",
-      "name": "Workplace Conduct & Ethics",
-      "questions": [
-        {
-          "id": 54,
-          "category": "Workplace Conduct & Ethics",
-          "question": "What defines professional workplace behavior?",
-          "options": [
-            "Respect, punctuality, and teamwork",
-            "Gossip and favoritism",
-            "Ignoring deadlines",
-            "Casual language with clients"
-          ],
-          "correctAnswer": "Respect, punctuality, and teamwork"
-        },
-        {
-          "id": 55,
-          "category": "Workplace Conduct & Ethics",
-          "question": "If you witness unethical behavior, what should you do?",
-          "options": [
-            "Report it to HR or Compliance Officer",
-            "Ignore to avoid trouble",
-            "Spread it among coworkers",
-            "Handle it personally"
-          ],
-          "correctAnswer": "Report it to HR or Compliance Officer"
-        }
-      ]
-    },
-    {
-      "id": "hr_benefits_payroll",
-      "name": "Employee Benefits & Payroll",
-      "questions": [
-        {
-          "id": 56,
-          "category": "Employee Benefits & Payroll",
-          "question": "Who should employees contact for payroll or salary-related queries?",
-          "options": [
-            "Their friends",
-            "HR or Payroll Department",
-            "IT Team",
-            "Security guard"
-          ],
-          "correctAnswer": "HR or Payroll Department"
-        },
-        {
-          "id": 57,
-          "category": "Employee Benefits & Payroll",
-          "question": "Company-provided benefits (insurance, PF, etc.) are designed to:",
-          "options": [
-            "Motivate and protect employees",
-            "Increase deductions",
-            "Reduce salary",
-            "Be optional"
-          ],
-          "correctAnswer": "Motivate and protect employees"
-        }
-      ]
-    },
-    {
-      "id": "hr_performance_appraisal",
-      "name": "Performance & Appraisal",
-      "questions": [
-        {
-          "id": 58,
-          "category": "Performance & Appraisal",
-          "question": "What is the purpose of an appraisal meeting?",
-          "options": [
-            "To evaluate performance and discuss future goals",
-            "To scold employees",
-            "To compare salaries",
-            "To check attendance"
-          ],
-          "correctAnswer": "To evaluate performance and discuss future goals"
-        },
-        {
-          "id": 59,
-          "category": "Performance & Appraisal",
-          "question": "Who provides feedback during appraisals?",
-          "options": [
-            "Only HR",
-            "Reporting Manager and HR jointly",
-            "Security Team",
-            "IT Department"
-          ],
-          "correctAnswer": "Reporting Manager and HR jointly"
-        }
-      ]
-    },
-    {
-      "id": "hr_grievance_resolution",
-      "name": "Grievance & Conflict Resolution",
-      "questions": [
-        {
-          "id": 60,
-          "category": "Grievance & Conflict Resolution",
-          "question": "When facing a workplace issue, what’s the right approach?",
-          "options": [
-            "Report to HR using the formal grievance procedure",
-            "Post online",
-            "Argue with colleagues",
-            "Leave job immediately"
-          ],
-          "correctAnswer": "Report to HR using the formal grievance procedure"
-        },
-        {
-          "id": 61,
-          "category": "Grievance & Conflict Resolution",
-          "question": "Confidentiality in grievance handling ensures:",
-          "options": [
-            "Bias in decisions",
-            "Fair and private resolution",
-            "Public awareness",
-            "Faster promotions"
-          ],
-          "correctAnswer": "Fair and private resolution"
-        }
-      ]
-    },
-    {
-      "id": "hr_exit_clearance",
-      "name": "Exit & Clearance Policy",
-      "questions": [
-        {
-          "id": 62,
-          "category": "Exit & Clearance Policy",
-          "question": "During resignation, employees must:",
-          "options": [
-            "Serve notice period and follow clearance process",
-            "Leave immediately",
-            "Take all files home",
-            "Ignore HR"
-          ],
-          "correctAnswer": "Serve notice period and follow clearance process"
-        },
-        {
-          "id": 63,
-          "category": "Exit & Clearance Policy",
-          "question": "Exit interviews help HR to:",
-          "options": [
-            "Understand employee experience and improve policies",
-            "Finalize pay cuts",
-            "Remove employee data",
-            "Skip feedback collection"
-          ],
-          "correctAnswer": "Understand employee experience and improve policies"
-        }
-      ]
-    },
-    {
-      "id": "it_dev_secure_coding",
-      "name": "Secure Coding Practices",
-      "questions": [
-        {
-          "id": 401,
-          "category": "Secure Coding Practices",
-          "question": "What is the primary purpose of input validation in secure coding?",
-          "options": [
-            "To make the application run faster.",
-            "To ensure data fits into the database correctly.",
-            "To prevent malicious data (e.g., SQL injection, XSS) from being processed.",
-            "To format user input for display."
-          ],
-          "correctAnswer": "To prevent malicious data (e.g., SQL injection, XSS) from being processed."
-        },
-        {
-          "id": 402,
-          "category": "Secure Coding Practices",
-          "question": "Which of the following is a best practice for handling errors and exceptions securely?",
-          "options": [
-            "Display detailed error messages with stack traces to the user for easy debugging.",
-            "Write all errors to a public log file.",
-            "Use a generic error message for the user and log detailed information on the server-side.",
-            "Ignore all exceptions to prevent the application from crashing."
-          ],
-          "correctAnswer": "Use a generic error message for the user and log detailed information on the server-side."
-        }
-      ]
-    },
-    {
-      "id": "it_dev_api_security",
-      "name": "API Security",
-      "questions": [
-        {
-          "id": 403,
-          "category": "API Security",
-          "question": "What is a common method for authenticating API requests to ensure they come from a legitimate source?",
-          "options": [
-            "Using the client's IP address.",
-            "Using API keys or OAuth 2.0 tokens.",
-            "Allowing all requests from any origin.",
-            "Checking the User-Agent string."
-          ],
-          "correctAnswer": "Using API keys or OAuth 2.0 tokens."
-        },
-        {
-          "id": 404,
-          "category": "API Security",
-          "question": "To prevent unauthorized users from accessing sensitive data, what security control should be implemented at the API endpoint level?",
-          "options": [
-            "Rate limiting to prevent too many requests.",
-            "Caching responses to improve performance.",
-            "Authorization checks to ensure the user has the correct permissions for the requested resource.",
-            "Logging the request payload."
-          ],
-          "correctAnswer": "Authorization checks to ensure the user has the correct permissions for the requested resource."
-        }
-      ]
-    },
-    {
-      "id": "it_dev_dependency_mgmt",
-      "name": "Dependency Management",
-      "questions": [
-        {
-          "id": 405,
-          "category": "Dependency Management",
-          "question": "What is a primary risk of using outdated third-party libraries in an application?",
-          "options": [
-            "The library might be slower than newer versions.",
-            "The documentation might be hard to find.",
-            "The library may contain known security vulnerabilities that can be exploited.",
-            "The library might not be compatible with the latest operating systems."
-          ],
-          "correctAnswer": "The library may contain known security vulnerabilities that can be exploited."
-        },
-        {
-          "id": 406,
-          "category": "Dependency Management",
-          "question": "What is the purpose of a software composition analysis (SCA) tool?",
-          "options": [
-            "To compile the source code into an executable.",
-            "To automatically identify open-source components in a codebase and their known vulnerabilities.",
-            "To test the user interface of an application.",
-            "To format the source code according to style guides."
-          ],
-          "correctAnswer": "To automatically identify open-source components in a codebase and their known vulnerabilities."
-        }
-      ]
-    },
-    {
-      "id": "it_dev_data_handling",
-      "name": "Data Handling & Privacy",
-      "questions": [
-        {
-          "id": 407,
-          "category": "Data Handling & Privacy",
-          "question": "When storing sensitive user data, such as passwords, what is the most secure method?",
-          "options": [
-            "Storing them in plaintext for easy retrieval.",
-            "Encrypting them with a reversible encryption algorithm.",
-            "Hashing them with a strong, salted hashing algorithm (e.g., bcrypt, Argon2).",
-            "Base64 encoding them."
-          ],
-          "correctAnswer": "Hashing them with a strong, salted hashing algorithm (e.g., bcrypt, Argon2)."
-        },
-        {
-          "id": 408,
-          "category": "Data Handling & Privacy",
-          "question": "What does the principle of \"data minimization\" mean in the context of privacy?",
-          "options": [
-            "Collecting as much user data as possible for future use.",
-            "Storing data in the smallest possible file format.",
-            "Only collecting and retaining the absolute minimum amount of user data necessary for a specific purpose.",
-            "Deleting all user data after one day."
-          ],
-          "correctAnswer": "Only collecting and retaining the absolute minimum amount of user data necessary for a specific purpose."
-        }
-      ]
-    },
-    {
-      "id": "it_software_installation",
-      "name": "Software Installation & Configuration Management",
-      "questions": [
-        {
-          "id": 601,
-          "category": "Software Installation & Configuration Management",
-          "question": "During enterprise software installation, which step ensures the integrity of the installer package before execution?",
-          "options": [
-            "Running antivirus only",
-            "Verifying digital signatures or checksum hashes (SHA256/MD5)",
-            "Checking file size",
-            "Installing directly from email"
-          ],
-          "correctAnswer": "Verifying digital signatures or checksum hashes (SHA256/MD5)"
-        },
-        {
-          "id": 602,
-          "category": "Software Installation & Configuration Management",
-          "question": "When deploying an internal application update, what’s the first mandatory pre-deployment step?",
-          "options": [
-            "Notify users",
-            "Backup existing system and verify rollback plan",
-            "Restart production server",
-            "Send approval email"
-          ],
-          "correctAnswer": "Backup existing system and verify rollback plan"
-        },
-        {
-          "id": 603,
-          "category": "Software Installation & Configuration Management",
-          "question": "Which environment is specifically used for final pre-production testing under real conditions?",
-          "options": [
-            "Development",
-            "Staging / UAT",
-            "Local machine",
-            "Sandbox only"
-          ],
-          "correctAnswer": "Staging / UAT"
-        },
-        {
-          "id": 604,
-          "category": "Software Installation & Configuration Management",
-          "question": "A developer receives an installation request for a licensed IDE. What should they do first?",
-          "options": [
-            "Download from a free source",
-            "Raise a request through the IT Asset Management system for license allocation",
-            "Install a trial version",
-            "Ask a colleague for setup"
-          ],
-          "correctAnswer": "Raise a request through the IT Asset Management system for license allocation"
-        }
-      ]
-    },
-    {
-      "id": "it_app_testing",
-      "name": "Application Testing & Release Management",
-      "questions": [
-        {
-          "id": 605,
-          "category": "Application Testing & Release Management",
-          "question": "What’s the purpose of a smoke test after deployment?",
-          "options": [
-            "Full performance validation",
-            "Quick check that the core functions run after release",
-            "Security scan",
-            "Regression test"
-          ],
-          "correctAnswer": "Quick check that the core functions run after release"
-        },
-        {
-          "id": 606,
-          "category": "Application Testing & Release Management",
-          "question": "What is a UAT (User Acceptance Test) primarily focused on?",
-          "options": [
-            "Security vulnerabilities",
-            "Code efficiency",
-            "Business requirements validation",
-            "Developer preferences"
-          ],
-          "correctAnswer": "Business requirements validation"
-        },
-        {
-          "id": 607,
-          "category": "Application Testing & Release Management",
-          "question": "In CI/CD, which step ensures automatic rollback on deployment failure?",
-          "options": [
-            "Canary deployment",
-            "Static code analysis",
-            "Smoke testing",
-            "Manual patching"
-          ],
-          "correctAnswer": "Canary deployment"
-        },
-        {
-          "id": 608,
-          "category": "Application Testing & Release Management",
-          "question": "Before pushing a major release, what must the developer confirm?",
-          "options": [
-            "Approval from QA + Change Advisory Board (CAB)",
-            "Only QA testing done",
-            "Code committed to GitHub",
-            "Email sent to manager"
-          ],
-          "correctAnswer": "Approval from QA + Change Advisory Board (CAB)"
-        }
-      ]
-    },
-    {
-      "id": "it_ticketing_change_control",
-      "name": "Ticketing & Change Control",
-      "questions": [
-        {
-          "id": 609,
-          "category": "Ticketing & Change Control",
-          "question": "A developer finds a bug in production. What’s the correct escalation process?",
-          "options": [
-            "Fix immediately on live system",
-            "Log an incident ticket → assign severity → wait for CAB approval for patch",
-            "Ignore if minor",
-            "Raise a personal Jira note"
-          ],
-          "correctAnswer": "Log an incident ticket → assign severity → wait for CAB approval for patch"
-        },
-        {
-          "id": 610,
-          "category": "Ticketing & Change Control",
-          "question": "What’s the main difference between a Change Request (CR) and an Incident Ticket?",
-          "options": [
-            "CR = planned improvement, Incident = unplanned issue",
-            "Both are same",
-            "CR only for hardware",
-            "Incident needs CAB approval"
-          ],
-          "correctAnswer": "CR = planned improvement, Incident = unplanned issue"
-        },
-        {
-          "id": 611,
-          "category": "Ticketing & Change Control",
-          "question": "Which role has authority to approve production deployment?",
-          "options": [
-            "Developer",
-            "QA Tester",
-            "Change Manager / CAB",
-            "Any senior staff"
-          ],
-          "correctAnswer": "Change Manager / CAB"
-        },
-        {
-          "id": 612,
-          "category": "Ticketing & Change Control",
-          "question": "What’s the first detail required in a service ticket for issue tracking?",
-          "options": [
-            "Issue summary, category, environment, and severity level",
-            "Only screenshot",
-            "Email CC list",
-            "Log file size"
-          ],
-          "correctAnswer": "Issue summary, category, environment, and severity level"
-        }
-      ]
-    },
-    {
-      "id": "it_security_compliance_dev",
-      "name": "Security & Compliance in Development",
-      "questions": [
-        {
-          "id": 613,
-          "category": "Security & Compliance in Development",
-          "question": "If a developer needs to use third-party open-source libraries, what must they verify first?",
-          "options": [
-            "License compatibility and vulnerability assessment",
-            "File size and version number",
-            "Code readability",
-            "Whether it runs locally"
-          ],
-          "correctAnswer": "License compatibility and vulnerability assessment"
-        },
-        {
-          "id": 614,
-          "category": "Security & Compliance in Development",
-          "question": "Which tool can detect hardcoded secrets in source code before commit?",
-          "options": [
-            "SonarQube",
-            "GitGuardian / TruffleHog",
-            "Jenkins",
-            "Visual Studio"
-          ],
-          "correctAnswer": "GitGuardian / TruffleHog"
-        },
-        {
-          "id": 615,
-          "category": "Security & Compliance in Development",
-          "question": "What should developers never include in source code repositories?",
-          "options": [
-            "Configuration templates",
-            "API keys, passwords, certificates",
-            "Unit test files",
-            "README.md"
-          ],
-          "correctAnswer": "API keys, passwords, certificates"
-        },
-        {
-          "id": 616,
-          "category": "Security & Compliance in Development",
-          "question": "What’s the purpose of a Static Application Security Test (SAST)?",
-          "options": [
-            "To test UI layout",
-            "To detect code-level vulnerabilities before runtime",
-            "To measure CPU usage",
-            "To test network speed"
-          ],
-          "correctAnswer": "To detect code-level vulnerabilities before runtime"
-        }
-      ]
-    },
-    {
-      "id": "it_env_access_control",
-      "name": "Environment & Access Control",
-      "questions": [
-        {
-          "id": 617,
-          "category": "Environment & Access Control",
-          "question": "Which practice ensures minimal risk when granting developer access to production systems?",
-          "options": [
-            "Role-based access control with temporary privilege escalation",
-            "Full admin access for all devs",
-            "Sharing root credentials",
-            "One shared account"
-          ],
-          "correctAnswer": "Role-based access control with temporary privilege escalation"
-        },
-        {
-          "id": 618,
-          "category": "Environment & Access Control",
-          "question": "When testing in an office environment, developers must:",
-          "options": [
-            "Use isolated staging servers, never live databases",
-            "Test directly on production",
-            "Copy data manually from prod",
-            "Use real customer credentials"
-          ],
-          "correctAnswer": "Use isolated staging servers, never live databases"
-        },
-        {
-          "id": 619,
-          "category": "Environment & Access Control",
-          "question": "For remote deployment, what’s the secure way to access production servers?",
-          "options": [
-            "Via approved VPN + MFA",
-            "Using any open SSH",
-            "RDP without password",
-            "Shared public Wi-Fi"
-          ],
-          "correctAnswer": "Via approved VPN + MFA"
-        },
-        {
-          "id": 620,
-          "category": "Environment & Access Control",
-          "question": "What is the most critical log type to verify after any deployment?",
-          "options": [
-            "Application and system logs",
-            "Browser history",
-            "Temporary files",
-            "Cache reports"
-          ],
-          "correctAnswer": "Application and system logs"
-        }
-      ]
-    },
-    {
-      "id": "it_dos_donts",
-      "name": "Do’s and Don’ts of Enterprise Development",
-      "questions": [
-        {
-          "id": 621,
-          "category": "Do’s and Don’ts of Enterprise Development",
-          "question": "Developers must document changes in:",
-          "options": [
-            "Change logs or Git commit messages",
-            "Personal notes",
-            "Chat history",
-            "Email drafts"
-          ],
-          "correctAnswer": "Change logs or Git commit messages"
-        },
-        {
-          "id": 622,
-          "category": "Do’s and Don’ts of Enterprise Development",
-          "question": "If a developer identifies a vulnerability in their code, the best action is:",
-          "options": [
-            "Immediately report and patch through secure pipeline",
-            "Hide it until next sprint",
-            "Fix locally without audit",
-            "Ignore low risk"
-          ],
-          "correctAnswer": "Immediately report and patch through secure pipeline"
-        },
-        {
-          "id": 623,
-          "category": "Do’s and Don’ts of Enterprise Development",
-          "question": "What’s a common violation of software deployment policy?",
-          "options": [
-            "Deploying without QA sign-off or CAB approval",
-            "Tagging release in Git",
-            "Writing release notes",
-            "Verifying hash"
-          ],
-          "correctAnswer": "Deploying without QA sign-off or CAB approval"
-        },
-        {
-          "id": 624,
-          "category": "Do’s and Don’ts of Enterprise Development",
-          "question": "Why should test environments never contain live customer data?",
-          "options": [
-            "It violates data protection and privacy laws (GDPR, etc.)",
-            "It increases system speed",
-            "It helps debugging faster",
-            "It reduces QA work"
-          ],
-          "correctAnswer": "It violates data protection and privacy laws (GDPR, etc.)"
-        },
-        {
-          "id": 625,
-          "category": "Do’s and Don’ts of Enterprise Development",
-          "question": "Which practice ensures smooth handover between development and operations teams?",
-          "options": [
-            "Proper documentation + version control + change record updates",
-            "Sending a verbal summary",
-            "Keeping code locally",
-            "Skipping handover"
-          ],
-          "correctAnswer": "Proper documentation + version control + change record updates"
-        }
-      ]
-    },
-    {
-      "id": "data_analyst_governance",
-      "name": "Data Governance & Compliance",
-      "questions": [
-        {
-          "id": 701,
-          "category": "Data Governance & Compliance",
-          "question": "What is considered Personally Identifiable Information (PII) under most data protection laws?",
-          "options": [
-            "Anonymous survey results",
-            "A person's name combined with their email address",
-            "Publicly available company addresses",
-            "The number of employees in a company"
-          ],
-          "correctAnswer": "A person's name combined with their email address"
-        },
-        {
-          "id": 702,
-          "category": "Data Governance & Compliance",
-          "question": "Under GDPR, what is a valid legal basis for processing personal data?",
-          "options": [
-            "The data seems useful for future marketing.",
-            "The individual has given clear consent for a specific purpose.",
-            "The data was found on a public website.",
-            "A manager requested the data analysis."
-          ],
-          "correctAnswer": "The individual has given clear consent for a specific purpose."
-        }
-      ]
-    },
-    {
-      "id": "data_analyst_handling",
-      "name": "Secure Data Handling & Storage",
-      "questions": [
-        {
-          "id": 703,
-          "category": "Secure Data Handling & Storage",
-          "question": "When a dataset containing sensitive information is not in use, how should it be stored?",
-          "options": [
-            "On an unencrypted USB drive for easy access.",
-            "In a password-protected spreadsheet on a shared network drive.",
-            "In an encrypted format on a secure, access-controlled server.",
-            "In a personal cloud storage account."
-          ],
-          "correctAnswer": "In an encrypted format on a secure, access-controlled server."
-        },
-        {
-          "id": 704,
-          "category": "Secure Data Handling & Storage",
-          "question": "Before sharing aggregated data with another department, what is a crucial step?",
-          "options": [
-            "Ensure no individual's data can be re-identified from the aggregated results.",
-            "Send the raw data first for them to check.",
-            "Password protect the file with '12345'.",
-            "Make sure the chart colors are on-brand."
-          ],
-          "correctAnswer": "Ensure no individual's data can be re-identified from the aggregated results."
-        }
-      ]
-    },
-    {
-      "id": "data_analyst_integrity",
-      "name": "Data Quality & Integrity",
-      "questions": [
-        {
-          "id": 705,
-          "category": "Data Quality & Integrity",
-          "question": "What is the purpose of data validation during the data ingestion process?",
-          "options": [
-            "To make the dataset larger.",
-            "To check for and reject or correct inaccurate or improperly formatted data.",
-            "To automatically delete any null values.",
-            "To convert all text to uppercase."
-          ],
-          "correctAnswer": "To check for and reject or correct inaccurate or improperly formatted data."
-        },
-        {
-          "id": 706,
-          "category": "Data Quality & Integrity",
-          "question": "Why is it important to document data transformations and cleaning steps?",
-          "options": [
-            "It's not important if the final report looks correct.",
-            "To make the process seem more complex.",
-            "To ensure the analysis is reproducible, transparent, and auditable.",
-            "To create more files to store."
-          ],
-          "correctAnswer": "To ensure the analysis is reproducible, transparent, and auditable."
-        }
-      ]
-    },
-    {
-      "id": "data_analyst_ethics",
-      "name": "Ethical Data Usage & Reporting",
-      "questions": [
-        {
-          "id": 707,
-          "category": "Ethical Data Usage & Reporting",
-          "question": "If an analysis reveals a strong correlation that could lead to a biased business decision (e.g., against a protected group), what should a data analyst do?",
-          "options": [
-            "Present the finding without context, as 'the data doesn't lie.'",
-            "Remove the finding from the report to avoid controversy.",
-            "Highlight the correlation but also point out the potential for bias and recommend further investigation.",
-            "Only show the data to managers who will agree with the biased outcome."
-          ],
-          "correctAnswer": "Highlight the correlation but also point out the potential for bias and recommend further investigation."
-        },
-        {
-          "id": 708,
-          "category": "Ethical Data Usage & Reporting",
-          "question": "What is a primary ethical concern when visualizing data for a general audience?",
-          "options": [
-            "Using colors that are not visually appealing.",
-            "The visualization could mislead or manipulate the audience's interpretation of the data.",
-            "The chart takes too long to load.",
-            "The title of the chart is too long."
-          ],
-          "correctAnswer": "The visualization could mislead or manipulate the audience's interpretation of the data."
-        }
-      ]
-    },
-    {
-      "id": "password_&_account_security_1761211506666",
-      "name": "Password & Account Security",
-      "questions": [
-        {
-          "question": "What is the primary purpose of Multi‑Factor Authentication (MFA)?",
-          "options": [
-            "To make passwords longer",
-            "To add an extra layer of security beyond just a password",
-            "To share your account with a colleague safely",
-            "To automatically change your password every month"
-          ],
-          "correctAnswer": "To add an extra layer of security beyond just a password",
-          "id": 1761211506666,
-          "category": "Password & Account Security"
-        },
-        {
-          "question": "Which of these is the strongest password?",
-          "options": [
-            "Password123!",
-            "MyDogFido2024",
-            "R#8k&Zp@w!q2v$J9",
-            "qwertyuiop"
-          ],
-          "correctAnswer": "R#8k&Zp@w!q2v$J9",
-          "id": 1761211506667,
-          "category": "Password & Account Security"
-        },
-        {
-          "question": "What is the recommended minimum length for a strong corporate password?",
-          "options": [
-            "8 characters",
-            "10 characters",
-            "12 characters",
-            "16 characters"
-          ],
-          "correctAnswer": "12 characters",
-          "id": 1761211506668,
-          "category": "Password & Account Security"
-        }
-      ]
-    },
-    {
-      "id": "data_protection_&_handling_1761211506666",
-      "name": "Data Protection & Handling",
-      "questions": [
-        {
-          "question": "Where should you store confidential company files?",
-          "options": [
-            "On your personal Google Drive",
-            "In your email drafts folder",
-            "In company‑approved cloud storage or network drives",
-            "On a USB stick you keep on your desk"
-          ],
-          "correctAnswer": "In company‑approved cloud storage or network drives",
-          "id": 1761211506669,
-          "category": "Data Protection & Handling"
-        },
-        {
-          "question": "What does “data classification” help you do?",
-          "options": [
-            "Delete old files automatically",
-            "Understand the sensitivity of data and how to handle it",
-            "Share files more quickly with anyone",
-            "Encrypt your entire hard drive"
-          ],
-          "correctAnswer": "Understand the sensitivity of data and how to handle it",
-          "id": 1761211506670,
-          "category": "Data Protection & Handling"
-        },
-        {
-          "question": "What is the best practice for disposing of paper that contains confidential information?",
-          "options": [
-            "Recycle it in the office bin",
-            "Shred it before disposal",
-            "Throw it in regular trash",
-            "Burn it in an open fire"
-          ],
-          "correctAnswer": "Shred it before disposal",
-          "id": 1761211506671,
-          "category": "Data Protection & Handling"
-        }
-      ]
-    },
-    {
-      "id": "email_&_phishing_1761211506666",
-      "name": "Email & Phishing",
-      "questions": [
-        {
-          "question": "You receive an unexpected email with a link to reset your password. What should you do?",
-          "options": [
-            "Click the link and reset your password immediately",
-            "Forward the email to the IT department, then delete it",
-            "Ignore and delete the email without clicking the link",
-            "Reply to ask if the sender is legitimate"
-          ],
-          "correctAnswer": "Ignore and delete the email without clicking the link",
-          "id": 1761211506672,
-          "category": "Email & Phishing"
-        },
-        {
-          "question": "Which indicator most commonly suggests an email is a phishing attempt?",
-          "options": [
-            "A personalized greeting with your full name",
-            "A misspelled sender domain",
-            "An email sent from your company’s domain",
-            "An email with a professional signature"
-          ],
-          "correctAnswer": "A misspelled sender domain",
-          "id": 1761211506673,
-          "category": "Email & Phishing"
-        },
-        {
-          "question": "What should you do if you receive a suspicious attachment?",
-          "options": [
-            "Open it to see what it is",
-            "Delete the email and ignore it",
-            "Forward it to the IT/security team for analysis",
-            "Save it for later review"
-          ],
-          "correctAnswer": "Forward it to the IT/security team for analysis",
-          "id": 1761211506674,
-          "category": "Email & Phishing"
-        },
-        {
-          "question": "Why can the “display name” in an email be spoofed?",
-          "options": [
-            "Because the mail server always validates the name",
-            "Because email protocols separate the visible name from the actual sending address",
-            "Because the recipient’s inbox changes it automatically",
-            "Because the message is encrypted"
-          ],
-          "correctAnswer": "Because email protocols separate the visible name from the actual sending address",
-          "id": 1761211506675,
-          "category": "Email & Phishing"
-        }
-      ]
-    },
-    {
-      "id": "device_&_internet_usage_1761211506666",
-      "name": "Device & Internet Usage",
-      "questions": [
-        {
-          "question": "Why is it risky to use public Wi‑Fi without a VPN for work?",
-          "options": [
-            "It can be slow and unreliable",
-            "Attackers on the same network can intercept your data",
-            "It uses up your mobile data plan",
-            "It is always safe if the Wi‑Fi has a password"
-          ],
-          "correctAnswer": "Attackers on the same network can intercept your data",
-          "id": 1761211506676,
-          "category": "Device & Internet Usage"
-        },
-        {
-          "question": "Which action is recommended when using a personal device for work tasks?",
-          "options": [
-            "Install corporate endpoint security software",
-            "Disable all updates",
-            "Share the device password with coworkers",
-            "Use it without any security controls"
-          ],
-          "correctAnswer": "Install corporate endpoint security software",
-          "id": 1761211506677,
-          "category": "Device & Internet Usage"
-        },
-        {
-          "question": "What is the safest way to browse the internet on a public computer?",
-          "options": [
-            "Use the computer’s built‑in browser without any extra steps",
-            "Connect via a trusted VPN service",
-            "Turn off the firewall",
-            "Install a browser extension from an unknown source"
-          ],
-          "correctAnswer": "Connect via a trusted VPN service",
-          "id": 1761211506678,
-          "category": "Device & Internet Usage"
-        }
-      ]
-    },
-    {
-      "id": "physical_security_1761211506666",
-      "name": "Physical Security",
-      "questions": [
-        {
-          "question": "What does a “clean desk policy” primarily help prevent?",
-          "options": [
-            "Making the office look messy",
-            "Losing your coffee mug",
-            "Unauthorized access to sensitive information left on a desk",
-            "Forgetting your tasks for the day"
-          ],
-          "correctAnswer": "Unauthorized access to sensitive information left on a desk",
-          "id": 1761211506679,
-          "category": "Physical Security"
-        },
-        {
-          "question": "When leaving the office, where should you store your laptop?",
-          "options": [
-            "Leave it on the desk",
-            "Lock it in a cabinet or safe",
-            "Put it in a drawer without a lock",
-            "Give it to a colleague"
-          ],
-          "correctAnswer": "Lock it in a cabinet or safe",
-          "id": 1761211506680,
-          "category": "Physical Security"
-        },
-        {
-          "question": "What is the primary purpose of a security badge?",
-          "options": [
-            "To identify employee’s favorite coffee",
-            "To control physical access to restricted areas",
-            "To give discounts at the cafeteria",
-            "To track work hours"
-          ],
-          "correctAnswer": "To control physical access to restricted areas",
-          "id": 1761211506681,
-          "category": "Physical Security"
-        }
-      ]
-    },
-    {
-      "id": "incident_reporting_1761211506666",
-      "name": "Incident Reporting",
-      "questions": [
-        {
-          "question": "You accidentally click on a suspicious link in an email. What should be your immediate next step?",
-          "options": [
-            "Disconnect your computer from the network and report it to IT immediately",
-            "Run a virus scan and hope for the best",
-            "Delete the email and don’t tell anyone",
-            "Restart your computer"
-          ],
-          "correctAnswer": "Disconnect your computer from the network and report it to IT immediately",
-          "id": 1761211506682,
-          "category": "Incident Reporting"
-        },
-        {
-          "question": "If you suspect a malware infection on your workstation, who should you contact first?",
-          "options": [
-            "Your manager",
-            "The IT security team",
-            "The cleaning crew",
-            "A coworker outside IT"
-          ],
-          "correctAnswer": "The IT security team",
-          "id": 1761211506683,
-          "category": "Incident Reporting"
-        },
-        {
-          "question": "When should a security incident be reported?",
-          "options": [
-            "Only after it causes data loss",
-            "As soon as it is discovered",
-            "During the weekly team meeting",
-            "At the end of the month"
-          ],
-          "correctAnswer": "As soon as it is discovered",
-          "id": 1761211506684,
-          "category": "Incident Reporting"
-        }
-      ]
-    },
-    {
-      "id": "social_engineering_1761211506666",
-      "name": "Social Engineering",
-      "questions": [
-        {
-          "question": "An individual calls you claiming to be from IT support and asks for your password to fix an issue. How should you respond?",
-          "options": [
-            "Provide your password, as they are from IT",
-            "Ask them for their name and employee ID first",
-            "Refuse the request and report the call to the official IT department using a known number",
-            "Give them a temporary password"
-          ],
-          "correctAnswer": "Refuse the request and report the call to the official IT department using a known number",
-          "id": 1761211506685,
-          "category": "Social Engineering"
-        },
-        {
-          "question": "What is a common tactic used in pretexting attacks?",
-          "options": [
-            "Offering free software",
-            "Impersonating a trusted authority figure to obtain information",
-            "Sending newsletters",
-            "Scheduling meetings"
-          ],
-          "correctAnswer": "Impersonating a trusted authority figure to obtain information",
-          "id": 1761211506686,
-          "category": "Social Engineering"
-        },
-        {
-          "question": "Which scenario is a sign of a vishing (voice‑phishing) attack?",
-          "options": [
-            "A caller asks you to press a button on your phone",
-            "A caller requests your login credentials over the phone",
-            "A caller wants to schedule a video conference",
-            "A caller informs you about a weather forecast"
-          ],
-          "correctAnswer": "A caller requests your login credentials over the phone",
-          "id": 1761211506687,
-          "category": "Social Engineering"
-        }
-      ]
-    },
-    {
-      "id": "acceptable_use_&_compliance_1761211506666",
-      "name": "Acceptable Use & Compliance",
-      "questions": [
-        {
-          "question": "Is it acceptable to use your company email for personal activities like online shopping?",
-          "options": [
-            "Yes, as long as it’s not excessive",
-            "Only for emergencies",
-            "No, company resources should be used for business purposes only",
-            "Yes, it is more secure than a personal email"
-          ],
-          "correctAnswer": "No, company resources should be used for business purposes only",
-          "id": 1761211506688,
-          "category": "Acceptable Use & Compliance"
-        },
-        {
-          "question": "Which of the following activities typically violates an organization’s acceptable‑use policy?",
-          "options": [
-            "Using a company printer for work documents",
-            "Installing unauthorized software on a work computer",
-            "Accessing the corporate intranet",
-            "Attending a virtual meeting"
-          ],
-          "correctAnswer": "Installing unauthorized software on a work computer",
-          "id": 1761211506689,
-          "category": "Acceptable Use & Compliance"
-        },
-        {
-          "question": "How often should employees review the company’s acceptable‑use policy?",
-          "options": [
-            "Every day",
-            "Once a year",
-            "Only when a new policy is issued",
-            "Never; it’s optional"
-          ],
-          "correctAnswer": "Once a year",
-          "id": 1761211506690,
-          "category": "Acceptable Use & Compliance"
-        }
-      ]
-    },
-    {
-      "id": "remote_work_&_byod_1761211506666",
-      "name": "Remote Work & BYOD",
-      "questions": [
-        {
-          "question": "When working from home, which of the following is most important for security?",
-          "options": [
-            "Having a comfortable chair",
-            "Using a secure Wi‑Fi network with a strong password",
-            "Taking breaks every hour",
-            "Having a large monitor"
-          ],
-          "correctAnswer": "Using a secure Wi‑Fi network with a strong password",
-          "id": 1761211506691,
-          "category": "Remote Work & BYOD"
-        },
-        {
-          "question": "Which device is least appropriate for handling confidential company data from home?",
-          "options": [
-            "A corporate‑managed laptop",
-            "A personal smartphone without MDM",
-            "A desktop computer with company VPN installed",
-            "A tablet with encrypted storage"
-          ],
-          "correctAnswer": "A personal smartphone without MDM",
-          "id": 1761211506692,
-          "category": "Remote Work & BYOD"
-        },
-        {
-          "question": "What is a best practice for BYOD (Bring Your Own Device) security?",
-          "options": [
-            "Allow any app to be installed",
-            "Enforce device encryption and password protection",
-            "Disable all security updates",
-            "Share device credentials with coworkers"
-          ],
-          "correctAnswer": "Enforce device encryption and password protection",
-          "id": 1761211506693,
-          "category": "Remote Work & BYOD"
-        }
-      ]
-    },
-    {
-      "id": "backup_&_recovery_1761211506666",
-      "name": "Backup & Recovery",
-      "questions": [
-        {
-          "question": "What is the primary reason for regularly backing up company data?",
-          "options": [
-            "To free up space on your computer",
-            "To ensure data can be recovered in case of loss or corruption",
-            "To comply with email retention policies",
-            "To make files easier to search"
-          ],
-          "correctAnswer": "To ensure data can be recovered in case of loss or corruption",
-          "id": 1761211506694,
-          "category": "Backup & Recovery"
-        },
-        {
-          "question": "Where should backup copies be stored to reduce the risk of loss from a site‑specific disaster?",
-          "options": [
-            "On the same hard drive as the original data",
-            "Off‑site or in a cloud service with versioning",
-            "On an employee’s personal laptop",
-            "In a public folder on the network"
-          ],
-          "correctAnswer": "Off‑site or in a cloud service with versioning",
-          "id": 1761211506695,
-          "category": "Backup & Recovery"
-        },
-        {
-          "question": "How often should critical business data be backed up?",
-          "options": [
-            "Once a year",
-            "Daily or more frequently depending on change rate",
-            "Only when the server is upgraded",
-            "Whenever you feel like it"
-          ],
-          "correctAnswer": "Daily or more frequently depending on change rate",
-          "id": 1761211506696,
-          "category": "Backup & Recovery"
-        }
-      ]
-    },
-    {
-      "id": "server_hardening_1761211506666",
-      "name": "Server Hardening",
-      "questions": [
-        {
-          "question": "Why should unused services be disabled on a server?",
-          "options": [
-            "To reduce the attack surface",
-            "To improve CPU performance",
-            "To free up disk space",
-            "To make the OS look cleaner"
-          ],
-          "correctAnswer": "To reduce the attack surface",
-          "id": 1761211506697,
-          "category": "Server Hardening"
-        },
-        {
-          "question": "Which configuration reduces the attack surface of a database server?",
-          "options": [
-            "Allowing remote root login from any IP address",
-            "Running the database on the default port with default credentials",
-            "Restricting network access to trusted IP ranges and using strong authentication",
-            "Disabling all firewall rules"
-          ],
-          "correctAnswer": "Restricting network access to trusted IP ranges and using strong authentication",
-          "id": 1761211506698,
-          "category": "Server Hardening"
-        },
-        {
-          "question": "What does File Integrity Monitoring (FIM) help detect on a server?",
-          "options": [
-            "Changes to critical system files or configuration files that could indicate tampering",
-            "How fast the hard drive spins",
-            "Number of users logged in",
-            "Amount of RAM used"
-          ],
-          "correctAnswer": "Changes to critical system files or configuration files that could indicate tampering",
-          "id": 1761211506699,
-          "category": "Server Hardening"
-        },
-        {
-          "question": "Which SSH configuration best follows hardening guidelines?",
-          "options": [
-            "PermitRootLogin yes and PasswordAuthentication yes",
-            "PermitRootLogin no and use key‑based authentication only",
-            "Allow password authentication for all users",
-            "Disable all encryption"
-          ],
-          "correctAnswer": "PermitRootLogin no and use key‑based authentication only",
-          "id": 1761211506700,
-          "category": "Server Hardening"
-        }
-      ]
-    },
-    {
-      "id": "patch_management_1761211506666",
-      "name": "Patch Management",
-      "questions": [
-        {
-          "question": "What is the recommended timeframe for applying critical security patches?",
-          "options": [
-            "Within 72 hours after testing and approval",
-            "Within 30 days",
-            "Only during the annual maintenance window",
-            "Never, patches are optional"
-          ],
-          "correctAnswer": "Within 72 hours after testing and approval",
-          "id": 1761211506701,
-          "category": "Patch Management"
-        },
-        {
-          "question": "Who must approve a patch before it is deployed to production servers?",
-          "options": [
-            "The change advisory board (CAB)",
-            "All end‑users",
-            "The marketing department",
-            "The cleaning crew"
-          ],
-          "correctAnswer": "The change advisory board (CAB)",
-          "id": 1761211506702,
-          "category": "Patch Management"
-        },
-        {
-          "question": "Which tool is commonly used for automated patch deployment on Windows servers?",
-          "options": [
-            "WSUS (Windows Server Update Services)",
-            "Microsoft Word",
-            "Adobe Photoshop",
-            "Slack"
-          ],
-          "correctAnswer": "WSUS (Windows Server Update Services)",
-          "id": 1761211506703,
-          "category": "Patch Management"
-        }
-      ]
-    },
-    {
-      "id": "access_control_&_iam_1761211506666",
-      "name": "Access Control & IAM",
-      "questions": [
-        {
-          "question": "What does the principle of least privilege require?",
-          "options": [
-            "Giving every user admin rights",
-            "Limiting each account to only the permissions needed to perform its job",
-            "Allowing all users to access all data",
-            "Disabling all user accounts"
-          ],
-          "correctAnswer": "Limiting each account to only the permissions needed to perform its job",
-          "id": 1761211506704,
-          "category": "Access Control & IAM"
-        },
-        {
-          "question": "What is Role‑Based Access Control (RBAC)?",
-          "options": [
-            "Assigning permissions based on a user’s job role rather than each individual account",
-            "Giving everyone the same permissions",
-            "Blocking all access to the network",
-            "Encrypting all files automatically"
-          ],
-          "correctAnswer": "Assigning permissions based on a user’s job role rather than each individual account",
-          "id": 1761211506705,
-          "category": "Access Control & IAM"
-        },
-        {
-          "question": "Is Multi‑Factor Authentication required for privileged accounts?",
-          "options": [
-            "No, a password is enough",
-            "Yes, MFA must be enabled for any privileged access",
-            "Only for accounts used on weekends",
-            "Only if the user requests it"
-          ],
-          "correctAnswer": "Yes, MFA must be enabled for any privileged access",
-          "id": 1761211506706,
-          "category": "Access Control & IAM"
-        }
-      ]
-    },
-    {
-      "id": "monitoring_&_logging_1761211506666",
-      "name": "Monitoring & Logging",
-      "questions": [
-        {
-          "question": "Where should server logs be aggregated for analysis?",
-          "options": [
-            "On each individual server’s local hard‑drive only",
-            "In a centralized Security Information and Event Management (SIEM) system",
-            "Printed out and filed in a cabinet",
-            "Sent to a public forum"
-          ],
-          "correctAnswer": "In a centralized Security Information and Event Management (SIEM) system",
-          "id": 1761211506707,
-          "category": "Monitoring & Logging"
-        },
-        {
-          "question": "What is the minimum recommended retention period for security logs?",
-          "options": [
-            "7 days",
-            "30 days",
-            "90 days",
-            "5 years"
-          ],
-          "correctAnswer": "90 days",
-          "id": 1761211506708,
-          "category": "Monitoring & Logging"
-        },
-        {
-          "question": "An alert should trigger when CPU usage exceeds 90 % for more than:",
-          "options": [
-            "5 seconds",
-            "1 minute",
-            "10 minutes",
-            "1 hour"
-          ],
-          "correctAnswer": "10 minutes",
-          "id": 1761211506709,
-          "category": "Monitoring & Logging"
-        }
-      ]
-    },
-    {
-      "id": "encryption_1761211506667",
-      "name": "Encryption",
-      "questions": [
-        {
-          "question": "Which protocol should be used to protect data‑in‑transit for web services?",
-          "options": [
-            "TLS 1.2 or higher",
-            "FTP",
-            "HTTP",
-            "Telnet"
-          ],
-          "correctAnswer": "TLS 1.2 or higher",
-          "id": 1761211506710,
-          "category": "Encryption"
-        },
-        {
-          "question": "What encryption technology is recommended for full‑disk encryption on Windows laptops?",
-          "options": [
-            "BitLocker",
-            "RAR",
-            "ZIP",
-            "AES‑256‑CBC only for individual files"
-          ],
-          "correctAnswer": "BitLocker",
-          "id": 1761211506711,
-          "category": "Encryption"
-        },
-        {
-          "question": "Where should API keys, passwords, and certificates be stored for server applications?",
-          "options": [
-            "Hard‑coded in source code",
-            "In a dedicated secret‑management solution (e.g., HashiCorp Vault, Azure Key Vault)",
-            "In a publicly accessible wiki",
-            "On a sticky note attached to the monitor"
-          ],
-          "correctAnswer": "In a dedicated secret‑management solution (e.g., HashiCorp Vault, Azure Key Vault)",
-          "id": 1761211506712,
-          "category": "Encryption"
-        }
-      ]
-    },
-    {
-      "id": "disaster_recovery_&_business_continuity_1761211506667",
-      "name": "Disaster Recovery & Business Continuity",
-      "questions": [
-        {
-          "question": "What does Recovery Time Objective (RTO) define?",
-          "options": [
-            "The maximum acceptable amount of data loss",
-            "The maximum acceptable downtime after a disruption",
-            "The total cost of a disaster",
-            "The number of backups retained"
-          ],
-          "correctAnswer": "The maximum acceptable downtime after a disruption",
-          "id": 1761211506714,
-          "category": "Disaster Recovery & Business Continuity"
-        },
-        {
-          "question": "A disaster‑recovery site should be:",
-          "options": [
-            "In the same building as the primary data centre",
-            "Geographically distant enough to avoid the same regional disaster",
-            "Located on the same floor as the primary site",
-            "In a public park"
-          ],
-          "correctAnswer": "Geographically distant enough to avoid the same regional disaster",
-          "id": 1761211506715,
-          "category": "Disaster Recovery & Business Continuity"
-        },
-        {
-          "question": "How often should the DR plan be tested?",
-          "options": [
-            "Every week",
-            "Semi‑annually",
-            "Only after a real disaster",
-            "Never"
-          ],
-          "correctAnswer": "Semi‑annually",
-          "id": 1761211506716,
-          "category": "Disaster Recovery & Business Continuity"
-        }
-      ]
-    },
-    {
-      "id": "password_&_account_security_1761211619247",
-      "name": "Password & Account Security",
-      "questions": [
-        {
-          "question": "What is the primary purpose of Multi‑Factor Authentication (MFA)?",
-          "options": [
-            "To make passwords longer",
-            "To add an extra layer of security beyond just a password",
-            "To share your account with a colleague safely",
-            "To automatically change your password every month"
-          ],
-          "correctAnswer": "To add an extra layer of security beyond just a password",
-          "id": 1761211619247,
-          "category": "Password & Account Security"
-        },
-        {
-          "question": "Which of these is the strongest password?",
-          "options": [
-            "Password123!",
-            "MyDogFido2024",
-            "R#8k&Zp@w!q2v$J9",
-            "qwertyuiop"
-          ],
-          "correctAnswer": "R#8k&Zp@w!q2v$J9",
-          "id": 1761211619248,
-          "category": "Password & Account Security"
-        },
-        {
-          "question": "What is the recommended minimum length for a strong corporate password?",
-          "options": [
-            "8 characters",
-            "10 characters",
-            "12 characters",
-            "16 characters"
-          ],
-          "correctAnswer": "12 characters",
-          "id": 1761211619249,
-          "category": "Password & Account Security"
-        }
-      ]
-    },
-    {
-      "id": "data_protection_&_handling_1761211619247",
-      "name": "Data Protection & Handling",
-      "questions": [
-        {
-          "question": "Where should you store confidential company files?",
-          "options": [
-            "On your personal Google Drive",
-            "In your email drafts folder",
-            "In company‑approved cloud storage or network drives",
-            "On a USB stick you keep on your desk"
-          ],
-          "correctAnswer": "In company‑approved cloud storage or network drives",
-          "id": 1761211619250,
-          "category": "Data Protection & Handling"
-        },
-        {
-          "question": "What does “data classification” help you do?",
-          "options": [
-            "Delete old files automatically",
-            "Understand the sensitivity of data and how to handle it",
-            "Share files more quickly with anyone",
-            "Encrypt your entire hard drive"
-          ],
-          "correctAnswer": "Understand the sensitivity of data and how to handle it",
-          "id": 1761211619251,
-          "category": "Data Protection & Handling"
-        },
-        {
-          "question": "What is the best practice for disposing of paper that contains confidential information?",
-          "options": [
-            "Recycle it in the office bin",
-            "Shred it before disposal",
-            "Throw it in regular trash",
-            "Burn it in an open fire"
-          ],
-          "correctAnswer": "Shred it before disposal",
-          "id": 1761211619252,
-          "category": "Data Protection & Handling"
-        }
-      ]
-    },
-    {
-      "id": "email_&_phishing_1761211619247",
-      "name": "Email & Phishing",
-      "questions": [
-        {
-          "question": "You receive an unexpected email with a link to reset your password. What should you do?",
-          "options": [
-            "Click the link and reset your password immediately",
-            "Forward the email to the IT department, then delete it",
-            "Ignore and delete the email without clicking the link",
-            "Reply to ask if the sender is legitimate"
-          ],
-          "correctAnswer": "Ignore and delete the email without clicking the link",
-          "id": 1761211619253,
-          "category": "Email & Phishing"
-        },
-        {
-          "question": "Which indicator most commonly suggests an email is a phishing attempt?",
-          "options": [
-            "A personalized greeting with your full name",
-            "A misspelled sender domain",
-            "An email sent from your company’s domain",
-            "An email with a professional signature"
-          ],
-          "correctAnswer": "A misspelled sender domain",
-          "id": 1761211619254,
-          "category": "Email & Phishing"
-        },
-        {
-          "question": "What should you do if you receive a suspicious attachment?",
-          "options": [
-            "Open it to see what it is",
-            "Delete the email and ignore it",
-            "Forward it to the IT/security team for analysis",
-            "Save it for later review"
-          ],
-          "correctAnswer": "Forward it to the IT/security team for analysis",
-          "id": 1761211619255,
-          "category": "Email & Phishing"
-        },
-        {
-          "question": "Why can the “display name” in an email be spoofed?",
-          "options": [
-            "Because the mail server always validates the name",
-            "Because email protocols separate the visible name from the actual sending address",
-            "Because the recipient’s inbox changes it automatically",
-            "Because the message is encrypted"
-          ],
-          "correctAnswer": "Because email protocols separate the visible name from the actual sending address",
-          "id": 1761211619256,
-          "category": "Email & Phishing"
-        }
-      ]
-    },
-    {
-      "id": "device_&_internet_usage_1761211619247",
-      "name": "Device & Internet Usage",
-      "questions": [
-        {
-          "question": "Why is it risky to use public Wi‑Fi without a VPN for work?",
-          "options": [
-            "It can be slow and unreliable",
-            "Attackers on the same network can intercept your data",
-            "It uses up your mobile data plan",
-            "It is always safe if the Wi‑Fi has a password"
-          ],
-          "correctAnswer": "Attackers on the same network can intercept your data",
-          "id": 1761211619257,
-          "category": "Device & Internet Usage"
-        },
-        {
-          "question": "Which action is recommended when using a personal device for work tasks?",
-          "options": [
-            "Install corporate endpoint security software",
-            "Disable all updates",
-            "Share the device password with coworkers",
-            "Use it without any security controls"
-          ],
-          "correctAnswer": "Install corporate endpoint security software",
-          "id": 1761211619258,
-          "category": "Device & Internet Usage"
-        },
-        {
-          "question": "What is the safest way to browse the internet on a public computer?",
-          "options": [
-            "Use the computer’s built‑in browser without any extra steps",
-            "Connect via a trusted VPN service",
-            "Turn off the firewall",
-            "Install a browser extension from an unknown source"
-          ],
-          "correctAnswer": "Connect via a trusted VPN service",
-          "id": 1761211619259,
-          "category": "Device & Internet Usage"
-        }
-      ]
-    },
-    {
-      "id": "physical_security_1761211619247",
-      "name": "Physical Security",
-      "questions": [
-        {
-          "question": "What does a “clean desk policy” primarily help prevent?",
-          "options": [
-            "Making the office look messy",
-            "Losing your coffee mug",
-            "Unauthorized access to sensitive information left on a desk",
-            "Forgetting your tasks for the day"
-          ],
-          "correctAnswer": "Unauthorized access to sensitive information left on a desk",
-          "id": 1761211619260,
-          "category": "Physical Security"
-        },
-        {
-          "question": "When leaving the office, where should you store your laptop?",
-          "options": [
-            "Leave it on the desk",
-            "Lock it in a cabinet or safe",
-            "Put it in a drawer without a lock",
-            "Give it to a colleague"
-          ],
-          "correctAnswer": "Lock it in a cabinet or safe",
-          "id": 1761211619261,
-          "category": "Physical Security"
-        },
-        {
-          "question": "What is the primary purpose of a security badge?",
-          "options": [
-            "To identify employee’s favorite coffee",
-            "To control physical access to restricted areas",
-            "To give discounts at the cafeteria",
-            "To track work hours"
-          ],
-          "correctAnswer": "To control physical access to restricted areas",
-          "id": 1761211619262,
-          "category": "Physical Security"
-        }
-      ]
-    },
-    {
-      "id": "incident_reporting_1761211619247",
-      "name": "Incident Reporting",
-      "questions": [
-        {
-          "question": "You accidentally click on a suspicious link in an email. What should be your immediate next step?",
-          "options": [
-            "Disconnect your computer from the network and report it to IT immediately",
-            "Run a virus scan and hope for the best",
-            "Delete the email and don’t tell anyone",
-            "Restart your computer"
-          ],
-          "correctAnswer": "Disconnect your computer from the network and report it to IT immediately",
-          "id": 1761211619263,
-          "category": "Incident Reporting"
-        },
-        {
-          "question": "If you suspect a malware infection on your workstation, who should you contact first?",
-          "options": [
-            "Your manager",
-            "The IT security team",
-            "The cleaning crew",
-            "A coworker outside IT"
-          ],
-          "correctAnswer": "The IT security team",
-          "id": 1761211619264,
-          "category": "Incident Reporting"
-        },
-        {
-          "question": "When should a security incident be reported?",
-          "options": [
-            "Only after it causes data loss",
-            "As soon as it is discovered",
-            "During the weekly team meeting",
-            "At the end of the month"
-          ],
-          "correctAnswer": "As soon as it is discovered",
-          "id": 1761211619265,
-          "category": "Incident Reporting"
-        }
-      ]
-    },
-    {
-      "id": "social_engineering_1761211619247",
-      "name": "Social Engineering",
-      "questions": [
-        {
-          "question": "An individual calls you claiming to be from IT support and asks for your password to fix an issue. How should you respond?",
-          "options": [
-            "Provide your password, as they are from IT",
-            "Ask them for their name and employee ID first",
-            "Refuse the request and report the call to the official IT department using a known number",
-            "Give them a temporary password"
-          ],
-          "correctAnswer": "Refuse the request and report the call to the official IT department using a known number",
-          "id": 1761211619266,
-          "category": "Social Engineering"
-        },
-        {
-          "question": "What is a common tactic used in pretexting attacks?",
-          "options": [
-            "Offering free software",
-            "Impersonating a trusted authority figure to obtain information",
-            "Sending newsletters",
-            "Scheduling meetings"
-          ],
-          "correctAnswer": "Impersonating a trusted authority figure to obtain information",
-          "id": 1761211619267,
-          "category": "Social Engineering"
-        },
-        {
-          "question": "Which scenario is a sign of a vishing (voice‑phishing) attack?",
-          "options": [
-            "A caller asks you to press a button on your phone",
-            "A caller requests your login credentials over the phone",
-            "A caller wants to schedule a video conference",
-            "A caller informs you about a weather forecast"
-          ],
-          "correctAnswer": "A caller requests your login credentials over the phone",
-          "id": 1761211619268,
-          "category": "Social Engineering"
-        }
-      ]
-    },
-    {
-      "id": "acceptable_use_&_compliance_1761211619247",
-      "name": "Acceptable Use & Compliance",
-      "questions": [
-        {
-          "question": "Is it acceptable to use your company email for personal activities like online shopping?",
-          "options": [
-            "Yes, as long as it’s not excessive",
-            "Only for emergencies",
-            "No, company resources should be used for business purposes only",
-            "Yes, it is more secure than a personal email"
-          ],
-          "correctAnswer": "No, company resources should be used for business purposes only",
-          "id": 1761211619269,
-          "category": "Acceptable Use & Compliance"
-        },
-        {
-          "question": "Which of the following activities typically violates an organization’s acceptable‑use policy?",
-          "options": [
-            "Using a company printer for work documents",
-            "Installing unauthorized software on a work computer",
-            "Accessing the corporate intranet",
-            "Attending a virtual meeting"
-          ],
-          "correctAnswer": "Installing unauthorized software on a work computer",
-          "id": 1761211619270,
-          "category": "Acceptable Use & Compliance"
-        },
-        {
-          "question": "How often should employees review the company’s acceptable‑use policy?",
-          "options": [
-            "Every day",
-            "Once a year",
-            "Only when a new policy is issued",
-            "Never; it’s optional"
-          ],
-          "correctAnswer": "Once a year",
-          "id": 1761211619271,
-          "category": "Acceptable Use & Compliance"
-        }
-      ]
-    },
-    {
-      "id": "remote_work_&_byod_1761211619247",
-      "name": "Remote Work & BYOD",
-      "questions": [
-        {
-          "question": "When working from home, which of the following is most important for security?",
-          "options": [
-            "Having a comfortable chair",
-            "Using a secure Wi‑Fi network with a strong password",
-            "Taking breaks every hour",
-            "Having a large monitor"
-          ],
-          "correctAnswer": "Using a secure Wi‑Fi network with a strong password",
-          "id": 1761211619272,
-          "category": "Remote Work & BYOD"
-        },
-        {
-          "question": "Which device is least appropriate for handling confidential company data from home?",
-          "options": [
-            "A corporate‑managed laptop",
-            "A personal smartphone without MDM",
-            "A desktop computer with company VPN installed",
-            "A tablet with encrypted storage"
-          ],
-          "correctAnswer": "A personal smartphone without MDM",
-          "id": 1761211619273,
-          "category": "Remote Work & BYOD"
-        },
-        {
-          "question": "What is a best practice for BYOD (Bring Your Own Device) security?",
-          "options": [
-            "Allow any app to be installed",
-            "Enforce device encryption and password protection",
-            "Disable all security updates",
-            "Share device credentials with coworkers"
-          ],
-          "correctAnswer": "Enforce device encryption and password protection",
-          "id": 1761211619274,
-          "category": "Remote Work & BYOD"
-        }
-      ]
-    },
-    {
-      "id": "backup_&_recovery_1761211619247",
-      "name": "Backup & Recovery",
-      "questions": [
-        {
-          "question": "What is the primary reason for regularly backing up company data?",
-          "options": [
-            "To free up space on your computer",
-            "To ensure data can be recovered in case of loss or corruption",
-            "To comply with email retention policies",
-            "To make files easier to search"
-          ],
-          "correctAnswer": "To ensure data can be recovered in case of loss or corruption",
-          "id": 1761211619275,
-          "category": "Backup & Recovery"
-        },
-        {
-          "question": "Where should backup copies be stored to reduce the risk of loss from a site‑specific disaster?",
-          "options": [
-            "On the same hard drive as the original data",
-            "Off‑site or in a cloud service with versioning",
-            "On an employee’s personal laptop",
-            "In a public folder on the network"
-          ],
-          "correctAnswer": "Off‑site or in a cloud service with versioning",
-          "id": 1761211619276,
-          "category": "Backup & Recovery"
-        },
-        {
-          "question": "How often should critical business data be backed up?",
-          "options": [
-            "Once a year",
-            "Daily or more frequently depending on change rate",
-            "Only when the server is upgraded",
-            "Whenever you feel like it"
-          ],
-          "correctAnswer": "Daily or more frequently depending on change rate",
-          "id": 1761211619277,
-          "category": "Backup & Recovery"
-        }
-      ]
-    },
-    {
-      "id": "server_hardening_1761211619247",
-      "name": "Server Hardening",
-      "questions": [
-        {
-          "question": "Why should unused services be disabled on a server?",
-          "options": [
-            "To reduce the attack surface",
-            "To improve CPU performance",
-            "To free up disk space",
-            "To make the OS look cleaner"
-          ],
-          "correctAnswer": "To reduce the attack surface",
-          "id": 1761211619278,
-          "category": "Server Hardening"
-        },
-        {
-          "question": "Which configuration reduces the attack surface of a database server?",
-          "options": [
-            "Allowing remote root login from any IP address",
-            "Running the database on the default port with default credentials",
-            "Restricting network access to trusted IP ranges and using strong authentication",
-            "Disabling all firewall rules"
-          ],
-          "correctAnswer": "Restricting network access to trusted IP ranges and using strong authentication",
-          "id": 1761211619279,
-          "category": "Server Hardening"
-        },
-        {
-          "question": "What does File Integrity Monitoring (FIM) help detect on a server?",
-          "options": [
-            "Changes to critical system files or configuration files that could indicate tampering",
-            "How fast the hard drive spins",
-            "Number of users logged in",
-            "Amount of RAM used"
-          ],
-          "correctAnswer": "Changes to critical system files or configuration files that could indicate tampering",
-          "id": 1761211619280,
-          "category": "Server Hardening"
-        },
-        {
-          "question": "Which SSH configuration best follows hardening guidelines?",
-          "options": [
-            "PermitRootLogin yes and PasswordAuthentication yes",
-            "PermitRootLogin no and use key‑based authentication only",
-            "Allow password authentication for all users",
-            "Disable all encryption"
-          ],
-          "correctAnswer": "PermitRootLogin no and use key‑based authentication only",
-          "id": 1761211619281,
-          "category": "Server Hardening"
-        }
-      ]
-    },
-    {
-      "id": "patch_management_1761211619247",
-      "name": "Patch Management",
-      "questions": [
-        {
-          "question": "What is the recommended timeframe for applying critical security patches?",
-          "options": [
-            "Within 72 hours after testing and approval",
-            "Within 30 days",
-            "Only during the annual maintenance window",
-            "Never, patches are optional"
-          ],
-          "correctAnswer": "Within 72 hours after testing and approval",
-          "id": 1761211619282,
-          "category": "Patch Management"
-        },
-        {
-          "question": "Who must approve a patch before it is deployed to production servers?",
-          "options": [
-            "The change advisory board (CAB)",
-            "All end‑users",
-            "The marketing department",
-            "The cleaning crew"
-          ],
-          "correctAnswer": "The change advisory board (CAB)",
-          "id": 1761211619283,
-          "category": "Patch Management"
-        },
-        {
-          "question": "Which tool is commonly used for automated patch deployment on Windows servers?",
-          "options": [
-            "WSUS (Windows Server Update Services)",
-            "Microsoft Word",
-            "Adobe Photoshop",
-            "Slack"
-          ],
-          "correctAnswer": "WSUS (Windows Server Update Services)",
-          "id": 1761211619284,
-          "category": "Patch Management"
-        }
-      ]
-    },
-    {
-      "id": "access_control_&_iam_1761211619247",
-      "name": "Access Control & IAM",
-      "questions": [
-        {
-          "question": "What does the principle of least privilege require?",
-          "options": [
-            "Giving every user admin rights",
-            "Limiting each account to only the permissions needed to perform its job",
-            "Allowing all users to access all data",
-            "Disabling all user accounts"
-          ],
-          "correctAnswer": "Limiting each account to only the permissions needed to perform its job",
-          "id": 1761211619285,
-          "category": "Access Control & IAM"
-        },
-        {
-          "question": "What is Role‑Based Access Control (RBAC)?",
-          "options": [
-            "Assigning permissions based on a user’s job role rather than each individual account",
-            "Giving everyone the same permissions",
-            "Blocking all access to the network",
-            "Encrypting all files automatically"
-          ],
-          "correctAnswer": "Assigning permissions based on a user’s job role rather than each individual account",
-          "id": 1761211619286,
-          "category": "Access Control & IAM"
-        },
-        {
-          "question": "Is Multi‑Factor Authentication required for privileged accounts?",
-          "options": [
-            "No, a password is enough",
-            "Yes, MFA must be enabled for any privileged access",
-            "Only for accounts used on weekends",
-            "Only if the user requests it"
-          ],
-          "correctAnswer": "Yes, MFA must be enabled for any privileged access",
-          "id": 1761211619287,
-          "category": "Access Control & IAM"
-        }
-      ]
-    },
-    {
-      "id": "monitoring_&_logging_1761211619247",
-      "name": "Monitoring & Logging",
-      "questions": [
-        {
-          "question": "Where should server logs be aggregated for analysis?",
-          "options": [
-            "On each individual server’s local hard‑drive only",
-            "In a centralized Security Information and Event Management (SIEM) system",
-            "Printed out and filed in a cabinet",
-            "Sent to a public forum"
-          ],
-          "correctAnswer": "In a centralized Security Information and Event Management (SIEM) system",
-          "id": 1761211619288,
-          "category": "Monitoring & Logging"
-        },
-        {
-          "question": "What is the minimum recommended retention period for security logs?",
-          "options": [
-            "7 days",
-            "30 days",
-            "90 days",
-            "5 years"
-          ],
-          "correctAnswer": "90 days",
-          "id": 1761211619289,
-          "category": "Monitoring & Logging"
-        },
-        {
-          "question": "An alert should trigger when CPU usage exceeds 90 % for more than:",
-          "options": [
-            "5 seconds",
-            "1 minute",
-            "10 minutes",
-            "1 hour"
-          ],
-          "correctAnswer": "10 minutes",
-          "id": 1761211619290,
-          "category": "Monitoring & Logging"
-        }
-      ]
-    },
-    {
-      "id": "encryption_1761211619247",
-      "name": "Encryption",
-      "questions": [
-        {
-          "question": "Which protocol should be used to protect data‑in‑transit for web services?",
-          "options": [
-            "TLS 1.2 or higher",
-            "FTP",
-            "HTTP",
-            "Telnet"
-          ],
-          "correctAnswer": "TLS 1.2 or higher",
-          "id": 1761211619291,
-          "category": "Encryption"
-        },
-        {
-          "question": "What encryption technology is recommended for full‑disk encryption on Windows laptops?",
-          "options": [
-            "BitLocker",
-            "RAR",
-            "ZIP",
-            "AES‑256‑CBC only for individual files"
-          ],
-          "correctAnswer": "BitLocker",
-          "id": 1761211619292,
-          "category": "Encryption"
-        },
-        {
-          "question": "Where should API keys, passwords, and certificates be stored for server applications?",
-          "options": [
-            "Hard‑coded in source code",
-            "In a dedicated secret‑management solution (e.g., HashiCorp Vault, Azure Key Vault)",
-            "In a publicly accessible wiki",
-            "On a sticky note attached to the monitor"
-          ],
-          "correctAnswer": "In a dedicated secret‑management solution (e.g., HashiCorp Vault, Azure Key Vault)",
-          "id": 1761211619293,
-          "category": "Encryption"
-        }
-      ]
-    },
-    {
-      "id": "disaster_recovery_&_business_continuity_1761211619247",
-      "name": "Disaster Recovery & Business Continuity",
-      "questions": [
-        {
-          "question": "What does Recovery Time Objective (RTO) define?",
-          "options": [
-            "The maximum acceptable amount of data loss",
-            "The maximum acceptable downtime after a disruption",
-            "The total cost of a disaster",
-            "The number of backups retained"
-          ],
-          "correctAnswer": "The maximum acceptable downtime after a disruption",
-          "id": 1761211619294,
-          "category": "Disaster Recovery & Business Continuity"
-        },
-        {
-          "question": "A disaster‑recovery site should be:",
-          "options": [
-            "In the same building as the primary data centre",
-            "Geographically distant enough to avoid the same regional disaster",
-            "Located on the same floor as the primary site",
-            "In a public park"
-          ],
-          "correctAnswer": "Geographically distant enough to avoid the same regional disaster",
-          "id": 1761211619295,
-          "category": "Disaster Recovery & Business Continuity"
-        },
-        {
-          "question": "How often should the DR plan be tested?",
-          "options": [
-            "Every week",
-            "Semi‑annually",
-            "Only after a real disaster",
-            "Never"
-          ],
-          "correctAnswer": "Semi‑annually",
-          "id": 1761211619296,
-          "category": "Disaster Recovery & Business Continuity"
-        }
-      ]
-    }
-  ],
-  "emailLog": [
-    {
-      "to": "admin@example.com",
-      "subject": "New User Registered",
-      "body": "A new user has been registered:\n\nName: 2\nUsername: 2\nRole: user\nAssigned Exams: server_exam",
-      "id": 1761211541459,
-      "timestamp": "2025-10-23T09:25:41.459Z"
-    },
-    {
-      "to": "admin@example.com",
-      "subject": "New User Registered",
-      "body": "A new user has been registered:\n\nName: 1\nUsername: 1\nRole: user\nAssigned Exams: server_exam",
-      "id": 1761208488784,
-      "timestamp": "2025-10-23T08:34:48.784Z"
-    }
-  ],
-  "settings": {
-    "logo": null,
-    "companyFullName": "Cyber Security Training Consortium",
-    "signature1": null,
-    "signature1Name": "Dan Houser",
-    "signature1Title": "Chairperson",
-    "signature2": null,
-    "signature2Name": "Laurie-Anne Bourdain",
-    "signature2Title": "Secretary",
-    "courseName": "Certified Cyber Security Professional",
-    "certificationBodyText": "Having met all of the certification requirements, adoption of the Code of Ethics, and successful performance on the required competency examination, subject to recertification every three years, this individual is entitled to all of the rights and privileges associated with this designation.",
-    "certificationSeal": null,
-    "certificationCycleYears": 3
-  }
-}
+      correctAnswer: 'Every employee',
+    }]
+  },
+  {
+    id: 'op_qa',
+    name: 'Quality Assurance',
+    questions: [{
+      id: 308,
+      category: 'Quality Assurance',
+      question: "What is the main purpose of Quality Assurance (QA) in operations?",
+      options: [
+        'To find someone to blame when things go wrong',
+        'To slow down the production process',
+        'To proactively ensure that products or services meet specified quality standards',
+        'To check the work only after it is completed',
+      ],
+      correctAnswer: 'To proactively ensure that products or services meet specified quality standards',
+    }]
+  },
+  {
+    id: 'op_resource_mgmt',
+    name: 'Resource Management',
+    questions: [{
+      id: 309,
+      category: 'Resource Management',
+      question: "Effective resource management in operations primarily aims to:",
+      options: [
+        'Purchase the most expensive equipment available',
+        'Hire as many people as possible',
+        'Allocate and utilize resources efficiently to achieve organizational goals',
+        'Reduce the number of coffee breaks',
+      ],
+      correctAnswer: 'Allocate and utilize resources efficiently to achieve organizational goals',
+    }]
+  },
+  {
+    id: 'op_logistics',
+    name: 'Logistics and Distribution',
+    questions: [{
+      id: 310,
+      category: 'Logistics and Distribution',
+      question: "A key performance indicator (KPI) for logistics is 'On-Time Delivery Rate'. Why is this important?",
+      options: [
+        "It's not important, as long as the package arrives eventually.",
+        'It directly impacts customer satisfaction and operational efficiency.',
+        'It helps in calculating fuel costs.',
+        'It is only used for employee performance reviews.',
+      ],
+      correctAnswer: 'It directly impacts customer satisfaction and operational efficiency.',
+    }]
+  },
+  {
+    id: 'legal_exam',
+    name: 'Legal Exam',
+    questions: [
+      {
+        id: 17,
+        category: 'Legal Exam',
+        question: "Under regulations like GDPR, what is a key responsibility of a company after a data breach involving personal information?",
+        options: [
+          'To wait a year to see if anyone notices',
+          'To notify the affected individuals and relevant authorities without undue delay',
+          'To offer discounts on future products',
+          'To blame the IT department',
+        ],
+        correctAnswer: 'To notify the affected individuals and relevant authorities without undue delay',
+      },
+      {
+        id: 22,
+        category: 'Legal Exam',
+        question: 'An employee creates a new software tool during work hours using company equipment. Who typically owns the intellectual property (IP) of this tool?',
+        options: [
+          'The employee, because they wrote the code.',
+          'The company, as it was created within the scope of employment.',
+          'It is open-source and owned by the public.',
+          "The employee's direct manager."
+        ],
+        correctAnswer: 'The company, as it was created within the scope of employment.'
+      },
+      {
+        id: 23,
+        category: 'Legal Exam',
+        question: 'What is the primary risk of using unlicensed software on a company computer?',
+        options: [
+          'The software might run slower than the licensed version.',
+          'It can lead to legal action, fines, and security vulnerabilities.',
+          'It takes up more hard drive space.',
+          'The IT department cannot update it.'
+        ],
+        correctAnswer: 'It can lead to legal action, fines, and security vulnerabilities.'
+      },
+      {
+        id: 24,
+        category: 'Legal Exam',
+        question: 'After signing an NDA with a client, you are having a casual conversation with a friend who works in the same industry. What information can you share about the client?',
+        options: [
+          'Only high-level project details that seem harmless.',
+          'Specific technical challenges you are facing.',
+          'No confidential information covered by the NDA should be discussed.',
+          "The client's company name is okay to mention."
+        ],
+        correctAnswer: 'No confidential information covered by the NDA should be discussed.'
+      },
+      {
+        id: 25,
+        category: 'Legal Exam',
+        question: "What is the main purpose of a company's records retention policy?",
+        options: [
+          'To ensure all documents are deleted after one year.',
+          'To free up server storage space.',
+          'To legally dictate how long documents must be kept for compliance and business needs.',
+          'To make it harder to find old emails.'
+        ],
+        correctAnswer: 'To legally dictate how long documents must be kept for compliance and business needs.'
+      },
+      {
+        id: 26,
+        category: 'Legal Exam',
+        question: 'If you report illegal or unethical activity within the company in good faith, what does a whistleblower policy protect you from?',
+        options: [
+          'Receiving a bonus for the report.',
+          'Retaliation, such as being fired or demoted.',
+          'Having to work overtime.',
+          'Publicly speaking about the issue.'
+        ],
+        correctAnswer: 'Retaliation, such as being fired or demoted.'
+      },
+      {
+        id: 27,
+        category: 'Legal Exam',
+        question: 'A potential vendor offers you expensive tickets to a major sports event to "thank you for considering their product." What is the safest course of action under a typical anti-bribery policy?',
+        options: [
+          "Accept the tickets as it's a normal part of business.",
+          "Accept the tickets but don't let it influence your decision.",
+          'Politely decline the gift and report the offer to your legal or compliance department.',
+          'Ask if they can give you cash instead.'
+        ],
+        correctAnswer: 'Politely decline the gift and report the offer to your legal or compliance department.'
+      },
+      {
+        id: 28,
+        category: 'Legal Exam',
+        question: 'You overhear a confidential conversation about an upcoming company merger that has not been publicly announced. What should you do with this information?',
+        options: [
+          'Buy stock in the company before the news is public to make a profit.',
+          'Tell your friends and family so they can buy stock.',
+          'Avoid trading the company\'s stock and keep the information confidential.',
+          'Post about it on social media.'
+        ],
+        correctAnswer: 'Avoid trading the company\'s stock and keep the information confidential.'
+      },
+      {
+        id: 29,
+        category: 'Legal Exam',
+        question: 'What is a key guideline in most corporate social media policies regarding discussing work-related matters?',
+        options: [
+          'You can post anything as long as your profile is private.',
+          "It's okay to complain about clients if you don't use their names.",
+          'Do not share confidential company information, and maintain a professional tone.',
+          'Tag the company in all your posts to increase engagement.'
+        ],
+        correctAnswer: 'Do not share confidential company information, and maintain a professional tone.'
+      },
+      {
+        id: 30,
+        category: 'Legal Exam',
+        question: 'What does the "right to be forgotten" under GDPR and similar privacy laws mean for a company?',
+        options: [
+          "The company must delete an individual's personal data upon request, under certain conditions.",
+          'The company can choose to ignore requests from former customers.',
+          'The company only has to anonymize the data, not delete it.',
+          'It only applies to data that is less than a year old.'
+        ],
+        correctAnswer: "The company must delete an individual's personal data upon request, under certain conditions."
+      }
+    ]
+  },
+  {
+    id: 'hr_recruitment_onboarding',
+    name: 'Recruitment & Onboarding',
+    questions: [
+      {
+        id: 50,
+        category: 'Recruitment & Onboarding',
+        question: "What is the HR team’s responsibility during recruitment?",
+        options: [
+          "Hire candidates without verification",
+          "Conduct fair and transparent selection based on skill and merit",
+          "Hire only referrals",
+          "Skip interview process",
+        ],
+        correctAnswer: "Conduct fair and transparent selection based on skill and merit",
+      },
+      {
+        id: 51,
+        category: 'Recruitment & Onboarding',
+        question: "During onboarding, new employees must:",
+        options: [
+          "Ignore policy training",
+          "Submit required documents and complete induction",
+          "Delay joining formalities",
+          "Skip HR introduction",
+        ],
+        correctAnswer: "Submit required documents and complete induction",
+      },
+    ]
+  },
+  {
+    id: 'hr_attendance_leave',
+    name: 'Attendance & Leave Policy',
+    questions: [
+      {
+        id: 52,
+        category: 'Attendance & Leave Policy',
+        question: "What is the standard procedure for applying for leave?",
+        options: [
+          "Inform verbally",
+          "Apply through official HR portal or leave system",
+          "Message colleagues",
+          "Don’t apply if it’s short leave",
+        ],
+        correctAnswer: "Apply through official HR portal or leave system",
+      },
+      {
+        id: 53,
+        category: 'Attendance & Leave Policy',
+        question: "Repeated late arrivals may lead to:",
+        options: [
+          "Bonus",
+          "HR notice or disciplinary action",
+          "Extra holidays",
+          "No issue",
+        ],
+        correctAnswer: "HR notice or disciplinary action",
+      },
+    ]
+  },
+  {
+    id: 'hr_workplace_conduct',
+    name: 'Workplace Conduct & Ethics',
+    questions: [
+      {
+        id: 54,
+        category: 'Workplace Conduct & Ethics',
+        question: "What defines professional workplace behavior?",
+        options: [
+          "Respect, punctuality, and teamwork",
+          "Gossip and favoritism",
+          "Ignoring deadlines",
+          "Casual language with clients",
+        ],
+        correctAnswer: "Respect, punctuality, and teamwork",
+      },
+      {
+        id: 55,
+        category: 'Workplace Conduct & Ethics',
+        question: "If you witness unethical behavior, what should you do?",
+        options: [
+          "Report it to HR or Compliance Officer",
+          "Ignore to avoid trouble",
+          "Spread it among coworkers",
+          "Handle it personally",
+        ],
+        correctAnswer: "Report it to HR or Compliance Officer",
+      },
+    ]
+  },
+  {
+    id: 'hr_benefits_payroll',
+    name: 'Employee Benefits & Payroll',
+    questions: [
+      {
+        id: 56,
+        category: 'Employee Benefits & Payroll',
+        question: "Who should employees contact for payroll or salary-related queries?",
+        options: [
+          "Their friends",
+          "HR or Payroll Department",
+          "IT Team",
+          "Security guard",
+        ],
+        correctAnswer: "HR or Payroll Department",
+      },
+      {
+        id: 57,
+        category: 'Employee Benefits & Payroll',
+        question: "Company-provided benefits (insurance, PF, etc.) are designed to:",
+        options: [
+          "Motivate and protect employees",
+          "Increase deductions",
+          "Reduce salary",
+          "Be optional",
+        ],
+        correctAnswer: "Motivate and protect employees",
+      },
+    ]
+  },
+  {
+    id: 'hr_performance_appraisal',
+    name: 'Performance & Appraisal',
+    questions: [
+      {
+        id: 58,
+        category: 'Performance & Appraisal',
+        question: "What is the purpose of an appraisal meeting?",
+        options: [
+          "To evaluate performance and discuss future goals",
+          "To scold employees",
+          "To compare salaries",
+          "To check attendance",
+        ],
+        correctAnswer: "To evaluate performance and discuss future goals",
+      },
+      {
+        id: 59,
+        category: 'Performance & Appraisal',
+        question: "Who provides feedback during appraisals?",
+        options: [
+          "Only HR",
+          "Reporting Manager and HR jointly",
+          "Security Team",
+          "IT Department",
+        ],
+        correctAnswer: "Reporting Manager and HR jointly",
+      },
+    ]
+  },
+  {
+    id: 'hr_grievance_resolution',
+    name: 'Grievance & Conflict Resolution',
+    questions: [
+      {
+        id: 60,
+        category: 'Grievance & Conflict Resolution',
+        question: "When facing a workplace issue, what’s the right approach?",
+        options: [
+          "Report to HR using the formal grievance procedure",
+          "Post online",
+          "Argue with colleagues",
+          "Leave job immediately",
+        ],
+        correctAnswer: "Report to HR using the formal grievance procedure",
+      },
+      {
+        id: 61,
+        category: 'Grievance & Conflict Resolution',
+        question: "Confidentiality in grievance handling ensures:",
+        options: [
+          "Bias in decisions",
+          "Fair and private resolution",
+          "Public awareness",
+          "Faster promotions",
+        ],
+        correctAnswer: "Fair and private resolution",
+      },
+    ]
+  },
+  {
+    id: 'hr_exit_clearance',
+    name: 'Exit & Clearance Policy',
+    questions: [
+      {
+        id: 62,
+        category: 'Exit & Clearance Policy',
+        question: "During resignation, employees must:",
+        options: [
+          "Serve notice period and follow clearance process",
+          "Leave immediately",
+          "Take all files home",
+          "Ignore HR",
+        ],
+        correctAnswer: "Serve notice period and follow clearance process",
+      },
+      {
+        id: 63,
+        category: 'Exit & Clearance Policy',
+        question: "Exit interviews help HR to:",
+        options: [
+          "Understand employee experience and improve policies",
+          "Finalize pay cuts",
+          "Remove employee data",
+          "Skip feedback collection",
+        ],
+        correctAnswer: "Understand employee experience and improve policies",
+      },
+    ]
+  },
+  {
+    id: 'it_dev_secure_coding',
+    name: 'Secure Coding Practices',
+    questions: [
+      {
+        id: 401,
+        category: 'Secure Coding Practices',
+        question: 'What is the primary purpose of input validation in secure coding?',
+        options: [
+          'To make the application run faster.',
+          'To ensure data fits into the database correctly.',
+          'To prevent malicious data (e.g., SQL injection, XSS) from being processed.',
+          'To format user input for display.',
+        ],
+        correctAnswer: 'To prevent malicious data (e.g., SQL injection, XSS) from being processed.',
+      },
+      {
+        id: 402,
+        category: 'Secure Coding Practices',
+        question: 'Which of the following is a best practice for handling errors and exceptions securely?',
+        options: [
+          'Display detailed error messages with stack traces to the user for easy debugging.',
+          'Write all errors to a public log file.',
+          'Use a generic error message for the user and log detailed information on the server-side.',
+          'Ignore all exceptions to prevent the application from crashing.',
+        ],
+        correctAnswer: 'Use a generic error message for the user and log detailed information on the server-side.',
+      },
+    ],
+  },
+  {
+    id: 'it_dev_api_security',
+    name: 'API Security',
+    questions: [
+      {
+        id: 403,
+        category: 'API Security',
+        question: 'What is a common method for authenticating API requests to ensure they come from a legitimate source?',
+        options: [
+          "Using the client's IP address.",
+          'Using API keys or OAuth 2.0 tokens.',
+          'Allowing all requests from any origin.',
+          'Checking the User-Agent string.',
+        ],
+        correctAnswer: 'Using API keys or OAuth 2.0 tokens.',
+      },
+      {
+        id: 404,
+        category: 'API Security',
+        question: 'To prevent unauthorized users from accessing sensitive data, what security control should be implemented at the API endpoint level?',
+        options: [
+          'Rate limiting to prevent too many requests.',
+          'Caching responses to improve performance.',
+          'Authorization checks to ensure the user has the correct permissions for the requested resource.',
+          'Logging the request payload.',
+        ],
+        correctAnswer: 'Authorization checks to ensure the user has the correct permissions for the requested resource.',
+      },
+    ],
+  },
+  {
+    id: 'it_dev_dependency_mgmt',
+    name: 'Dependency Management',
+    questions: [
+      {
+        id: 405,
+        category: 'Dependency Management',
+        question: 'What is a primary risk of using outdated third-party libraries in an application?',
+        options: [
+          'The library might be slower than newer versions.',
+          'The documentation might be hard to find.',
+          'The library may contain known security vulnerabilities that can be exploited.',
+          'The library might not be compatible with the latest operating systems.',
+        ],
+        correctAnswer: 'The library may contain known security vulnerabilities that can be exploited.',
+      },
+      {
+        id: 406,
+        category: 'Dependency Management',
+        question: 'What is the purpose of a software composition analysis (SCA) tool?',
+        options: [
+          'To compile the source code into an executable.',
+          'To automatically identify open-source components in a codebase and their known vulnerabilities.',
+          'To test the user interface of an application.',
+          'To format the source code according to style guides.',
+        ],
+        correctAnswer: 'To automatically identify open-source components in a codebase and their known vulnerabilities.',
+      },
+    ],
+  },
+  {
+    id: 'it_dev_data_handling',
+    name: 'Data Handling & Privacy',
+    questions: [
+      {
+        id: 407,
+        category: 'Data Handling & Privacy',
+        question: 'When storing sensitive user data, such as passwords, what is the most secure method?',
+        options: [
+          'Storing them in plaintext for easy retrieval.',
+          'Encrypting them with a reversible encryption algorithm.',
+          'Hashing them with a strong, salted hashing algorithm (e.g., bcrypt, Argon2).',
+          'Base64 encoding them.',
+        ],
+        correctAnswer: 'Hashing them with a strong, salted hashing algorithm (e.g., bcrypt, Argon2).',
+      },
+      {
+        id: 408,
+        category: 'Data Handling & Privacy',
+        question: 'What does the principle of "data minimization" mean in the context of privacy?',
+        options: [
+          'Collecting as much user data as possible for future use.',
+          'Storing data in the smallest possible file format.',
+          'Only collecting and retaining the absolute minimum amount of user data necessary for a specific purpose.',
+          'Deleting all user data after one day.',
+        ],
+        correctAnswer: 'Only collecting and retaining the absolute minimum amount of user data necessary for a specific purpose.',
+      },
+    ],
+  },
+  {
+    id: 'it_software_installation',
+    name: 'Software Installation & Configuration Management',
+    questions: [
+      {
+        id: 601, category: 'Software Installation & Configuration Management',
+        question: 'During enterprise software installation, which step ensures the integrity of the installer package before execution?',
+        options: ['Running antivirus only', 'Verifying digital signatures or checksum hashes (SHA256/MD5)', 'Checking file size', 'Installing directly from email'],
+        correctAnswer: 'Verifying digital signatures or checksum hashes (SHA256/MD5)',
+      },
+      {
+        id: 602, category: 'Software Installation & Configuration Management',
+        question: 'When deploying an internal application update, what’s the first mandatory pre-deployment step?',
+        options: ['Notify users', 'Backup existing system and verify rollback plan', 'Restart production server', 'Send approval email'],
+        correctAnswer: 'Backup existing system and verify rollback plan',
+      },
+      {
+        id: 603, category: 'Software Installation & Configuration Management',
+        question: 'Which environment is specifically used for final pre-production testing under real conditions?',
+        options: ['Development', 'Staging / UAT', 'Local machine', 'Sandbox only'],
+        correctAnswer: 'Staging / UAT',
+      },
+      {
+        id: 604, category: 'Software Installation & Configuration Management',
+        question: 'A developer receives an installation request for a licensed IDE. What should they do first?',
+        options: ['Download from a free source', 'Raise a request through the IT Asset Management system for license allocation', 'Install a trial version', 'Ask a colleague for setup'],
+        correctAnswer: 'Raise a request through the IT Asset Management system for license allocation',
+      },
+    ]
+  },
+  {
+    id: 'it_app_testing',
+    name: 'Application Testing & Release Management',
+    questions: [
+      {
+        id: 605, category: 'Application Testing & Release Management',
+        question: 'What’s the purpose of a smoke test after deployment?',
+        options: ['Full performance validation', 'Quick check that the core functions run after release', 'Security scan', 'Regression test'],
+        correctAnswer: 'Quick check that the core functions run after release',
+      },
+      {
+        id: 606, category: 'Application Testing & Release Management',
+        question: 'What is a UAT (User Acceptance Test) primarily focused on?',
+        options: ['Security vulnerabilities', 'Code efficiency', 'Business requirements validation', 'Developer preferences'],
+        correctAnswer: 'Business requirements validation',
+      },
+      {
+        id: 607, category: 'Application Testing & Release Management',
+        question: 'In CI/CD, which step ensures automatic rollback on deployment failure?',
+        options: ['Canary deployment', 'Static code analysis', 'Smoke testing', 'Manual patching'],
+        correctAnswer: 'Canary deployment',
+      },
+      {
+        id: 608, category: 'Application Testing & Release Management',
+        question: 'Before pushing a major release, what must the developer confirm?',
+        options: ['Approval from QA + Change Advisory Board (CAB)', 'Only QA testing done', 'Code committed to GitHub', 'Email sent to manager'],
+        correctAnswer: 'Approval from QA + Change Advisory Board (CAB)',
+      },
+    ]
+  },
+  {
+    id: 'it_ticketing_change_control',
+    name: 'Ticketing & Change Control',
+    questions: [
+      {
+        id: 609, category: 'Ticketing & Change Control',
+        question: 'A developer finds a bug in production. What’s the correct escalation process?',
+        options: ['Fix immediately on live system', 'Log an incident ticket → assign severity → wait for CAB approval for patch', 'Ignore if minor', 'Raise a personal Jira note'],
+        correctAnswer: 'Log an incident ticket → assign severity → wait for CAB approval for patch',
+      },
+      {
+        id: 610, category: 'Ticketing & Change Control',
+        question: 'What’s the main difference between a Change Request (CR) and an Incident Ticket?',
+        options: ['CR = planned improvement, Incident = unplanned issue', 'Both are same', 'CR only for hardware', 'Incident needs CAB approval'],
+        correctAnswer: 'CR = planned improvement, Incident = unplanned issue',
+      },
+      {
+        id: 611, category: 'Ticketing & Change Control',
+        question: 'Which role has authority to approve production deployment?',
+        options: ['Developer', 'QA Tester', 'Change Manager / CAB', 'Any senior staff'],
+        correctAnswer: 'Change Manager / CAB',
+      },
+      {
+        id: 612, category: 'Ticketing & Change Control',
+        question: 'What’s the first detail required in a service ticket for issue tracking?',
+        options: ['Issue summary, category, environment, and severity level', 'Only screenshot', 'Email CC list', 'Log file size'],
+        correctAnswer: 'Issue summary, category, environment, and severity level',
+      },
+    ]
+  },
+  {
+    id: 'it_security_compliance_dev',
+    name: 'Security & Compliance in Development',
+    questions: [
+      {
+        id: 613, category: 'Security & Compliance in Development',
+        question: 'If a developer needs to use third-party open-source libraries, what must they verify first?',
+        options: ['License compatibility and vulnerability assessment', 'File size and version number', 'Code readability', 'Whether it runs locally'],
+        correctAnswer: 'License compatibility and vulnerability assessment',
+      },
+      {
+        id: 614, category: 'Security & Compliance in Development',
+        question: 'Which tool can detect hardcoded secrets in source code before commit?',
+        options: ['SonarQube', 'GitGuardian / TruffleHog', 'Jenkins', 'Visual Studio'],
+        correctAnswer: 'GitGuardian / TruffleHog',
+      },
+      {
+        id: 615, category: 'Security & Compliance in Development',
+        question: 'What should developers never include in source code repositories?',
+        options: ['Configuration templates', 'API keys, passwords, certificates', 'Unit test files', 'README.md'],
+        correctAnswer: 'API keys, passwords, certificates',
+      },
+      {
+        id: 616, category: 'Security & Compliance in Development',
+        question: 'What’s the purpose of a Static Application Security Test (SAST)?',
+        options: ['To test UI layout', 'To detect code-level vulnerabilities before runtime', 'To measure CPU usage', 'To test network speed'],
+        correctAnswer: 'To detect code-level vulnerabilities before runtime',
+      },
+    ]
+  },
+  {
+    id: 'it_env_access_control',
+    name: 'Environment & Access Control',
+    questions: [
+      {
+        id: 617, category: 'Environment & Access Control',
+        question: 'Which practice ensures minimal risk when granting developer access to production systems?',
+        options: ['Role-based access control with temporary privilege escalation', 'Full admin access for all devs', 'Sharing root credentials', 'One shared account'],
+        correctAnswer: 'Role-based access control with temporary privilege escalation',
+      },
+      {
+        id: 618, category: 'Environment & Access Control',
+        question: 'When testing in an office environment, developers must:',
+        options: ['Use isolated staging servers, never live databases', 'Test directly on production', 'Copy data manually from prod', 'Use real customer credentials'],
+        correctAnswer: 'Use isolated staging servers, never live databases',
+      },
+      {
+        id: 619, category: 'Environment & Access Control',
+        question: 'For remote deployment, what’s the secure way to access production servers?',
+        options: ['Via approved VPN + MFA', 'Using any open SSH', 'RDP without password', 'Shared public Wi-Fi'],
+        correctAnswer: 'Via approved VPN + MFA',
+      },
+      {
+        id: 620, category: 'Environment & Access Control',
+        question: 'What is the most critical log type to verify after any deployment?',
+        options: ['Application and system logs', 'Browser history', 'Temporary files', 'Cache reports'],
+        correctAnswer: 'Application and system logs',
+      },
+    ]
+  },
+  {
+    id: 'it_dos_donts',
+    name: 'Do’s and Don’ts of Enterprise Development',
+    questions: [
+      {
+        id: 621, category: 'Do’s and Don’ts of Enterprise Development',
+        question: 'Developers must document changes in:',
+        options: ['Change logs or Git commit messages', 'Personal notes', 'Chat history', 'Email drafts'],
+        correctAnswer: 'Change logs or Git commit messages',
+      },
+      {
+        id: 622, category: 'Do’s and Don’ts of Enterprise Development',
+        question: 'If a developer identifies a vulnerability in their code, the best action is:',
+        options: ['Immediately report and patch through secure pipeline', 'Hide it until next sprint', 'Fix locally without audit', 'Ignore low risk'],
+        correctAnswer: 'Immediately report and patch through secure pipeline',
+      },
+      {
+        id: 623, category: 'Do’s and Don’ts of Enterprise Development',
+        question: 'What’s a common violation of software deployment policy?',
+        options: ['Deploying without QA sign-off or CAB approval', 'Tagging release in Git', 'Writing release notes', 'Verifying hash'],
+        correctAnswer: 'Deploying without QA sign-off or CAB approval',
+      },
+      {
+        id: 624, category: 'Do’s and Don’ts of Enterprise Development',
+        question: 'Why should test environments never contain live customer data?',
+        options: ['It violates data protection and privacy laws (GDPR, etc.)', 'It increases system speed', 'It helps debugging faster', 'It reduces QA work'],
+        correctAnswer: 'It violates data protection and privacy laws (GDPR, etc.)',
+      },
+      {
+        id: 625, category: 'Do’s and Don’ts of Enterprise Development',
+        question: 'Which practice ensures smooth handover between development and operations teams?',
+        options: ['Proper documentation + version control + change record updates', 'Sending a verbal summary', 'Keeping code locally', 'Skipping handover'],
+        correctAnswer: 'Proper documentation + version control + change record updates',
+      },
+    ]
+  },
+  {
+    id: 'data_analyst_governance',
+    name: 'Data Governance & Compliance',
+    questions: [
+      {
+        id: 701,
+        category: 'Data Governance & Compliance',
+        question: "What is considered Personally Identifiable Information (PII) under most data protection laws?",
+        options: [
+          "Anonymous survey results",
+          "A person's name combined with their email address",
+          "Publicly available company addresses",
+          "The number of employees in a company",
+        ],
+        correctAnswer: "A person's name combined with their email address",
+      },
+      {
+        id: 702,
+        category: 'Data Governance & Compliance',
+        question: "Under GDPR, what is a valid legal basis for processing personal data?",
+        options: [
+          "The data seems useful for future marketing.",
+          "The individual has given clear consent for a specific purpose.",
+          "The data was found on a public website.",
+          "A manager requested the data analysis.",
+        ],
+        correctAnswer: "The individual has given clear consent for a specific purpose.",
+      },
+    ],
+  },
+  {
+    id: 'data_analyst_handling',
+    name: 'Secure Data Handling & Storage',
+    questions: [
+      {
+        id: 703,
+        category: 'Secure Data Handling & Storage',
+        question: "When a dataset containing sensitive information is not in use, how should it be stored?",
+        options: [
+          "On an unencrypted USB drive for easy access.",
+          "In a password-protected spreadsheet on a shared network drive.",
+          "In an encrypted format on a secure, access-controlled server.",
+          "In a personal cloud storage account.",
+        ],
+        correctAnswer: "In an encrypted format on a secure, access-controlled server.",
+      },
+      {
+        id: 704,
+        category: 'Secure Data Handling & Storage',
+        question: "Before sharing aggregated data with another department, what is a crucial step?",
+        options: [
+          "Ensure no individual's data can be re-identified from the aggregated results.",
+          "Send the raw data first for them to check.",
+          "Password protect the file with '12345'.",
+          "Make sure the chart colors are on-brand.",
+        ],
+        correctAnswer: "Ensure no individual's data can be re-identified from the aggregated results.",
+      },
+    ],
+  },
+  {
+    id: 'data_analyst_integrity',
+    name: 'Data Quality & Integrity',
+    questions: [
+      {
+        id: 705,
+        category: 'Data Quality & Integrity',
+        question: "What is the purpose of data validation during the data ingestion process?",
+        options: [
+          "To make the dataset larger.",
+          "To check for and reject or correct inaccurate or improperly formatted data.",
+          "To automatically delete any null values.",
+          "To convert all text to uppercase.",
+        ],
+        correctAnswer: "To check for and reject or correct inaccurate or improperly formatted data.",
+      },
+      {
+        id: 706,
+        category: 'Data Quality & Integrity',
+        question: "Why is it important to document data transformations and cleaning steps?",
+        options: [
+          "It's not important if the final report looks correct.",
+          "To make the process seem more complex.",
+          "To ensure the analysis is reproducible, transparent, and auditable.",
+          "To create more files to store.",
+        ],
+        correctAnswer: "To ensure the analysis is reproducible, transparent, and auditable.",
+      },
+    ],
+  },
+  {
+    id: 'data_analyst_ethics',
+    name: 'Ethical Data Usage & Reporting',
+    questions: [
+      {
+        id: 707,
+        category: 'Ethical Data Usage & Reporting',
+        question: "If an analysis reveals a strong correlation that could lead to a biased business decision (e.g., against a protected group), what should a data analyst do?",
+        options: [
+          "Present the finding without context, as 'the data doesn't lie.'",
+          "Remove the finding from the report to avoid controversy.",
+          "Highlight the correlation but also point out the potential for bias and recommend further investigation.",
+          "Only show the data to managers who will agree with the biased outcome.",
+        ],
+        correctAnswer: "Highlight the correlation but also point out the potential for bias and recommend further investigation.",
+      },
+      {
+        id: 708,
+        category: 'Ethical Data Usage & Reporting',
+        question: "What is a primary ethical concern when visualizing data for a general audience?",
+        options: [
+          "Using colors that are not visually appealing.",
+          "The visualization could mislead or manipulate the audience's interpretation of the data.",
+          "The chart takes too long to load.",
+          "The title of the chart is too long.",
+        ],
+        correctAnswer: "The visualization could mislead or manipulate the audience's interpretation of the data.",
+      },
+    ],
+  },
+];
