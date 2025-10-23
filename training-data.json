@@ -2231,6 +2231,215 @@
       "id": "audit_1761233417940",
       "name": "AUDIT",
       "questions": []
+    },
+    {
+      "id": "physical_security_1761233573512.4863",
+      "name": "Physical Security",
+      "questions": [
+        {
+          "id": 1761233574455.8052,
+          "category": "Physical Security",
+          "question": "Access to the data‑center is granted via:",
+          "options": [
+            "Keycard only",
+            "Smart‑card / biometric"
+          ],
+          "correctAnswer": "Smart‑card / biometric"
+        },
+        {
+          "id": 1761233573938.3726,
+          "category": "Physical Security",
+          "question": "CCTV footage must be retained for at least:",
+          "options": [
+            "30 days",
+            "60 days",
+            "90 days"
+          ],
+          "correctAnswer": "90 days"
+        },
+        {
+          "id": 1761233573605.3545,
+          "category": "Physical Security",
+          "question": "No photography is allowed inside which area?",
+          "options": [
+            "Lobby",
+            "Server rooms"
+          ],
+          "correctAnswer": "Server rooms"
+        },
+        {
+          "id": 1761233573669.974,
+          "category": "Physical Security",
+          "question": "Who is the owner of the Physical Security policy?",
+          "options": [
+            "CIO",
+            "CISO",
+            "HR",
+            "Legal"
+          ],
+          "correctAnswer": "CISO"
+        },
+        {
+          "id": 1761233574265.0789,
+          "category": "Physical Security",
+          "question": "Fire suppression systems must be checked:",
+          "options": [
+            "Daily",
+            "Monthly"
+          ],
+          "correctAnswer": "Monthly"
+        },
+        {
+          "id": 1761233573529.8503,
+          "category": "Physical Security",
+          "question": "Visitor management must include:",
+          "options": [
+            "Guest name only",
+            "Signed NDAs and badge issuance"
+          ],
+          "correctAnswer": "Signed NDAs and badge issuance"
+        },
+        {
+          "id": 1761233573887.1135,
+          "category": "Physical Security",
+          "question": "Which of the following cannot be a physical‑security control?",
+          "options": [
+            "Badges",
+            "Password policies"
+          ],
+          "correctAnswer": "Password policies"
+        },
+        {
+          "id": 1761233573808.6443,
+          "category": "Physical Security",
+          "question": "Which must be performed after a security breach in the data‑center?",
+          "options": [
+            "Order pizza",
+            "Incident report and forensic analysis"
+          ],
+          "correctAnswer": "Incident report and forensic analysis"
+        },
+        {
+          "id": 1761233574056.8328,
+          "category": "Physical Security",
+          "question": "Which must be logged for facility access?",
+          "options": [
+            "Number of coffee cups",
+            "Who entered, when, where"
+          ],
+          "correctAnswer": "Who entered, when, where"
+        },
+        {
+          "id": 1761233573887.266,
+          "category": "Physical Security",
+          "question": "Which must be part of the environmental monitoring?",
+          "options": [
+            "Number of plants",
+            "Temperature & humidity"
+          ],
+          "correctAnswer": "Temperature & humidity"
+        },
+        {
+          "id": 1761233573802.4878,
+          "category": "Physical Security",
+          "question": "Which must be done before granting a visitor access?",
+          "options": [
+            "Send a meme",
+            "Pre‑approval, background check, badge"
+          ],
+          "correctAnswer": "Pre‑approval, background check, badge"
+        },
+        {
+          "id": 1761233574352.9023,
+          "category": "Physical Security",
+          "question": "Which must be verified during a security patrol?",
+          "options": [
+            "Employee’s favourite song",
+            "Doors locked, alarms armed"
+          ],
+          "correctAnswer": "Doors locked, alarms armed"
+        },
+        {
+          "id": 1761233573640.8728,
+          "category": "Physical Security",
+          "question": "Which must be included in the disaster‑recovery site?",
+          "options": [
+            "Coffee machine",
+            "Separate power & cooling"
+          ],
+          "correctAnswer": "Separate power & cooling"
+        },
+        {
+          "id": 1761233574032.4497,
+          "category": "Physical Security",
+          "question": "Which cannot be a reason to revoke a badge?",
+          "options": [
+            "Lost badge",
+            "Employee’s birthday"
+          ],
+          "correctAnswer": "Employee’s birthday"
+        },
+        {
+          "id": 1761233573772.5042,
+          "category": "Physical Security",
+          "question": "Which must be documented after a fire‑alarm event?",
+          "options": [
+            "Number of cupcakes",
+            "Time of alarm, response actions"
+          ],
+          "correctAnswer": "Time of alarm, response actions"
+        },
+        {
+          "id": 1761233574183.5972,
+          "category": "Physical Security",
+          "question": "Which must be in the physical‑security incident response plan?",
+          "options": [
+            "Favorite colour",
+            "Evacuation routes, communication chain"
+          ],
+          "correctAnswer": "Evacuation routes, communication chain"
+        },
+        {
+          "id": 1761233573762.5652,
+          "category": "Physical Security",
+          "question": "Which must be performed annually?",
+          "options": [
+            "Office decorating",
+            "Security awareness for physical staff"
+          ],
+          "correctAnswer": "Security awareness for physical staff"
+        },
+        {
+          "id": 1761233574424.2556,
+          "category": "Physical Security",
+          "question": "Which must be secured with a lock?",
+          "options": [
+            "Cloud account",
+            "Server rack doors"
+          ],
+          "correctAnswer": "Server rack doors"
+        },
+        {
+          "id": 1761233574211.8213,
+          "category": "Physical Security",
+          "question": "Which must be included in the access‑control policy?",
+          "options": [
+            "Coffee break schedule",
+            "Role‑based badge permissions"
+          ],
+          "correctAnswer": "Role‑based badge permissions"
+        },
+        {
+          "id": 1761233573970.4219,
+          "category": "Physical Security",
+          "question": "Which must be checked during UPS testing?",
+          "options": [
+            "Number of emojis",
+            "Battery runtime & load capacity"
+          ],
+          "correctAnswer": "Battery runtime & load capacity"
+        }
+      ]
     }
   ],
   "emailLog": [
@@ -2994,6 +3203,17 @@
           "theme": {
             "iconBg": "bg-neutral-100",
             "iconColor": "text-neutral-500"
+          }
+        },
+        {
+          "id": "physical_security_1761233573512.4863",
+          "title": "Physical Security",
+          "questions": 20,
+          "iconKey": "Key",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-rose-100",
+            "iconColor": "text-rose-500"
           }
         }
       ]
