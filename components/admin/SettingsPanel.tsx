@@ -1,6 +1,8 @@
 
-import React, { useRef } from 'react';
+
+import React, { useRef, useState } from 'react';
 import { AppSettings } from '../../types';
+import GitHubSettingsModal from './GitHubSettingsModal';
 
 interface SettingsPanelProps {
     settings: AppSettings;
@@ -111,6 +113,7 @@ const AssetUploader: React.FC<{
 
 
 const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChange }) => {
+    const [isGitHubModalOpen, setIsGitHubModalOpen] = useState(false);
 
     const handleFileUpload = (file: File, type: 'logo' | 'signature1' | 'signature2' | 'certificationSeal') => {
         const reader = new FileReader();
@@ -139,39 +142,16 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
             <div className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80">
                 <div className="space-y-6">
                     <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
-                        <h3 className="font-semibold text-lg text-slate-700 mb-4">GitHub Synchronization</h3>
-                        <div className="space-y-4 text-sm text-slate-600">
-                            <p>This application automatically backs up all user and quiz data to a GitHub repository. For this to work, a secure token must be configured on the server.</p>
-                            <div className="bg-rose-100/60 border border-rose-200/80 rounded-lg p-4">
-                                <h4 className="font-semibold text-rose-700 mb-2">Action Required: Configure Environment Variable</h4>
-                                <p className="mb-3">If you are seeing sync errors, it is because the Personal Access Token (PAT) is not set up correctly on your Vercel hosting environment.</p>
-                                <p className="font-bold mb-2">Follow these steps to fix the issue:</p>
-                                <ol className="list-decimal list-inside space-y-2">
-                                    <li>Go to your project's dashboard on <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="text-indigo-600 font-semibold underline">Vercel</a>.</li>
-                                    <li>Navigate to the <span className="font-semibold">Settings</span> tab, then click on <span className="font-semibold">Environment Variables</span>.</li>
-                                    <li>
-                                        Add a new variable with the following details:
-                                        <ul className="list-disc list-inside ml-4 my-2 bg-slate-200/50 p-3 rounded">
-                                            <li><strong>Key:</strong> <code className="bg-slate-300 px-1 rounded">GITHUB_PAT</code></li>
-                                            <li><strong>Value:</strong> Paste your Personal Access Token here.</li>
-                                            <li>Ensure your token has <code className="bg-slate-300 px-1 rounded">'repo'</code> scope permissions.</li>
-                                            <li>Ensure all environments (Production, Preview, Development) are checked.</li>
-                                        </ul>
-                                    </li>
-                                    <li>Save the variable.</li>
-                                    <li>Go to the <span className="font-semibold">Deployments</span> tab and <span className="font-semibold">re-deploy</span> your latest production build to apply the new variable.</li>
-                                </ol>
-                            </div>
-                            <div className="bg-indigo-100/60 border border-indigo-200/80 rounded-lg p-4">
-                                <h4 className="font-semibold text-indigo-700 mb-2">Repository Details</h4>
-                                <p>The application is configured to sync to the following GitHub repository:</p>
-                                <ul className="list-disc list-inside ml-4 mt-2">
-                                    <li><strong>Owner:</strong> <code className="bg-slate-300 px-1 rounded">xcode96</code></li>
-                                    <li><strong>Repository:</strong> <code className="bg-slate-300 px-1 rounded">API-testing</code></li>
-                                    <li><strong>File:</strong> <code className="bg-slate-300 px-1 rounded">training-data.json</code></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <h3 className="font-semibold text-lg text-slate-700 mb-4">GitHub Publishing</h3>
+                        <p className="text-sm text-slate-600 mb-4">
+                            Configure your GitHub repository to publish the training data. This allows you to host the application's data file (users, quizzes, etc.) in your own repository. The data is stored in your browser's local storage and is used to push updates.
+                        </p>
+                        <button
+                            onClick={() => setIsGitHubModalOpen(true)}
+                            className="bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+                        >
+                            Configure GitHub Settings
+                        </button>
                     </div>
                     
                     <h2 className="text-2xl font-bold text-slate-800 pt-4 border-t border-slate-200">Certificate Settings</h2>
@@ -233,6 +213,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
                     />
                 </div>
             </div>
+            <GitHubSettingsModal isOpen={isGitHubModalOpen} onClose={() => setIsGitHubModalOpen(false)} />
         </>
     );
 };

@@ -112,21 +112,17 @@ function App() {
   const handleCreateExamCategory = (title: string): string | undefined => {
     const newId = title.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
     
-    // Check for duplicates
     if (quizzes.some(q => q.name.toLowerCase() === title.toLowerCase()) || moduleCategoriesState.some(c => c.id === newId)) {
       alert("An exam category with a similar name already exists.");
       return undefined;
     }
 
-    // Create new empty quiz
     const newQuiz: Quiz = {
       id: newId,
       name: title,
       questions: [],
     };
-    setQuizzes(prev => [...prev, newQuiz]);
 
-    // Create new module category "folder"
     const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
     const iconKeys = Object.keys(ICONS);
     const newIconKey = iconKeys[totalModules % iconKeys.length];
@@ -145,7 +141,20 @@ function App() {
       title: title,
       modules: [newModule],
     };
+    
+    setQuizzes(prev => [...prev, newQuiz]);
     setModuleCategoriesState(prev => [...prev, newCategory]);
+    
+    // Auto-assign the new folder to all existing users to make it visible
+    setUsers(prevUsers => prevUsers.map(user => {
+        if (user.role === 'user') {
+            const assignedExams = new Set(user.assignedExams || []);
+            assignedExams.add(newId);
+            return { ...user, assignedExams: Array.from(assignedExams) };
+        }
+        return user;
+    }));
+
     return newId;
   };
 
@@ -154,13 +163,11 @@ function App() {
           alert("Category name cannot be empty.");
           return;
       }
-      // Update module category title and its inner module's title
       setModuleCategoriesState(prev => prev.map(c =>
           c.id === categoryId
               ? { ...c, title: newTitle, modules: c.modules.map(m => m.id === categoryId ? { ...m, title: newTitle } : m) }
               : c
       ));
-      // Update quiz name
       setQuizzes(prev => prev.map(q =>
           q.id === categoryId
               ? { ...q, name: newTitle }
@@ -176,16 +183,9 @@ function App() {
     }
 
     if (window.confirm(`Are you sure you want to delete the entire exam folder "${categoryToDelete.title}" and all its questions? This action cannot be undone.`)) {
-        // Get all module IDs within this category
         const moduleIdsToDelete = new Set(categoryToDelete.modules.map(m => m.id));
-
-        // Remove the module category itself
         setModuleCategoriesState(prev => prev.filter(c => c.id !== categoryId));
-        
-        // Remove all quizzes that were part of this category
         setQuizzes(prev => prev.filter(q => !moduleIdsToDelete.has(q.id)));
-        
-        // Un-assign the main exam category from all users
         setUsers(prevUsers => prevUsers.map(user => ({
             ...user,
             assignedExams: user.assignedExams?.filter(id => id !== categoryId)
@@ -194,23 +194,38 @@ function App() {
   };
   
     const handleAddNewQuestion = (newQuestionData: Omit<Question, 'id'>) => {
-        setQuizzes(prevQuizzes => {
-            const newQuizzes = prevQuizzes.map(q => ({ ...q, questions: [...q.questions] }));
-            const quizIndex = newQuizzes.findIndex(q => q.name === newQuestionData.category);
+        const quizToUpdate = quizzes.find(q => q.name === newQuestionData.category);
 
-            if (quizIndex > -1) {
-                const newQuestion: Question = {
-                    ...newQuestionData,
-                    id: Date.now(),
-                };
-                newQuizzes[quizIndex].questions.push(newQuestion);
-                alert(`Question added to "${newQuestionData.category}"!`);
-            } else {
-                console.error(`Quiz category "${newQuestionData.category}" not found.`);
-                alert("Error: Could not find the selected quiz category to add the question to.");
-            }
-            return newQuizzes;
-        });
+        if (!quizToUpdate) {
+            console.error(`Quiz category "${newQuestionData.category}" not found.`);
+            alert("Error: Could not find the selected quiz category to add the question to.");
+            return;
+        }
+
+        const newQuestion: Question = {
+            ...newQuestionData,
+            id: Date.now(),
+        };
+
+        setQuizzes(prevQuizzes =>
+            prevQuizzes.map(q =>
+                q.id === quizToUpdate.id
+                    ? { ...q, questions: [...q.questions, newQuestion] }
+                    : q
+            )
+        );
+        
+        setModuleCategoriesState(prevCategories =>
+            prevCategories.map(category => ({
+                ...category,
+                modules: category.modules.map(module =>
+                    module.id === quizToUpdate.id
+                        ? { ...module, questions: module.questions + 1 }
+                        : module
+                )
+            }))
+        );
+        alert(`Question added to "${newQuestionData.category}"!`);
     };
 
     const handleAddQuestionToNewCategory = (newQuestionData: Omit<Question, 'id'>, categoryTitle: string) => {
@@ -253,6 +268,17 @@ function App() {
 
       setQuizzes(prev => [...prev, newQuiz]);
       setModuleCategoriesState(prev => [...prev, newCategory]);
+      
+      // Auto-assign the new folder to all existing users
+      setUsers(prevUsers => prevUsers.map(user => {
+          if (user.role === 'user') {
+              const assignedExams = new Set(user.assignedExams || []);
+              assignedExams.add(newId);
+              return { ...user, assignedExams: Array.from(assignedExams) };
+          }
+          return user;
+      }));
+
       alert(`Category "${categoryTitle}" created and question added!`);
     };
 
@@ -318,10 +344,29 @@ function App() {
 
     const handleDeleteQuestion = (questionId: number) => {
         if (window.confirm("Are you sure you want to delete this question? This action cannot be undone.")) {
+            const quizToUpdate = quizzes.find(q => q.questions.some(ques => ques.id === questionId));
+
+            if (!quizToUpdate) {
+                console.error("Could not find quiz for question ID:", questionId);
+                return;
+            }
+
             setQuizzes(prevQuizzes =>
-                prevQuizzes.map(quiz => ({
-                    ...quiz,
-                    questions: quiz.questions.filter(q => q.id !== questionId)
+                prevQuizzes.map(quiz =>
+                    quiz.id === quizToUpdate.id
+                        ? { ...quiz, questions: quiz.questions.filter(q => q.id !== questionId) }
+                        : quiz
+                )
+            );
+
+            setModuleCategoriesState(prevCategories =>
+                prevCategories.map(category => ({
+                    ...category,
+                    modules: category.modules.map(module =>
+                        module.id === quizToUpdate.id
+                            ? { ...module, questions: module.questions - 1 }
+                            : module
+                    )
                 }))
             );
         }

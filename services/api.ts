@@ -11,7 +11,7 @@ export interface AppData {
 
 // --- Start: Duplicated initial data from api/data.ts for fallback ---
 const initialUsers: User[] = [
-  { id: 1, fullName: 'Demo User', username: 'demo', password: 'demo', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'hr_exam'], answers: [], moduleProgress: {} },
+  { id: 1, fullName: 'Demo User', username: 'demo', password: 'demo', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'hr_exam', 'it_policy_exam', 'server_exam', 'operation_exam', 'legal_exam', 'data_analyst_exam', 'it_developer_policy'], answers: [], moduleProgress: {} },
   { id: 2, fullName: 'Dev Lead', username: 'dev', password: 'dev', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'it_developer_policy'], answers: [], moduleProgress: {} },
   { id: 3, fullName: 'Sys Admin', username: 'server', password: 'server', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'server_exam', 'it_policy_exam', 'operation_exam'], answers: [], moduleProgress: {} },
   { id: 4, fullName: 'IT Support', username: 'it', password: 'it', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'it_policy_exam'], answers: [], moduleProgress: {} },
@@ -43,6 +43,8 @@ const getInitialData = (): AppData => ({
 // --- End: Duplicated initial data ---
 
 const LOCAL_STORAGE_KEY = 'cyber-security-training-data-local-backup';
+const GITHUB_SETTINGS_KEY = 'github-publish-settings';
+
 
 export const fetchData = async (): Promise<AppData> => {
     try {
@@ -108,37 +110,107 @@ export const saveData = async (data: AppData): Promise<void> => {
 // --- GITHUB SYNC LOGIC ---
 
 /**
- * Triggers a server-side function to sync the application data to GitHub.
- * This is more secure as the PAT is not exposed on the client.
+ * Helper to Base64 encode string content for the GitHub API.
+ * In a browser environment, btoa is standard. We use a trick to handle UTF-8 characters.
+ */
+const encodeContent = (content: string): string => {
+    return btoa(unescape(encodeURIComponent(content)));
+};
+
+/**
+ * Gets the current SHA of the file from GitHub, required for updates.
+ */
+const getFileSha = async (owner: string, repo: string, path: string, token: string): Promise<string | undefined> => {
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json',
+            },
+        });
+        if (response.ok) {
+            const data = await response.json();
+            return data.sha;
+        }
+        if (response.status === 404) return undefined; // File doesn't exist, we'll create it.
+        
+        console.error('GitHub API error (getFileSha):', response.status, await response.text());
+        return undefined;
+    } catch (error) {
+        console.error('Failed to fetch file SHA from GitHub:', error);
+        return undefined;
+    }
+};
+
+/**
+ * Triggers a client-side sync of application data to a user-configured GitHub repository.
+ * The settings (repo, owner, token, etc.) are pulled from localStorage.
  * @param data The complete application data object to be saved.
  * @returns A promise that resolves to an object indicating success or failure.
  */
 export const triggerGithubSync = async (data: AppData): Promise<{ success: boolean; error?: string }> => {
-    console.log("Attempting to trigger GitHub sync...");
+    console.log("Attempting to trigger client-side GitHub sync...");
+    
+    const settingsStr = localStorage.getItem(GITHUB_SETTINGS_KEY);
+    if (!settingsStr) {
+        const message = 'GitHub settings not configured. Please go to Admin Panel > Settings to configure publishing.';
+        console.error(message);
+        alert(message);
+        return { success: false, error: 'GitHub settings not configured.' };
+    }
+
+    const { owner, repo, path, token } = JSON.parse(settingsStr);
+
+    if (!owner || !repo || !path || !token) {
+        const message = 'GitHub settings are incomplete. Please review your configuration in Admin Panel > Settings.';
+        console.error(message);
+        alert(message);
+        return { success: false, error: 'GitHub settings are incomplete.' };
+    }
+
     try {
-        const response = await fetch('/api/sync-github', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
+        const fileSha = await getFileSha(owner, repo, path, token);
+        const contentToSave = JSON.stringify(data, null, 2);
+        const encodedContent = encodeContent(contentToSave);
+        const commitMessage = `Automated data sync: ${new Date().toISOString()}`;
+        
+        const payload: { message: string; content: string; sha?: string } = {
+            message: commitMessage,
+            content: encodedContent,
+        };
+        if (fileSha) {
+            payload.sha = fileSha;
+        }
+
+        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
         });
 
         if (response.ok) {
             const result = await response.json();
-            console.log('Successfully triggered GitHub sync. Commit:', result.commit);
-            alert('Training data has been successfully synced to the GitHub repository.');
+            console.log('Successfully synced data to GitHub:', result.commit.sha);
+            alert('Training data has been successfully published to your GitHub repository.');
             return { success: true };
         } else {
             const errorData = await response.json();
-            const errorMessage = errorData.error || 'An unknown error occurred.';
+            const errorMessage = errorData.message || 'An unknown error occurred.';
             console.error('Failed to sync data to GitHub:', response.status, errorMessage);
-            // Simplified alert, directing user to the new permanent guide.
-            alert(`Failed to sync data to GitHub. Status: ${response.status}.\n\nError: ${errorMessage}\n\nPlease check the instructions in the Admin Panel > Settings page to configure your GitHub token.`);
+            alert(`Failed to publish data to GitHub. Status: ${response.status}.\n\nError: ${errorMessage}\n\nPlease check your settings and Personal Access Token.`);
             return { success: false, error: errorMessage };
         }
     } catch (error) {
         const errorMessage = (error instanceof Error) ? error.message : 'An unknown error occurred.';
         console.error('Failed to trigger GitHub sync:', error);
-        alert(`An error occurred while trying to sync data to GitHub. Please check the browser console and the instructions in the Admin Panel > Settings page.`);
+        alert(`An error occurred while trying to publish data to GitHub. Please check the browser console.`);
         return { success: false, error: errorMessage };
     }
 };
