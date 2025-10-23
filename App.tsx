@@ -9,9 +9,9 @@ import FinalReport from './components/FinalReport';
 import CompletionScreen from './components/CompletionScreen';
 import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
-import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question, GithubSyncStatus } from './types';
+import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question } from './types';
 import { sendEmail } from './services/emailService';
-import { fetchData, saveData, triggerGithubSync } from './services/api';
+import { fetchData, saveData } from './services/api';
 
 type View = 'user_login' | 'dashboard' | 'login' | 'admin' | 'report' | 'completion';
 export type AdminView = 'users' | 'questions' | 'notifications' | 'settings';
@@ -25,7 +25,6 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   const [moduleCategoriesState, setModuleCategoriesState] = useState<ModuleCategory[]>([]);
-  const [githubSyncStatus, setGithubSyncStatus] = useState<GithubSyncStatus>({ status: 'idle' });
   
   const saveTimeoutRef = useRef<number | null>(null);
   
@@ -40,33 +39,50 @@ function App() {
         if (data.moduleCategories && data.moduleCategories.length > 0) {
             setModuleCategoriesState(data.moduleCategories);
         } else {
-            const existingQuizIds = new Set(data.quizzes.map(q => q.id));
+            // This logic runs if moduleCategories data is missing, to migrate from an older data structure.
+            const quizMap = new Map(data.quizzes.map(q => [q.id, q]));
+            
+            // 1. Rebuild categories from the initial constant, but only include modules for quizzes that actually exist.
             let syncedModuleCategories = INITIAL_MODULE_CATEGORIES.map(category => ({
                 ...category,
-                modules: category.modules.filter(module => existingQuizIds.has(module.id))
-            }));
+                modules: category.modules
+                    // Update question count from live quiz data
+                    .map(module => ({
+                        ...module,
+                        questions: quizMap.get(module.id)?.questions.length ?? 0
+                    }))
+                    // Filter out modules whose corresponding quiz has been deleted
+                    .filter(module => quizMap.has(module.id))
+            })).filter(category => category.modules.length > 0); // Remove any categories that became empty
+
+            // 2. Identify quizzes that are not part of any category yet.
             const knownModuleIds = new Set(syncedModuleCategories.flatMap(c => c.modules).map(m => m.id));
-            data.quizzes.forEach((quiz, index) => {
-              if (!knownModuleIds.has(quiz.id)) {
-                const totalModules = syncedModuleCategories.flatMap(c => c.modules).length + index;
-                const iconKeys = Object.keys(ICONS);
-                const newIconKey = iconKeys[totalModules % iconKeys.length];
-                const newTheme = THEMES[totalModules % THEMES.length];
-                const newModule: Module = {
-                  id: quiz.id,
-                  title: quiz.name,
-                  questions: quiz.questions.length,
-                  iconKey: newIconKey,
-                  status: ModuleStatus.NotStarted,
-                  theme: newTheme,
-                };
-                const newCategory: ModuleCategory = {
-                  id: quiz.id,
-                  title: quiz.name,
-                  modules: [newModule],
-                };
-                syncedModuleCategories.push(newCategory);
-              }
+            let newModulesAdded = 0;
+
+            // 3. Create a new category for each "orphan" quiz.
+            data.quizzes.forEach((quiz) => {
+                if (!knownModuleIds.has(quiz.id)) {
+                    const totalModules = knownModuleIds.size + newModulesAdded;
+                    const iconKeys = Object.keys(ICONS);
+                    const newIconKey = iconKeys[totalModules % iconKeys.length];
+                    const newTheme = THEMES[totalModules % THEMES.length];
+                    
+                    const newModule: Module = {
+                        id: quiz.id,
+                        title: quiz.name,
+                        questions: quiz.questions.length,
+                        iconKey: newIconKey,
+                        status: ModuleStatus.NotStarted,
+                        theme: newTheme,
+                    };
+                    const newCategory: ModuleCategory = {
+                        id: quiz.id, // Consistent with how new categories are created elsewhere
+                        title: quiz.name,
+                        modules: [newModule],
+                    };
+                    syncedModuleCategories.push(newCategory);
+                    newModulesAdded++;
+                }
             });
             setModuleCategoriesState(syncedModuleCategories);
         }
@@ -89,23 +105,9 @@ function App() {
     }
 
     saveTimeoutRef.current = window.setTimeout(() => {
-      const dataToSync = { users, quizzes, emailLog, settings, moduleCategories: moduleCategoriesState };
-      saveData(dataToSync)
+      const dataToSave = { users, quizzes, emailLog, settings, moduleCategories: moduleCategoriesState };
+      saveData(dataToSave)
         .catch(err => console.error("Failed to save data:", err));
-      
-      setGithubSyncStatus({ status: 'syncing' });
-      triggerGithubSync(dataToSync)
-        .then(result => {
-            if (result.success) {
-                setGithubSyncStatus({ status: 'success', timestamp: new Date().toISOString() });
-            } else {
-                setGithubSyncStatus({ status: 'error', message: result.error || 'Unknown sync error' });
-            }
-        })
-        .catch(err => {
-            console.error("Failed to sync data to GitHub:", err);
-            setGithubSyncStatus({ status: 'error', message: err.message || 'Client-side error during sync' });
-        });
     }, 1000);
 
     return () => {
@@ -533,7 +535,6 @@ function App() {
             onUpdateQuestion={handleUpdateQuestion}
             onDeleteQuestion={handleDeleteQuestion}
             onImportFolderStructure={handleImportFolderStructure}
-            githubSyncStatus={githubSyncStatus}
           />
         );
       case 'report':

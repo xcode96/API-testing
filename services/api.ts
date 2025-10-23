@@ -1,6 +1,5 @@
 import { Quiz, User, Email, AppSettings, ModuleCategory } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
-import { Buffer } from 'buffer';
 
 export interface AppData {
     users: User[];
@@ -49,120 +48,28 @@ const getInitialData = (): AppData => ({
 
 const LOCAL_STORAGE_KEY = 'cyber-security-training-data-local-backup';
 
-/**
- * Fetches data from GitHub repository as a secondary source of truth.
- * @param settings The application settings containing GitHub configuration.
- * @returns The fetched AppData or null if it fails.
- */
-async function fetchFromGithub(settings: AppSettings): Promise<AppData | null> {
-    const { githubOwner, githubRepo, githubPath, githubPat } = settings;
-
-    if (!githubOwner || !githubRepo || !githubPath || !githubPat) {
-        console.log("GitHub sync settings not configured for fetching.");
-        return null;
-    }
-
-    const GITHUB_API_URL = `https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}`;
-
-    try {
-        const response = await fetch(GITHUB_API_URL, {
-            headers: {
-                'Authorization': `token ${githubPat}`,
-                'Accept': 'application/vnd.github.v3+json',
-                'User-Agent': 'Cyber-Training-Dashboard-Fetch'
-            },
-        });
-
-        if (!response.ok) {
-            if (response.status === 404) {
-                console.log("Data file not found on GitHub repository.");
-            } else {
-                 const errorData = await response.json().catch(() => ({}));
-                 console.error(`GitHub API Error (${response.status}): ${errorData.message || 'Failed to fetch from GitHub.'}`);
-            }
-            return null;
-        }
-
-        const fileData = await response.json();
-        if (fileData.content) {
-            const decodedContent = Buffer.from(fileData.content, 'base64').toString('utf-8');
-            const githubData = JSON.parse(decodedContent);
-            
-            // The PAT is not in the synced file, but we need it for subsequent operations.
-            // So, we need to merge the fetched settings with the PAT from our local settings.
-            githubData.settings.githubPat = githubPat;
-            
-            return githubData as AppData;
-        }
-        return null;
-    } catch (error) {
-        console.error("Error fetching data from GitHub:", error);
-        return null;
-    }
-}
-
 export const fetchData = async (): Promise<AppData> => {
-    // Primary goal: Fetch from API. If it works, check GitHub for even fresher data.
-    // Secondary goal: If API fails, use local storage to get settings to try GitHub.
-    // Final fallback: local storage, then initial data.
-
     try {
         const response = await fetch('/api/data');
         if (!response.ok) {
-            throw new Error(`Primary API failed with status: ${response.status}`);
+            throw new Error(`API failed with status: ${response.status}`);
         }
         const apiData = await response.json() as AppData;
-        console.log("Successfully fetched data from primary API.");
-
-        // Now that we have data from the API, let's check if there's a fresher version on GitHub
-        if (apiData.settings?.githubPat) {
-            console.log("Checking GitHub for potentially fresher data...");
-            const githubData = await fetchFromGithub(apiData.settings);
-            if (githubData) {
-                console.log("Found fresher data on GitHub. Using it as the source of truth.");
-                // Update local storage and the primary API in the background for consistency
-                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(githubData));
-                // We don't await this, just fire and forget to bring KV up to date.
-                fetch('/api/update', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(githubData)
-                }).catch(e => console.error("Background KV update from GitHub data failed:", e));
-                return githubData;
-            }
-        }
-        
-        // If GitHub check fails or isn't configured, the API data is the best we have.
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(apiData));
         return apiData;
 
     } catch (error) {
-        console.warn(error);
-        console.warn('Primary API is unavailable. Attempting fallback to GitHub via local settings...');
-
-        // Fallback sequence when API fails
+        console.warn('API fetch failed, trying local storage.', error);
         const localDataString = localStorage.getItem(LOCAL_STORAGE_KEY);
         if (localDataString) {
             try {
-                const localData = JSON.parse(localDataString) as AppData;
-                if (localData.settings?.githubPat) {
-                    const githubData = await fetchFromGithub(localData.settings);
-                    if (githubData) {
-                        console.log("Successfully fetched data from GitHub using local settings.");
-                        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(githubData));
-                        return githubData;
-                    }
-                }
-                // If GitHub fails or isn't configured, use the stale local data
-                console.log("Using data from local storage as API and GitHub fallbacks failed.");
-                return localData;
+                return JSON.parse(localDataString) as AppData;
             } catch (e) {
-                console.error('Failed to parse local storage data or use it for fallback.', e);
+                console.error('Failed to parse local storage data.', e);
             }
         }
-
-        // If all else fails (API down, no local storage), return initial default data.
-        console.log("No data found in API or local storage, returning initial data.");
+        
+        console.log("No valid data source found, returning initial data.");
         const initialData = getInitialData();
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(initialData));
         return initialData;
@@ -197,86 +104,5 @@ export const saveData = async (data: AppData): Promise<void> => {
             'API save failed. Data is saved locally. This is expected in a local environment without a running Vercel dev server.',
             error
         );
-    }
-};
-
-// --- GITHUB SYNC LOGIC (CLIENT-SIDE) ---
-
-/**
- * Triggers a client-side sync of application data to the configured GitHub repository.
- * @param data The complete application data object to be saved.
- * @returns An object indicating success or failure.
- */
-export const triggerGithubSync = async (data: AppData): Promise<{ success: boolean; error?: string }> => {
-    const { settings } = data;
-    const { githubOwner, githubRepo, githubPath, githubPat } = settings;
-
-    if (!githubOwner || !githubRepo || !githubPath || !githubPat) {
-        return { success: false, error: "GitHub sync settings are incomplete. Please configure all fields in Admin > Settings." };
-    }
-
-    const GITHUB_API_URL = `https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}`;
-
-    try {
-        // Step 1: Get the current SHA of the file to perform an update.
-        let sha: string | undefined;
-        const getResponse = await fetch(GITHUB_API_URL, {
-            headers: {
-                'Authorization': `token ${githubPat}`,
-                'Accept': 'application/vnd.github.v3+json',
-                'User-Agent': 'Cyber-Training-Dashboard-Sync'
-            },
-        });
-
-        if (getResponse.ok) {
-            const fileData = await getResponse.json();
-            sha = fileData.sha;
-        } else if (getResponse.status !== 404) {
-            // A 404 means the file doesn't exist, which is fine (we'll create it).
-            // Any other error is a problem (e.g., 401 Bad Credentials, 403 Forbidden).
-            const errorData = await getResponse.json().catch(() => ({ message: 'Could not parse GitHub error response.' }));
-            throw new Error(`GitHub API Error (${getResponse.status}): ${errorData.message || 'Could not retrieve file information. Check repository path and token permissions.'}`);
-        }
-
-        // Step 2: Prepare the content and create/update the file.
-        // IMPORTANT: Explicitly create a new data object for syncing that omits the PAT to avoid leaking secrets.
-        const { settings: originalSettings, ...restOfData } = data;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { githubPat: pat, ...safeSettings } = originalSettings;
-        const dataToSync = {
-            ...restOfData,
-            settings: safeSettings,
-        };
-
-        const contentToSave = JSON.stringify(dataToSync, null, 2);
-        const encodedContent = Buffer.from(contentToSave, 'utf-8').toString('base64');
-
-        const payload = {
-            message: `Automated data sync: ${new Date().toISOString()}`,
-            content: encodedContent,
-            sha: sha, // Include SHA if it's an update, otherwise it's undefined for creation.
-        };
-
-        const putResponse = await fetch(GITHUB_API_URL, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `token ${githubPat}`,
-                'Accept': 'application/vnd.github.v3+json',
-                'Content-Type': 'application/json',
-                'User-Agent': 'Cyber-Training-Dashboard-Sync'
-            },
-            body: JSON.stringify(payload),
-        });
-
-        if (putResponse.ok) {
-            console.log('Successfully synced data to GitHub.');
-            return { success: true };
-        } else {
-            const errorData = await putResponse.json().catch(() => ({ message: 'Could not parse GitHub error response.' }));
-            throw new Error(`GitHub API Error (${putResponse.status}): ${errorData.message || 'Failed to save file to repository.'}`);
-        }
-    } catch (error: any) {
-        console.error("Client-side GitHub Sync Error:", error);
-        return { success: false, error: error.message || 'A network error occurred during sync.' };
     }
 };

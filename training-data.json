@@ -16,8 +16,7 @@
         "operation_exam",
         "legal_exam",
         "data_analyst_exam",
-        "it_developer_policy",
-        "demo_1761237012997"
+        "it_developer_policy"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -32,8 +31,7 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "it_developer_policy",
-        "demo_1761237012997"
+        "it_developer_policy"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -50,8 +48,7 @@
         "it_security_policy",
         "server_exam",
         "it_policy_exam",
-        "operation_exam",
-        "demo_1761237012997"
+        "operation_exam"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -66,8 +63,7 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "it_policy_exam",
-        "demo_1761237012997"
+        "it_policy_exam"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -82,8 +78,7 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "data_analyst_exam",
-        "demo_1761237012997"
+        "data_analyst_exam"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -1414,564 +1409,9 @@
           "correctAnswer": "The visualization could mislead or manipulate the audience's interpretation of the data."
         }
       ]
-    },
-    {
-      "id": "demo_1761237012997",
-      "name": "demo",
-      "questions": []
     }
   ],
   "emailLog": [],
-  "moduleCategories": [
-    {
-      "id": "it_security_policy",
-      "title": "IT Security Policy",
-      "modules": [
-        {
-          "id": "password_security",
-          "title": "Password & Account Security",
-          "subCategory": "Password & Account Security",
-          "questions": 2,
-          "iconKey": "Key",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-rose-100",
-            "iconColor": "text-rose-500"
-          }
-        },
-        {
-          "id": "data_protection_handling",
-          "title": "Data Protection & Handling",
-          "subCategory": "Data Protection & Handling",
-          "questions": 2,
-          "iconKey": "Download",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-emerald-100",
-            "iconColor": "text-emerald-500"
-          }
-        },
-        {
-          "id": "email_communication_security",
-          "title": "Email & Communication Security",
-          "subCategory": "Email & Communication Security",
-          "questions": 1,
-          "iconKey": "AtSymbol",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-amber-100",
-            "iconColor": "text-amber-500"
-          }
-        },
-        {
-          "id": "device_internet_usage",
-          "title": "Device & Internet Usage",
-          "subCategory": "Device & Internet Usage",
-          "questions": 1,
-          "iconKey": "Device",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-indigo-100",
-            "iconColor": "text-indigo-500"
-          }
-        },
-        {
-          "id": "physical_security",
-          "title": "Physical Security",
-          "subCategory": "Physical Security",
-          "questions": 1,
-          "iconKey": "Lock",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-cyan-100",
-            "iconColor": "text-cyan-500"
-          }
-        },
-        {
-          "id": "incident_reporting",
-          "title": "Incident Reporting",
-          "subCategory": "Incident Reporting",
-          "questions": 1,
-          "iconKey": "Warning",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-orange-100",
-            "iconColor": "text-orange-500"
-          }
-        },
-        {
-          "id": "social_engineering_awareness",
-          "title": "Social Engineering Awareness",
-          "subCategory": "Social Engineering Awareness",
-          "questions": 1,
-          "iconKey": "ChatBubble",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-teal-100",
-            "iconColor": "text-teal-500"
-          }
-        },
-        {
-          "id": "acceptable_use_compliance",
-          "title": "Acceptable Use & Compliance",
-          "subCategory": "Acceptable Use & Compliance",
-          "questions": 1,
-          "iconKey": "Check",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-lime-100",
-            "iconColor": "text-lime-500"
-          }
-        },
-        {
-          "id": "remote_work_byod",
-          "title": "Remote Work & BYOD",
-          "subCategory": "Remote Work & BYOD",
-          "questions": 1,
-          "iconKey": "Home",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-fuchsia-100",
-            "iconColor": "text-fuchsia-500"
-          }
-        },
-        {
-          "id": "backup_recovery_awareness",
-          "title": "Backup & Recovery Awareness",
-          "subCategory": "Backup & Recovery Awareness",
-          "questions": 1,
-          "iconKey": "Clock",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-sky-100",
-            "iconColor": "text-sky-500"
-          }
-        }
-      ]
-    },
-    {
-      "id": "hr_exam",
-      "title": "HR Exam",
-      "modules": [
-        {
-          "id": "hr_recruitment_onboarding",
-          "title": "Recruitment & Onboarding",
-          "questions": 2,
-          "iconKey": "Briefcase",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-green-100",
-            "iconColor": "text-green-500"
-          }
-        },
-        {
-          "id": "hr_attendance_leave",
-          "title": "Attendance & Leave Policy",
-          "questions": 2,
-          "iconKey": "Clock",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-fuchsia-100",
-            "iconColor": "text-fuchsia-500"
-          }
-        },
-        {
-          "id": "hr_workplace_conduct",
-          "title": "Workplace Conduct & Ethics",
-          "questions": 2,
-          "iconKey": "Scale",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-pink-100",
-            "iconColor": "text-pink-500"
-          }
-        },
-        {
-          "id": "hr_benefits_payroll",
-          "title": "Employee Benefits & Payroll",
-          "questions": 2,
-          "iconKey": "DocumentText",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-yellow-100",
-            "iconColor": "text-yellow-500"
-          }
-        },
-        {
-          "id": "hr_performance_appraisal",
-          "title": "Performance & Appraisal",
-          "questions": 2,
-          "iconKey": "ChartBar",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-blue-100",
-            "iconColor": "text-blue-500"
-          }
-        },
-        {
-          "id": "hr_grievance_resolution",
-          "title": "Grievance & Conflict Resolution",
-          "questions": 2,
-          "iconKey": "Warning",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-orange-100",
-            "iconColor": "text-orange-500"
-          }
-        },
-        {
-          "id": "hr_exit_clearance",
-          "title": "Exit & Clearance Policy",
-          "questions": 2,
-          "iconKey": "Lock",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-cyan-100",
-            "iconColor": "text-cyan-500"
-          }
-        }
-      ]
-    },
-    {
-      "id": "it_policy_exam",
-      "title": "IT Department Policy",
-      "modules": [
-        {
-          "id": "it_software_installation",
-          "title": "Software Installation & Configuration Management",
-          "questions": 4,
-          "iconKey": "Download",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-cyan-100",
-            "iconColor": "text-cyan-500"
-          }
-        },
-        {
-          "id": "it_app_testing",
-          "title": "Application Testing & Release Management",
-          "questions": 4,
-          "iconKey": "Check",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-lime-100",
-            "iconColor": "text-lime-500"
-          }
-        },
-        {
-          "id": "it_ticketing_change_control",
-          "title": "Ticketing & Change Control",
-          "questions": 4,
-          "iconKey": "DocumentText",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-yellow-100",
-            "iconColor": "text-yellow-500"
-          }
-        },
-        {
-          "id": "it_security_compliance_dev",
-          "title": "Security & Compliance in Development",
-          "questions": 4,
-          "iconKey": "ShieldCheck",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-gray-100",
-            "iconColor": "text-gray-500"
-          }
-        },
-        {
-          "id": "it_env_access_control",
-          "title": "Environment & Access Control",
-          "questions": 4,
-          "iconKey": "Key",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-rose-100",
-            "iconColor": "text-rose-500"
-          }
-        },
-        {
-          "id": "it_dos_donts",
-          "title": "Do’s and Don’ts of Enterprise Development",
-          "questions": 5,
-          "iconKey": "Warning",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-orange-100",
-            "iconColor": "text-orange-500"
-          }
-        }
-      ]
-    },
-    {
-      "id": "server_exam",
-      "title": "Server Policy",
-      "modules": [
-        {
-          "id": "server_exam",
-          "title": "Server Exam",
-          "questions": 1,
-          "iconKey": "Server",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-yellow-100",
-            "iconColor": "text-yellow-500"
-          }
-        }
-      ]
-    },
-    {
-      "id": "operation_exam",
-      "title": "Operations Policy",
-      "modules": [
-        {
-          "id": "op_bcp",
-          "title": "Business Continuity Planning",
-          "questions": 1,
-          "iconKey": "Briefcase",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-rose-100",
-            "iconColor": "text-rose-500"
-          }
-        },
-        {
-          "id": "op_dr",
-          "title": "Disaster Recovery",
-          "questions": 1,
-          "iconKey": "Server",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-emerald-100",
-            "iconColor": "text-emerald-500"
-          }
-        },
-        {
-          "id": "op_incident_mgmt",
-          "title": "Incident Management",
-          "questions": 1,
-          "iconKey": "Warning",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-amber-100",
-            "iconColor": "text-amber-500"
-          }
-        },
-        {
-          "id": "op_physical_security_ops",
-          "title": "Physical Security Policy",
-          "questions": 1,
-          "iconKey": "Lock",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-indigo-100",
-            "iconColor": "text-indigo-500"
-          }
-        },
-        {
-          "id": "op_vendor_mgmt",
-          "title": "Vendor Management",
-          "questions": 1,
-          "iconKey": "Users",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-cyan-100",
-            "iconColor": "text-cyan-500"
-          }
-        },
-        {
-          "id": "op_supply_chain",
-          "title": "Supply Chain Security",
-          "questions": 1,
-          "iconKey": "GlobeAlt",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-orange-100",
-            "iconColor": "text-orange-500"
-          }
-        },
-        {
-          "id": "op_health_safety",
-          "title": "Health and Safety Policy",
-          "questions": 1,
-          "iconKey": "ShieldCheck",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-teal-100",
-            "iconColor": "text-teal-500"
-          }
-        },
-        {
-          "id": "op_qa",
-          "title": "Quality Assurance",
-          "questions": 1,
-          "iconKey": "Check",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-lime-100",
-            "iconColor": "text-lime-500"
-          }
-        },
-        {
-          "id": "op_resource_mgmt",
-          "title": "Resource Management",
-          "questions": 1,
-          "iconKey": "Cog",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-fuchsia-100",
-            "iconColor": "text-fuchsia-500"
-          }
-        },
-        {
-          "id": "op_logistics",
-          "title": "Logistics and Distribution",
-          "questions": 1,
-          "iconKey": "BuildingOffice2",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-sky-100",
-            "iconColor": "text-sky-500"
-          }
-        }
-      ]
-    },
-    {
-      "id": "legal_exam",
-      "title": "Legal Policy",
-      "modules": [
-        {
-          "id": "legal_exam",
-          "title": "Legal Exam",
-          "questions": 10,
-          "iconKey": "Scale",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-pink-100",
-            "iconColor": "text-pink-500"
-          }
-        }
-      ]
-    },
-    {
-      "id": "data_analyst_exam",
-      "title": "Data Analyst Policy",
-      "modules": [
-        {
-          "id": "data_analyst_governance",
-          "title": "Data Governance & Compliance",
-          "questions": 2,
-          "iconKey": "ShieldCheck",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-gray-100",
-            "iconColor": "text-gray-500"
-          }
-        },
-        {
-          "id": "data_analyst_handling",
-          "title": "Secure Data Handling & Storage",
-          "questions": 2,
-          "iconKey": "Lock",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-cyan-100",
-            "iconColor": "text-cyan-500"
-          }
-        },
-        {
-          "id": "data_analyst_integrity",
-          "title": "Data Quality & Integrity",
-          "questions": 2,
-          "iconKey": "Check",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-lime-100",
-            "iconColor": "text-lime-500"
-          }
-        },
-        {
-          "id": "data_analyst_ethics",
-          "title": "Ethical Data Usage & Reporting",
-          "questions": 2,
-          "iconKey": "Scale",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-pink-100",
-            "iconColor": "text-pink-500"
-          }
-        }
-      ]
-    },
-    {
-      "id": "it_developer_policy",
-      "title": "IT Developer Policy",
-      "modules": [
-        {
-          "id": "it_dev_secure_coding",
-          "title": "Secure Coding Practices",
-          "questions": 2,
-          "iconKey": "ShieldCheck",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-gray-100",
-            "iconColor": "text-gray-500"
-          }
-        },
-        {
-          "id": "it_dev_api_security",
-          "title": "API Security",
-          "questions": 2,
-          "iconKey": "Key",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-rose-100",
-            "iconColor": "text-rose-500"
-          }
-        },
-        {
-          "id": "it_dev_dependency_mgmt",
-          "title": "Dependency Management",
-          "questions": 2,
-          "iconKey": "GlobeAlt",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-sky-100",
-            "iconColor": "text-sky-500"
-          }
-        },
-        {
-          "id": "it_dev_data_handling",
-          "title": "Data Handling & Privacy",
-          "questions": 2,
-          "iconKey": "Download",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-emerald-100",
-            "iconColor": "text-emerald-500"
-          }
-        }
-      ]
-    },
-    {
-      "id": "demo_1761237012997",
-      "title": "demo",
-      "modules": [
-        {
-          "id": "demo_1761237012997",
-          "title": "demo",
-          "questions": 0,
-          "iconKey": "Device",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-indigo-100",
-            "iconColor": "text-indigo-500"
-          }
-        }
-      ]
-    }
-  ],
   "settings": {
     "logo": null,
     "companyFullName": "Cyber Security Training Consortium",
@@ -1988,5 +1428,178 @@
     "githubOwner": "xcode96",
     "githubRepo": "API-testing",
     "githubPath": "training-data.json"
-  }
+  },
+  "moduleCategories": [
+    {
+      "id": "it_security_policy",
+      "title": "IT Security Policy",
+      "modules": [
+        {
+          "id": "password_security",
+          "title": "Password & Account Security",
+          "subCategory": "Password & Account Security",
+          "questions": 2,
+          "iconKey": "Key",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-rose-100", "iconColor": "text-rose-500" }
+        },
+        {
+          "id": "data_protection_handling",
+          "title": "Data Protection & Handling",
+          "subCategory": "Data Protection & Handling",
+          "questions": 2,
+          "iconKey": "Download",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-emerald-100", "iconColor": "text-emerald-500" }
+        },
+        {
+          "id": "email_communication_security",
+          "title": "Email & Communication Security",
+          "subCategory": "Email & Communication Security",
+          "questions": 1,
+          "iconKey": "AtSymbol",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-amber-100", "iconColor": "text-amber-500" }
+        },
+        {
+          "id": "device_internet_usage",
+          "title": "Device & Internet Usage",
+          "subCategory": "Device & Internet Usage",
+          "questions": 1,
+          "iconKey": "Device",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-indigo-100", "iconColor": "text-indigo-500" }
+        },
+        {
+          "id": "physical_security",
+          "title": "Physical Security",
+          "subCategory": "Physical Security",
+          "questions": 1,
+          "iconKey": "Lock",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-cyan-100", "iconColor": "text-cyan-500" }
+        },
+        {
+          "id": "incident_reporting",
+          "title": "Incident Reporting",
+          "subCategory": "Incident Reporting",
+          "questions": 1,
+          "iconKey": "Warning",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-orange-100", "iconColor": "text-orange-500" }
+        },
+        {
+          "id": "social_engineering_awareness",
+          "title": "Social Engineering Awareness",
+          "subCategory": "Social Engineering Awareness",
+          "questions": 1,
+          "iconKey": "ChatBubble",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-teal-100", "iconColor": "text-teal-500" }
+        },
+        {
+          "id": "acceptable_use_compliance",
+          "title": "Acceptable Use & Compliance",
+          "subCategory": "Acceptable Use & Compliance",
+          "questions": 1,
+          "iconKey": "Check",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-lime-100", "iconColor": "text-lime-500" }
+        },
+        {
+          "id": "remote_work_byod",
+          "title": "Remote Work & BYOD",
+          "subCategory": "Remote Work & BYOD",
+          "questions": 1,
+          "iconKey": "Home",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-fuchsia-100", "iconColor": "text-fuchsia-500" }
+        },
+        {
+          "id": "backup_recovery_awareness",
+          "title": "Backup & Recovery Awareness",
+          "subCategory": "Backup & Recovery Awareness",
+          "questions": 1,
+          "iconKey": "Clock",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-sky-100", "iconColor": "text-sky-500" }
+        }
+      ]
+    },
+    {
+      "id": "hr_exam",
+      "title": "HR Exam",
+      "modules": [
+        { "id": "hr_recruitment_onboarding", "title": "Recruitment & Onboarding", "questions": 2, "iconKey": "Briefcase", "status": "Not Started", "theme": { "iconBg": "bg-green-100", "iconColor": "text-green-500" } },
+        { "id": "hr_attendance_leave", "title": "Attendance & Leave Policy", "questions": 2, "iconKey": "Clock", "status": "Not Started", "theme": { "iconBg": "bg-fuchsia-100", "iconColor": "text-fuchsia-500" } },
+        { "id": "hr_workplace_conduct", "title": "Workplace Conduct & Ethics", "questions": 2, "iconKey": "Scale", "status": "Not Started", "theme": { "iconBg": "bg-pink-100", "iconColor": "text-pink-500" } },
+        { "id": "hr_benefits_payroll", "title": "Employee Benefits & Payroll", "questions": 2, "iconKey": "DocumentText", "status": "Not Started", "theme": { "iconBg": "bg-red-100", "iconColor": "text-red-500" } },
+        { "id": "hr_performance_appraisal", "title": "Performance & Appraisal", "questions": 2, "iconKey": "ChartBar", "status": "Not Started", "theme": { "iconBg": "bg-blue-100", "iconColor": "text-blue-500" } },
+        { "id": "hr_grievance_resolution", "title": "Grievance & Conflict Resolution", "questions": 2, "iconKey": "Warning", "status": "Not Started", "theme": { "iconBg": "bg-orange-100", "iconColor": "text-orange-500" } },
+        { "id": "hr_exit_clearance", "title": "Exit & Clearance Policy", "questions": 2, "iconKey": "Lock", "status": "Not Started", "theme": { "iconBg": "bg-cyan-100", "iconColor": "text-cyan-500" } }
+      ]
+    },
+    {
+      "id": "it_policy_exam",
+      "title": "IT Department Policy",
+      "modules": [
+        { "id": "it_software_installation", "title": "Software Installation & Configuration Management", "questions": 4, "iconKey": "Download", "status": "Not Started", "theme": { "iconBg": "bg-cyan-100", "iconColor": "text-cyan-500" } },
+        { "id": "it_app_testing", "title": "Application Testing & Release Management", "questions": 4, "iconKey": "Check", "status": "Not Started", "theme": { "iconBg": "bg-lime-100", "iconColor": "text-lime-500" } },
+        { "id": "it_ticketing_change_control", "title": "Ticketing & Change Control", "questions": 4, "iconKey": "DocumentText", "status": "Not Started", "theme": { "iconBg": "bg-red-100", "iconColor": "text-red-500" } },
+        { "id": "it_security_compliance_dev", "title": "Security & Compliance in Development", "questions": 4, "iconKey": "ShieldCheck", "status": "Not Started", "theme": { "iconBg": "bg-gray-100", "iconColor": "text-gray-500" } },
+        { "id": "it_env_access_control", "title": "Environment & Access Control", "questions": 4, "iconKey": "Key", "status": "Not Started", "theme": { "iconBg": "bg-rose-100", "iconColor": "text-rose-500" } },
+        { "id": "it_dos_donts", "title": "Do’s and Don’ts of Enterprise Development", "questions": 5, "iconKey": "Warning", "status": "Not Started", "theme": { "iconBg": "bg-orange-100", "iconColor": "text-orange-500" } }
+      ]
+    },
+    {
+      "id": "server_exam",
+      "title": "Server Policy",
+      "modules": [
+        { "id": "server_exam", "title": "Server Exam", "questions": 1, "iconKey": "Server", "status": "Not Started", "theme": { "iconBg": "bg-red-100", "iconColor": "text-red-500" } }
+      ]
+    },
+    {
+      "id": "operation_exam",
+      "title": "Operations Policy",
+      "modules": [
+        { "id": "op_bcp", "title": "Business Continuity Planning", "questions": 1, "iconKey": "Briefcase", "status": "Not Started", "theme": { "iconBg": "bg-rose-100", "iconColor": "text-rose-500" } },
+        { "id": "op_dr", "title": "Disaster Recovery", "questions": 1, "iconKey": "Server", "status": "Not Started", "theme": { "iconBg": "bg-emerald-100", "iconColor": "text-emerald-500" } },
+        { "id": "op_incident_mgmt", "title": "Incident Management", "questions": 1, "iconKey": "Warning", "status": "Not Started", "theme": { "iconBg": "bg-amber-100", "iconColor": "text-amber-500" } },
+        { "id": "op_physical_security_ops", "title": "Physical Security Policy", "questions": 1, "iconKey": "Lock", "status": "Not Started", "theme": { "iconBg": "bg-indigo-100", "iconColor": "text-indigo-500" } },
+        { "id": "op_vendor_mgmt", "title": "Vendor Management", "questions": 1, "iconKey": "Users", "status": "Not Started", "theme": { "iconBg": "bg-cyan-100", "iconColor": "text-cyan-500" } },
+        { "id": "op_supply_chain", "title": "Supply Chain Security", "questions": 1, "iconKey": "GlobeAlt", "status": "Not Started", "theme": { "iconBg": "bg-orange-100", "iconColor": "text-orange-500" } },
+        { "id": "op_health_safety", "title": "Health and Safety Policy", "questions": 1, "iconKey": "ShieldCheck", "status": "Not Started", "theme": { "iconBg": "bg-teal-100", "iconColor": "text-teal-500" } },
+        { "id": "op_qa", "title": "Quality Assurance", "questions": 1, "iconKey": "Check", "status": "Not Started", "theme": { "iconBg": "bg-lime-100", "iconColor": "text-lime-500" } },
+        { "id": "op_resource_mgmt", "title": "Resource Management", "questions": 1, "iconKey": "Cog", "status": "Not Started", "theme": { "iconBg": "bg-fuchsia-100", "iconColor": "text-fuchsia-500" } },
+        { "id": "op_logistics", "title": "Logistics and Distribution", "questions": 1, "iconKey": "BuildingOffice2", "status": "Not Started", "theme": { "iconBg": "bg-sky-100", "iconColor": "text-sky-500" } }
+      ]
+    },
+    {
+      "id": "legal_exam",
+      "title": "Legal Policy",
+      "modules": [
+        { "id": "legal_exam", "title": "Legal Exam", "questions": 10, "iconKey": "Scale", "status": "Not Started", "theme": { "iconBg": "bg-pink-100", "iconColor": "text-pink-500" } }
+      ]
+    },
+    {
+      "id": "data_analyst_exam",
+      "title": "Data Analyst Policy",
+      "modules": [
+        { "id": "data_analyst_governance", "title": "Data Governance & Compliance", "questions": 2, "iconKey": "ShieldCheck", "status": "Not Started", "theme": { "iconBg": "bg-gray-100", "iconColor": "text-gray-500" } },
+        { "id": "data_analyst_handling", "title": "Secure Data Handling & Storage", "questions": 2, "iconKey": "Lock", "status": "Not Started", "theme": { "iconBg": "bg-cyan-100", "iconColor": "text-cyan-500" } },
+        { "id": "data_analyst_integrity", "title": "Data Quality & Integrity", "questions": 2, "iconKey": "Check", "status": "Not Started", "theme": { "iconBg": "bg-lime-100", "iconColor": "text-lime-500" } },
+        { "id": "data_analyst_ethics", "title": "Ethical Data Usage & Reporting", "questions": 2, "iconKey": "Scale", "status": "Not Started", "theme": { "iconBg": "bg-pink-100", "iconColor": "text-pink-500" } }
+      ]
+    },
+    {
+      "id": "it_developer_policy",
+      "title": "IT Developer Policy",
+      "modules": [
+        { "id": "it_dev_secure_coding", "title": "Secure Coding Practices", "questions": 2, "iconKey": "ShieldCheck", "status": "Not Started", "theme": { "iconBg": "bg-gray-100", "iconColor": "text-gray-500" } },
+        { "id": "it_dev_api_security", "title": "API Security", "questions": 2, "iconKey": "Key", "status": "Not Started", "theme": { "iconBg": "bg-rose-100", "iconColor": "text-rose-500" } },
+        { "id": "it_dev_dependency_mgmt", "title": "Dependency Management", "questions": 2, "iconKey": "GlobeAlt", "status": "Not Started", "theme": { "iconBg": "bg-fuchsia-100", "iconColor": "text-fuchsia-500" } },
+        { "id": "it_dev_data_handling", "title": "Data Handling & Privacy", "questions": 2, "iconKey": "Download", "status": "Not Started", "theme": { "iconBg": "bg-emerald-100", "iconColor": "text-emerald-500" } }
+      ]
+    }
+  ]
 }

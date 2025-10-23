@@ -157,7 +157,7 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
                     throw new Error("Could not read file content.");
                 }
                 
-                const importedUsers: User[] = JSON.parse(text);
+                const importedUsers: Partial<User>[] = JSON.parse(text);
                 if (!Array.isArray(importedUsers)) {
                     throw new Error("Invalid JSON format: must be an array of users.");
                 }
@@ -172,13 +172,15 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
                     if (importedUser.username && !existingUsernames.has(importedUser.username)) {
                         const newUser: User = {
                             id: Date.now() + Math.random(),
+                            fullName: importedUser.fullName || 'Imported User',
+                            username: importedUser.username,
                             password: importedUser.password || `temp-${Math.random().toString(36).substr(2, 9)}`,
-                            trainingStatus: 'not-started',
-                            lastScore: null,
-                            role: 'user',
-                            answers: [],
-                            moduleProgress: {},
-                            ...importedUser,
+                            trainingStatus: importedUser.trainingStatus || 'not-started',
+                            lastScore: importedUser.lastScore || null,
+                            role: importedUser.role === 'admin' ? 'admin' : 'user',
+                            assignedExams: Array.isArray(importedUser.assignedExams) ? importedUser.assignedExams : [],
+                            answers: Array.isArray(importedUser.answers) ? importedUser.answers : [],
+                            moduleProgress: importedUser.moduleProgress || {},
                         };
                         newUsersToAdd.push(newUser);
                         addedCount++;

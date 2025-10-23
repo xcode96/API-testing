@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { User } from '../types';
 
@@ -36,6 +37,12 @@ const CompletionScreen: React.FC<CompletionScreenProps> = ({ currentUser, onGene
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
                             <button
+                                onClick={onGenerateReport}
+                                className="bg-slate-200 text-slate-600 font-semibold rounded-lg py-3 px-8 hover:bg-slate-300 hover:text-slate-800 transition-colors duration-300"
+                            >
+                                View My Report
+                            </button>
+                            <button
                                 onClick={onLogout}
                                 className="bg-indigo-500 text-white font-semibold rounded-lg py-3 px-8 hover:bg-indigo-600 transition-colors duration-300"
                             >
@@ -51,6 +58,12 @@ const CompletionScreen: React.FC<CompletionScreenProps> = ({ currentUser, onGene
                             Unfortunately, you did not meet the passing criteria for this assessment. Please contact your administrator for next steps.
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
+                            <button
+                                onClick={onGenerateReport}
+                                className="bg-slate-200 text-slate-600 font-semibold rounded-lg py-3 px-8 hover:bg-slate-300 hover:text-slate-800 transition-colors duration-300"
+                            >
+                                View My Report
+                            </button>
                            <button
                                 onClick={onLogout}
                                 className="bg-rose-500 text-white font-semibold rounded-lg py-3 px-8 hover:bg-rose-600 transition-colors duration-300"

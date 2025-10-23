@@ -38,12 +38,13 @@ const QuizView: React.FC<QuizViewProps> = ({ quiz, onComplete }) => {
     }
   };
 
-  const score = useMemo(() => {
-    if (!showResult) return 0;
-    const correctAnswers = quiz.questions.reduce((count, question) => {
+  const scoreData = useMemo(() => {
+    if (!showResult) return { score: 0, correctAnswersCount: 0 };
+    const correctAnswersCount = quiz.questions.reduce((count, question) => {
       return selectedAnswers[question.id] === question.correctAnswer ? count + 1 : count;
     }, 0);
-    return Math.round((correctAnswers / quiz.questions.length) * 100);
+    const score = quiz.questions.length > 0 ? Math.round((correctAnswersCount / quiz.questions.length) * 100) : 0;
+    return { score, correctAnswersCount };
   }, [showResult, quiz.questions, selectedAnswers]);
   
   const handleBackToDashboard = () => {
@@ -57,10 +58,12 @@ const QuizView: React.FC<QuizViewProps> = ({ quiz, onComplete }) => {
               isCorrect: selected === question.correctAnswer,
           };
       });
-      onComplete(score, userAnswers);
+      onComplete(scoreData.score, userAnswers);
   };
 
   if (showResult) {
+    const { score, correctAnswersCount } = scoreData;
+    const totalQuestions = quiz.questions.length;
     return (
         <div className="w-full max-w-3xl bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-8 text-center flex flex-col items-center shadow-lg shadow-slate-200/80">
             <div className="bg-emerald-100 p-4 rounded-full mb-6">
@@ -69,6 +72,10 @@ const QuizView: React.FC<QuizViewProps> = ({ quiz, onComplete }) => {
                 </svg>
             </div>
             <h2 className="text-3xl font-bold text-slate-800 mb-2">Module Complete!</h2>
+             <div className="bg-slate-100 rounded-lg p-4 w-full max-w-sm mb-6">
+                <p className="text-lg font-semibold text-slate-700">Your Score: <span className="text-indigo-500">{score}%</span></p>
+                <p className="text-sm text-slate-500">({correctAnswersCount} out of {totalQuestions} correct)</p>
+            </div>
             <p className="text-slate-500 mb-8 max-w-md mx-auto">
                 You have successfully finished the <strong>{quiz.name}</strong> module. Your progress has been saved.
             </p>

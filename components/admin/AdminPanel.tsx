@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Quiz, User, Email, AppSettings, ModuleCategory, Question, GithubSyncStatus } from '../../types';
+import { Quiz, User, Email, AppSettings, ModuleCategory, Question } from '../../types';
 import { AdminView } from '../../App';
 import AdminSidebar from './AdminSidebar';
 import DataManagement from './DataManagement';
@@ -31,7 +31,6 @@ interface AdminPanelProps {
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
   onImportFolderStructure: (folderStructure: Record<string, any[]>, targetCategoryId: string) => void;
-  githubSyncStatus: GithubSyncStatus;
 }
 
 const AdminPanel: React.FC<AdminPanelProps> = ({
@@ -56,7 +55,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onUpdateQuestion,
   onDeleteQuestion,
   onImportFolderStructure,
-  githubSyncStatus,
 }) => {
   const [questionFilter, setQuestionFilter] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -86,7 +84,14 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
       case 'notifications':
         return <NotificationLog emailLog={emailLog} />;
       case 'settings':
-        return <SettingsPanel settings={settings} onSettingsChange={onSettingsChange as React.Dispatch<React.SetStateAction<AppSettings>>} githubSyncStatus={githubSyncStatus} />;
+        return <SettingsPanel 
+                    settings={settings} 
+                    onSettingsChange={onSettingsChange as React.Dispatch<React.SetStateAction<AppSettings>>}
+                    users={users}
+                    quizzes={quizzes}
+                    emailLog={emailLog}
+                    moduleCategories={moduleCategories}
+                />;
       case 'questions':
         return (
           <>
