@@ -93,14 +93,77 @@
       "fullName": "Manibharathi",
       "username": "mani",
       "password": "1",
-      "trainingStatus": "not-started",
-      "lastScore": null,
+      "trainingStatus": "passed",
+      "lastScore": 75,
       "role": "user",
       "assignedExams": [
         "it_developer_policy"
       ],
-      "answers": [],
-      "moduleProgress": {}
+      "answers": [
+        {
+          "questionId": 401,
+          "questionText": "What is the primary purpose of input validation in secure coding?",
+          "selectedAnswer": "To prevent malicious data (e.g., SQL injection, XSS) from being processed.",
+          "correctAnswer": "To prevent malicious data (e.g., SQL injection, XSS) from being processed.",
+          "isCorrect": true
+        },
+        {
+          "questionId": 402,
+          "questionText": "Which of the following is a best practice for handling errors and exceptions securely?",
+          "selectedAnswer": "Use a generic error message for the user and log detailed information on the server-side.",
+          "correctAnswer": "Use a generic error message for the user and log detailed information on the server-side.",
+          "isCorrect": true
+        },
+        {
+          "questionId": 403,
+          "questionText": "What is a common method for authenticating API requests to ensure they come from a legitimate source?",
+          "selectedAnswer": "Using API keys or OAuth 2.0 tokens.",
+          "correctAnswer": "Using API keys or OAuth 2.0 tokens.",
+          "isCorrect": true
+        },
+        {
+          "questionId": 404,
+          "questionText": "To prevent unauthorized users from accessing sensitive data, what security control should be implemented at the API endpoint level?",
+          "selectedAnswer": "Authorization checks to ensure the user has the correct permissions for the requested resource.",
+          "correctAnswer": "Authorization checks to ensure the user has the correct permissions for the requested resource.",
+          "isCorrect": true
+        },
+        {
+          "questionId": 405,
+          "questionText": "What is a primary risk of using outdated third-party libraries in an application?",
+          "selectedAnswer": "The library may contain known security vulnerabilities that can be exploited.",
+          "correctAnswer": "The library may contain known security vulnerabilities that can be exploited.",
+          "isCorrect": true
+        },
+        {
+          "questionId": 406,
+          "questionText": "What is the purpose of a software composition analysis (SCA) tool?",
+          "selectedAnswer": "To format the source code according to style guides.",
+          "correctAnswer": "To automatically identify open-source components in a codebase and their known vulnerabilities.",
+          "isCorrect": false
+        },
+        {
+          "questionId": 407,
+          "questionText": "When storing sensitive user data, such as passwords, what is the most secure method?",
+          "selectedAnswer": "Hashing them with a strong, salted hashing algorithm (e.g., bcrypt, Argon2).",
+          "correctAnswer": "Hashing them with a strong, salted hashing algorithm (e.g., bcrypt, Argon2).",
+          "isCorrect": true
+        },
+        {
+          "questionId": 408,
+          "questionText": "What does the principle of \"data minimization\" mean in the context of privacy?",
+          "selectedAnswer": "Deleting all user data after one day.",
+          "correctAnswer": "Only collecting and retaining the absolute minimum amount of user data necessary for a specific purpose.",
+          "isCorrect": false
+        }
+      ],
+      "moduleProgress": {
+        "it_dev_secure_coding": "Completed",
+        "it_dev_api_security": "Completed",
+        "it_dev_dependency_mgmt": "Completed",
+        "it_dev_data_handling": "Completed"
+      },
+      "submissionDate": "2025-10-23T07:48:02.456Z"
     }
   ],
   "quizzes": [
@@ -1419,7 +1482,92 @@
       ]
     }
   ],
-  "emailLog": [],
+  "emailLog": [
+    {
+      "to": "mani",
+      "subject": "Congratulations on Passing Your Training!",
+      "body": "Hi Manibharathi,\n\nYou have successfully passed the Cyber Security training with a score of 75%.\n\nWell done!",
+      "id": 1761205682455,
+      "timestamp": "2025-10-23T07:48:02.455Z"
+    },
+    {
+      "to": "mani",
+      "subject": "Congratulations on Passing Your Training!",
+      "body": "Hi Manibharathi,\n\nYou have successfully passed the Cyber Security training with a score of 75%.\n\nWell done!",
+      "id": 1761205682453,
+      "timestamp": "2025-10-23T07:48:02.453Z"
+    },
+    {
+      "to": "mani",
+      "subject": "Congratulations on Passing Your Training!",
+      "body": "Hi Manibharathi,\n\nYou have successfully passed the Cyber Security training with a score of 75%.\n\nWell done!",
+      "id": 1761205682451,
+      "timestamp": "2025-10-23T07:48:02.451Z"
+    },
+    {
+      "to": "mani",
+      "subject": "Congratulations on Passing Your Training!",
+      "body": "Hi Manibharathi,\n\nYou have successfully passed the Cyber Security training with a score of 75%.\n\nWell done!",
+      "id": 1761205682449,
+      "timestamp": "2025-10-23T07:48:02.449Z"
+    },
+    {
+      "to": "mani",
+      "subject": "Congratulations on Passing Your Training!",
+      "body": "Hi Manibharathi,\n\nYou have successfully passed the Cyber Security training with a score of 75%.\n\nWell done!",
+      "id": 1761205682447,
+      "timestamp": "2025-10-23T07:48:02.447Z"
+    },
+    {
+      "to": "mani",
+      "subject": "Congratulations on Passing Your Training!",
+      "body": "Hi Manibharathi,\n\nYou have successfully passed the Cyber Security training with a score of 75%.\n\nWell done!",
+      "id": 1761205682444,
+      "timestamp": "2025-10-23T07:48:02.444Z"
+    },
+    {
+      "to": "mani",
+      "subject": "Congratulations on Passing Your Training!",
+      "body": "Hi Manibharathi,\n\nYou have successfully passed the Cyber Security training with a score of 75%.\n\nWell done!",
+      "id": 1761205682441,
+      "timestamp": "2025-10-23T07:48:02.441Z"
+    },
+    {
+      "to": "mani",
+      "subject": "Congratulations on Passing Your Training!",
+      "body": "Hi Manibharathi,\n\nYou have successfully passed the Cyber Security training with a score of 75%.\n\nWell done!",
+      "id": 1761205682439,
+      "timestamp": "2025-10-23T07:48:02.439Z"
+    },
+    {
+      "to": "mani",
+      "subject": "Congratulations on Passing Your Training!",
+      "body": "Hi Manibharathi,\n\nYou have successfully passed the Cyber Security training with a score of 75%.\n\nWell done!",
+      "id": 1761205682438,
+      "timestamp": "2025-10-23T07:48:02.438Z"
+    },
+    {
+      "to": "mani",
+      "subject": "Congratulations on Passing Your Training!",
+      "body": "Hi Manibharathi,\n\nYou have successfully passed the Cyber Security training with a score of 75%.\n\nWell done!",
+      "id": 1761205682436,
+      "timestamp": "2025-10-23T07:48:02.436Z"
+    },
+    {
+      "to": "mani",
+      "subject": "Congratulations on Passing Your Training!",
+      "body": "Hi Manibharathi,\n\nYou have successfully passed the Cyber Security training with a score of 75%.\n\nWell done!",
+      "id": 1761205682408,
+      "timestamp": "2025-10-23T07:48:02.408Z"
+    },
+    {
+      "to": "admin@example.com",
+      "subject": "New User Registered",
+      "body": "A new user has been registered:\n\nName: Manibharathi\nUsername: mani\nRole: user\nAssigned Exams: it_developer_policy",
+      "id": 1761205573813,
+      "timestamp": "2025-10-23T07:46:13.813Z"
+    }
+  ],
   "settings": {
     "logo": null,
     "companyFullName": "Cyber Security Training Consortium",
