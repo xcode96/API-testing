@@ -21,9 +21,220 @@
         "audit_1761233417940",
         "it_company_master_policy_framework_1761233692829"
       ],
-      "answers": [],
+      "answers": [
+        {
+          "questionId": 1761233962884.7087,
+          "questionText": "Major changes require approval from:",
+          "selectedAnswer": "CAB (Change Advisory Board)",
+          "correctAnswer": "CAB (Change Advisory Board)",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963571.275,
+          "questionText": "Which document must accompany every change request?",
+          "selectedAnswer": "Change Request Form",
+          "correctAnswer": "Change Request Form",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963556.5994,
+          "questionText": "A rollback plan is:",
+          "selectedAnswer": "Mandatory",
+          "correctAnswer": "Mandatory",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963142.1772,
+          "questionText": "Which of the following cannot be a type of change?",
+          "selectedAnswer": "Minor",
+          "correctAnswer": "Holiday",
+          "isCorrect": false
+        },
+        {
+          "questionId": 1761233963341.82,
+          "questionText": "The owner of the Change Management policy is:",
+          "selectedAnswer": "CISO",
+          "correctAnswer": "CIO",
+          "isCorrect": false
+        },
+        {
+          "questionId": 1761233963197.47,
+          "questionText": "Which of the following must be performed after a change is implemented?",
+          "selectedAnswer": "Post‑implementation review",
+          "correctAnswer": "Post‑implementation review",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233962972.6648,
+          "questionText": "Which must be documented for a failed change?",
+          "selectedAnswer": "Root cause, impact, corrective actions",
+          "correctAnswer": "Root cause, impact, corrective actions",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233962826.6406,
+          "questionText": "Which must be included in the change schedule?",
+          "selectedAnswer": "Planned start/end times, affected services",
+          "correctAnswer": "Planned start/end times, affected services",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963132.816,
+          "questionText": "Which must be verified before promoting a change to production?",
+          "selectedAnswer": "Weather forecast",
+          "correctAnswer": "Successful testing in staging",
+          "isCorrect": false
+        },
+        {
+          "questionId": 1761233963587.9558,
+          "questionText": "Which cannot be a reason to bypass CAB approval?",
+          "selectedAnswer": "Regulatory requirement",
+          "correctAnswer": "Personal preference",
+          "isCorrect": false
+        },
+        {
+          "questionId": 1761233963100.1675,
+          "questionText": "Which must be communicated to end‑users for a planned outage?",
+          "selectedAnswer": "Outage window, impact, expected restoration time",
+          "correctAnswer": "Outage window, impact, expected restoration time",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963239.539,
+          "questionText": "Which must be archived for audit?",
+          "selectedAnswer": "Change request, approvals, test results",
+          "correctAnswer": "Change request, approvals, test results",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963041.3464,
+          "questionText": "Which must be part of emergency change handling?",
+          "selectedAnswer": "Rapid risk assessment, immediate stakeholder notification",
+          "correctAnswer": "Rapid risk assessment, immediate stakeholder notification",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963584.844,
+          "questionText": "Which must be completed before de‑commissioning a service?",
+          "selectedAnswer": "Remove from CMDB, update documentation",
+          "correctAnswer": "Remove from CMDB, update documentation",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963753.0374,
+          "questionText": "Which cannot be a risk associated with a change?",
+          "selectedAnswer": "Improved performance (positive)",
+          "correctAnswer": "Improved performance (positive)",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963427.9878,
+          "questionText": "Which must be done when a change fails during deployment?",
+          "selectedAnswer": "Execute rollback plan",
+          "correctAnswer": "Execute rollback plan",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963682.8767,
+          "questionText": "Which must be performed weekly?",
+          "selectedAnswer": "Review of pending change requests",
+          "correctAnswer": "Review of pending change requests",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963138.7107,
+          "questionText": "Which must be part of the change classification?",
+          "selectedAnswer": "Impact, urgency, effort",
+          "correctAnswer": "Impact, urgency, effort",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963284.6665,
+          "questionText": "Which must be recorded for every change?",
+          "selectedAnswer": "Change ID, description, owner, timestamps",
+          "correctAnswer": "Change ID, description, owner, timestamps",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963100.6924,
+          "questionText": "Which must be reviewed monthly by the CAB?",
+          "selectedAnswer": "Open high‑risk changes",
+          "correctAnswer": "Open high‑risk changes",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963781.9624,
+          "questionText": "Which cannot be a valid reason for reverting a change?",
+          "selectedAnswer": "Regulatory breach",
+          "correctAnswer": "Personal dislike of the UI colour",
+          "isCorrect": false
+        },
+        {
+          "questionId": 1761233963209.8152,
+          "questionText": "Which must be included in the change communication to IT staff?",
+          "selectedAnswer": "Scope, schedule, back‑out plan",
+          "correctAnswer": "Scope, schedule, back‑out plan",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963404.8484,
+          "questionText": "Which must be verified after a successful change?",
+          "selectedAnswer": "Service health and monitoring alerts",
+          "correctAnswer": "Service health and monitoring alerts",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963133.7776,
+          "questionText": "Which must be documented for a standard change?",
+          "selectedAnswer": "Procedure, pre‑approval, minimal risk",
+          "correctAnswer": "Procedure, pre‑approval, minimal risk",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233962850.6895,
+          "questionText": "Which must be performed before a major infrastructure upgrade?",
+          "selectedAnswer": "Capacity planning, risk assessment",
+          "correctAnswer": "Capacity planning, risk assessment",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963460.7817,
+          "questionText": "Which must be communicated to the Steering Committee?",
+          "selectedAnswer": "Strategic impact, cost, timeline",
+          "correctAnswer": "Strategic impact, cost, timeline",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963764.1143,
+          "questionText": "Which must be part of the post‑implementation audit?",
+          "selectedAnswer": "Verification that objectives were met",
+          "correctAnswer": "Verification that objectives were met",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963201.5903,
+          "questionText": "Which must be reviewed annually?",
+          "selectedAnswer": "Change Management process effectiveness",
+          "correctAnswer": "Change Management process effectiveness",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233963277.4863,
+          "questionText": "Which must be done if a change introduces a security defect?",
+          "selectedAnswer": "Escalate to InfoSec and remediate",
+          "correctAnswer": "Escalate to InfoSec and remediate",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761233962888.0525,
+          "questionText": "Which must be included in the change backlog?",
+          "selectedAnswer": "Pending change requests with status",
+          "correctAnswer": "Pending change requests with status",
+          "isCorrect": true
+        }
+      ],
       "moduleProgress": {
-        "change_management_1761233962814.0122": "In Progress"
+        "change_management_1761233962814.0122": "Completed"
       }
     },
     {
