@@ -133,9 +133,8 @@ export const triggerGithubSync = async (data: AppData): Promise<{ success: boole
             return { success: true };
         } else {
             const errorData = await response.json();
-            const errorMessage = errorData.error || 'An unknown error occurred during sync.';
+            const errorMessage = errorData.details || errorData.error || 'An unknown error occurred during sync.';
             console.error('Failed to sync data via server:', response.status, errorMessage);
-            // This alert is key to providing feedback to the user, as they requested.
             alert(`GitHub Sync Error: ${errorMessage}`);
             return { success: false, error: errorMessage };
         }

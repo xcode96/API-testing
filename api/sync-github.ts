@@ -34,17 +34,26 @@ const getFileSha = async (apiUrl: string, pat: string): Promise<string | undefin
                 'User-Agent': 'Cyber-Training-Dashboard-Sync'
             },
         });
+
         if (response.ok) {
             const data = await response.json();
             return data.sha;
         }
-        if (response.status === 404) return undefined; // File doesn't exist, we'll create it.
-        
-        console.error('GitHub API error (getFileSha):', response.status, await response.text());
-        return undefined;
+
+        if (response.status === 404) {
+            return undefined; // File doesn't exist, which is a valid state for creation.
+        }
+
+        // For any other non-OK status, treat it as an error and throw a detailed message.
+        const errorText = await response.text();
+        const errorMessage = `GitHub API Error (${response.status}): Could not retrieve file information. This could be due to an invalid Personal Access Token, incorrect repository path, or insufficient permissions. Details: ${errorText}`;
+        throw new Error(errorMessage);
+
     } catch (error) {
+        // This will catch both network errors from fetch and the error thrown above.
         console.error('Failed to fetch file SHA from GitHub:', error);
-        return undefined;
+        // Re-throw the error so it can be handled by the main POST function's catch block.
+        throw error;
     }
 };
 
