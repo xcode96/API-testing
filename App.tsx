@@ -1,5 +1,3 @@
-
-
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import ModuleList from './components/ModuleList';
@@ -41,43 +39,46 @@ function App() {
         setEmailLog(data.emailLog || []);
         setSettings(data.settings);
         
-        // After fetching quizzes, build the initial module categories state
-        const existingQuizIds = new Set(data.quizzes.map(q => q.id));
-        let syncedModuleCategories = INITIAL_MODULE_CATEGORIES.map(category => ({
-            ...category,
-            modules: category.modules.filter(module => existingQuizIds.has(module.id))
-        }));
+        if (data.moduleCategories && data.moduleCategories.length > 0) {
+            setModuleCategoriesState(data.moduleCategories);
+        } else {
+            // Fallback for first-time run or old data structure.
+            const existingQuizIds = new Set(data.quizzes.map(q => q.id));
+            let syncedModuleCategories = INITIAL_MODULE_CATEGORIES.map(category => ({
+                ...category,
+                modules: category.modules.filter(module => existingQuizIds.has(module.id))
+            }));
 
-        // Dynamically add categories for quizzes that don't have a hardcoded category
-        const knownModuleIds = new Set(syncedModuleCategories.flatMap(c => c.modules).map(m => m.id));
+            // Dynamically add categories for quizzes that don't have a hardcoded category
+            const knownModuleIds = new Set(syncedModuleCategories.flatMap(c => c.modules).map(m => m.id));
 
-        data.quizzes.forEach((quiz, index) => {
-          if (!knownModuleIds.has(quiz.id)) {
-            const totalModules = syncedModuleCategories.flatMap(c => c.modules).length + index;
-            const iconKeys = Object.keys(ICONS);
-            const newIconKey = iconKeys[totalModules % iconKeys.length];
-            const newIcon = ICONS[newIconKey as keyof typeof ICONS];
-            const newTheme = THEMES[totalModules % THEMES.length];
-            
-            const newModule: Module = {
-              id: quiz.id,
-              title: quiz.name,
-              questions: quiz.questions.length,
-              icon: newIcon,
-              status: ModuleStatus.NotStarted,
-              theme: newTheme,
-            };
-            
-            const newCategory: ModuleCategory = {
-              id: quiz.id,
-              title: quiz.name,
-              modules: [newModule],
-            };
-            syncedModuleCategories.push(newCategory);
-          }
-        });
+            data.quizzes.forEach((quiz, index) => {
+              if (!knownModuleIds.has(quiz.id)) {
+                const totalModules = syncedModuleCategories.flatMap(c => c.modules).length + index;
+                const iconKeys = Object.keys(ICONS);
+                const newIconKey = iconKeys[totalModules % iconKeys.length];
+                const newTheme = THEMES[totalModules % THEMES.length];
+                
+                const newModule: Module = {
+                  id: quiz.id,
+                  title: quiz.name,
+                  questions: quiz.questions.length,
+                  iconKey: newIconKey,
+                  status: ModuleStatus.NotStarted,
+                  theme: newTheme,
+                };
+                
+                const newCategory: ModuleCategory = {
+                  id: quiz.id,
+                  title: quiz.name,
+                  modules: [newModule],
+                };
+                syncedModuleCategories.push(newCategory);
+              }
+            });
 
-        setModuleCategoriesState(syncedModuleCategories);
+            setModuleCategoriesState(syncedModuleCategories);
+        }
       })
       .catch(err => {
         console.error(err);
@@ -98,7 +99,7 @@ function App() {
     }
 
     saveTimeoutRef.current = window.setTimeout(() => {
-      const dataToSync = { users, quizzes, emailLog, settings };
+      const dataToSync = { users, quizzes, emailLog, settings, moduleCategories: moduleCategoriesState };
       // Save to Vercel KV
       saveData(dataToSync)
         .catch(err => console.error("Failed to save data:", err));
@@ -112,7 +113,7 @@ function App() {
         clearTimeout(saveTimeoutRef.current);
       }
     };
-  }, [users, quizzes, emailLog, settings, loading]);
+  }, [users, quizzes, emailLog, settings, loading, moduleCategoriesState]);
 
   const handleCreateExamCategory = (title: string): string | undefined => {
     const newId = title.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
@@ -136,7 +137,7 @@ function App() {
       id: newId,
       title: title,
       questions: 0,
-      icon: ICONS[newIconKey as keyof typeof ICONS],
+      iconKey: newIconKey,
       status: ModuleStatus.NotStarted,
       theme: THEMES[totalModules % THEMES.length],
     };
@@ -198,39 +199,42 @@ function App() {
     }
   };
   
-    const handleAddNewQuestion = (newQuestionData: Omit<Question, 'id'>) => {
-        const quizToUpdate = quizzes.find(q => q.name === newQuestionData.category);
+    const handleAddNewQuestion = (newQuestionData: Omit<Question, 'id' | 'category'>, quizId: string) => {
+        const quizToUpdate = quizzes.find(q => q.id === quizId);
 
         if (!quizToUpdate) {
-            console.error(`Quiz category "${newQuestionData.category}" not found.`);
-            alert("Error: Could not find the selected quiz category to add the question to.");
+            console.error(`Quiz with ID "${quizId}" not found.`);
+            alert("Error: Could not find the selected quiz to add the question to.");
             return;
         }
 
         const newQuestion: Question = {
             ...newQuestionData,
             id: Date.now(),
+            category: quizToUpdate.name,
         };
 
-        setQuizzes(prevQuizzes =>
-            prevQuizzes.map(q =>
-                q.id === quizToUpdate.id
-                    ? { ...q, questions: [...q.questions, newQuestion] }
-                    : q
-            )
+        const newQuizzes = quizzes.map(q =>
+            q.id === quizToUpdate.id
+                ? { ...q, questions: [...q.questions, newQuestion] }
+                : q
         );
+    
+        setQuizzes(newQuizzes);
         
+        const newQuestionCount = (newQuizzes.find(q => q.id === quizToUpdate.id))?.questions.length || 0;
+    
         setModuleCategoriesState(prevCategories =>
             prevCategories.map(category => ({
                 ...category,
                 modules: category.modules.map(module =>
                     module.id === quizToUpdate.id
-                        ? { ...module, questions: module.questions + 1 }
+                        ? { ...module, questions: newQuestionCount }
                         : module
                 )
             }))
         );
-        alert(`Question added to "${newQuestionData.category}"!`);
+        alert(`Question added to "${quizToUpdate.name}"!`);
     };
 
     const handleAddQuestionToNewCategory = (newQuestionData: Omit<Question, 'id'>, categoryTitle: string) => {
@@ -260,7 +264,7 @@ function App() {
         id: newId,
         title: categoryTitle,
         questions: 1,
-        icon: ICONS[newIconKey as keyof typeof ICONS],
+        iconKey: newIconKey,
         status: ModuleStatus.NotStarted,
         theme: THEMES[totalModules % THEMES.length],
       };
@@ -313,7 +317,7 @@ function App() {
             id: newQuizId,
             title: subTopicTitle,
             questions: 1,
-            icon: ICONS[newIconKey as keyof typeof ICONS],
+            iconKey: newIconKey,
             status: ModuleStatus.NotStarted,
             theme: THEMES[totalModules % THEMES.length],
         };
@@ -390,7 +394,7 @@ function App() {
                       id: newQuizId,
                       title: subTopicTitle,
                       questions: validatedQuestions.length,
-                      icon: ICONS[newIconKey as keyof typeof ICONS],
+                      iconKey: newIconKey,
                       status: ModuleStatus.NotStarted,
                       theme: THEMES[totalModules % THEMES.length],
                   };
@@ -445,20 +449,22 @@ function App() {
                 return;
             }
 
-            setQuizzes(prevQuizzes =>
-                prevQuizzes.map(quiz =>
-                    quiz.id === quizToUpdate.id
-                        ? { ...quiz, questions: quiz.questions.filter(q => q.id !== questionId) }
-                        : quiz
-                )
+            const newQuizzes = quizzes.map(quiz =>
+                quiz.id === quizToUpdate.id
+                    ? { ...quiz, questions: quiz.questions.filter(q => q.id !== questionId) }
+                    : quiz
             );
 
+            setQuizzes(newQuizzes);
+
+            const newQuestionCount = (newQuizzes.find(q => q.id === quizToUpdate.id))?.questions.length || 0;
+            
             setModuleCategoriesState(prevCategories =>
                 prevCategories.map(category => ({
                     ...category,
                     modules: category.modules.map(module =>
                         module.id === quizToUpdate.id
-                            ? { ...module, questions: module.questions - 1 }
+                            ? { ...module, questions: newQuestionCount }
                             : module
                     )
                 }))

@@ -24,7 +24,7 @@ export interface Module {
   id: string;
   title: string;
   questions: number;
-  icon: ReactNode;
+  iconKey: string;
   status: ModuleStatus;
   theme: {
     iconBg: string;

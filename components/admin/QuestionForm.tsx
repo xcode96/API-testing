@@ -1,12 +1,13 @@
 
 
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { Question, ModuleCategory, Quiz } from '../../types';
 
 interface QuestionFormProps {
   moduleCategories: ModuleCategory[];
   quizzes: Quiz[];
-  onAddQuestion: (question: Omit<Question, 'id'>) => void;
+  onAddQuestion: (question: Omit<Question, 'id' | 'category'>, quizId: string) => void;
   onAddQuestionToNewCategory: (question: Omit<Question, 'id'>, categoryTitle: string) => void;
   onAddQuestionToNewSubTopic: (question: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => void;
   activeFilterId: string | null;
@@ -77,8 +78,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const questionPayload: Omit<Question, 'id'> & { category: string } = {
-        category: '',
+    const baseQuestionPayload = {
         question: formData.question,
         options: formData.options,
         correctAnswer: formData.correctAnswer,
@@ -94,7 +94,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
             alert("Please provide a name for the new exam folder.");
             return;
         }
-        questionPayload.category = newFolderName.trim();
+        const questionPayload = { ...baseQuestionPayload, category: newFolderName.trim() };
         onAddQuestionToNewCategory(questionPayload, newFolderName.trim());
         setNewFolderName('');
         setSelectedFolderId('');
@@ -107,7 +107,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
             alert("Please select an exam folder for the new sub-topic.");
             return;
         }
-        questionPayload.category = newSubTopicName.trim();
+        const questionPayload = { ...baseQuestionPayload, category: newSubTopicName.trim() };
         onAddQuestionToNewSubTopic(questionPayload, newSubTopicName.trim(), selectedFolderId);
         setNewSubTopicName('');
         setSelectedSubTopicId('');
@@ -116,13 +116,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
             alert("Please select an exam folder and a sub-topic.");
             return;
         }
-        const selectedQuiz = quizzes.find(q => q.id === selectedSubTopicId);
-        if (!selectedQuiz) {
-            alert("Selected sub-topic/quiz not found.");
-            return;
-        }
-        questionPayload.category = selectedQuiz.name;
-        onAddQuestion(questionPayload);
+        onAddQuestion(baseQuestionPayload, selectedSubTopicId);
     }
     
     setFormData(initialFormState);

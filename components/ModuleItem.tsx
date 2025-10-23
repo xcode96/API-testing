@@ -1,5 +1,6 @@
 import React from 'react';
 import { Module, ModuleStatus } from '../types';
+import { ICONS } from '../constants';
 
 interface ModuleItemProps {
   module: Module;
@@ -22,13 +23,13 @@ const statusStyles: { [key in ModuleStatus]: { text: string; bg: string; } } = {
 };
 
 const ModuleItem: React.FC<ModuleItemProps> = ({ module, onStartQuiz }) => {
-  const { title, questions, icon, status, theme } = module;
+  const { title, questions, iconKey, status, theme } = module;
   const styles = statusStyles[status];
 
   return (
     <div className="flex items-center bg-white p-4 rounded-lg border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
       <div className={`mr-4 p-3 rounded-lg ${theme.iconBg} ${theme.iconColor}`}>
-        {icon}
+        {ICONS[iconKey as keyof typeof ICONS]}
       </div>
       <div className="flex-grow">
         <h3 className="font-bold text-slate-800">{title}</h3>

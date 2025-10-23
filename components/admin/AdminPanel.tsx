@@ -29,7 +29,7 @@ interface AdminPanelProps {
   onCreateExamCategory: (title: string) => string | undefined;
   onEditExamCategory: (categoryId: string, newTitle: string) => void;
   onDeleteExamCategory: (categoryId: string) => void;
-  onAddNewQuestion: (question: Omit<Question, 'id'>) => void;
+  onAddNewQuestion: (question: Omit<Question, 'id' | 'category'>, quizId: string) => void;
   onAddQuestionToNewCategory: (question: Omit<Question, 'id'>, categoryTitle: string) => void;
   onAddQuestionToNewSubTopic: (question: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => void;
   onUpdateQuestion: (question: Question) => void;

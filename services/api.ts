@@ -1,6 +1,4 @@
-
-
-import { Quiz, User, Email, AppSettings } from '../types';
+import { Quiz, User, Email, AppSettings, ModuleCategory } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
 
 export interface AppData {
@@ -8,6 +6,7 @@ export interface AppData {
     quizzes: Quiz[];
     emailLog: Email[];
     settings: AppSettings;
+    moduleCategories?: ModuleCategory[];
 }
 
 // --- Start: Duplicated initial data from api/data.ts for fallback ---
