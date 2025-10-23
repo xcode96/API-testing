@@ -4069,6 +4069,372 @@
           "correctAnswer": "Isolate sensitive data"
         }
       ]
+    },
+    {
+      "id": "procurement_&_vendor_management_1761233924653.7927",
+      "name": "Procurement & Vendor Management",
+      "questions": [
+        {
+          "id": 1761233925534.5454,
+          "category": "Procurement & Vendor Management",
+          "question": "All procurement requests must be approved by:",
+          "options": [
+            "IT Support Lead",
+            "IT Head + Finance",
+            "HR Manager",
+            "Legal"
+          ],
+          "correctAnswer": "IT Head + Finance"
+        },
+        {
+          "id": 1761233925281.1362,
+          "category": "Procurement & Vendor Management",
+          "question": "Before onboarding a new vendor, which assessment is mandatory?",
+          "options": [
+            "Financial audit",
+            "Security Risk Assessment",
+            "Culinary taste test",
+            "None"
+          ],
+          "correctAnswer": "Security Risk Assessment"
+        },
+        {
+          "id": 1761233925107.6777,
+          "category": "Procurement & Vendor Management",
+          "question": "Vendor contracts must include a signed:",
+          "options": [
+            "Meme of the day",
+            "NDA",
+            "Birthday wish",
+            "Poetry"
+          ],
+          "correctAnswer": "NDA"
+        },
+        {
+          "id": 1761233924804.7307,
+          "category": "Procurement & Vendor Management",
+          "question": "License audits are performed:",
+          "options": [
+            "Every month",
+            "Every 6 months",
+            "Annually",
+            "Never"
+          ],
+          "correctAnswer": "Annually"
+        },
+        {
+          "id": 1761233925319.2354,
+          "category": "Procurement & Vendor Management",
+          "question": "Who is the owner of the Procurement & Vendor Management policy?",
+          "options": [
+            "CISO",
+            "IT Head + Finance",
+            "HR",
+            "Legal"
+          ],
+          "correctAnswer": "IT Head + Finance"
+        },
+        {
+          "id": 1761233924714.0947,
+          "category": "Procurement & Vendor Management",
+          "question": "Which of the following cannot be procured without a purchase order?",
+          "options": [
+            "Office chairs",
+            "Cloud SaaS subscription",
+            "Coffee",
+            "Sticky notes"
+          ],
+          "correctAnswer": "Cloud SaaS subscription"
+        },
+        {
+          "id": 1761233925631.8442,
+          "category": "Procurement & Vendor Management",
+          "question": "Which of the following is a required document for a software purchase?",
+          "options": [
+            "Employee selfie",
+            "Software licence agreement",
+            "Holiday photo",
+            "Personal blog post"
+          ],
+          "correctAnswer": "Software licence agreement"
+        },
+        {
+          "id": 1761233925076.8071,
+          "category": "Procurement & Vendor Management",
+          "question": "Which of these must be verified before renewing a vendor contract?",
+          "options": [
+            "Vendor’s favourite colour",
+            "Compliance with security requirements",
+            "Number of emojis used",
+            "Stock price"
+          ],
+          "correctAnswer": "Compliance with security requirements"
+        },
+        {
+          "id": 1761233925267.3098,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be kept for audit on vendor relationships?",
+          "options": [
+            "Number of emojis used in emails",
+            "Risk assessment report, SLA, NDA",
+            "Vendor’s holiday card",
+            "Coffee receipts"
+          ],
+          "correctAnswer": "Risk assessment report, SLA, NDA"
+        },
+        {
+          "id": 1761233925273.2405,
+          "category": "Procurement & Vendor Management",
+          "question": "Which is a justified reason to blacklist a vendor?",
+          "options": [
+            "Late pizza delivery",
+            "Repeated security findings",
+            "Personal dislike",
+            "Vendor’s favourite colour"
+          ],
+          "correctAnswer": "Repeated security findings"
+        },
+        {
+          "id": 1761233925065.7656,
+          "category": "Procurement & Vendor Management",
+          "question": "Which cannot be a payment method for IT purchases?",
+          "options": [
+            "Credit card",
+            "Cash payment (policy disallows)",
+            "Bank transfer",
+            "Cryptocurrency"
+          ],
+          "correctAnswer": "Cash payment (policy disallows)"
+        },
+        {
+          "id": 1761233925078.6423,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be documented for every hardware purchase?",
+          "options": [
+            "Colour of the box",
+            "Asset tag, serial number, cost centre",
+            "Number of coffee cups",
+            "Employee favourite snack"
+          ],
+          "correctAnswer": "Asset tag, serial number, cost centre"
+        },
+        {
+          "id": 1761233924856.7786,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be performed before accepting a new hardware delivery?",
+          "options": [
+            "Taste test",
+            "Validate against purchase order & inspect for damage",
+            "Smile for photo",
+            "Sing the national anthem"
+          ],
+          "correctAnswer": "Validate against purchase order & inspect for damage"
+        },
+        {
+          "id": 1761233925369.6719,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be included in a vendor security questionnaire?",
+          "options": [
+            "Favorite sport",
+            "Encryption practices, incident response process",
+            "Pet’s name",
+            "Coffee preference"
+          ],
+          "correctAnswer": "Encryption practices, incident response process"
+        },
+        {
+          "id": 1761233925320.6306,
+          "category": "Procurement & Vendor Management",
+          "question": "Which cannot be a valid reason for expedited procurement?",
+          "options": [
+            "Imminent security patch need",
+            "Personal desire for a new laptop",
+            "Critical business need",
+            "Holiday gift"
+          ],
+          "correctAnswer": "Personal desire for a new laptop"
+        },
+        {
+          "id": 1761233924976.804,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be reviewed annually?",
+          "options": [
+            "Vendor’s holiday card",
+            "Vendor security posture & contract terms",
+            "Coffee consumption report",
+            "Office décor"
+          ],
+          "correctAnswer": "Vendor security posture & contract terms"
+        },
+        {
+          "id": 1761233925107.2212,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be done before splitting a purchase across multiple vendors?",
+          "options": [
+            "Flip a coin",
+            "Ensure no single‑source risk & obtain approvals",
+            "Ask for a meme",
+            "Proceed without review"
+          ],
+          "correctAnswer": "Ensure no single‑source risk & obtain approvals"
+        },
+        {
+          "id": 1761233925064.4565,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be recorded when a vendor is released from contract?",
+          "options": [
+            "Goodbye party details",
+            "Formal termination notice and asset hand‑over",
+            "Send a meme",
+            "Leave assets in the office"
+          ],
+          "correctAnswer": "Formal termination notice and asset hand‑over"
+        },
+        {
+          "id": 1761233925093.9802,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be present on all software licences?",
+          "options": [
+            "Emoji",
+            "Version, seat count, expiry date",
+            "Company logo",
+            "Coffee coupon"
+          ],
+          "correctAnswer": "Version, seat count, expiry date"
+        },
+        {
+          "id": 1761233925275.3098,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be included in a procurement checklist?",
+          "options": [
+            "Number of coffee cups",
+            "Compliance check, budget verification, approval signatures",
+            "List of favourite snacks",
+            "Weather forecast"
+          ],
+          "correctAnswer": "Compliance check, budget verification, approval signatures"
+        },
+        {
+          "id": 1761233925095.6716,
+          "category": "Procurement & Vendor Management",
+          "question": "Which cannot be a justified cost for a new tool?",
+          "options": [
+            "License fee",
+            "Free coffee for the team",
+            "Hardware upgrade",
+            "Consultancy fees"
+          ],
+          "correctAnswer": "Free coffee for the team"
+        },
+        {
+          "id": 1761233925602.8374,
+          "category": "Procurement & Vendor Management",
+          "question": "What must be done when a vendor requests access to internal systems?",
+          "options": [
+            "Give them a badge",
+            "Perform a security assessment and grant least‑privilege access",
+            "Send them a gift",
+            "Allow unrestricted access"
+          ],
+          "correctAnswer": "Perform a security assessment and grant least‑privilege access"
+        },
+        {
+          "id": 1761233925604.3276,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be part of a vendor exit strategy?",
+          "options": [
+            "Party invitation",
+            "Data retrieval, revocation of credentials, destruction of copies",
+            "Send a meme",
+            "Leave data on shared drives"
+          ],
+          "correctAnswer": "Data retrieval, revocation of credentials, destruction of copies"
+        },
+        {
+          "id": 1761233925236.6294,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be included in an SLA with a vendor?",
+          "options": [
+            "Number of emojis per email",
+            "Uptime target, response time, penalties",
+            "Coffee schedule",
+            "Holiday allowance"
+          ],
+          "correctAnswer": "Uptime target, response time, penalties"
+        },
+        {
+          "id": 1761233925371.732,
+          "category": "Procurement & Vendor Management",
+          "question": "Which cannot be a risk category for a vendor?",
+          "options": [
+            "Financial stability",
+            "Colour of the logo",
+            "Regulatory compliance",
+            "Operational capability"
+          ],
+          "correctAnswer": "Colour of the logo"
+        },
+        {
+          "id": 1761233925175.3538,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be performed pre‑deployment for purchased hardware?",
+          "options": [
+            "Photo shoot",
+            "Configuration according to hardening baseline",
+            "Send a meme",
+            "Leave it in the box"
+          ],
+          "correctAnswer": "Configuration according to hardening baseline"
+        },
+        {
+          "id": 1761233925047.8713,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be captured in the procurement register?",
+          "options": [
+            "Vendor’s pet name",
+            "Item description, cost, PO number, approver",
+            "Number of coffee cups",
+            "Weather forecast"
+          ],
+          "correctAnswer": "Item description, cost, PO number, approver"
+        },
+        {
+          "id": 1761233925123.174,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be verified before renewing a cloud‑service contract?",
+          "options": [
+            "Vendor’s favourite song",
+            "Data residency, encryption, compliance certifications",
+            "Number of emojis used",
+            "Office décor"
+          ],
+          "correctAnswer": "Data residency, encryption, compliance certifications"
+        },
+        {
+          "id": 1761233925676.4563,
+          "category": "Procurement & Vendor Management",
+          "question": "Which must be part of vendor onboarding?",
+          "options": [
+            "Free lunch",
+            "Security questionnaire, contract signing, asset tagging",
+            "Send a meme",
+            "Coffee welcome kit"
+          ],
+          "correctAnswer": "Security questionnaire, contract signing, asset tagging"
+        },
+        {
+          "id": 1761233925004.4214,
+          "category": "Procurement & Vendor Management",
+          "question": "Which cannot be a valid reason for contract termination?",
+          "options": [
+            "Vendor failed a security audit",
+            "Vendor’s office décor",
+            "Material breach",
+            "Regulatory non‑compliance"
+          ],
+          "correctAnswer": "Vendor’s office décor"
+        }
+      ]
     }
   ],
   "emailLog": [
@@ -4887,6 +5253,17 @@
           "theme": {
             "iconBg": "bg-cyan-100",
             "iconColor": "text-cyan-500"
+          }
+        },
+        {
+          "id": "procurement_&_vendor_management_1761233924653.7927",
+          "title": "Procurement & Vendor Management",
+          "questions": 30,
+          "iconKey": "Warning",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-orange-100",
+            "iconColor": "text-orange-500"
           }
         }
       ]
