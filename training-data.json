@@ -18,7 +18,8 @@
         "data_analyst_exam",
         "it_developer_policy",
         "audit_1761233128213",
-        "audit_1761233417940"
+        "audit_1761233417940",
+        "it_company_master_policy_framework_1761233692829"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -35,7 +36,8 @@
         "it_security_policy",
         "it_developer_policy",
         "audit_1761233128213",
-        "audit_1761233417940"
+        "audit_1761233417940",
+        "it_company_master_policy_framework_1761233692829"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -54,7 +56,8 @@
         "it_policy_exam",
         "operation_exam",
         "audit_1761233128213",
-        "audit_1761233417940"
+        "audit_1761233417940",
+        "it_company_master_policy_framework_1761233692829"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -71,7 +74,8 @@
         "it_security_policy",
         "it_policy_exam",
         "audit_1761233128213",
-        "audit_1761233417940"
+        "audit_1761233417940",
+        "it_company_master_policy_framework_1761233692829"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -88,7 +92,8 @@
         "it_security_policy",
         "data_analyst_exam",
         "audit_1761233128213",
-        "audit_1761233417940"
+        "audit_1761233417940",
+        "it_company_master_policy_framework_1761233692829"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -115,7 +120,8 @@
       "assignedExams": [
         "data_analyst_exam",
         "audit_1761233128213",
-        "audit_1761233417940"
+        "audit_1761233417940",
+        "it_company_master_policy_framework_1761233692829"
       ],
       "answers": [
         {
@@ -194,7 +200,8 @@
       "assignedExams": [
         "legal_exam",
         "audit_1761233128213",
-        "audit_1761233417940"
+        "audit_1761233417940",
+        "it_company_master_policy_framework_1761233692829"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -210,7 +217,8 @@
       "assignedExams": [
         "it_developer_policy",
         "audit_1761233128213",
-        "audit_1761233417940"
+        "audit_1761233417940",
+        "it_company_master_policy_framework_1761233692829"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -2226,6 +2234,11 @@
           "category": "Disaster Recovery & Business Continuity"
         }
       ]
+    },
+    {
+      "id": "it_company_master_policy_framework_1761233692829",
+      "name": "IT Company Master Policy Framework",
+      "questions": []
     }
   ],
   "emailLog": [
@@ -2972,6 +2985,23 @@
           "theme": {
             "iconBg": "bg-emerald-100",
             "iconColor": "text-emerald-500"
+          }
+        }
+      ]
+    },
+    {
+      "id": "it_company_master_policy_framework_1761233692829",
+      "title": "IT Company Master Policy Framework",
+      "modules": [
+        {
+          "id": "it_company_master_policy_framework_1761233692829",
+          "title": "IT Company Master Policy Framework",
+          "questions": 0,
+          "iconKey": "BuildingOffice2",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-neutral-100",
+            "iconColor": "text-neutral-500"
           }
         }
       ]
