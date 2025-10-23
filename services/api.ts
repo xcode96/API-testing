@@ -150,11 +150,14 @@ export const triggerGithubSync = async (data: AppData): Promise<{ success: boole
         }
 
         // Step 2: Prepare the content and create/update the file.
-        // IMPORTANT: Create a deep copy of the data and remove the PAT before syncing to avoid leaking secrets.
-        const dataToSync = JSON.parse(JSON.stringify(data));
-        if (dataToSync.settings && dataToSync.settings.githubPat) {
-            delete dataToSync.settings.githubPat;
-        }
+        // IMPORTANT: Explicitly create a new data object for syncing that omits the PAT to avoid leaking secrets.
+        const { settings: originalSettings, ...restOfData } = data;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { githubPat: pat, ...safeSettings } = originalSettings;
+        const dataToSync = {
+            ...restOfData,
+            settings: safeSettings,
+        };
 
         const contentToSave = JSON.stringify(dataToSync, null, 2);
         const encodedContent = Buffer.from(contentToSave, 'utf-8').toString('base64');
