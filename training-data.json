@@ -3703,6 +3703,372 @@
           "correctAnswer": "Images must be signed and scanned"
         }
       ]
+    },
+    {
+      "id": "database_&_storage_1761233895411.854",
+      "name": "Database & Storage",
+      "questions": [
+        {
+          "id": 1761233895816.8923,
+          "category": "Database & Storage",
+          "question": "Database access is only permitted via:",
+          "options": [
+            "Direct workstation login",
+            "Jump servers",
+            "VPN only",
+            "Cloud console"
+          ],
+          "correctAnswer": "Jump servers"
+        },
+        {
+          "id": 1761233896295.6448,
+          "category": "Database & Storage",
+          "question": "Backup data must be encrypted and stored off‑site. This satisfies which control?",
+          "options": [
+            "Availability",
+            "Confidentiality",
+            "Integrity",
+            "Auditing"
+          ],
+          "correctAnswer": "Confidentiality"
+        },
+        {
+          "id": 1761233895964.3074,
+          "category": "Database & Storage",
+          "question": "How long must database logs be retained?",
+          "options": [
+            "30 days",
+            "90 days",
+            "6 months",
+            "1 year"
+          ],
+          "correctAnswer": "1 year"
+        },
+        {
+          "id": 1761233895808.6958,
+          "category": "Database & Storage",
+          "question": "Production data may be used in testing environments if:",
+          "options": [
+            "It is anonymised",
+            "Never – production data is prohibited",
+            "It is encrypted",
+            "It is smaller than 1 GB"
+          ],
+          "correctAnswer": "It is anonymised"
+        },
+        {
+          "id": 1761233895481.8093,
+          "category": "Database & Storage",
+          "question": "The owner of the Database & Storage policy is:",
+          "options": [
+            "CIO",
+            "DBA Lead / IT Head",
+            "HR Manager",
+            "Legal Head"
+          ],
+          "correctAnswer": "DBA Lead / IT Head"
+        },
+        {
+          "id": 1761233895416.7332,
+          "category": "Database & Storage",
+          "question": "Which of the following is a required data‑masking technique?",
+          "options": [
+            "Full encryption only",
+            "Partial redaction of PII fields",
+            "Hashing without salt",
+            "No masking needed"
+          ],
+          "correctAnswer": "Partial redaction of PII fields"
+        },
+        {
+          "id": 1761233896323.2263,
+          "category": "Database & Storage",
+          "question": "Which backup verification step is mandatory?",
+          "options": [
+            "Check file names",
+            "Validate checksum and restore a sample",
+            "Count number of files",
+            "Verify file owners"
+          ],
+          "correctAnswer": "Validate checksum and restore a sample"
+        },
+        {
+          "id": 1761233895819.161,
+          "category": "Database & Storage",
+          "question": "What is the minimum frequency for a DB performance audit?",
+          "options": [
+            "Weekly",
+            "Monthly",
+            "Quarterly",
+            "Annually"
+          ],
+          "correctAnswer": "Quarterly"
+        },
+        {
+          "id": 1761233896292.7217,
+          "category": "Database & Storage",
+          "question": "Which of the following is not a storage‑type covered by the policy?",
+          "options": [
+            "Structured relational DB",
+            "Physical paper records",
+            "Object storage (S3)",
+            "NoSQL DB"
+          ],
+          "correctAnswer": "Physical paper records"
+        },
+        {
+          "id": 1761233896235.496,
+          "category": "Database & Storage",
+          "question": "Which of the following is a required security control for database administrators?",
+          "options": [
+            "Unlimited admin rights",
+            "Just‑in‑time privileged access",
+            "Shared credentials",
+            "No MFA"
+          ],
+          "correctAnswer": "Just‑in‑time privileged access"
+        },
+        {
+          "id": 1761233895573.3723,
+          "category": "Database & Storage",
+          "question": "Where are database backups stored?",
+          "options": [
+            "On the same server",
+            "Off‑site, encrypted, separate media",
+            "In employee laptops",
+            "Public cloud without encryption"
+          ],
+          "correctAnswer": "Off‑site, encrypted, separate media"
+        },
+        {
+          "id": 1761233895903.516,
+          "category": "Database & Storage",
+          "question": "Which of these actions must be taken before de‑commissioning a database?",
+          "options": [
+            "Delete all tables",
+            "Secure data wipe & migration",
+            "Rename the DB",
+            "Change the password"
+          ],
+          "correctAnswer": "Secure data wipe & migration"
+        },
+        {
+          "id": 1761233896322.7385,
+          "category": "Database & Storage",
+          "question": "Which of the following is required for data retention?",
+          "options": [
+            "Store forever",
+            "Define minimum retention per regulation",
+            "Delete after 30 days",
+            "Keep only in archive tier"
+          ],
+          "correctAnswer": "Define minimum retention per regulation"
+        },
+        {
+          "id": 1761233895863.4375,
+          "category": "Database & Storage",
+          "question": "Which of the following best describes “least privilege” for DB users?",
+          "options": [
+            "Everyone gets admin",
+            "Grant only needed permissions",
+            "Grant read/write to all",
+            "No access control"
+          ],
+          "correctAnswer": "Grant only needed permissions"
+        },
+        {
+          "id": 1761233896146.3936,
+          "category": "Database & Storage",
+          "question": "Which of the following is not a component of the Database policy scope?",
+          "options": [
+            "Access Control",
+            "Physical building security",
+            "Backup & Retention",
+            "Data Masking"
+          ],
+          "correctAnswer": "Physical building security"
+        },
+        {
+          "id": 1761233896138.6682,
+          "category": "Database & Storage",
+          "question": "Which of the following must be logged for all DB access?",
+          "options": [
+            "User’s favorite colour",
+            "User ID, time, query type",
+            "Weather at time of access",
+            "Number of coffee cups"
+          ],
+          "correctAnswer": "User ID, time, query type"
+        },
+        {
+          "id": 1761233895727.7507,
+          "category": "Database & Storage",
+          "question": "Which encryption standard is mandatory for DB backups?",
+          "options": [
+            "RSA‑1024",
+            "AES‑256",
+            "DES",
+            "Blowfish"
+          ],
+          "correctAnswer": "AES‑256"
+        },
+        {
+          "id": 1761233896427.4968,
+          "category": "Database & Storage",
+          "question": "Who must approve a new database platform purchase?",
+          "options": [
+            "Helpdesk Lead",
+            "IT Head + Finance",
+            "Marketing",
+            "Legal"
+          ],
+          "correctAnswer": "IT Head + Finance"
+        },
+        {
+          "id": 1761233895759.4705,
+          "category": "Database & Storage",
+          "question": "Which step is required before loading production data into a data‑warehouse?",
+          "options": [
+            "Direct copy",
+            "Data profiling & cleansing",
+            "Disable backups",
+            "Send email to all staff"
+          ],
+          "correctAnswer": "Data profiling & cleansing"
+        },
+        {
+          "id": 1761233895781.745,
+          "category": "Database & Storage",
+          "question": "Which type of storage must have immutability for ransomware protection?",
+          "options": [
+            "Temporary cache",
+            "Object storage with Write‑Once‑Read‑Many (WORM)",
+            "Local HDD",
+            "USB stick"
+          ],
+          "correctAnswer": "Object storage with Write‑Once‑Read‑Many (WORM)"
+        },
+        {
+          "id": 1761233895677.1184,
+          "category": "Database & Storage",
+          "question": "Which statement about database patching is true?",
+          "options": [
+            "Patch only when broken",
+            "Patch within 30 days of release",
+            "Never patch production",
+            "Patch only after audit"
+          ],
+          "correctAnswer": "Patch within 30 days of release"
+        },
+        {
+          "id": 1761233895480.9446,
+          "category": "Database & Storage",
+          "question": "Which of the following is required for audit logging of privileged DB actions?",
+          "options": [
+            "Log only successful logins",
+            "Log both successful and failed privileged commands",
+            "Log only SELECT statements",
+            "No logging needed"
+          ],
+          "correctAnswer": "Log both successful and failed privileged commands"
+        },
+        {
+          "id": 1761233896322.6702,
+          "category": "Database & Storage",
+          "question": "Which of these is not a recommended practice for database key management?",
+          "options": [
+            "Use a hardware security module (HSM)",
+            "Store keys in plain‑text on the server",
+            "Rotate keys annually",
+            "Separate key lifecycle"
+          ],
+          "correctAnswer": "Store keys in plain‑text on the server"
+        },
+        {
+          "id": 1761233896192.7642,
+          "category": "Database & Storage",
+          "question": "Which describes the “3‑2‑1” backup rule?",
+          "options": [
+            "3 copies, 2 locations, 1 encryption",
+            "3 copies, 2 media types, 1 off‑site",
+            "3 GB per backup, 2 GB compression, 1 GB encryption",
+            "3 hours RPO, 2 hours RTO, 1 day testing"
+          ],
+          "correctAnswer": "3 copies, 2 media types, 1 off‑site"
+        },
+        {
+          "id": 1761233896324.8625,
+          "category": "Database & Storage",
+          "question": "Which metric is required for storage capacity planning?",
+          "options": [
+            "Number of coffee mugs",
+            "Growth trend in TB per quarter",
+            "Number of users’ birthdays",
+            "Length of policy document"
+          ],
+          "correctAnswer": "Growth trend in TB per quarter"
+        },
+        {
+          "id": 1761233896432.5942,
+          "category": "Database & Storage",
+          "question": "Which is mandatory for database change management?",
+          "options": [
+            "No documentation",
+            "Change request + CAB approval",
+            "Verbal approval",
+            "No change allowed"
+          ],
+          "correctAnswer": "Change request + CAB approval"
+        },
+        {
+          "id": 1761233896293.3604,
+          "category": "Database & Storage",
+          "question": "Which is not a data‑classification level in the policy?",
+          "options": [
+            "Public",
+            "Top‑Secret (not defined)",
+            "Confidential",
+            "Internal"
+          ],
+          "correctAnswer": "Top‑Secret (not defined)"
+        },
+        {
+          "id": 1761233895709.081,
+          "category": "Database & Storage",
+          "question": "Which must be encrypted in transit?",
+          "options": [
+            "Backup tapes",
+            "Database replication traffic",
+            "Printed reports",
+            "Local temp files"
+          ],
+          "correctAnswer": "Database replication traffic"
+        },
+        {
+          "id": 1761233895859.446,
+          "category": "Database & Storage",
+          "question": "Which is required when a vendor requests DB access?",
+          "options": [
+            "No review needed",
+            "Security risk assessment & NDA",
+            "Immediate access",
+            "Only read‑only API key"
+          ],
+          "correctAnswer": "Security risk assessment & NDA"
+        },
+        {
+          "id": 1761233895508.7605,
+          "category": "Database & Storage",
+          "question": "Which is a primary reason for database segmentation?",
+          "options": [
+            "Reduce cost",
+            "Isolate sensitive data",
+            "Increase number of tables",
+            "Make backups slower"
+          ],
+          "correctAnswer": "Isolate sensitive data"
+        }
+      ]
     }
   ],
   "emailLog": [
@@ -4510,6 +4876,17 @@
           "theme": {
             "iconBg": "bg-indigo-100",
             "iconColor": "text-indigo-500"
+          }
+        },
+        {
+          "id": "database_&_storage_1761233895411.854",
+          "title": "Database & Storage",
+          "questions": 30,
+          "iconKey": "Lock",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-cyan-100",
+            "iconColor": "text-cyan-500"
           }
         }
       ]
