@@ -2605,6 +2605,372 @@
           "correctAnswer": "Simulate a ransomware incident"
         }
       ]
+    },
+    {
+      "id": "it_infrastructure_1761233836949.582",
+      "name": "IT Infrastructure",
+      "questions": [
+        {
+          "id": 1761233837199.5054,
+          "category": "IT Infrastructure",
+          "question": "Which OS hardening step is required on all servers?",
+          "options": [
+            "Enable SMBv1",
+            "Install Telnet",
+            "Disable SMBv1",
+            "Open all ports"
+          ],
+          "correctAnswer": "Disable SMBv1"
+        },
+        {
+          "id": 1761233837526.0986,
+          "category": "IT Infrastructure",
+          "question": "Centralised monitoring must achieve an SLA of ?",
+          "options": [
+            "95 %",
+            "98 %",
+            "99.9 %",
+            "100 %"
+          ],
+          "correctAnswer": "99.9 %"
+        },
+        {
+          "id": 1761233837533.9202,
+          "category": "IT Infrastructure",
+          "question": "Server‑room physical access is limited to:",
+          "options": [
+            "All IT staff",
+            "Authorized IT engineers",
+            "Facilities only",
+            "Any employee"
+          ],
+          "correctAnswer": "Authorized IT engineers"
+        },
+        {
+          "id": 1761233837585.9612,
+          "category": "IT Infrastructure",
+          "question": "The primary tool for environment monitoring is:",
+          "options": [
+            "Nagios",
+            "Zabbix / PRTG",
+            "Wireshark",
+            "SolarWinds"
+          ],
+          "correctAnswer": "Zabbix / PRTG"
+        },
+        {
+          "id": 1761233837317.0928,
+          "category": "IT Infrastructure",
+          "question": "How often must backup verification be performed?",
+          "options": [
+            "Weekly",
+            "Monthly",
+            "Quarterly",
+            "Annually"
+          ],
+          "correctAnswer": "Monthly"
+        },
+        {
+          "id": 1761233837907.197,
+          "category": "IT Infrastructure",
+          "question": "Which device must be tagged in the Asset Management System?",
+          "options": [
+            "Software licences",
+            "All hardware assets",
+            "Cloud VMs only",
+            "Office furniture"
+          ],
+          "correctAnswer": "All hardware assets"
+        },
+        {
+          "id": 1761233837553.1953,
+          "category": "IT Infrastructure",
+          "question": "What is the minimum environmental monitoring interval for data‑center temperature?",
+          "options": [
+            "Every hour",
+            "Every 15 minutes",
+            "Every 5 minutes",
+            "Real‑time"
+          ],
+          "correctAnswer": "Every 5 minutes"
+        },
+        {
+          "id": 1761233837294.5693,
+          "category": "IT Infrastructure",
+          "question": "Which backup media type is not part of the 3‑2‑1 rule?",
+          "options": [
+            "Disk",
+            "Tape *(allowed)*",
+            "Cloud object storage",
+            "USB flash drive"
+          ],
+          "correctAnswer": "Tape *(allowed)*"
+        },
+        {
+          "id": 1761233837411.5828,
+          "category": "IT Infrastructure",
+          "question": "Who is the owner of the IT Infrastructure policy?",
+          "options": [
+            "CISO",
+            "IT Head",
+            "CIO",
+            "HR Manager"
+          ],
+          "correctAnswer": "IT Head"
+        },
+        {
+          "id": 1761233837888.617,
+          "category": "IT Infrastructure",
+          "question": "Which of the following is not a server‑configuration baseline item?",
+          "options": [
+            "Disable unnecessary services",
+            "Enable host‑based firewall",
+            "Install GUI",
+            "Apply latest patches"
+          ],
+          "correctAnswer": "Install GUI"
+        },
+        {
+          "id": 1761233837780.9458,
+          "category": "IT Infrastructure",
+          "question": "The primary purpose of the UPS in the data centre is to:",
+          "options": [
+            "Increase processing speed",
+            "Provide power continuity",
+            "Store logs",
+            "Generate alerts"
+          ],
+          "correctAnswer": "Provide power continuity"
+        },
+        {
+          "id": 1761233837489.754,
+          "category": "IT Infrastructure",
+          "question": "Which log source is mandatory for infrastructure monitoring?",
+          "options": [
+            "Application logs only",
+            "Syslog from servers",
+            "User chat logs",
+            "Printer usage"
+          ],
+          "correctAnswer": "Syslog from servers"
+        },
+        {
+          "id": 1761233837678.1748,
+          "category": "IT Infrastructure",
+          "question": "Asset inventory must be reconciled how often?",
+          "options": [
+            "Daily",
+            "Weekly",
+            "Quarterly",
+            "Never"
+          ],
+          "correctAnswer": "Quarterly"
+        },
+        {
+          "id": 1761233837873.2825,
+          "category": "IT Infrastructure",
+          "question": "Which of the following is required for a new server commissioning?",
+          "options": [
+            "Owner signed email",
+            "Change request & approval",
+            "Verbal approval",
+            "No documentation"
+          ],
+          "correctAnswer": "Change request & approval"
+        },
+        {
+          "id": 1761233837262.3298,
+          "category": "IT Infrastructure",
+          "question": "Which software license model must be tracked in the Asset system?",
+          "options": [
+            "Open‑source only",
+            "Commercial & open‑source",
+            "Freeware only",
+            "SaaS only"
+          ],
+          "correctAnswer": "Commercial & open‑source"
+        },
+        {
+          "id": 1761233837048.154,
+          "category": "IT Infrastructure",
+          "question": "What is the maximum acceptable server patch delay?",
+          "options": [
+            "30 days",
+            "2 weeks",
+            "60 days",
+            "No limit"
+          ],
+          "correctAnswer": "2 weeks"
+        },
+        {
+          "id": 1761233837310.621,
+          "category": "IT Infrastructure",
+          "question": "Which of these is not part of the “Infrastructure” policy scope?",
+          "options": [
+            "Backup Systems",
+            "HR onboarding",
+            "Server Configuration",
+            "Network Topology"
+          ],
+          "correctAnswer": "HR onboarding"
+        },
+        {
+          "id": 1761233837960.5603,
+          "category": "IT Infrastructure",
+          "question": "Which monitoring metric is used for capacity planning?",
+          "options": [
+            "CPU temperature",
+            "Average CPU utilization",
+            "Number of tickets",
+            "Password change frequency"
+          ],
+          "correctAnswer": "Average CPU utilization"
+        },
+        {
+          "id": 1761233837692.7803,
+          "category": "IT Infrastructure",
+          "question": "What is the minimum retention period for infrastructure logs?",
+          "options": [
+            "30 days",
+            "90 days",
+            "1 year",
+            "5 years"
+          ],
+          "correctAnswer": "1 year"
+        },
+        {
+          "id": 1761233837046.607,
+          "category": "IT Infrastructure",
+          "question": "Which of the following statements is true?",
+          "options": [
+            "All servers may run Windows XP",
+            "All servers must follow OS hardening baseline",
+            "Servers can be left unpatched for 6 months",
+            "No backup is needed for test servers"
+          ],
+          "correctAnswer": "All servers must follow OS hardening baseline"
+        },
+        {
+          "id": 1761233837237.087,
+          "category": "IT Infrastructure",
+          "question": "Who can approve a new hardware purchase exceeding $10 k?",
+          "options": [
+            "IT Support Lead",
+            "IT Head + Finance",
+            "HR Manager",
+            "Legal Head"
+          ],
+          "correctAnswer": "IT Head + Finance"
+        },
+        {
+          "id": 1761233837075.7024,
+          "category": "IT Infrastructure",
+          "question": "Which of these is mandatory before de‑commissioning a server?",
+          "options": [
+            "Delete user accounts",
+            "Secure data wipe",
+            "Change hostname",
+            "Reset BIOS password"
+          ],
+          "correctAnswer": "Secure data wipe"
+        },
+        {
+          "id": 1761233837545.3594,
+          "category": "IT Infrastructure",
+          "question": "The environmental monitoring system must generate alerts for:",
+          "options": [
+            "Low disk space",
+            "Temperature > 30 °C",
+            "High CPU usage",
+            "Low memory"
+          ],
+          "correctAnswer": "Temperature > 30 °C"
+        },
+        {
+          "id": 1761233837013.3499,
+          "category": "IT Infrastructure",
+          "question": "Which tool is recommended for configuration management?",
+          "options": [
+            "Ansible / Puppet / Chef",
+            "Microsoft Word",
+            "Excel",
+            "Outlook"
+          ],
+          "correctAnswer": "Ansible / Puppet / Chef"
+        },
+        {
+          "id": 1761233837605.0942,
+          "category": "IT Infrastructure",
+          "question": "What is the primary purpose of the “Server Room Access Log”?",
+          "options": [
+            "Track IT tickets",
+            "Audit physical entry",
+            "Record software installs",
+            "Monitor network traffic"
+          ],
+          "correctAnswer": "Audit physical entry"
+        },
+        {
+          "id": 1761233837824.9946,
+          "category": "IT Infrastructure",
+          "question": "Which of the following is not a valid backup verification method?",
+          "options": [
+            "Hash comparison",
+            "Manual file open (no checksum)",
+            "Restore a random file",
+            "Verify backup job status"
+          ],
+          "correctAnswer": "Manual file open (no checksum)"
+        },
+        {
+          "id": 1761233837488.459,
+          "category": "IT Infrastructure",
+          "question": "The minimum network bandwidth for the backup window is:",
+          "options": [
+            "10 Mbps",
+            "100 Mbps",
+            "1 Gbps",
+            "No minimum"
+          ],
+          "correctAnswer": "100 Mbps"
+        },
+        {
+          "id": 1761233837973.4663,
+          "category": "IT Infrastructure",
+          "question": "Which of these is required for the “Server Configuration” checklist?",
+          "options": [
+            "Owner’s favorite colour",
+            "OS version & patch level",
+            "Number of staff in the room",
+            "Coffee machine location"
+          ],
+          "correctAnswer": "OS version & patch level"
+        },
+        {
+          "id": 1761233837827.9346,
+          "category": "IT Infrastructure",
+          "question": "Which type of monitoring is emphasized for the IT Infrastructure policy?",
+          "options": [
+            "Social media monitoring",
+            "Performance & availability monitoring",
+            "Employee sentiment monitoring",
+            "Legal compliance monitoring"
+          ],
+          "correctAnswer": "Performance & availability monitoring"
+        },
+        {
+          "id": 1761233837650.4387,
+          "category": "IT Infrastructure",
+          "question": "Which role is responsible for approving a change to the server hardening baseline?",
+          "options": [
+            "Helpdesk Lead",
+            "CIO / IT Head",
+            "HR Manager",
+            "Finance Director"
+          ],
+          "correctAnswer": "CIO / IT Head"
+        }
+      ]
     }
   ],
   "emailLog": [
@@ -3379,6 +3745,17 @@
           "theme": {
             "iconBg": "bg-rose-100",
             "iconColor": "text-rose-500"
+          }
+        },
+        {
+          "id": "it_infrastructure_1761233836949.582",
+          "title": "IT Infrastructure",
+          "questions": 30,
+          "iconKey": "Download",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-emerald-100",
+            "iconColor": "text-emerald-500"
           }
         }
       ]
