@@ -16,7 +16,8 @@
         "operation_exam",
         "legal_exam",
         "data_analyst_exam",
-        "it_developer_policy"
+        "it_developer_policy",
+        "demo_1761237012997"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -31,7 +32,8 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "it_developer_policy"
+        "it_developer_policy",
+        "demo_1761237012997"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -48,7 +50,8 @@
         "it_security_policy",
         "server_exam",
         "it_policy_exam",
-        "operation_exam"
+        "operation_exam",
+        "demo_1761237012997"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -63,7 +66,8 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "it_policy_exam"
+        "it_policy_exam",
+        "demo_1761237012997"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -78,7 +82,8 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "data_analyst_exam"
+        "data_analyst_exam",
+        "demo_1761237012997"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -1409,6 +1414,11 @@
           "correctAnswer": "The visualization could mislead or manipulate the audience's interpretation of the data."
         }
       ]
+    },
+    {
+      "id": "demo_1761237012997",
+      "name": "demo",
+      "questions": []
     }
   ],
   "emailLog": [],
@@ -1940,6 +1950,23 @@
           "theme": {
             "iconBg": "bg-emerald-100",
             "iconColor": "text-emerald-500"
+          }
+        }
+      ]
+    },
+    {
+      "id": "demo_1761237012997",
+      "title": "demo",
+      "modules": [
+        {
+          "id": "demo_1761237012997",
+          "title": "demo",
+          "questions": 0,
+          "iconKey": "Device",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-indigo-100",
+            "iconColor": "text-indigo-500"
           }
         }
       ]
