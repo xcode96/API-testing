@@ -184,6 +184,20 @@
       ],
       "answers": [],
       "moduleProgress": {}
+    },
+    {
+      "id": 1761232601962,
+      "fullName": "1",
+      "username": "1",
+      "password": "1",
+      "trainingStatus": "not-started",
+      "lastScore": null,
+      "role": "user",
+      "assignedExams": [
+        "it_developer_policy"
+      ],
+      "answers": [],
+      "moduleProgress": {}
     }
   ],
   "quizzes": [
@@ -2199,6 +2213,13 @@
     }
   ],
   "emailLog": [
+    {
+      "to": "admin@example.com",
+      "subject": "New User Registered",
+      "body": "A new user has been registered:\n\nName: 1\nUsername: 1\nRole: user\nAssigned Exams: it_developer_policy",
+      "id": 1761232601962,
+      "timestamp": "2025-10-23T15:16:41.962Z"
+    },
     {
       "to": "admin@example.com",
       "subject": "New User Registered",
