@@ -5967,6 +5967,315 @@
           "correctAnswer": "Email security best practices & policy overview"
         }
       ]
+    },
+    {
+      "id": "monitoring_&_logging_1761234093472.576",
+      "name": "Monitoring & Logging",
+      "questions": [
+        {
+          "id": 1761234093994.7607,
+          "category": "Monitoring & Logging",
+          "question": "Log retention minimum is:",
+          "options": [
+            "30 days",
+            "90 days",
+            "1 year"
+          ],
+          "correctAnswer": "1 year"
+        },
+        {
+          "id": 1761234093676.1748,
+          "category": "Monitoring & Logging",
+          "question": "All logs must be forwarded to the SIEM. This is a:",
+          "options": [
+            "Optional",
+            "Mandatory"
+          ],
+          "correctAnswer": "Mandatory"
+        },
+        {
+          "id": 1761234093873.5803,
+          "category": "Monitoring & Logging",
+          "question": "Which must be logged for privileged accounts?",
+          "options": [
+            "Login time only",
+            "All actions, including commands"
+          ],
+          "correctAnswer": "All actions, including commands"
+        },
+        {
+          "id": 1761234094079.7888,
+          "category": "Monitoring & Logging",
+          "question": "Owner of the Monitoring & Logging policy:",
+          "options": [
+            "CIO",
+            "CISO",
+            "HR",
+            "Legal"
+          ],
+          "correctAnswer": "CISO"
+        },
+        {
+          "id": 1761234093891.3462,
+          "category": "Monitoring & Logging",
+          "question": "Which log source is not part of the standard collection?",
+          "options": [
+            "Firewall",
+            "Personal social‑media accounts"
+          ],
+          "correctAnswer": "Personal social‑media accounts"
+        },
+        {
+          "id": 1761234094316.4202,
+          "category": "Monitoring & Logging",
+          "question": "Correlation rules in the SIEM must be updated:",
+          "options": [
+            "Never",
+            "Monthly"
+          ],
+          "correctAnswer": "Monthly"
+        },
+        {
+          "id": 1761234094360.0212,
+          "category": "Monitoring & Logging",
+          "question": "Which must be encrypted in transit?",
+          "options": [
+            "Printed logs",
+            "Log forwarder traffic"
+          ],
+          "correctAnswer": "Log forwarder traffic"
+        },
+        {
+          "id": 1761234093571.3423,
+          "category": "Monitoring & Logging",
+          "question": "Which metric is required for log‑storage capacity planning?",
+          "options": [
+            "Number of coffee mugs",
+            "Log volume growth rate"
+          ],
+          "correctAnswer": "Log volume growth rate"
+        },
+        {
+          "id": 1761234094100.144,
+          "category": "Monitoring & Logging",
+          "question": "What must be performed after a critical security alert?",
+          "options": [
+            "Celebrate",
+            "Create an incident ticket & investigate"
+          ],
+          "correctAnswer": "Create an incident ticket & investigate"
+        },
+        {
+          "id": 1761234093833.3845,
+          "category": "Monitoring & Logging",
+          "question": "What must be included in a log‑analysis report?",
+          "options": [
+            "Favorite emoji",
+            "Timeline, affected assets, severity"
+          ],
+          "correctAnswer": "Timeline, affected assets, severity"
+        },
+        {
+          "id": 1761234094135.8357,
+          "category": "Monitoring & Logging",
+          "question": "Which cannot be a log source?",
+          "options": [
+            "DNS server",
+            "Employee personal phone"
+          ],
+          "correctAnswer": "Employee personal phone"
+        },
+        {
+          "id": 1761234093685.7546,
+          "category": "Monitoring & Logging",
+          "question": "What must be done before decommissioning a log server?",
+          "options": [
+            "Throw away the hardware",
+            "Export and archive logs, verify integrity"
+          ],
+          "correctAnswer": "Export and archive logs, verify integrity"
+        },
+        {
+          "id": 1761234094248.7039,
+          "category": "Monitoring & Logging",
+          "question": "What must be part of the alert‑handling SOP?",
+          "options": [
+            "Coffee break timing",
+            "Triage, assignment, escalation matrix"
+          ],
+          "correctAnswer": "Triage, assignment, escalation matrix"
+        },
+        {
+          "id": 1761234094195.7292,
+          "category": "Monitoring & Logging",
+          "question": "Which must be reviewed quarterly?",
+          "options": [
+            "Office décor",
+            "Correlation rule efficacy"
+          ],
+          "correctAnswer": "Correlation rule efficacy"
+        },
+        {
+          "id": 1761234093804.0676,
+          "category": "Monitoring & Logging",
+          "question": "Which must be logged for VPN connections?",
+          "options": [
+            "Colour of the device",
+            "User, source IP, timestamp, duration"
+          ],
+          "correctAnswer": "User, source IP, timestamp, duration"
+        },
+        {
+          "id": 1761234093643.882,
+          "category": "Monitoring & Logging",
+          "question": "Which must be retained for audit?",
+          "options": [
+            "Number of jokes told",
+            "Full log files for the defined retention period"
+          ],
+          "correctAnswer": "Full log files for the defined retention period"
+        },
+        {
+          "id": 1761234094188.417,
+          "category": "Monitoring & Logging",
+          "question": "What must be performed after a log‑tampering incident?",
+          "options": [
+            "Ignore it",
+            "Forensic analysis & rebuild of missing logs"
+          ],
+          "correctAnswer": "Forensic analysis & rebuild of missing logs"
+        },
+        {
+          "id": 1761234094185.6594,
+          "category": "Monitoring & Logging",
+          "question": "What must be part of the change‑control for a logging component?",
+          "options": [
+            "Favorite colour of the change owner",
+            "Impact assessment, rollback plan"
+          ],
+          "correctAnswer": "Impact assessment, rollback plan"
+        },
+        {
+          "id": 1761234093938.071,
+          "category": "Monitoring & Logging",
+          "question": "What must be included in a daily health‑check of the SIEM?",
+          "options": [
+            "Number of coffee cups",
+            "Ingestion status, storage usage, alert generation"
+          ],
+          "correctAnswer": "Ingestion status, storage usage, alert generation"
+        },
+        {
+          "id": 1761234093611.4749,
+          "category": "Monitoring & Logging",
+          "question": "What must be documented for each log‑source onboarding?",
+          "options": [
+            "Employee’s favourite snack",
+            "Source type, format, collection method, parser version"
+          ],
+          "correctAnswer": "Source type, format, collection method, parser version"
+        },
+        {
+          "id": 1761234094470.678,
+          "category": "Monitoring & Logging",
+          "question": "What must be performed annually?",
+          "options": [
+            "Office party planning",
+            "Policy review & compliance audit"
+          ],
+          "correctAnswer": "Policy review & compliance audit"
+        },
+        {
+          "id": 1761234093731.1665,
+          "category": "Monitoring & Logging",
+          "question": "What must be done when a log‑aggregation server hits 90 % disk usage?",
+          "options": [
+            "Order pizza",
+            "Trigger alert, increase capacity or prune logs"
+          ],
+          "correctAnswer": "Trigger alert, increase capacity or prune logs"
+        },
+        {
+          "id": 1761234093929.4272,
+          "category": "Monitoring & Logging",
+          "question": "What must be logged for cloud‑service API calls?",
+          "options": [
+            "Number of emojis",
+            "Caller, endpoint, request/response, timestamp"
+          ],
+          "correctAnswer": "Caller, endpoint, request/response, timestamp"
+        },
+        {
+          "id": 1761234093782.703,
+          "category": "Monitoring & Logging",
+          "question": "What must be included in the disaster‑recovery plan for logging?",
+          "options": [
+            "Favorite coffee brand",
+            "Off‑site log archive and restoration steps"
+          ],
+          "correctAnswer": "Off‑site log archive and restoration steps"
+        },
+        {
+          "id": 1761234094468.8855,
+          "category": "Monitoring & Logging",
+          "question": "What must be part of the incident‑response timeline?",
+          "options": [
+            "Coffee break",
+            "Detection → Triage → Containment → Eradication → Recovery"
+          ],
+          "correctAnswer": "Detection → Triage → Containment → Eradication → Recovery"
+        },
+        {
+          "id": 1761234093754.7349,
+          "category": "Monitoring & Logging",
+          "question": "What must be verified during a log‑integrity check?",
+          "options": [
+            "Font size of the log file",
+            "Checksum / digital signature"
+          ],
+          "correctAnswer": "Checksum / digital signature"
+        },
+        {
+          "id": 1761234094475.259,
+          "category": "Monitoring & Logging",
+          "question": "What must be performed after a major configuration change to logging?",
+          "options": [
+            "Celebrate",
+            "Validate that logs are still being collected correctly"
+          ],
+          "correctAnswer": "Validate that logs are still being collected correctly"
+        },
+        {
+          "id": 1761234094061.7976,
+          "category": "Monitoring & Logging",
+          "question": "What must be communicated to the steering committee after a significant log‑related breach?",
+          "options": [
+            "Number of coffee mugs lost",
+            "Impact, root cause, remediation actions"
+          ],
+          "correctAnswer": "Impact, root cause, remediation actions"
+        },
+        {
+          "id": 1761234094213.747,
+          "category": "Monitoring & Logging",
+          "question": "What must be part of the security monitoring coverage matrix?",
+          "options": [
+            "Employee favourite colour",
+            "Asset, log source, required controls, monitoring frequency"
+          ],
+          "correctAnswer": "Asset, log source, required controls, monitoring frequency"
+        },
+        {
+          "id": 1761234093567.669,
+          "category": "Monitoring & Logging",
+          "question": "What must be included in training for SOC analysts?",
+          "options": [
+            "How to brew tea",
+            "Log parsing, alert triage, escalation procedures"
+          ],
+          "correctAnswer": "Log parsing, alert triage, escalation procedures"
+        }
+      ]
     }
   ],
   "emailLog": [
@@ -6851,6 +7160,17 @@
           "theme": {
             "iconBg": "bg-red-100",
             "iconColor": "text-red-500"
+          }
+        },
+        {
+          "id": "monitoring_&_logging_1761234093472.576",
+          "title": "Monitoring & Logging",
+          "questions": 30,
+          "iconKey": "DocumentText",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-green-100",
+            "iconColor": "text-green-500"
           }
         }
       ]
