@@ -2912,7 +2912,7 @@
     },
     {
       "id": "it_developer_policy",
-      "title": "IT Developer Policy  demo",
+      "title": "IT Developer Policy",
       "modules": [
         {
           "id": "it_dev_secure_coding",
