@@ -2971,6 +2971,372 @@
           "correctAnswer": "CIO / IT Head"
         }
       ]
+    },
+    {
+      "id": "network_&_firewall_1761233855593.786",
+      "name": "Network & Firewall",
+      "questions": [
+        {
+          "id": 1761233855862.7356,
+          "category": "Network & Firewall",
+          "question": "Which VLAN is dedicated for guest access?",
+          "options": [
+            "Production",
+            "Testing",
+            "Guest",
+            "Admin"
+          ],
+          "correctAnswer": "Guest"
+        },
+        {
+          "id": 1761233855710.5146,
+          "category": "Network & Firewall",
+          "question": "Firewall rule review frequency is:",
+          "options": [
+            "Daily",
+            "Every 3 months",
+            "Annually",
+            "Every 6 months"
+          ],
+          "correctAnswer": "Every 3 months"
+        },
+        {
+          "id": 1761233855645.5532,
+          "category": "Network & Firewall",
+          "question": "VPN authentication must include:",
+          "options": [
+            "Username/password only",
+            "MFA + certificate",
+            "IP‑allow list only",
+            "No authentication"
+          ],
+          "correctAnswer": "MFA + certificate"
+        },
+        {
+          "id": 1761233856350.592,
+          "category": "Network & Firewall",
+          "question": "Split‑tunneling for VPN users is:",
+          "options": [
+            "Allowed for all",
+            "Disabled",
+            "Mandatory",
+            "Optional"
+          ],
+          "correctAnswer": "Disabled"
+        },
+        {
+          "id": 1761233855918.0957,
+          "category": "Network & Firewall",
+          "question": "Which firewall vendor is approved?",
+          "options": [
+            "Juniper",
+            "Palo Alto / Fortinet / Cisco",
+            "Check Point",
+            "SonicWall"
+          ],
+          "correctAnswer": "Palo Alto / Fortinet / Cisco"
+        },
+        {
+          "id": 1761233855702.4648,
+          "category": "Network & Firewall",
+          "question": "IDS/IPS logs must be forwarded to:",
+          "options": [
+            "Local syslog only",
+            "SIEM",
+            "Email inbox",
+            "Cloud storage"
+          ],
+          "correctAnswer": "SIEM"
+        },
+        {
+          "id": 1761233855848.84,
+          "category": "Network & Firewall",
+          "question": "VLAN segregation does NOT include:",
+          "options": [
+            "Production",
+            "Testing",
+            "Finance",
+            "Guest"
+          ],
+          "correctAnswer": "Finance"
+        },
+        {
+          "id": 1761233856218.959,
+          "category": "Network & Firewall",
+          "question": "Which protocol is explicitly prohibited on the corporate LAN?",
+          "options": [
+            "HTTPS",
+            "Telnet",
+            "SSH",
+            "SNMPv3"
+          ],
+          "correctAnswer": "Telnet"
+        },
+        {
+          "id": 1761233855717.9385,
+          "category": "Network & Firewall",
+          "question": "The primary purpose of a DMZ is to:",
+          "options": [
+            "Store backups",
+            "Isolate public‑facing services",
+            "Host internal HR apps",
+            "Provide Wi‑Fi"
+          ],
+          "correctAnswer": "Isolate public‑facing services"
+        },
+        {
+          "id": 1761233856149.5527,
+          "category": "Network & Firewall",
+          "question": "How often must the VPN client software be refreshed?",
+          "options": [
+            "Every year",
+            "Whenever a critical vulnerability is disclosed",
+            "Every 5 years",
+            "Never"
+          ],
+          "correctAnswer": "Whenever a critical vulnerability is disclosed"
+        },
+        {
+          "id": 1761233856241.1543,
+          "category": "Network & Firewall",
+          "question": "Which of the following is a required firewall configuration element?",
+          "options": [
+            "Open all ports for admin",
+            "Least‑privilege rule set",
+            "Default‑allow inbound",
+            "No logging"
+          ],
+          "correctAnswer": "Least‑privilege rule set"
+        },
+        {
+          "id": 1761233856508.5652,
+          "category": "Network & Firewall",
+          "question": "Network monitoring must include which metric?",
+          "options": [
+            "Number of coffee cups consumed",
+            "Latency & packet loss",
+            "Number of HR hires",
+            "Employee satisfaction"
+          ],
+          "correctAnswer": "Latency & packet loss"
+        },
+        {
+          "id": 1761233855903.8718,
+          "category": "Network & Firewall",
+          "question": "Which device is not part of the network security perimeter?",
+          "options": [
+            "Router",
+            "Switch",
+            "Workstation (end‑point)",
+            "Firewall"
+          ],
+          "correctAnswer": "Workstation (end‑point)"
+        },
+        {
+          "id": 1761233856580.6897,
+          "category": "Network & Firewall",
+          "question": "The owner of the Network & Firewall policy is:",
+          "options": [
+            "HR Manager",
+            "IT Head",
+            "Legal Head",
+            "Finance Director"
+          ],
+          "correctAnswer": "IT Head"
+        },
+        {
+          "id": 1761233855730.7039,
+          "category": "Network & Firewall",
+          "question": "Which of the following is mandatory for wireless security?",
+          "options": [
+            "Open SSID",
+            "WPA3‑Enterprise",
+            "WEP",
+            "No encryption"
+          ],
+          "correctAnswer": "WPA3‑Enterprise"
+        },
+        {
+          "id": 1761233856119.493,
+          "category": "Network & Firewall",
+          "question": "When a new branch office is added, which action is required?",
+          "options": [
+            "Send an email to all staff",
+            "Create VLANs and firewall rules",
+            "Order new laptops",
+            "Update HR policy"
+          ],
+          "correctAnswer": "Create VLANs and firewall rules"
+        },
+        {
+          "id": 1761233856292.8506,
+          "category": "Network & Firewall",
+          "question": "Which of the following best describes “defense‑in‑depth”?",
+          "options": [
+            "Single firewall only",
+            "Multiple overlapping controls",
+            "No monitoring",
+            "Rely on users"
+          ],
+          "correctAnswer": "Multiple overlapping controls"
+        },
+        {
+          "id": 1761233855719.5713,
+          "category": "Network & Firewall",
+          "question": "Which of these statements about firewall rule ordering is true?",
+          "options": [
+            "First match is ignored",
+            "First match wins",
+            "Last match wins",
+            "Order does not matter"
+          ],
+          "correctAnswer": "First match wins"
+        },
+        {
+          "id": 1761233856418.4094,
+          "category": "Network & Firewall",
+          "question": "What is the minimum password length for VPN local accounts?",
+          "options": [
+            "4 characters",
+            "6 characters",
+            "8 characters",
+            "12 characters"
+          ],
+          "correctAnswer": "8 characters"
+        },
+        {
+          "id": 1761233855734.482,
+          "category": "Network & Firewall",
+          "question": "Which protocol should be used for secure remote administration?",
+          "options": [
+            "Telnet",
+            "SSH",
+            "FTP",
+            "RDP (unencrypted)"
+          ],
+          "correctAnswer": "SSH"
+        },
+        {
+          "id": 1761233856034.2734,
+          "category": "Network & Firewall",
+          "question": "Which of the following is not a component of the Network policy scope?",
+          "options": [
+            "VPN Access",
+            "Asset tagging",
+            "IDS/IPS",
+            "VLAN Segmentation"
+          ],
+          "correctAnswer": "Asset tagging"
+        },
+        {
+          "id": 1761233856313.8616,
+          "category": "Network & Firewall",
+          "question": "The maximum allowed number of failed VPN login attempts before lockout is:",
+          "options": [
+            "5",
+            "10",
+            "15",
+            "No limit"
+          ],
+          "correctAnswer": "10"
+        },
+        {
+          "id": 1761233856285.5994,
+          "category": "Network & Firewall",
+          "question": "Which of the following must be logged for every firewall change?",
+          "options": [
+            "User’s favourite colour",
+            "Who, what, when, why",
+            "Weather condition",
+            "Stock price"
+          ],
+          "correctAnswer": "Who, what, when, why"
+        },
+        {
+          "id": 1761233856034.8547,
+          "category": "Network & Firewall",
+          "question": "Which of these statements about “Zero‑Trust” is correct?",
+          "options": [
+            "Trust internal network implicitly",
+            "Never trust, always verify",
+            "Only use MFA",
+            "No network segmentation"
+          ],
+          "correctAnswer": "Never trust, always verify"
+        },
+        {
+          "id": 1761233856431.7834,
+          "category": "Network & Firewall",
+          "question": "The primary method to detect lateral movement is:",
+          "options": [
+            "Antivirus",
+            "Network flow analytics",
+            "Disk defragmentation",
+            "Email filtering"
+          ],
+          "correctAnswer": "Network flow analytics"
+        },
+        {
+          "id": 1761233855822.8933,
+          "category": "Network & Firewall",
+          "question": "Which of the following is required before adding a new firewall rule?",
+          "options": [
+            "Management approval only",
+            "Change request + CAB",
+            "Vendor signature",
+            "No documentation"
+          ],
+          "correctAnswer": "Change request + CAB"
+        },
+        {
+          "id": 1761233856023.0015,
+          "category": "Network & Firewall",
+          "question": "Which of these devices must be placed in a management VLAN?",
+          "options": [
+            "Guest Wi‑Fi AP",
+            "Network switches (management IP)",
+            "Printers",
+            "Laptops"
+          ],
+          "correctAnswer": "Network switches (management IP)"
+        },
+        {
+          "id": 1761233855879.897,
+          "category": "Network & Firewall",
+          "question": "What is the minimum retention period for firewall logs?",
+          "options": [
+            "30 days",
+            "1 year",
+            "5 years",
+            "No retention required"
+          ],
+          "correctAnswer": "1 year"
+        },
+        {
+          "id": 1761233855749.68,
+          "category": "Network & Firewall",
+          "question": "Which of the following is an acceptable use of the corporate VPN?",
+          "options": [
+            "Bypassing content filters",
+            "Accessing internal applications remotely",
+            "Streaming movies",
+            "Mining cryptocurrency"
+          ],
+          "correctAnswer": "Accessing internal applications remotely"
+        },
+        {
+          "id": 1761233856261.2607,
+          "category": "Network & Firewall",
+          "question": "Which of the following is not a recommended practice for firewall hardening?",
+          "options": [
+            "Disable unused services",
+            "Enable all inbound ports",
+            "Apply least‑privilege rules",
+            "Keep firmware up‑to‑date"
+          ],
+          "correctAnswer": "Enable all inbound ports"
+        }
+      ]
     }
   ],
   "emailLog": [
@@ -3756,6 +4122,17 @@
           "theme": {
             "iconBg": "bg-emerald-100",
             "iconColor": "text-emerald-500"
+          }
+        },
+        {
+          "id": "network_&_firewall_1761233855593.786",
+          "title": "Network & Firewall",
+          "questions": 30,
+          "iconKey": "AtSymbol",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-amber-100",
+            "iconColor": "text-amber-500"
           }
         }
       ]
