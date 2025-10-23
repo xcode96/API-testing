@@ -19,9 +19,150 @@
         "it_developer_policy",
         "it_company_master_policy_framework_1761236298731"
       ],
-      "answers": [],
+      "answers": [
+        {
+          "questionId": 1761236314206.9807,
+          "questionText": "The policy states that social‑engineering awareness is:",
+          "selectedAnswer": "Mandatory",
+          "correctAnswer": "Mandatory",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236313956.1562,
+          "questionText": "Which must be part of the induction program?",
+          "selectedAnswer": "Acceptable‑Use Policy signing",
+          "correctAnswer": "Acceptable‑Use Policy signing",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236314313.7607,
+          "questionText": "Which must be reviewed annually?",
+          "selectedAnswer": "Training content relevance",
+          "correctAnswer": "Training content relevance",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236314015.9614,
+          "questionText": "Which must be documented after each security‑awareness session?",
+          "selectedAnswer": "Attendance, topics covered, feedback",
+          "correctAnswer": "Attendance, topics covered, feedback",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236314021.4126,
+          "questionText": "Which must be communicated after a major security incident?",
+          "selectedAnswer": "What happened, how to protect oneself, next steps",
+          "correctAnswer": "What happened, how to protect oneself, next steps",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236314018.7424,
+          "questionText": "Which must be part of the developer‑focused training?",
+          "selectedAnswer": "OWASP Top 10, code review process",
+          "correctAnswer": "OWASP Top 10, code review process",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236313622.7659,
+          "questionText": "Which must be included in the remote‑work awareness module?",
+          "selectedAnswer": "Secure home‑network, VPN usage, device hardening",
+          "correctAnswer": "Secure home‑network, VPN usage, device hardening",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236314369.2368,
+          "questionText": "Which must be logged for training attendance?",
+          "selectedAnswer": "Employee ID, date, course title",
+          "correctAnswer": "Employee ID, date, course title",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236313768.5742,
+          "questionText": "Which must be performed after a regulatory change?",
+          "selectedAnswer": "Update training material & schedule refresher",
+          "correctAnswer": "Update training material & schedule refresher",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236314557.7131,
+          "questionText": "Which must be part of the communication plan for new policies?",
+          "selectedAnswer": "Policy summary, impact, required actions",
+          "correctAnswer": "Policy summary, impact, required actions",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236313906.0544,
+          "questionText": "Which must be included in the security‑culture survey?",
+          "selectedAnswer": "Perceived effectiveness of awareness program",
+          "correctAnswer": "Perceived effectiveness of awareness program",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236314278.0005,
+          "questionText": "Which must be done when a user fails a compliance quiz?",
+          "selectedAnswer": "Offer remedial training",
+          "correctAnswer": "Offer remedial training",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236313883.0479,
+          "questionText": "Which must be included in the board‑level security report?",
+          "selectedAnswer": "Training participation rates, incident trends",
+          "correctAnswer": "Training participation rates, incident trends",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236314008.8638,
+          "questionText": "Which must be performed before launching a new SaaS tool?",
+          "selectedAnswer": "User‑access review & security briefing",
+          "correctAnswer": "User‑access review & security briefing",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236313987.7058,
+          "questionText": "Which must be part of the continuous‑learning portal?",
+          "selectedAnswer": "Updated policy documents & e‑learning modules",
+          "correctAnswer": "Updated policy documents & e‑learning modules",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236313592.5728,
+          "questionText": "Which must be reviewed quarterly?",
+          "selectedAnswer": "Effectiveness of phishing simulations",
+          "correctAnswer": "Effectiveness of phishing simulations",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236314176.6501,
+          "questionText": "Which must be included in phishing‑simulation email?",
+          "selectedAnswer": "Realistic lure, clear “phish‑test” header for post‑test",
+          "correctAnswer": "Realistic lure, clear “phish‑test” header for post‑test",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236313798.479,
+          "questionText": "Which must be done after a successful social‑engineering test?",
+          "selectedAnswer": "Update training based on identified gaps",
+          "correctAnswer": "Update training based on identified gaps",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236313776.1604,
+          "questionText": "Which must be documented for external trainer engagements?",
+          "selectedAnswer": "Trainer credentials, agenda, evaluation",
+          "correctAnswer": "Trainer credentials, agenda, evaluation",
+          "isCorrect": true
+        },
+        {
+          "questionId": 1761236314200.5923,
+          "questionText": "Which must be part of the post‑incident awareness communication?",
+          "selectedAnswer": "Lessons learned, preventive steps, resources",
+          "correctAnswer": "Lessons learned, preventive steps, resources",
+          "isCorrect": true
+        }
+      ],
       "moduleProgress": {
-        "training_&_awareness_1761236313560.967": "In Progress"
+        "training_&_awareness_1761236313560.967": "Completed"
       }
     },
     {
