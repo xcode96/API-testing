@@ -10,14 +10,7 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "hr_exam",
-        "it_policy_exam",
-        "server_exam",
-        "operation_exam",
-        "legal_exam",
-        "data_analyst_exam",
-        "it_developer_policy",
-        "demo_1761217489863"
+        "hr_exam"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -32,8 +25,7 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "it_developer_policy",
-        "demo_1761217489863"
+        "it_developer_policy"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -50,8 +42,7 @@
         "it_security_policy",
         "server_exam",
         "it_policy_exam",
-        "operation_exam",
-        "demo_1761217489863"
+        "operation_exam"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -66,8 +57,7 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "it_policy_exam",
-        "demo_1761217489863"
+        "it_policy_exam"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -82,8 +72,7 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "data_analyst_exam",
-        "demo_1761217489863"
+        "data_analyst_exam"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -1416,7 +1405,7 @@
       ]
     },
     {
-      "id": "password_&_account_security_1761216554700",
+      "id": "password_&_account_security_1761221807522",
       "name": "Password & Account Security",
       "questions": [
         {
@@ -1428,7 +1417,7 @@
             "To automatically change your password every month"
           ],
           "correctAnswer": "To add an extra layer of security beyond just a password",
-          "id": 1761216554700,
+          "id": 1761221807522,
           "category": "Password & Account Security"
         },
         {
@@ -1440,7 +1429,7 @@
             "qwertyuiop"
           ],
           "correctAnswer": "R#8k&Zp@w!q2v$J9",
-          "id": 1761216554701,
+          "id": 1761221807523,
           "category": "Password & Account Security"
         },
         {
@@ -1452,13 +1441,13 @@
             "16 characters"
           ],
           "correctAnswer": "12 characters",
-          "id": 1761216554702,
+          "id": 1761221807524,
           "category": "Password & Account Security"
         }
       ]
     },
     {
-      "id": "data_protection_&_handling_1761216554700",
+      "id": "data_protection_&_handling_1761221807522",
       "name": "Data Protection & Handling",
       "questions": [
         {
@@ -1470,7 +1459,7 @@
             "On a USB stick you keep on your desk"
           ],
           "correctAnswer": "In company‑approved cloud storage or network drives",
-          "id": 1761216554703,
+          "id": 1761221807525,
           "category": "Data Protection & Handling"
         },
         {
@@ -1482,7 +1471,7 @@
             "Encrypt your entire hard drive"
           ],
           "correctAnswer": "Understand the sensitivity of data and how to handle it",
-          "id": 1761216554704,
+          "id": 1761221807526,
           "category": "Data Protection & Handling"
         },
         {
@@ -1494,13 +1483,13 @@
             "Burn it in an open fire"
           ],
           "correctAnswer": "Shred it before disposal",
-          "id": 1761216554705,
+          "id": 1761221807527,
           "category": "Data Protection & Handling"
         }
       ]
     },
     {
-      "id": "email_&_phishing_1761216554700",
+      "id": "email_&_phishing_1761221807522",
       "name": "Email & Phishing",
       "questions": [
         {
@@ -1512,7 +1501,7 @@
             "Reply to ask if the sender is legitimate"
           ],
           "correctAnswer": "Ignore and delete the email without clicking the link",
-          "id": 1761216554706,
+          "id": 1761221807528,
           "category": "Email & Phishing"
         },
         {
@@ -1524,7 +1513,7 @@
             "An email with a professional signature"
           ],
           "correctAnswer": "A misspelled sender domain",
-          "id": 1761216554707,
+          "id": 1761221807529,
           "category": "Email & Phishing"
         },
         {
@@ -1536,7 +1525,7 @@
             "Save it for later review"
           ],
           "correctAnswer": "Forward it to the IT/security team for analysis",
-          "id": 1761216554708,
+          "id": 1761221807530,
           "category": "Email & Phishing"
         },
         {
@@ -1548,13 +1537,13 @@
             "Because the message is encrypted"
           ],
           "correctAnswer": "Because email protocols separate the visible name from the actual sending address",
-          "id": 1761216554709,
+          "id": 1761221807531,
           "category": "Email & Phishing"
         }
       ]
     },
     {
-      "id": "device_&_internet_usage_1761216554700",
+      "id": "device_&_internet_usage_1761221807522",
       "name": "Device & Internet Usage",
       "questions": [
         {
@@ -1566,7 +1555,7 @@
             "It is always safe if the Wi‑Fi has a password"
           ],
           "correctAnswer": "Attackers on the same network can intercept your data",
-          "id": 1761216554710,
+          "id": 1761221807532,
           "category": "Device & Internet Usage"
         },
         {
@@ -1578,7 +1567,7 @@
             "Use it without any security controls"
           ],
           "correctAnswer": "Install corporate endpoint security software",
-          "id": 1761216554711,
+          "id": 1761221807533,
           "category": "Device & Internet Usage"
         },
         {
@@ -1590,13 +1579,13 @@
             "Install a browser extension from an unknown source"
           ],
           "correctAnswer": "Connect via a trusted VPN service",
-          "id": 1761216554712,
+          "id": 1761221807534,
           "category": "Device & Internet Usage"
         }
       ]
     },
     {
-      "id": "physical_security_1761216554700",
+      "id": "physical_security_1761221807522",
       "name": "Physical Security",
       "questions": [
         {
@@ -1608,7 +1597,7 @@
             "Forgetting your tasks for the day"
           ],
           "correctAnswer": "Unauthorized access to sensitive information left on a desk",
-          "id": 1761216554713,
+          "id": 1761221807535,
           "category": "Physical Security"
         },
         {
@@ -1620,7 +1609,7 @@
             "Give it to a colleague"
           ],
           "correctAnswer": "Lock it in a cabinet or safe",
-          "id": 1761216554714,
+          "id": 1761221807536,
           "category": "Physical Security"
         },
         {
@@ -1632,13 +1621,13 @@
             "To track work hours"
           ],
           "correctAnswer": "To control physical access to restricted areas",
-          "id": 1761216554715,
+          "id": 1761221807537,
           "category": "Physical Security"
         }
       ]
     },
     {
-      "id": "incident_reporting_1761216554700",
+      "id": "incident_reporting_1761221807522",
       "name": "Incident Reporting",
       "questions": [
         {
@@ -1650,7 +1639,7 @@
             "Restart your computer"
           ],
           "correctAnswer": "Disconnect your computer from the network and report it to IT immediately",
-          "id": 1761216554716,
+          "id": 1761221807538,
           "category": "Incident Reporting"
         },
         {
@@ -1662,7 +1651,7 @@
             "A coworker outside IT"
           ],
           "correctAnswer": "The IT security team",
-          "id": 1761216554717,
+          "id": 1761221807539,
           "category": "Incident Reporting"
         },
         {
@@ -1674,13 +1663,13 @@
             "At the end of the month"
           ],
           "correctAnswer": "As soon as it is discovered",
-          "id": 1761216554718,
+          "id": 1761221807540,
           "category": "Incident Reporting"
         }
       ]
     },
     {
-      "id": "social_engineering_1761216554700",
+      "id": "social_engineering_1761221807522",
       "name": "Social Engineering",
       "questions": [
         {
@@ -1692,7 +1681,7 @@
             "Give them a temporary password"
           ],
           "correctAnswer": "Refuse the request and report the call to the official IT department using a known number",
-          "id": 1761216554719,
+          "id": 1761221807541,
           "category": "Social Engineering"
         },
         {
@@ -1704,7 +1693,7 @@
             "Scheduling meetings"
           ],
           "correctAnswer": "Impersonating a trusted authority figure to obtain information",
-          "id": 1761216554720,
+          "id": 1761221807542,
           "category": "Social Engineering"
         },
         {
@@ -1716,13 +1705,13 @@
             "A caller informs you about a weather forecast"
           ],
           "correctAnswer": "A caller requests your login credentials over the phone",
-          "id": 1761216554721,
+          "id": 1761221807543,
           "category": "Social Engineering"
         }
       ]
     },
     {
-      "id": "acceptable_use_&_compliance_1761216554700",
+      "id": "acceptable_use_&_compliance_1761221807522",
       "name": "Acceptable Use & Compliance",
       "questions": [
         {
@@ -1734,7 +1723,7 @@
             "Yes, it is more secure than a personal email"
           ],
           "correctAnswer": "No, company resources should be used for business purposes only",
-          "id": 1761216554722,
+          "id": 1761221807544,
           "category": "Acceptable Use & Compliance"
         },
         {
@@ -1746,7 +1735,7 @@
             "Attending a virtual meeting"
           ],
           "correctAnswer": "Installing unauthorized software on a work computer",
-          "id": 1761216554723,
+          "id": 1761221807545,
           "category": "Acceptable Use & Compliance"
         },
         {
@@ -1758,13 +1747,13 @@
             "Never; it’s optional"
           ],
           "correctAnswer": "Once a year",
-          "id": 1761216554724,
+          "id": 1761221807546,
           "category": "Acceptable Use & Compliance"
         }
       ]
     },
     {
-      "id": "remote_work_&_byod_1761216554700",
+      "id": "remote_work_&_byod_1761221807522",
       "name": "Remote Work & BYOD",
       "questions": [
         {
@@ -1776,7 +1765,7 @@
             "Having a large monitor"
           ],
           "correctAnswer": "Using a secure Wi‑Fi network with a strong password",
-          "id": 1761216554725,
+          "id": 1761221807547,
           "category": "Remote Work & BYOD"
         },
         {
@@ -1788,7 +1777,7 @@
             "A tablet with encrypted storage"
           ],
           "correctAnswer": "A personal smartphone without MDM",
-          "id": 1761216554726,
+          "id": 1761221807548,
           "category": "Remote Work & BYOD"
         },
         {
@@ -1800,13 +1789,13 @@
             "Share device credentials with coworkers"
           ],
           "correctAnswer": "Enforce device encryption and password protection",
-          "id": 1761216554727,
+          "id": 1761221807549,
           "category": "Remote Work & BYOD"
         }
       ]
     },
     {
-      "id": "backup_&_recovery_1761216554700",
+      "id": "backup_&_recovery_1761221807522",
       "name": "Backup & Recovery",
       "questions": [
         {
@@ -1818,7 +1807,7 @@
             "To make files easier to search"
           ],
           "correctAnswer": "To ensure data can be recovered in case of loss or corruption",
-          "id": 1761216554728,
+          "id": 1761221807550,
           "category": "Backup & Recovery"
         },
         {
@@ -1830,7 +1819,7 @@
             "In a public folder on the network"
           ],
           "correctAnswer": "Off‑site or in a cloud service with versioning",
-          "id": 1761216554729,
+          "id": 1761221807551,
           "category": "Backup & Recovery"
         },
         {
@@ -1842,13 +1831,13 @@
             "Whenever you feel like it"
           ],
           "correctAnswer": "Daily or more frequently depending on change rate",
-          "id": 1761216554730,
+          "id": 1761221807552,
           "category": "Backup & Recovery"
         }
       ]
     },
     {
-      "id": "server_hardening_1761216554700",
+      "id": "server_hardening_1761221807522",
       "name": "Server Hardening",
       "questions": [
         {
@@ -1860,7 +1849,7 @@
             "To make the OS look cleaner"
           ],
           "correctAnswer": "To reduce the attack surface",
-          "id": 1761216554731,
+          "id": 1761221807553,
           "category": "Server Hardening"
         },
         {
@@ -1872,7 +1861,7 @@
             "Disabling all firewall rules"
           ],
           "correctAnswer": "Restricting network access to trusted IP ranges and using strong authentication",
-          "id": 1761216554732,
+          "id": 1761221807554,
           "category": "Server Hardening"
         },
         {
@@ -1884,7 +1873,7 @@
             "Amount of RAM used"
           ],
           "correctAnswer": "Changes to critical system files or configuration files that could indicate tampering",
-          "id": 1761216554733,
+          "id": 1761221807555,
           "category": "Server Hardening"
         },
         {
@@ -1896,13 +1885,13 @@
             "Disable all encryption"
           ],
           "correctAnswer": "PermitRootLogin no and use key‑based authentication only",
-          "id": 1761216554734,
+          "id": 1761221807556,
           "category": "Server Hardening"
         }
       ]
     },
     {
-      "id": "patch_management_1761216554700",
+      "id": "patch_management_1761221807522",
       "name": "Patch Management",
       "questions": [
         {
@@ -1914,7 +1903,7 @@
             "Never, patches are optional"
           ],
           "correctAnswer": "Within 72 hours after testing and approval",
-          "id": 1761216554735,
+          "id": 1761221807557,
           "category": "Patch Management"
         },
         {
@@ -1926,7 +1915,7 @@
             "The cleaning crew"
           ],
           "correctAnswer": "The change advisory board (CAB)",
-          "id": 1761216554736,
+          "id": 1761221807558,
           "category": "Patch Management"
         },
         {
@@ -1938,13 +1927,13 @@
             "Slack"
           ],
           "correctAnswer": "WSUS (Windows Server Update Services)",
-          "id": 1761216554737,
+          "id": 1761221807559,
           "category": "Patch Management"
         }
       ]
     },
     {
-      "id": "access_control_&_iam_1761216554701",
+      "id": "access_control_&_iam_1761221807522",
       "name": "Access Control & IAM",
       "questions": [
         {
@@ -1956,7 +1945,7 @@
             "Disabling all user accounts"
           ],
           "correctAnswer": "Limiting each account to only the permissions needed to perform its job",
-          "id": 1761216554739,
+          "id": 1761221807560,
           "category": "Access Control & IAM"
         },
         {
@@ -1968,7 +1957,7 @@
             "Encrypting all files automatically"
           ],
           "correctAnswer": "Assigning permissions based on a user’s job role rather than each individual account",
-          "id": 1761216554740,
+          "id": 1761221807561,
           "category": "Access Control & IAM"
         },
         {
@@ -1980,13 +1969,13 @@
             "Only if the user requests it"
           ],
           "correctAnswer": "Yes, MFA must be enabled for any privileged access",
-          "id": 1761216554741,
+          "id": 1761221807562,
           "category": "Access Control & IAM"
         }
       ]
     },
     {
-      "id": "monitoring_&_logging_1761216554701",
+      "id": "monitoring_&_logging_1761221807522",
       "name": "Monitoring & Logging",
       "questions": [
         {
@@ -1998,7 +1987,7 @@
             "Sent to a public forum"
           ],
           "correctAnswer": "In a centralized Security Information and Event Management (SIEM) system",
-          "id": 1761216554742,
+          "id": 1761221807563,
           "category": "Monitoring & Logging"
         },
         {
@@ -2010,7 +1999,7 @@
             "5 years"
           ],
           "correctAnswer": "90 days",
-          "id": 1761216554743,
+          "id": 1761221807564,
           "category": "Monitoring & Logging"
         },
         {
@@ -2022,13 +2011,13 @@
             "1 hour"
           ],
           "correctAnswer": "10 minutes",
-          "id": 1761216554744,
+          "id": 1761221807565,
           "category": "Monitoring & Logging"
         }
       ]
     },
     {
-      "id": "encryption_1761216554701",
+      "id": "encryption_1761221807522",
       "name": "Encryption",
       "questions": [
         {
@@ -2040,7 +2029,7 @@
             "Telnet"
           ],
           "correctAnswer": "TLS 1.2 or higher",
-          "id": 1761216554745,
+          "id": 1761221807566,
           "category": "Encryption"
         },
         {
@@ -2052,7 +2041,7 @@
             "AES‑256‑CBC only for individual files"
           ],
           "correctAnswer": "BitLocker",
-          "id": 1761216554746,
+          "id": 1761221807567,
           "category": "Encryption"
         },
         {
@@ -2064,13 +2053,13 @@
             "On a sticky note attached to the monitor"
           ],
           "correctAnswer": "In a dedicated secret‑management solution (e.g., HashiCorp Vault, Azure Key Vault)",
-          "id": 1761216554747,
+          "id": 1761221807568,
           "category": "Encryption"
         }
       ]
     },
     {
-      "id": "disaster_recovery_&_business_continuity_1761216554701",
+      "id": "disaster_recovery_&_business_continuity_1761221807522",
       "name": "Disaster Recovery & Business Continuity",
       "questions": [
         {
@@ -2082,7 +2071,7 @@
             "The number of backups retained"
           ],
           "correctAnswer": "The maximum acceptable downtime after a disruption",
-          "id": 1761216554748,
+          "id": 1761221807569,
           "category": "Disaster Recovery & Business Continuity"
         },
         {
@@ -2094,7 +2083,7 @@
             "In a public park"
           ],
           "correctAnswer": "Geographically distant enough to avoid the same regional disaster",
-          "id": 1761216554749,
+          "id": 1761221807570,
           "category": "Disaster Recovery & Business Continuity"
         },
         {
@@ -2106,26 +2095,8 @@
             "Never"
           ],
           "correctAnswer": "Semi‑annually",
-          "id": 1761216554750,
+          "id": 1761221807571,
           "category": "Disaster Recovery & Business Continuity"
-        }
-      ]
-    },
-    {
-      "id": "demo_1761217489863",
-      "name": "Demo",
-      "questions": [
-        {
-          "question": "training-data.json",
-          "options": [
-            "training-data.json",
-            "training-data.json",
-            "training-data.json",
-            "training-data.json"
-          ],
-          "correctAnswer": "training-data.json",
-          "id": 1761217513394,
-          "category": "Demo"
         }
       ]
     }
@@ -2446,7 +2417,7 @@
           }
         },
         {
-          "id": "password_&_account_security_1761216554700",
+          "id": "password_&_account_security_1761221807522",
           "title": "Password & Account Security",
           "questions": 3,
           "iconKey": "Device",
@@ -2457,7 +2428,7 @@
           }
         },
         {
-          "id": "data_protection_&_handling_1761216554700",
+          "id": "data_protection_&_handling_1761221807522",
           "title": "Data Protection & Handling",
           "questions": 3,
           "iconKey": "Lock",
@@ -2468,7 +2439,7 @@
           }
         },
         {
-          "id": "email_&_phishing_1761216554700",
+          "id": "email_&_phishing_1761221807522",
           "title": "Email & Phishing",
           "questions": 4,
           "iconKey": "Warning",
@@ -2479,7 +2450,7 @@
           }
         },
         {
-          "id": "device_&_internet_usage_1761216554700",
+          "id": "device_&_internet_usage_1761221807522",
           "title": "Device & Internet Usage",
           "questions": 3,
           "iconKey": "ChatBubble",
@@ -2490,7 +2461,7 @@
           }
         },
         {
-          "id": "physical_security_1761216554700",
+          "id": "physical_security_1761221807522",
           "title": "Physical Security",
           "questions": 3,
           "iconKey": "Check",
@@ -2501,7 +2472,7 @@
           }
         },
         {
-          "id": "incident_reporting_1761216554700",
+          "id": "incident_reporting_1761221807522",
           "title": "Incident Reporting",
           "questions": 3,
           "iconKey": "Home",
@@ -2512,7 +2483,7 @@
           }
         },
         {
-          "id": "social_engineering_1761216554700",
+          "id": "social_engineering_1761221807522",
           "title": "Social Engineering",
           "questions": 3,
           "iconKey": "Clock",
@@ -2523,7 +2494,7 @@
           }
         },
         {
-          "id": "acceptable_use_&_compliance_1761216554700",
+          "id": "acceptable_use_&_compliance_1761221807522",
           "title": "Acceptable Use & Compliance",
           "questions": 3,
           "iconKey": "Users",
@@ -2534,7 +2505,7 @@
           }
         },
         {
-          "id": "remote_work_&_byod_1761216554700",
+          "id": "remote_work_&_byod_1761221807522",
           "title": "Remote Work & BYOD",
           "questions": 3,
           "iconKey": "DocumentText",
@@ -2545,7 +2516,7 @@
           }
         },
         {
-          "id": "backup_&_recovery_1761216554700",
+          "id": "backup_&_recovery_1761221807522",
           "title": "Backup & Recovery",
           "questions": 3,
           "iconKey": "Server",
@@ -2556,7 +2527,7 @@
           }
         },
         {
-          "id": "server_hardening_1761216554700",
+          "id": "server_hardening_1761221807522",
           "title": "Server Hardening",
           "questions": 4,
           "iconKey": "Cog",
@@ -2567,7 +2538,7 @@
           }
         },
         {
-          "id": "patch_management_1761216554700",
+          "id": "patch_management_1761221807522",
           "title": "Patch Management",
           "questions": 3,
           "iconKey": "Scale",
@@ -2578,7 +2549,7 @@
           }
         },
         {
-          "id": "access_control_&_iam_1761216554701",
+          "id": "access_control_&_iam_1761221807522",
           "title": "Access Control & IAM",
           "questions": 3,
           "iconKey": "ChartBar",
@@ -2589,7 +2560,7 @@
           }
         },
         {
-          "id": "monitoring_&_logging_1761216554701",
+          "id": "monitoring_&_logging_1761221807522",
           "title": "Monitoring & Logging",
           "questions": 3,
           "iconKey": "Briefcase",
@@ -2600,7 +2571,7 @@
           }
         },
         {
-          "id": "encryption_1761216554701",
+          "id": "encryption_1761221807522",
           "title": "Encryption",
           "questions": 3,
           "iconKey": "ShieldCheck",
@@ -2611,7 +2582,7 @@
           }
         },
         {
-          "id": "disaster_recovery_&_business_continuity_1761216554701",
+          "id": "disaster_recovery_&_business_continuity_1761221807522",
           "title": "Disaster Recovery & Business Continuity",
           "questions": 3,
           "iconKey": "GlobeAlt",
@@ -2852,23 +2823,6 @@
           "theme": {
             "iconBg": "bg-emerald-100",
             "iconColor": "text-emerald-500"
-          }
-        }
-      ]
-    },
-    {
-      "id": "demo_1761217489863",
-      "title": "Demo",
-      "modules": [
-        {
-          "id": "demo_1761217489863",
-          "title": "Demo",
-          "questions": 1,
-          "iconKey": "BuildingOffice2",
-          "status": "Not Started",
-          "theme": {
-            "iconBg": "bg-neutral-100",
-            "iconColor": "text-neutral-500"
           }
         }
       ]
