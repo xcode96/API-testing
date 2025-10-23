@@ -89,69 +89,7 @@
       "moduleProgress": {}
     },
     {
-      "id": 1761205573811,
-      "fullName": "Manibharathi",
-      "username": "mani",
-      "password": "1",
-      "trainingStatus": "in-progress",
-      "lastScore": null,
-      "role": "user",
-      "assignedExams": [
-        "it_developer_policy"
-      ],
-      "answers": [
-        {
-          "questionId": 401,
-          "questionText": "What is the primary purpose of input validation in secure coding?",
-          "selectedAnswer": "To prevent malicious data (e.g., SQL injection, XSS) from being processed.",
-          "correctAnswer": "To prevent malicious data (e.g., SQL injection, XSS) from being processed.",
-          "isCorrect": true
-        },
-        {
-          "questionId": 402,
-          "questionText": "Which of the following is a best practice for handling errors and exceptions securely?",
-          "selectedAnswer": "Use a generic error message for the user and log detailed information on the server-side.",
-          "correctAnswer": "Use a generic error message for the user and log detailed information on the server-side.",
-          "isCorrect": true
-        },
-        {
-          "questionId": 403,
-          "questionText": "What is a common method for authenticating API requests to ensure they come from a legitimate source?",
-          "selectedAnswer": "Using API keys or OAuth 2.0 tokens.",
-          "correctAnswer": "Using API keys or OAuth 2.0 tokens.",
-          "isCorrect": true
-        },
-        {
-          "questionId": 404,
-          "questionText": "To prevent unauthorized users from accessing sensitive data, what security control should be implemented at the API endpoint level?",
-          "selectedAnswer": "Authorization checks to ensure the user has the correct permissions for the requested resource.",
-          "correctAnswer": "Authorization checks to ensure the user has the correct permissions for the requested resource.",
-          "isCorrect": true
-        },
-        {
-          "questionId": 405,
-          "questionText": "What is a primary risk of using outdated third-party libraries in an application?",
-          "selectedAnswer": "The library may contain known security vulnerabilities that can be exploited.",
-          "correctAnswer": "The library may contain known security vulnerabilities that can be exploited.",
-          "isCorrect": true
-        },
-        {
-          "questionId": 406,
-          "questionText": "What is the purpose of a software composition analysis (SCA) tool?",
-          "selectedAnswer": "To format the source code according to style guides.",
-          "correctAnswer": "To automatically identify open-source components in a codebase and their known vulnerabilities.",
-          "isCorrect": false
-        }
-      ],
-      "moduleProgress": {
-        "it_dev_secure_coding": "Completed",
-        "it_dev_api_security": "Completed",
-        "it_dev_dependency_mgmt": "Completed",
-        "it_dev_data_handling": "In Progress"
-      }
-    },
-    {
-      "id": 1761205956276,
+      "id": 1761206142280,
       "fullName": "2",
       "username": "2",
       "password": "2",
@@ -1479,35 +1417,9 @@
           "correctAnswer": "The visualization could mislead or manipulate the audience's interpretation of the data."
         }
       ]
-    },
-    {
-      "id": "drm_1761205918307",
-      "name": "DRM",
-      "questions": [
-        {
-          "category": "DRM",
-          "question": "What is DRM",
-          "options": [
-            "yes",
-            "what",
-            "no",
-            "correct"
-          ],
-          "correctAnswer": "what",
-          "id": 1761205918307
-        }
-      ]
     }
   ],
-  "emailLog": [
-    {
-      "to": "admin@example.com",
-      "subject": "New User Registered",
-      "body": "A new user has been registered:\n\nName: Manibharathi\nUsername: mani\nRole: user\nAssigned Exams: it_developer_policy",
-      "id": 1761205573813,
-      "timestamp": "2025-10-23T07:46:13.813Z"
-    }
-  ],
+  "emailLog": [],
   "settings": {
     "logo": null,
     "companyFullName": "Cyber Security Training Consortium",
