@@ -6,11 +6,6 @@
 // Value: Your GitHub Personal Access Token with 'repo' scope.
 // This keeps your token secure on the server.
 
-// This is an Edge Function for performance
-export const config = {
-  runtime: 'edge',
-};
-
 // Fix: Import Buffer to make it available in the edge runtime.
 import { Buffer } from 'buffer';
 

@@ -1,10 +1,5 @@
 import { kv, DATA_KEY } from './db';
 
-// This is an Edge Function for performance
-export const config = {
-  runtime: 'edge',
-};
-
 export default async function POST(request: Request) {
    if (!kv) {
      return new Response(JSON.stringify({ error: 'KV store is not configured.' }), {

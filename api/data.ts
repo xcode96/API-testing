@@ -2,11 +2,6 @@ import { kv, DATA_KEY } from './db';
 import { Quiz, User, AppSettings, Email } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
 
-// This is an Edge Function for performance
-export const config = {
-  runtime: 'edge',
-};
-
 const initialUsers: User[] = [
   { id: 1, fullName: 'Demo User', username: 'demo', password: 'demo', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'hr_exam', 'it_policy_exam', 'server_exam', 'operation_exam', 'legal_exam', 'data_analyst_exam', 'it_developer_policy'], answers: [], moduleProgress: {} },
   { id: 2, fullName: 'Dev Lead', username: 'dev', password: 'dev', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'it_developer_policy'], answers: [], moduleProgress: {} },
