@@ -6630,6 +6630,212 @@
           "correctAnswer": "Policy compliance status, risk heat‑map, audit results"
         }
       ]
+    },
+    {
+      "id": "training_&_awareness_1761234162173.5217",
+      "name": "Training & Awareness",
+      "questions": [
+        {
+          "id": 1761234163038.9565,
+          "category": "Training & Awareness",
+          "question": "The policy states that social‑engineering awareness is:",
+          "options": [
+            "Optional",
+            "Mandatory"
+          ],
+          "correctAnswer": "Mandatory"
+        },
+        {
+          "id": 1761234162321.4124,
+          "category": "Training & Awareness",
+          "question": "Which must be part of the induction program?",
+          "options": [
+            "Favourite sports team",
+            "Acceptable‑Use Policy signing"
+          ],
+          "correctAnswer": "Acceptable‑Use Policy signing"
+        },
+        {
+          "id": 1761234162501.903,
+          "category": "Training & Awareness",
+          "question": "Which must be reviewed annually?",
+          "options": [
+            "Office décor",
+            "Training content relevance"
+          ],
+          "correctAnswer": "Training content relevance"
+        },
+        {
+          "id": 1761234162549.375,
+          "category": "Training & Awareness",
+          "question": "Which must be documented after each security‑awareness session?",
+          "options": [
+            "Number of snacks",
+            "Attendance, topics covered, feedback"
+          ],
+          "correctAnswer": "Attendance, topics covered, feedback"
+        },
+        {
+          "id": 1761234162971.236,
+          "category": "Training & Awareness",
+          "question": "Which must be communicated after a major security incident?",
+          "options": [
+            "New coffee flavours",
+            "What happened, how to protect oneself, next steps"
+          ],
+          "correctAnswer": "What happened, how to protect oneself, next steps"
+        },
+        {
+          "id": 1761234162389.6646,
+          "category": "Training & Awareness",
+          "question": "Which must be part of the developer‑focused training?",
+          "options": [
+            "How to brew espresso",
+            "OWASP Top 10, code review process"
+          ],
+          "correctAnswer": "OWASP Top 10, code review process"
+        },
+        {
+          "id": 1761234162857.4167,
+          "category": "Training & Awareness",
+          "question": "Which must be included in the remote‑work awareness module?",
+          "options": [
+            "Favourite vacation spots",
+            "Secure home‑network, VPN usage, device hardening"
+          ],
+          "correctAnswer": "Secure home‑network, VPN usage, device hardening"
+        },
+        {
+          "id": 1761234162963.6118,
+          "category": "Training & Awareness",
+          "question": "Which must be logged for training attendance?",
+          "options": [
+            "Number of emojis",
+            "Employee ID, date, course title"
+          ],
+          "correctAnswer": "Employee ID, date, course title"
+        },
+        {
+          "id": 1761234162503.2546,
+          "category": "Training & Awareness",
+          "question": "Which must be performed after a regulatory change?",
+          "options": [
+            "Celebrate",
+            "Update training material & schedule refresher"
+          ],
+          "correctAnswer": "Update training material & schedule refresher"
+        },
+        {
+          "id": 1761234162950.6555,
+          "category": "Training & Awareness",
+          "question": "Which must be part of the communication plan for new policies?",
+          "options": [
+            "Joke of the day",
+            "Policy summary, impact, required actions"
+          ],
+          "correctAnswer": "Policy summary, impact, required actions"
+        },
+        {
+          "id": 1761234162738.1333,
+          "category": "Training & Awareness",
+          "question": "Which must be included in the security‑culture survey?",
+          "options": [
+            "Favourite colour",
+            "Perceived effectiveness of awareness program"
+          ],
+          "correctAnswer": "Perceived effectiveness of awareness program"
+        },
+        {
+          "id": 1761234163121.4639,
+          "category": "Training & Awareness",
+          "question": "Which must be done when a user fails a compliance quiz?",
+          "options": [
+            "Fire them",
+            "Offer remedial training"
+          ],
+          "correctAnswer": "Offer remedial training"
+        },
+        {
+          "id": 1761234162417.7761,
+          "category": "Training & Awareness",
+          "question": "Which must be included in the board‑level security report?",
+          "options": [
+            "Number of coffee cups",
+            "Training participation rates, incident trends"
+          ],
+          "correctAnswer": "Training participation rates, incident trends"
+        },
+        {
+          "id": 1761234162420.6318,
+          "category": "Training & Awareness",
+          "question": "Which must be performed before launching a new SaaS tool?",
+          "options": [
+            "Send a meme",
+            "User‑access review & security briefing"
+          ],
+          "correctAnswer": "User‑access review & security briefing"
+        },
+        {
+          "id": 1761234162795.767,
+          "category": "Training & Awareness",
+          "question": "Which must be part of the continuous‑learning portal?",
+          "options": [
+            "Cat videos",
+            "Updated policy documents & e‑learning modules"
+          ],
+          "correctAnswer": "Updated policy documents & e‑learning modules"
+        },
+        {
+          "id": 1761234162432.9265,
+          "category": "Training & Awareness",
+          "question": "Which must be reviewed quarterly?",
+          "options": [
+            "Office décor",
+            "Effectiveness of phishing simulations"
+          ],
+          "correctAnswer": "Effectiveness of phishing simulations"
+        },
+        {
+          "id": 1761234162350.621,
+          "category": "Training & Awareness",
+          "question": "Which must be included in phishing‑simulation email?",
+          "options": [
+            "Emoji overload",
+            "Realistic lure, clear “phish‑test” header for post‑test"
+          ],
+          "correctAnswer": "Realistic lure, clear “phish‑test” header for post‑test"
+        },
+        {
+          "id": 1761234162273.6934,
+          "category": "Training & Awareness",
+          "question": "Which must be done after a successful social‑engineering test?",
+          "options": [
+            "Throw a party",
+            "Update training based on identified gaps"
+          ],
+          "correctAnswer": "Update training based on identified gaps"
+        },
+        {
+          "id": 1761234162722.4019,
+          "category": "Training & Awareness",
+          "question": "Which must be documented for external trainer engagements?",
+          "options": [
+            "Favourite sport",
+            "Trainer credentials, agenda, evaluation"
+          ],
+          "correctAnswer": "Trainer credentials, agenda, evaluation"
+        },
+        {
+          "id": 1761234162518.217,
+          "category": "Training & Awareness",
+          "question": "Which must be part of the post‑incident awareness communication?",
+          "options": [
+            "New coffee flavours",
+            "Lessons learned, preventive steps, resources"
+          ],
+          "correctAnswer": "Lessons learned, preventive steps, resources"
+        }
+      ]
     }
   ],
   "emailLog": [
@@ -7536,6 +7742,17 @@
           "theme": {
             "iconBg": "bg-yellow-100",
             "iconColor": "text-yellow-500"
+          }
+        },
+        {
+          "id": "training_&_awareness_1761234162173.5217",
+          "title": "Training & Awareness",
+          "questions": 20,
+          "iconKey": "Cog",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-purple-100",
+            "iconColor": "text-purple-500"
           }
         }
       ]
