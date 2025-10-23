@@ -43,7 +43,6 @@ const getInitialData = (): AppData => ({
 // --- End: Duplicated initial data ---
 
 const LOCAL_STORAGE_KEY = 'cyber-security-training-data-local-backup';
-const GITHUB_SETTINGS_KEY = 'github-publish-settings';
 
 
 export const fetchData = async (): Promise<AppData> => {
@@ -110,108 +109,37 @@ export const saveData = async (data: AppData): Promise<void> => {
 // --- GITHUB SYNC LOGIC ---
 
 /**
- * Helper to Base64 encode string content for the GitHub API.
- * In a browser environment, btoa is standard. We use a trick to handle UTF-8 characters.
- */
-const encodeContent = (content: string): string => {
-    return btoa(unescape(encodeURIComponent(content)));
-};
-
-/**
- * Gets the current SHA of the file from GitHub, required for updates.
- */
-const getFileSha = async (owner: string, repo: string, path: string, token: string): Promise<string | undefined> => {
-    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Authorization': `token ${token}`,
-                'Accept': 'application/vnd.github.v3+json',
-            },
-        });
-        if (response.ok) {
-            const data = await response.json();
-            return data.sha;
-        }
-        if (response.status === 404) return undefined; // File doesn't exist, we'll create it.
-        
-        console.error('GitHub API error (getFileSha):', response.status, await response.text());
-        return undefined;
-    } catch (error) {
-        console.error('Failed to fetch file SHA from GitHub:', error);
-        return undefined;
-    }
-};
-
-/**
- * Triggers a client-side sync of application data to a user-configured GitHub repository.
- * The settings (repo, owner, token, etc.) are pulled from localStorage.
+ * Triggers a server-side sync of application data to the configured GitHub repository
+ * by calling the Vercel Edge Function at /api/sync-github.
  * @param data The complete application data object to be saved.
  * @returns A promise that resolves to an object indicating success or failure.
  */
 export const triggerGithubSync = async (data: AppData): Promise<{ success: boolean; error?: string }> => {
-    const settingsStr = localStorage.getItem(GITHUB_SETTINGS_KEY);
-
-    // Silently skip sync if settings are not configured. This is an optional feature.
-    if (!settingsStr) {
-        console.log("GitHub sync skipped: settings not configured.");
-        return { success: true }; // Return success to avoid console errors from the calling useEffect
-    }
-
-    const { owner, repo, path, token } = JSON.parse(settingsStr);
-
-    // Silently skip if settings are incomplete.
-    if (!owner || !repo || !path || !token) {
-        console.error('GitHub sync skipped: settings are incomplete.');
-        return { success: true }; // Return success to avoid console errors
-    }
-
-    console.log("Attempting to trigger client-side GitHub sync...");
-
+    console.log("Attempting to trigger server-side GitHub sync...");
     try {
-        const fileSha = await getFileSha(owner, repo, path, token);
-        const contentToSave = JSON.stringify(data, null, 2);
-        const encodedContent = encodeContent(contentToSave);
-        const commitMessage = `Automated data sync: ${new Date().toISOString()}`;
-        
-        const payload: { message: string; content: string; sha?: string } = {
-            message: commitMessage,
-            content: encodedContent,
-        };
-        if (fileSha) {
-            payload.sha = fileSha;
-        }
-
-        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-        const response = await fetch(url, {
-            method: 'PUT',
+        const response = await fetch('/api/sync-github', {
+            method: 'POST',
             headers: {
-                'Authorization': `token ${token}`,
-                'Accept': 'application/vnd.github.v3+json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(payload),
+            body: JSON.stringify(data),
         });
 
         if (response.ok) {
-            const result = await response.json();
-            console.log('Successfully synced data to GitHub:', result.commit.sha);
-            // No alert on success for a better UX with automatic sync.
+            console.log('Successfully triggered server-side sync.');
             return { success: true };
         } else {
             const errorData = await response.json();
-            const errorMessage = errorData.message || 'An unknown error occurred.';
-            console.error('Failed to sync data to GitHub:', response.status, errorMessage);
-            // Alert user on actual error so they can fix their config.
-            alert(`Failed to publish data to GitHub. Status: ${response.status}.\n\nError: ${errorMessage}\n\nPlease check your settings and Personal Access Token.`);
+            const errorMessage = errorData.error || 'An unknown error occurred during sync.';
+            console.error('Failed to sync data via server:', response.status, errorMessage);
+            // This alert is key to providing feedback to the user, as they requested.
+            alert(`GitHub Sync Error: ${errorMessage}`);
             return { success: false, error: errorMessage };
         }
     } catch (error) {
-        const errorMessage = (error instanceof Error) ? error.message : 'An unknown error occurred.';
-        console.error('Failed to trigger GitHub sync:', error);
-        // Alert user on network/other errors.
-        alert(`An error occurred while trying to publish data to GitHub. Please check the browser console.`);
+        const errorMessage = (error instanceof Error) ? error.message : 'An unknown network error occurred.';
+        console.error('Failed to trigger GitHub sync request:', error);
+        alert(`Could not connect to the sync service. Please check your network connection or the server logs.`);
         return { success: false, error: errorMessage };
     }
 };
