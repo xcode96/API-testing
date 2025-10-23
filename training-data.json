@@ -16,7 +16,8 @@
         "operation_exam",
         "legal_exam",
         "data_analyst_exam",
-        "it_developer_policy"
+        "it_developer_policy",
+        "demo_1761217489863"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -31,7 +32,8 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "it_developer_policy"
+        "it_developer_policy",
+        "demo_1761217489863"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -48,7 +50,8 @@
         "it_security_policy",
         "server_exam",
         "it_policy_exam",
-        "operation_exam"
+        "operation_exam",
+        "demo_1761217489863"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -63,7 +66,8 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "it_policy_exam"
+        "it_policy_exam",
+        "demo_1761217489863"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -78,7 +82,8 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "data_analyst_exam"
+        "data_analyst_exam",
+        "demo_1761217489863"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -2105,6 +2110,11 @@
           "category": "Disaster Recovery & Business Continuity"
         }
       ]
+    },
+    {
+      "id": "demo_1761217489863",
+      "name": "Demo",
+      "questions": []
     }
   ],
   "emailLog": [],
@@ -2829,6 +2839,23 @@
           "theme": {
             "iconBg": "bg-emerald-100",
             "iconColor": "text-emerald-500"
+          }
+        }
+      ]
+    },
+    {
+      "id": "demo_1761217489863",
+      "title": "Demo",
+      "modules": [
+        {
+          "id": "demo_1761217489863",
+          "title": "Demo",
+          "questions": 0,
+          "iconKey": "BuildingOffice2",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-neutral-100",
+            "iconColor": "text-neutral-500"
           }
         }
       ]
