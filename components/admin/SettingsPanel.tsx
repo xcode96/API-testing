@@ -1,13 +1,9 @@
 import React, { useRef } from 'react';
-import { AppSettings, User, Quiz, Email, ModuleCategory } from '../../types';
+import { AppSettings } from '../../types';
 
 interface SettingsPanelProps {
     settings: AppSettings;
     onSettingsChange: React.Dispatch<React.SetStateAction<AppSettings>>;
-    users: User[];
-    quizzes: Quiz[];
-    emailLog: Email[];
-    moduleCategories: ModuleCategory[];
 }
 
 const SignatureUploader: React.FC<{
@@ -112,7 +108,7 @@ const AssetUploader: React.FC<{
 };
 
 
-const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChange, users, quizzes, emailLog, moduleCategories }) => {
+const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChange }) => {
 
     const handleFileUpload = (file: File, type: 'logo' | 'signature1' | 'signature2' | 'certificationSeal') => {
         const reader = new FileReader();
@@ -132,29 +128,6 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
         onSettingsChange(prev => ({ ...prev, [name]: isNumberInput ? parseInt(value) || 0 : value }));
     };
 
-    const handleExportAllData = () => {
-        // Create a new settings object without any github properties for a clean export
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { githubOwner, githubRepo, githubPath, githubPat, ...safeSettings } = settings;
-
-        const dataToExport = {
-            users,
-            quizzes,
-            emailLog,
-            settings: safeSettings,
-            moduleCategories,
-        };
-
-        const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(
-            JSON.stringify(dataToExport, null, 2)
-        )}`;
-        
-        const link = document.createElement("a");
-        link.href = jsonString;
-        link.download = `cyber-training-data-export-${new Date().toISOString().split('T')[0]}.json`;
-        link.click();
-    };
-
     return (
         <>
             <header className="mb-8">
@@ -163,17 +136,9 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
             </header>
             <div className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80">
                 <div className="space-y-6">
-                    <h2 className="text-2xl font-bold text-slate-800">Data Management</h2>
+                     <h2 className="text-2xl font-bold text-slate-800">GitHub Synchronization</h2>
                     <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
-                        <h3 className="font-semibold text-lg text-slate-700 mb-2">Export All Application Data</h3>
-                        <p className="text-sm text-slate-600 mb-4">Download a single JSON file containing all users, quizzes, settings, and logs. This file can be used for backups or migration.</p>
-                        <button onClick={handleExportAllData} className="bg-indigo-500 text-white font-semibold rounded-lg py-2 px-6 hover:bg-indigo-600 transition-colors">
-                            Export All Data
-                        </button>
-                    </div>
-
-                    <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
-                       <h3 className="font-semibold text-lg text-slate-700 mb-4">GitHub Synchronization</h3>
+                       <h3 className="font-semibold text-lg text-slate-700 mb-4">Repository Details</h3>
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-slate-600 mb-1">GitHub Owner / Organization</label>
@@ -186,6 +151,17 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
                             <div>
                                 <label className="block text-sm font-medium text-slate-600 mb-1">File Path in Repository</label>
                                 <input type="text" name="githubPath" value={settings.githubPath || ''} onChange={handleInputChange} placeholder="e.g., training-data.json" className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
+                            </div>
+                             <div>
+                                <label className="block text-sm font-medium text-slate-600 mb-1">Personal Access Token (PAT)</label>
+                                <input 
+                                    type="password" 
+                                    name="githubPat" 
+                                    value={settings.githubPat || ''} 
+                                    onChange={handleInputChange} 
+                                    placeholder="Enter your GitHub PAT" 
+                                    className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
+                                <p className="text-xs text-slate-500 mt-1">Use a fine-grained token with read/write access to the specific repository.</p>
                             </div>
                         </div>
                     </div>

@@ -56,16 +56,12 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onDeleteQuestion,
   onImportFolderStructure,
 }) => {
-  const [questionFilter, setQuestionFilter] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
 
   const handleCreateCategory = (e: React.FormEvent) => {
     e.preventDefault();
     if (newCategoryName.trim()) {
-      const newId = onCreateExamCategory(newCategoryName.trim());
-      if (newId) {
-        setQuestionFilter(newId);
-      }
+      onCreateExamCategory(newCategoryName.trim());
       setNewCategoryName('');
     }
   };
@@ -87,10 +83,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
         return <SettingsPanel 
                     settings={settings} 
                     onSettingsChange={onSettingsChange as React.Dispatch<React.SetStateAction<AppSettings>>}
-                    users={users}
-                    quizzes={quizzes}
-                    emailLog={emailLog}
-                    moduleCategories={moduleCategories}
                 />;
       case 'questions':
         return (
@@ -104,9 +96,11 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
               <div className="lg:col-span-8">
                 <div className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80 h-full">
                   <DataManagement 
-                    quizzes={quizzes} 
+                    users={users}
+                    quizzes={quizzes}
+                    emailLog={emailLog}
+                    settings={settings} 
                     moduleCategories={moduleCategories} 
-                    questionFilter={questionFilter}
                     onEditExamCategory={onEditExamCategory}
                     onDeleteExamCategory={onDeleteExamCategory}
                     onUpdateQuestion={onUpdateQuestion}
@@ -144,7 +138,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                         onAddQuestion={onAddNewQuestion}
                         onAddQuestionToNewCategory={onAddQuestionToNewCategory}
                         onAddQuestionToNewSubTopic={onAddQuestionToNewSubTopic}
-                        activeFilterId={questionFilter}
+                        activeFilterId={null} // Filter is no longer controlled by sidebar
                       />
                   </div>
                 </div>
@@ -162,10 +156,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
       <AdminSidebar 
         onLogout={onLogout} 
         activeView={activeView} 
-        setActiveView={setActiveView} 
-        moduleCategories={moduleCategories}
-        questionFilter={questionFilter}
-        setQuestionFilter={setQuestionFilter} 
+        setActiveView={setActiveView}
       />
       <main className="flex-1 p-6 sm:p-8 md:p-10 overflow-y-auto">
         {renderActiveView()}

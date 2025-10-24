@@ -106,3 +106,25 @@ export const saveData = async (data: AppData): Promise<void> => {
         );
     }
 };
+
+
+export const syncToGithub = async (data: AppData): Promise<{ success: boolean; message: string }> => {
+    try {
+        const response = await fetch('/api/sync-github', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || `Server responded with status: ${response.status}`);
+        }
+
+        return result;
+    } catch (error: any) {
+        console.error('Failed to sync data to GitHub:', error);
+        return { success: false, message: error.message };
+    }
+};
