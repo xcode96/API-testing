@@ -137,12 +137,18 @@ export const fetchFromGitHub = async (config: { owner: string, repo: string, pat
     });
 
     if (!response.ok) {
+        if (response.status === 401) {
+            throw new Error(`GitHub API Error: 401 Unauthorized. Please check if your Personal Access Token is correct, has not expired, and has the required 'repo' scope permissions.`);
+        }
+        if (response.status === 404) {
+            throw new Error(`GitHub API Error: 404 Not Found. Please check if the Owner, Repository, and File Path are correct.`);
+        }
         throw new Error(`GitHub API request failed: ${response.status} ${response.statusText}`);
     }
 
     const responseData = await response.json();
     if (!responseData.content) {
-        throw new Error('File content not found in GitHub API response.');
+        throw new Error('File content not found in GitHub API response. The file might be empty or in a submodule.');
     }
 
     const fileContent = atob(responseData.content);

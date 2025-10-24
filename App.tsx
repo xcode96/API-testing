@@ -454,10 +454,9 @@ function App() {
     setUsers(prev => [...prev, user]);
   };
   
-  const handleSyncFromGitHub = async (): Promise<boolean> => {
+  const handleSyncFromGitHub = async (): Promise<{ success: boolean; error?: string }> => {
     if (!settings?.githubPat || !settings.githubOwner || !settings.githubRepo || !settings.githubPath) {
-        alert("Please configure all GitHub Synchronization settings first.");
-        return false;
+        return { success: false, error: "Please configure all GitHub Synchronization settings first." };
     }
 
     setIsSyncing(true);
@@ -490,12 +489,11 @@ function App() {
         }
         
         setIsSyncing(false);
-        return true;
+        return { success: true };
     } catch (err: any) {
         console.error("Failed to sync from GitHub:", err);
-        setError(`Sync Failed: ${err.message}. Data could not be permanently saved.`);
         setIsSyncing(false);
-        return false;
+        return { success: false, error: err.message };
     }
   };
 

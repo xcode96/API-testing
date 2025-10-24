@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { AppSettings, User, Quiz, Email, ModuleCategory } from '../../types';
-import { AppData } from '../../services/api';
+import { AppData, fetchFromGitHub } from '../../services/api';
 
 interface SettingsPanelProps {
     settings: AppSettings;
@@ -9,7 +9,7 @@ interface SettingsPanelProps {
     quizzes: Quiz[];
     emailLog: Email[];
     moduleCategories: ModuleCategory[];
-    onSyncFromGitHub: () => Promise<boolean>;
+    onSyncFromGitHub: () => Promise<{ success: boolean; error?: string }>;
     onImportAllData: (file: File) => Promise<boolean>;
     isSyncing: boolean;
 }
@@ -118,6 +118,8 @@ const AssetUploader: React.FC<{
 
 const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChange, users, quizzes, emailLog, moduleCategories, onSyncFromGitHub, onImportAllData, isSyncing }) => {
     const [syncStatus, setSyncStatus] = useState<{ message: string; isError: boolean } | null>(null);
+    const [testStatus, setTestStatus] = useState<{ message: string; isError: boolean } | null>(null);
+    const [isTesting, setIsTesting] = useState(false);
     const importAllDataInputRef = useRef<HTMLInputElement>(null);
     const [importStatus, setImportStatus] = useState<{ message: string; isError: boolean } | null>(null);
 
@@ -156,16 +158,40 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
         link.download = `data.json`;
         link.click();
     };
+    
+    const handleTestConnection = async () => {
+        if (!settings.githubPat || !settings.githubOwner || !settings.githubRepo || !settings.githubPath) {
+            setTestStatus({ message: "Please fill in all GitHub fields first.", isError: true });
+            return;
+        }
+        setSyncStatus(null);
+        setTestStatus({ message: "Testing...", isError: false });
+        setIsTesting(true);
+        try {
+            await fetchFromGitHub({
+                owner: settings.githubOwner,
+                repo: settings.githubRepo,
+                path: settings.githubPath,
+                pat: settings.githubPat,
+            });
+            setTestStatus({ message: "Connection successful! Found the data file.", isError: false });
+        } catch (err: any) {
+            setTestStatus({ message: `Test Failed: ${err.message}`, isError: true });
+        } finally {
+            setIsTesting(false);
+        }
+    };
+
 
     const handleSyncClick = async () => {
         setSyncStatus(null);
-        const success = await onSyncFromGitHub();
-        if (success) {
+        setTestStatus(null);
+        const result = await onSyncFromGitHub();
+        if (result.success) {
             setSyncStatus({ message: 'Sync successful! Data has been updated and saved permanently.', isError: false });
         } else {
-            setSyncStatus({ message: 'Sync failed. Check credentials and file path. Data was not saved.', isError: true });
+            setSyncStatus({ message: `Sync Failed: ${result.error || 'An unknown error occurred.'}`, isError: true });
         }
-        setTimeout(() => setSyncStatus(null), 5000);
     };
     
     const handleImportAllClick = () => {
@@ -217,10 +243,20 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
                           <p className="text-xs text-slate-500 mb-4">
                               For security, we recommend using a <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token" target="_blank" rel="noopener noreferrer" className="text-indigo-500 hover:underline">fine-grained PAT</a> with read-only access to your specific repository.
                           </p>
-                          <button onClick={handleSyncClick} disabled={isSyncing} className="w-full sm:w-auto bg-emerald-500 text-white font-semibold rounded-lg py-2 px-6 hover:bg-emerald-600 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex-shrink-0">
+                          <div className="flex flex-wrap items-center gap-4">
+                            <button onClick={handleTestConnection} disabled={isTesting || isSyncing} className="w-full sm:w-auto bg-slate-600 text-white font-semibold rounded-lg py-2 px-6 hover:bg-slate-700 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex-shrink-0">
+                                {isTesting ? 'Testing...' : 'Test Connection'}
+                            </button>
+                            <button onClick={handleSyncClick} disabled={isSyncing || isTesting} className="w-full sm:w-auto bg-emerald-500 text-white font-semibold rounded-lg py-2 px-6 hover:bg-emerald-600 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex-shrink-0">
                                 {isSyncing ? 'Syncing...' : 'Sync from GitHub'}
-                          </button>
-                          {syncStatus && (
+                            </button>
+                          </div>
+                          {testStatus && (
+                              <p className={`mt-3 text-sm font-medium ${testStatus.isError ? 'text-rose-600' : 'text-emerald-600'}`}>
+                                  {testStatus.message}
+                              </p>
+                          )}
+                           {syncStatus && (
                               <p className={`mt-3 text-sm font-medium ${syncStatus.isError ? 'text-rose-600' : 'text-emerald-600'}`}>
                                   {syncStatus.message}
                               </p>

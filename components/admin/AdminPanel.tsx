@@ -32,7 +32,7 @@ interface AdminPanelProps {
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
   onImportFolderStructure: (folderStructure: Record<string, any[]>, targetCategoryId: string) => void;
-  onSyncFromGitHub: () => Promise<boolean>;
+  onSyncFromGitHub: () => Promise<{ success: boolean; error?: string }>;
   onImportAllData: (file: File) => Promise<boolean>;
   isSyncing: boolean;
 }
