@@ -6019,20 +6019,6 @@
     }
   ],
   "emailLog": [],
-  "settings": {
-    "logo": null,
-    "companyFullName": "Cyber Security Training Consortium",
-    "signature1": null,
-    "signature1Name": "Dan Houser",
-    "signature1Title": "Chairperson",
-    "signature2": null,
-    "signature2Name": "Laurie-Anne Bourdain",
-    "signature2Title": "Secretary",
-    "courseName": "Certified Cyber Security Professional",
-    "certificationBodyText": "Having met all of the certification requirements, adoption of the Code of Ethics, and successful performance on the required competency examination, subject to recertification every three years, this individual is entitled to all of the rights and privileges associated with this designation.",
-    "certificationSeal": null,
-    "certificationCycleYears": 3
-  },
   "moduleCategories": [
     {
       "id": "it_security_policy",
@@ -6736,5 +6722,22 @@
         }
       ]
     }
-  ]
+  ],
+  "settings": {
+    "logo": null,
+    "companyFullName": "Cyber Security Training Consortium",
+    "signature1": null,
+    "signature1Name": "Dan Houser",
+    "signature1Title": "Chairperson",
+    "signature2": null,
+    "signature2Name": "Laurie-Anne Bourdain",
+    "signature2Title": "Secretary",
+    "courseName": "Certified Cyber Security Professional",
+    "certificationBodyText": "Having met all of the certification requirements, adoption of the Code of Ethics, and successful performance on the required competency examination, subject to recertification every three years, this individual is entitled to all of the rights and privileges associated with this designation.",
+    "certificationSeal": null,
+    "certificationCycleYears": 3,
+    "githubOwner": "xcode96",
+    "githubRepo": "API-testing",
+    "githubPath": "training-data.json"
+  }
 }
