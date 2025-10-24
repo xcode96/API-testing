@@ -11,10 +11,46 @@ import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
 import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question } from './types';
 import { sendEmail } from './services/emailService';
-import { fetchData, saveData } from './services/api';
+import { fetchData, saveData, AppData } from './services/api';
 
 type View = 'user_login' | 'dashboard' | 'login' | 'admin' | 'report' | 'completion';
 export type AdminView = 'users' | 'questions' | 'notifications' | 'settings';
+
+const reconcileModuleCategories = (quizzes: Quiz[], moduleCategories?: ModuleCategory[]): ModuleCategory[] => {
+    if (moduleCategories && moduleCategories.length > 0) {
+        return moduleCategories;
+    }
+    
+    const quizMap = new Map(quizzes.map(q => [q.id, q]));
+    let syncedModuleCategories = INITIAL_MODULE_CATEGORIES.map(category => ({
+        ...category,
+        modules: category.modules
+            .map(module => ({
+                ...module,
+                questions: quizMap.get(module.id)?.questions.length ?? 0
+            }))
+            .filter(module => quizMap.has(module.id))
+    })).filter(category => category.modules.length > 0);
+
+    const knownModuleIds = new Set(syncedModuleCategories.flatMap(c => c.modules).map(m => m.id));
+    let newModulesAdded = 0;
+
+    quizzes.forEach((quiz) => {
+        if (!knownModuleIds.has(quiz.id)) {
+            const totalModules = knownModuleIds.size + newModulesAdded;
+            const iconKeys = Object.keys(ICONS);
+            const newIconKey = iconKeys[totalModules % iconKeys.length];
+            const newTheme = THEMES[totalModules % THEMES.length];
+            
+            const newModule: Module = { id: quiz.id, title: quiz.name, questions: quiz.questions.length, iconKey: newIconKey, status: ModuleStatus.NotStarted, theme: newTheme };
+            const newCategory: ModuleCategory = { id: quiz.id, title: quiz.name, modules: [newModule] };
+            syncedModuleCategories.push(newCategory);
+            newModulesAdded++;
+        }
+    });
+    return syncedModuleCategories;
+};
+
 
 function App() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
@@ -35,57 +71,7 @@ function App() {
         setUsers(data.users);
         setEmailLog(data.emailLog || []);
         setSettings(data.settings);
-        
-        if (data.moduleCategories && data.moduleCategories.length > 0) {
-            setModuleCategoriesState(data.moduleCategories);
-        } else {
-            // This logic runs if moduleCategories data is missing, to migrate from an older data structure.
-            const quizMap = new Map(data.quizzes.map(q => [q.id, q]));
-            
-            // 1. Rebuild categories from the initial constant, but only include modules for quizzes that actually exist.
-            let syncedModuleCategories = INITIAL_MODULE_CATEGORIES.map(category => ({
-                ...category,
-                modules: category.modules
-                    // Update question count from live quiz data
-                    .map(module => ({
-                        ...module,
-                        questions: quizMap.get(module.id)?.questions.length ?? 0
-                    }))
-                    // Filter out modules whose corresponding quiz has been deleted
-                    .filter(module => quizMap.has(module.id))
-            })).filter(category => category.modules.length > 0); // Remove any categories that became empty
-
-            // 2. Identify quizzes that are not part of any category yet.
-            const knownModuleIds = new Set(syncedModuleCategories.flatMap(c => c.modules).map(m => m.id));
-            let newModulesAdded = 0;
-
-            // 3. Create a new category for each "orphan" quiz.
-            data.quizzes.forEach((quiz) => {
-                if (!knownModuleIds.has(quiz.id)) {
-                    const totalModules = knownModuleIds.size + newModulesAdded;
-                    const iconKeys = Object.keys(ICONS);
-                    const newIconKey = iconKeys[totalModules % iconKeys.length];
-                    const newTheme = THEMES[totalModules % THEMES.length];
-                    
-                    const newModule: Module = {
-                        id: quiz.id,
-                        title: quiz.name,
-                        questions: quiz.questions.length,
-                        iconKey: newIconKey,
-                        status: ModuleStatus.NotStarted,
-                        theme: newTheme,
-                    };
-                    const newCategory: ModuleCategory = {
-                        id: quiz.id, // Consistent with how new categories are created elsewhere
-                        title: quiz.name,
-                        modules: [newModule],
-                    };
-                    syncedModuleCategories.push(newCategory);
-                    newModulesAdded++;
-                }
-            });
-            setModuleCategoriesState(syncedModuleCategories);
-        }
+        setModuleCategoriesState(reconcileModuleCategories(data.quizzes, data.moduleCategories));
       })
       .catch(err => {
         console.error(err);
@@ -143,6 +129,16 @@ function App() {
     setActiveQuizId(null);
   };
   
+  const handleForceSync = (syncedData: AppData) => {
+    setQuizzes(syncedData.quizzes);
+    setUsers(syncedData.users);
+    setEmailLog(syncedData.emailLog || []);
+    setSettings(syncedData.settings);
+    setModuleCategoriesState(reconcileModuleCategories(syncedData.quizzes, syncedData.moduleCategories));
+    
+    alert("Sync successful! The application has been updated with the latest data from your GitHub repository.");
+  };
+
   const handleCreateExamCategory = (title: string): string | undefined => {
     const newId = title.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
     if (quizzes.some(q => q.name.toLowerCase() === title.toLowerCase()) || moduleCategoriesState.some(c => c.id === newId)) {
@@ -535,6 +531,7 @@ function App() {
             onUpdateQuestion={handleUpdateQuestion}
             onDeleteQuestion={handleDeleteQuestion}
             onImportFolderStructure={handleImportFolderStructure}
+            onForceSync={handleForceSync}
           />
         );
       case 'report':

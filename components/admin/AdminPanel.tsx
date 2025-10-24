@@ -7,6 +7,7 @@ import UserManagement from './UserManagement';
 import NotificationLog from './NotificationLog';
 import SettingsPanel from './SettingsPanel';
 import QuestionForm from './QuestionForm';
+import { AppData } from '../../services/api';
 
 
 interface AdminPanelProps {
@@ -31,6 +32,7 @@ interface AdminPanelProps {
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
   onImportFolderStructure: (folderStructure: Record<string, any[]>, targetCategoryId: string) => void;
+  onForceSync: (data: AppData) => void;
 }
 
 const AdminPanel: React.FC<AdminPanelProps> = ({
@@ -55,13 +57,18 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onUpdateQuestion,
   onDeleteQuestion,
   onImportFolderStructure,
+  onForceSync,
 }) => {
+  const [questionFilter, setQuestionFilter] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
 
   const handleCreateCategory = (e: React.FormEvent) => {
     e.preventDefault();
     if (newCategoryName.trim()) {
-      onCreateExamCategory(newCategoryName.trim());
+      const newId = onCreateExamCategory(newCategoryName.trim());
+      if (newId) {
+        setQuestionFilter(newId);
+      }
       setNewCategoryName('');
     }
   };
@@ -83,6 +90,11 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
         return <SettingsPanel 
                     settings={settings} 
                     onSettingsChange={onSettingsChange as React.Dispatch<React.SetStateAction<AppSettings>>}
+                    users={users}
+                    quizzes={quizzes}
+                    emailLog={emailLog}
+                    moduleCategories={moduleCategories}
+                    onForceSync={onForceSync}
                 />;
       case 'questions':
         return (
@@ -96,11 +108,9 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
               <div className="lg:col-span-8">
                 <div className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80 h-full">
                   <DataManagement 
-                    users={users}
-                    quizzes={quizzes}
-                    emailLog={emailLog}
-                    settings={settings} 
+                    quizzes={quizzes} 
                     moduleCategories={moduleCategories} 
+                    questionFilter={questionFilter}
                     onEditExamCategory={onEditExamCategory}
                     onDeleteExamCategory={onDeleteExamCategory}
                     onUpdateQuestion={onUpdateQuestion}
@@ -138,7 +148,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                         onAddQuestion={onAddNewQuestion}
                         onAddQuestionToNewCategory={onAddQuestionToNewCategory}
                         onAddQuestionToNewSubTopic={onAddQuestionToNewSubTopic}
-                        activeFilterId={null} // Filter is no longer controlled by sidebar
+                        activeFilterId={questionFilter}
                       />
                   </div>
                 </div>
@@ -156,7 +166,10 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
       <AdminSidebar 
         onLogout={onLogout} 
         activeView={activeView} 
-        setActiveView={setActiveView}
+        setActiveView={setActiveView} 
+        moduleCategories={moduleCategories}
+        questionFilter={questionFilter}
+        setQuestionFilter={setQuestionFilter} 
       />
       <main className="flex-1 p-6 sm:p-8 md:p-10 overflow-y-auto">
         {renderActiveView()}

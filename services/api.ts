@@ -48,83 +48,198 @@ const getInitialData = (): AppData => ({
 
 const LOCAL_STORAGE_KEY = 'cyber-security-training-data-local-backup';
 
-export const fetchData = async (): Promise<AppData> => {
-    try {
-        const response = await fetch('/api/data');
-        if (!response.ok) {
-            throw new Error(`API failed with status: ${response.status}`);
-        }
-        const apiData = await response.json() as AppData;
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(apiData));
-        return apiData;
+// --- GitHub API Helpers ---
 
-    } catch (error) {
-        console.warn('API fetch failed, trying local storage.', error);
-        const localDataString = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (localDataString) {
-            try {
-                return JSON.parse(localDataString) as AppData;
-            } catch (e) {
-                console.error('Failed to parse local storage data.', e);
+// FIX: Refactored GitHubFetchResult to a single interface to resolve type-checking issues.
+// This simplifies handling API responses and fixes cascading compilation errors.
+interface GitHubFetchResult {
+    success: boolean;
+    data?: AppData;
+    error?: string;
+}
+
+
+const getGitHubHeaders = (pat: string) => ({
+    'Authorization': `token ${pat}`,
+    'Accept': 'application/vnd.github.v3+json',
+});
+
+export const fetchFromGitHub = async (settings: AppSettings): Promise<GitHubFetchResult> => {
+    const { githubOwner, githubRepo, githubPath, githubPat } = settings;
+    if (!githubOwner || !githubRepo || !githubPath || !githubPat) {
+        return { success: false, error: "GitHub sync settings are incomplete." };
+    }
+
+    const url = `https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}`;
+
+    try {
+        const response = await fetch(url, { 
+            headers: getGitHubHeaders(githubPat),
+            cache: 'no-store'
+        });
+
+        if (!response.ok) {
+            switch (response.status) {
+                case 401:
+                case 403:
+                    return { success: false, error: 'Authentication failed. Please check your Personal Access Token and its permissions (repo > contents: read/write).' };
+                case 404:
+                    return { success: false, error: 'File not found. Please check the Owner, Repo Name, and File Path.' };
+                default:
+                    const errorBody = await response.text();
+                    console.error("GitHub API fetch error:", errorBody);
+                    return { success: false, error: `An unexpected error occurred: ${response.status} ${response.statusText}.` };
             }
         }
         
-        console.log("No valid data source found, returning initial data.");
-        const initialData = getInitialData();
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(initialData));
-        return initialData;
+        const content = await response.json();
+        if (content.content) {
+            const decodedContent = atob(content.content);
+            const data = JSON.parse(decodedContent);
+            console.log("Successfully fetched data from GitHub.");
+            return { success: true, data: data as AppData };
+        }
+        return { success: false, error: 'Connection successful, but file appears empty or is a directory.' };
+    } catch (error) {
+        console.error("Error fetching data from GitHub:", error);
+        return { success: false, error: 'Network error. Could not reach GitHub API. Check internet connection or console for CORS issues.' };
     }
 };
 
+const saveToGitHub = async (data: AppData): Promise<void> => {
+    const { settings } = data;
+    const { githubOwner, githubRepo, githubPath, githubPat } = settings;
+
+    if (!githubOwner || !githubRepo || !githubPath || !githubPat) {
+        return; // Not configured
+    }
+
+    const url = `https://api.github.com/repos/${githubOwner}/${githubRepo}/contents/${githubPath}`;
+
+    try {
+        // 1. Get current file SHA
+        let currentSha: string | undefined;
+        try {
+            const getResponse = await fetch(url, { headers: getGitHubHeaders(githubPat), cache: 'no-store' });
+            if (getResponse.ok) {
+                const fileData = await getResponse.json();
+                currentSha = fileData.sha;
+            } else if (getResponse.status !== 404) {
+                throw new Error(`Failed to get current file SHA: ${getResponse.status}`);
+            }
+        } catch (e) {
+            console.warn("Could not get current file from GitHub. Will attempt to create a new one.", e);
+        }
+
+        // 2. Prepare content for update/creation
+        const contentToSave = JSON.stringify(data, null, 2);
+        const encodedContent = btoa(contentToSave);
+
+        const body: { message: string, content: string, sha?: string } = {
+            message: `[Automated] Update training data from Cyber Security Dashboard`,
+            content: encodedContent,
+        };
+        if (currentSha) {
+            body.sha = currentSha;
+        }
+        
+        // 3. PUT request to update/create file
+        const putResponse = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                ...getGitHubHeaders(githubPat),
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        });
+
+        if (!putResponse.ok) {
+            const errorBody = await putResponse.json();
+            throw new Error(`GitHub API save failed: ${putResponse.status} - ${errorBody.message}`);
+        }
+
+        console.log("Successfully saved data to GitHub.");
+
+    } catch (error) {
+        console.error("Error saving data to GitHub:", error);
+    }
+};
+
+// --- Main Data Functions ---
+
+export const fetchData = async (): Promise<AppData> => {
+    let kvData: AppData | null = null;
+    try {
+        const response = await fetch('/api/data', { cache: 'no-store' });
+        if (!response.ok) {
+            throw new Error(`API failed with status: ${response.status}`);
+        }
+        kvData = await response.json() as AppData;
+        
+        if (kvData?.settings) {
+            const githubResult = await fetchFromGitHub(kvData.settings);
+            if (githubResult.success) {
+                const githubData = githubResult.data;
+                // Sync-back to KV if data differs
+                if (githubData && JSON.stringify(githubData) !== JSON.stringify(kvData)) {
+                    console.log("GitHub data differs from backend. Syncing back...");
+                    // Fire-and-forget update to backend.
+                    fetch('/api/update', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(githubData),
+                    }).catch(err => console.warn("Sync-back to KV failed:", err));
+                }
+                if (githubData) {
+                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(githubData));
+                    return githubData;
+                }
+            }
+        }
+        
+        if (kvData) {
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(kvData));
+            return kvData;
+        }
+
+    } catch (error) {
+        console.warn('API fetch failed, trying local storage.', error);
+    }
+    
+    const localDataString = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (localDataString) {
+        try {
+            return JSON.parse(localDataString) as AppData;
+        } catch (e) {
+            console.error('Failed to parse local storage data.', e);
+        }
+    }
+    
+    console.log("No valid data source found, returning initial data.");
+    const initialData = getInitialData();
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(initialData));
+    return initialData;
+};
+
 export const saveData = async (data: AppData): Promise<void> => {
-    // Always save to local storage immediately for responsiveness and offline capability.
     try {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
     } catch (e) {
         console.error("Failed to save data to local storage", e);
     }
     
-    // Attempt to save to the server in the background.
-    try {
-        const response = await fetch('/api/update', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-
-        if (!response.ok) {
-            // Log server-side error but don't throw, as local save succeeded.
-             const errorText = await response.text();
-             console.error('Failed to save data to the server:', response.status, errorText);
-        }
-    } catch (error) {
+    fetch('/api/update', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    }).catch(error => {
         console.warn(
-            'API save failed. Data is saved locally. This is expected in a local environment without a running Vercel dev server.',
+            'API save failed (KV). Data is saved locally.',
             error
         );
-    }
-};
+    });
 
-
-export const syncToGithub = async (data: AppData): Promise<{ success: boolean; message: string }> => {
-    try {
-        const response = await fetch('/api/sync-github', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        });
-
-        const result = await response.json();
-
-        if (!response.ok) {
-            throw new Error(result.error || `Server responded with status: ${response.status}`);
-        }
-
-        return result;
-    } catch (error: any) {
-        console.error('Failed to sync data to GitHub:', error);
-        return { success: false, message: error.message };
-    }
+    saveToGitHub(data);
 };
