@@ -32,7 +32,10 @@ const defaultSettings: AppSettings = {
   certificationBodyText: 'Having met all of the certification requirements, adoption of the Code of Ethics, and successful performance on the required competency examination, subject to recertification every three years, this individual is entitled to all of the rights and privileges associated with this designation.',
   certificationSeal: null,
   certificationCycleYears: 3,
-  dataSourceUrl: '',
+  githubOwner: '',
+  githubRepo: '',
+  githubPath: 'data.json',
+  githubPat: '',
 };
 
 const getInitialData = (): AppData => ({
@@ -104,23 +107,34 @@ export const saveData = async (data: AppData): Promise<void> => {
     }
 };
 
-export const fetchFromUrl = async (url: string): Promise<AppData> => {
-    if (!url || !url.startsWith('http')) {
-        throw new Error('Invalid or missing Data Source URL.');
-    }
-    
-    const response = await fetch(url, { cache: 'no-store' });
-    
+export const fetchFromGitHub = async (config: { owner: string, repo: string, path: string, pat: string }): Promise<AppData> => {
+    const { owner, repo, path, pat } = config;
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+    const response = await fetch(url, {
+        headers: {
+            'Authorization': `token ${pat}`,
+            'Accept': 'application/vnd.github.v3+json',
+        },
+        cache: 'no-store'
+    });
+
     if (!response.ok) {
-        throw new Error(`Failed to fetch from URL: ${response.status} ${response.statusText}`);
+        throw new Error(`GitHub API request failed: ${response.status} ${response.statusText}`);
     }
-    
-    const data = await response.json();
-    
+
+    const responseData = await response.json();
+    if (!responseData.content) {
+        throw new Error('File content not found in GitHub API response.');
+    }
+
+    const fileContent = atob(responseData.content);
+    const data = JSON.parse(fileContent);
+
     // Basic validation
     if (!data.users || !data.quizzes || !data.settings) {
-        throw new Error('Fetched data is missing required fields (users, quizzes, settings).');
+        throw new Error('Fetched data from GitHub is missing required fields (users, quizzes, settings).');
     }
-    
+
     return data as AppData;
 };

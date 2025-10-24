@@ -14,15 +14,25 @@ This is an interactive dashboard application designed to manage and track cyber 
 
 ## Data Management Workflow
 
-This application uses a database for live data storage. The `training-data.json` file included in the source code is only used to populate the database the very first time the application is run. After that, the application reads from and writes to the database.
+This application uses a database for live data storage. The `data.json` file included in the source code is a template and is only used to populate the database the very first time the application is run. After that, the application reads from and writes to the database.
 
-To manage your training data using a file (e.g., a JSON file in a GitHub repository), please follow this workflow:
+To manage your training data using a file from a GitHub repository, please follow this recommended workflow:
+
+### Recommended: GitHub Synchronization
 
 1.  **Use `data.json`**: The `data.json` file in this project is your primary template. Edit this file to add or modify users, questions, and exam folders.
-2.  **Host Your File**: Upload your modified `data.json` file to a service where it's accessible via a direct URL (like GitHub).
-3.  **Get the "Raw" URL**: If using GitHub, navigate to your file and click the **"Raw"** button to get a direct link. The URL will start with `raw.githubusercontent.com`.
-4.  **Sync the Application**:
+2.  **Host on GitHub**: Upload your modified `data.json` file to a public or private GitHub repository.
+3.  **Create a Personal Access Token (PAT)**: For security, create a [fine-grained Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) that has **read-only** access to the specific repository where your `data.json` file is stored.
+4.  **Configure and Sync**:
     - Go to the **Admin Panel** -> **Settings** -> **Data Management**.
-    - Paste your raw URL into the **"External Data Source Sync"** field.
-    - Click **"Sync Now"**. The application will fetch the data from your URL, permanently save it to the database, and update the live application.
-5.  **Backup Your Data**: You can also use the **"Export All Data"** button on the same settings page to download the current live state of the application into a `data.json` file at any time.
+    - Fill in the fields in the **"GitHub Synchronization"** section:
+        - **GitHub Owner**: Your GitHub username or organization name.
+        - **Repository Name**: The name of the repository.
+        - **Path to file**: The path to your file within the repository (e.g., `data.json` or `config/data.json`).
+        - **Personal Access Token**: Paste the PAT you created.
+    - Click **"Sync from GitHub"**. The application will securely fetch the data from your repository, permanently save it to the database, and update the live application state.
+
+### Manual Backup and Restore
+
+- **Backup**: Use the **"Export All Data"** button on the settings page to download the current live state of the application into a `data.json` file at any time.
+- **Restore**: Use the **"Import from data.json"** button to upload a file and completely overwrite the application's data. **Warning:** This is a destructive action.

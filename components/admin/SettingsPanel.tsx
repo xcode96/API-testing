@@ -9,7 +9,7 @@ interface SettingsPanelProps {
     quizzes: Quiz[];
     emailLog: Email[];
     moduleCategories: ModuleCategory[];
-    onSyncFromUrl: () => Promise<boolean>;
+    onSyncFromGitHub: () => Promise<boolean>;
     onImportAllData: (file: File) => Promise<boolean>;
     isSyncing: boolean;
 }
@@ -116,7 +116,7 @@ const AssetUploader: React.FC<{
 };
 
 
-const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChange, users, quizzes, emailLog, moduleCategories, onSyncFromUrl, onImportAllData, isSyncing }) => {
+const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChange, users, quizzes, emailLog, moduleCategories, onSyncFromGitHub, onImportAllData, isSyncing }) => {
     const [syncStatus, setSyncStatus] = useState<{ message: string; isError: boolean } | null>(null);
     const importAllDataInputRef = useRef<HTMLInputElement>(null);
     const [importStatus, setImportStatus] = useState<{ message: string; isError: boolean } | null>(null);
@@ -159,11 +159,11 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
 
     const handleSyncClick = async () => {
         setSyncStatus(null);
-        const success = await onSyncFromUrl();
+        const success = await onSyncFromGitHub();
         if (success) {
             setSyncStatus({ message: 'Sync successful! Data has been updated and saved permanently.', isError: false });
         } else {
-            setSyncStatus({ message: 'Sync failed. Check the URL and file format. Data was not saved.', isError: true });
+            setSyncStatus({ message: 'Sync failed. Check credentials and file path. Data was not saved.', isError: true });
         }
         setTimeout(() => setSyncStatus(null), 5000);
     };
@@ -204,23 +204,22 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
 
                     <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200 space-y-6">
                         <div>
-                          <h3 className="font-semibold text-lg text-slate-700 mb-2">External Data Source Sync</h3>
+                          <h3 className="font-semibold text-lg text-slate-700 mb-2">GitHub Synchronization</h3>
                           <p className="text-sm text-slate-600 mb-4">
-                              Provide a URL to a raw JSON file (e.g., from GitHub). Clicking "Sync Now" will fetch the latest data from this URL, **permanently save it to the server**, and overwrite the current application data.
+                              Securely sync your application data from a file in a GitHub repository. This will overwrite the current application data and save it permanently.
                           </p>
-                          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                              <input 
-                                  type="url" 
-                                  name="dataSourceUrl" 
-                                  value={settings.dataSourceUrl}
-                                  onChange={handleInputChange}
-                                  placeholder="https://raw.githubusercontent.com/user/repo/main/data.json" 
-                                  className="flex-grow w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" 
-                              />
-                              <button onClick={handleSyncClick} disabled={isSyncing || !settings.dataSourceUrl} className="w-full sm:w-auto bg-emerald-500 text-white font-semibold rounded-lg py-2 px-6 hover:bg-emerald-600 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex-shrink-0">
-                                  {isSyncing ? 'Syncing...' : 'Sync Now'}
-                              </button>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                              <input name="githubOwner" value={settings.githubOwner} onChange={handleInputChange} placeholder="GitHub Owner (e.g., 'google')" className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
+                              <input name="githubRepo" value={settings.githubRepo} onChange={handleInputChange} placeholder="Repository Name" className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
+                              <input name="githubPath" value={settings.githubPath} onChange={handleInputChange} placeholder="Path to file (e.g., 'data.json')" className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
+                              <input type="password" name="githubPat" value={settings.githubPat} onChange={handleInputChange} placeholder="Personal Access Token (PAT)" className="w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" />
                           </div>
+                          <p className="text-xs text-slate-500 mb-4">
+                              For security, we recommend using a <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token" target="_blank" rel="noopener noreferrer" className="text-indigo-500 hover:underline">fine-grained PAT</a> with read-only access to your specific repository.
+                          </p>
+                          <button onClick={handleSyncClick} disabled={isSyncing} className="w-full sm:w-auto bg-emerald-500 text-white font-semibold rounded-lg py-2 px-6 hover:bg-emerald-600 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex-shrink-0">
+                                {isSyncing ? 'Syncing...' : 'Sync from GitHub'}
+                          </button>
                           {syncStatus && (
                               <p className={`mt-3 text-sm font-medium ${syncStatus.isError ? 'text-rose-600' : 'text-emerald-600'}`}>
                                   {syncStatus.message}

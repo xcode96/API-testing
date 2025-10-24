@@ -1,5 +1,3 @@
-
-
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import ModuleList from './components/ModuleList';
@@ -13,7 +11,7 @@ import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
 import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question } from './types';
 import { sendEmail } from './services/emailService';
-import { fetchData, saveData, AppData, fetchFromUrl } from './services/api';
+import { fetchData, saveData, AppData, fetchFromGitHub } from './services/api';
 
 type View = 'user_login' | 'dashboard' | 'login' | 'admin' | 'report' | 'completion';
 export type AdminView = 'users' | 'questions' | 'notifications' | 'settings';
@@ -455,10 +453,10 @@ function App() {
   const handleAddNewUser = (user: User) => {
     setUsers(prev => [...prev, user]);
   };
-
-  const handleSyncFromUrl = async (): Promise<boolean> => {
-    if (!settings?.dataSourceUrl) {
-        alert("Please set a Data Source URL in the settings first.");
+  
+  const handleSyncFromGitHub = async (): Promise<boolean> => {
+    if (!settings?.githubPat || !settings.githubOwner || !settings.githubRepo || !settings.githubPath) {
+        alert("Please configure all GitHub Synchronization settings first.");
         return false;
     }
 
@@ -466,23 +464,23 @@ function App() {
     setError(null);
 
     try {
-        // Step 1: Fetch data from the external source
-        const data = await fetchFromUrl(settings.dataSourceUrl);
+        const data = await fetchFromGitHub({
+            owner: settings.githubOwner,
+            repo: settings.githubRepo,
+            path: settings.githubPath,
+            pat: settings.githubPat,
+        });
         
-        // Step 2: Reconcile the fetched data with current settings
         const reconciledData: AppData = {
             users: data.users,
             quizzes: data.quizzes,
             emailLog: data.emailLog || [],
-            // Preserve the user's currently configured data source URL
-            settings: { ...data.settings, dataSourceUrl: settings.dataSourceUrl },
+            settings: { ...data.settings, ...settings }, // Preserve current GitHub settings
             moduleCategories: reconcileModuleCategories(data.quizzes, data.moduleCategories),
         };
 
-        // Step 3: Save the reconciled data to the persistent backend FIRST
         await saveData(reconciledData);
         
-        // Step 4: Only after a successful save, update the application's state
         setQuizzes(reconciledData.quizzes);
         setUsers(reconciledData.users);
         setEmailLog(reconciledData.emailLog);
@@ -494,13 +492,13 @@ function App() {
         setIsSyncing(false);
         return true;
     } catch (err: any) {
-        console.error("Failed to sync and save from URL:", err);
+        console.error("Failed to sync from GitHub:", err);
         setError(`Sync Failed: ${err.message}. Data could not be permanently saved.`);
         setIsSyncing(false);
         return false;
     }
   };
-  
+
   const handleImportAllData = async (file: File): Promise<boolean> => {
     if (!window.confirm("Are you sure you want to import this file? This will overwrite ALL current data and cannot be undone.")) {
       return false;
@@ -513,7 +511,6 @@ function App() {
       const fileContent = await file.text();
       const data = JSON.parse(fileContent) as AppData;
 
-      // Basic validation
       if (!data.users || !data.quizzes || !data.settings) {
         throw new Error('Imported file is missing required fields (users, quizzes, settings).');
       }
@@ -523,10 +520,8 @@ function App() {
         moduleCategories: reconcileModuleCategories(data.quizzes, data.moduleCategories),
       };
 
-      // Save to backend first
       await saveData(reconciledData);
 
-      // Then update state
       setQuizzes(reconciledData.quizzes);
       setUsers(reconciledData.users);
       setEmailLog(reconciledData.emailLog || []);
@@ -618,7 +613,7 @@ function App() {
                     onUpdateQuestion={handleUpdateQuestion}
                     onDeleteQuestion={handleDeleteQuestion}
                     onImportFolderStructure={handleImportFolderStructure}
-                    onSyncFromUrl={handleSyncFromUrl}
+                    onSyncFromGitHub={handleSyncFromGitHub}
                     onImportAllData={handleImportAllData}
                     isSyncing={isSyncing}
                 />;

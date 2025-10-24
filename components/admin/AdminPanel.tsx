@@ -32,7 +32,7 @@ interface AdminPanelProps {
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
   onImportFolderStructure: (folderStructure: Record<string, any[]>, targetCategoryId: string) => void;
-  onSyncFromUrl: () => Promise<boolean>;
+  onSyncFromGitHub: () => Promise<boolean>;
   onImportAllData: (file: File) => Promise<boolean>;
   isSyncing: boolean;
 }
@@ -59,7 +59,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onUpdateQuestion,
   onDeleteQuestion,
   onImportFolderStructure,
-  onSyncFromUrl,
+  onSyncFromGitHub,
   onImportAllData,
   isSyncing,
 }) => {
@@ -98,7 +98,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                     quizzes={quizzes}
                     emailLog={emailLog}
                     moduleCategories={moduleCategories}
-                    onSyncFromUrl={onSyncFromUrl}
+                    onSyncFromGitHub={onSyncFromGitHub}
                     onImportAllData={onImportAllData}
                     isSyncing={isSyncing}
                 />;
