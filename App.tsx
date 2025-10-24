@@ -95,7 +95,7 @@ function App() {
     saveTimeoutRef.current = window.setTimeout(() => {
       const dataToSave = { users, quizzes, emailLog, settings, moduleCategories: moduleCategoriesState };
       saveData(dataToSave)
-        .catch(err => console.error("Failed to save data:", err));
+        .catch(err => console.error("Failed to auto-save data:", err));
     }, 1000);
 
     return () => {
@@ -465,20 +465,36 @@ function App() {
     setError(null);
 
     try {
+        // Step 1: Fetch data from the external source
         const data = await fetchFromUrl(settings.dataSourceUrl);
         
-        setQuizzes(data.quizzes);
-        setUsers(data.users);
-        setEmailLog(data.emailLog || []);
-        const newSettings = { ...data.settings, dataSourceUrl: settings.dataSourceUrl };
-        setSettings(newSettings);
-        setModuleCategoriesState(reconcileModuleCategories(data.quizzes, data.moduleCategories));
+        // Step 2: Reconcile the fetched data with current settings
+        const reconciledData: AppData = {
+            users: data.users,
+            quizzes: data.quizzes,
+            emailLog: data.emailLog || [],
+            // Preserve the user's currently configured data source URL
+            settings: { ...data.settings, dataSourceUrl: settings.dataSourceUrl },
+            moduleCategories: reconcileModuleCategories(data.quizzes, data.moduleCategories),
+        };
+
+        // Step 3: Save the reconciled data to the persistent backend FIRST
+        await saveData(reconciledData);
+        
+        // Step 4: Only after a successful save, update the application's state
+        setQuizzes(reconciledData.quizzes);
+        setUsers(reconciledData.users);
+        setEmailLog(reconciledData.emailLog);
+        setSettings(reconciledData.settings);
+        if (reconciledData.moduleCategories) {
+            setModuleCategoriesState(reconciledData.moduleCategories);
+        }
         
         setIsSyncing(false);
         return true;
     } catch (err: any) {
-        console.error("Failed to sync from URL:", err);
-        setError(`Sync Failed: ${err.message}`);
+        console.error("Failed to sync and save from URL:", err);
+        setError(`Sync Failed: ${err.message}. Data could not be permanently saved.`);
         setIsSyncing(false);
         return false;
     }

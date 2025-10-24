@@ -157,9 +157,9 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
         setSyncStatus(null);
         const success = await onSyncFromUrl();
         if (success) {
-            setSyncStatus({ message: 'Sync successful! Data has been updated.', isError: false });
+            setSyncStatus({ message: 'Sync successful! Data has been updated and saved permanently.', isError: false });
         } else {
-            setSyncStatus({ message: 'Sync failed. Check the URL and file format.', isError: true });
+            setSyncStatus({ message: 'Sync failed. Check the URL and file format. Data was not saved.', isError: true });
         }
         setTimeout(() => setSyncStatus(null), 5000);
     };
@@ -177,7 +177,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
                     <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
                         <h3 className="font-semibold text-lg text-slate-700 mb-2">External Data Source Sync</h3>
                         <p className="text-sm text-slate-600 mb-4">
-                            Provide a URL to a raw JSON file (e.g., from GitHub) to act as the source of truth. Clicking "Sync Now" will fetch the latest data from this URL, overwriting the current application data.
+                            Provide a URL to a raw JSON file (e.g., from GitHub). Clicking "Sync Now" will fetch the latest data from this URL, **permanently save it to the server**, and overwrite the current application data.
                         </p>
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                             <input 

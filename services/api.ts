@@ -76,24 +76,32 @@ export const fetchData = async (): Promise<AppData> => {
 };
 
 export const saveData = async (data: AppData): Promise<void> => {
+    // Always save to local storage as a backup
     try {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
     } catch (e) {
         console.error("Failed to save data to local storage", e);
     }
     
-    fetch('/api/update', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    }).catch(error => {
-        console.warn(
-            'API save failed (KV). Data is saved locally.',
-            error
-        );
-    });
+    // Attempt to save to the persistent backend. This is the critical part.
+    try {
+        const response = await fetch('/api/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            const errorBody = await response.text();
+            throw new Error(`Server save failed with status ${response.status}: ${errorBody}`);
+        }
+    } catch (error) {
+        console.error('API save failed (KV). Data is saved locally but not permanently.', error);
+        // Re-throw the error so the caller (like the Sync function) knows it failed.
+        throw error;
+    }
 };
 
 export const fetchFromUrl = async (url: string): Promise<AppData> => {
