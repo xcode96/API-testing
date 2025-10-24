@@ -1,4 +1,5 @@
 
+
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import ModuleList from './components/ModuleList';
@@ -500,6 +501,51 @@ function App() {
     }
   };
   
+  const handleImportAllData = async (file: File): Promise<boolean> => {
+    if (!window.confirm("Are you sure you want to import this file? This will overwrite ALL current data and cannot be undone.")) {
+      return false;
+    }
+    
+    setIsSyncing(true); // Reuse syncing state for loading indicator
+    setError(null);
+
+    try {
+      const fileContent = await file.text();
+      const data = JSON.parse(fileContent) as AppData;
+
+      // Basic validation
+      if (!data.users || !data.quizzes || !data.settings) {
+        throw new Error('Imported file is missing required fields (users, quizzes, settings).');
+      }
+
+      const reconciledData: AppData = {
+        ...data,
+        moduleCategories: reconcileModuleCategories(data.quizzes, data.moduleCategories),
+      };
+
+      // Save to backend first
+      await saveData(reconciledData);
+
+      // Then update state
+      setQuizzes(reconciledData.quizzes);
+      setUsers(reconciledData.users);
+      setEmailLog(reconciledData.emailLog || []);
+      setSettings(reconciledData.settings);
+      if (reconciledData.moduleCategories) {
+        setModuleCategoriesState(reconciledData.moduleCategories);
+      }
+
+      setIsSyncing(false);
+      return true;
+    } catch (err: any) {
+      console.error("Failed to import and save data:", err);
+      setError(`Import Failed: ${err.message}. Data was not imported.`);
+      setIsSyncing(false);
+      alert(`Import Failed: ${err.message}. Please check the file and try again.`);
+      return false;
+    }
+  };
+  
   // Memos for dashboard
   const userModuleCategories = useMemo(() => {
     if (!currentUser || currentUser.role === 'admin') return moduleCategoriesState;
@@ -573,6 +619,7 @@ function App() {
                     onDeleteQuestion={handleDeleteQuestion}
                     onImportFolderStructure={handleImportFolderStructure}
                     onSyncFromUrl={handleSyncFromUrl}
+                    onImportAllData={handleImportAllData}
                     isSyncing={isSyncing}
                 />;
       case 'report':

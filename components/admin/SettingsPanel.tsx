@@ -10,6 +10,7 @@ interface SettingsPanelProps {
     emailLog: Email[];
     moduleCategories: ModuleCategory[];
     onSyncFromUrl: () => Promise<boolean>;
+    onImportAllData: (file: File) => Promise<boolean>;
     isSyncing: boolean;
 }
 
@@ -115,8 +116,11 @@ const AssetUploader: React.FC<{
 };
 
 
-const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChange, users, quizzes, emailLog, moduleCategories, onSyncFromUrl, isSyncing }) => {
+const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChange, users, quizzes, emailLog, moduleCategories, onSyncFromUrl, onImportAllData, isSyncing }) => {
     const [syncStatus, setSyncStatus] = useState<{ message: string; isError: boolean } | null>(null);
+    const importAllDataInputRef = useRef<HTMLInputElement>(null);
+    const [importStatus, setImportStatus] = useState<{ message: string; isError: boolean } | null>(null);
+
 
     const handleFileUpload = (file: File, type: 'logo' | 'signature1' | 'signature2' | 'certificationSeal') => {
         const reader = new FileReader();
@@ -164,6 +168,30 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
         setTimeout(() => setSyncStatus(null), 5000);
     };
     
+    const handleImportAllClick = () => {
+        importAllDataInputRef.current?.click();
+    };
+    
+    const handleImportAllFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        setImportStatus(null);
+        const success = await onImportAllData(file);
+
+        if (success) {
+            setImportStatus({ message: 'Import successful! The page will now reload to apply changes.', isError: false });
+            setTimeout(() => window.location.reload(), 2000);
+        } else {
+            setImportStatus({ message: 'Import failed. Please check the console for errors.', isError: true });
+        }
+
+        if (importAllDataInputRef.current) {
+            importAllDataInputRef.current.value = "";
+        }
+        setTimeout(() => setImportStatus(null), 5000);
+    };
+
     return (
         <>
             <header className="mb-8">
@@ -174,37 +202,54 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
                 <div className="space-y-6">
                     <h2 className="text-2xl font-bold text-slate-800">Data Management</h2>
 
-                    <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
-                        <h3 className="font-semibold text-lg text-slate-700 mb-2">External Data Source Sync</h3>
-                        <p className="text-sm text-slate-600 mb-4">
-                            Provide a URL to a raw JSON file (e.g., from GitHub). Clicking "Sync Now" will fetch the latest data from this URL, **permanently save it to the server**, and overwrite the current application data.
-                        </p>
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                            <input 
-                                type="url" 
-                                name="dataSourceUrl" 
-                                value={settings.dataSourceUrl}
-                                onChange={handleInputChange}
-                                placeholder="https://raw.githubusercontent.com/user/repo/main/data.json" 
-                                className="flex-grow w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" 
-                            />
-                            <button onClick={handleSyncClick} disabled={isSyncing || !settings.dataSourceUrl} className="w-full sm:w-auto bg-emerald-500 text-white font-semibold rounded-lg py-2 px-6 hover:bg-emerald-600 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex-shrink-0">
-                                {isSyncing ? 'Syncing...' : 'Sync Now'}
-                            </button>
+                    <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200 space-y-6">
+                        <div>
+                          <h3 className="font-semibold text-lg text-slate-700 mb-2">External Data Source Sync</h3>
+                          <p className="text-sm text-slate-600 mb-4">
+                              Provide a URL to a raw JSON file (e.g., from GitHub). Clicking "Sync Now" will fetch the latest data from this URL, **permanently save it to the server**, and overwrite the current application data.
+                          </p>
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                              <input 
+                                  type="url" 
+                                  name="dataSourceUrl" 
+                                  value={settings.dataSourceUrl}
+                                  onChange={handleInputChange}
+                                  placeholder="https://raw.githubusercontent.com/user/repo/main/data.json" 
+                                  className="flex-grow w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" 
+                              />
+                              <button onClick={handleSyncClick} disabled={isSyncing || !settings.dataSourceUrl} className="w-full sm:w-auto bg-emerald-500 text-white font-semibold rounded-lg py-2 px-6 hover:bg-emerald-600 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex-shrink-0">
+                                  {isSyncing ? 'Syncing...' : 'Sync Now'}
+                              </button>
+                          </div>
+                          {syncStatus && (
+                              <p className={`mt-3 text-sm font-medium ${syncStatus.isError ? 'text-rose-600' : 'text-emerald-600'}`}>
+                                  {syncStatus.message}
+                              </p>
+                          )}
                         </div>
-                        {syncStatus && (
-                            <p className={`mt-3 text-sm font-medium ${syncStatus.isError ? 'text-rose-600' : 'text-emerald-600'}`}>
-                                {syncStatus.message}
+                        <div className="border-t border-slate-200 pt-6">
+                          <h3 className="font-semibold text-lg text-slate-700 mb-2">Export All Application Data</h3>
+                          <p className="text-sm text-slate-600 mb-4">Download a single JSON file containing all users, quizzes, settings, and logs. This file can be used for backups or migration.</p>
+                          <button onClick={handleExportAllData} className="bg-indigo-500 text-white font-semibold rounded-lg py-2 px-6 hover:bg-indigo-600 transition-colors">
+                              Export All Data
+                          </button>
+                        </div>
+                    </div>
+
+                    <div className="bg-rose-100/60 p-6 rounded-xl border border-rose-200">
+                        <input type="file" ref={importAllDataInputRef} onChange={handleImportAllFileSelect} accept=".json" className="hidden" />
+                        <h3 className="font-semibold text-lg text-rose-800 mb-2">Import All Application Data</h3>
+                        <p className="text-sm text-rose-700 mb-4">
+                            <strong className="font-bold">Warning:</strong> This will overwrite all current users, questions, and settings with the content of the selected file. This action cannot be undone.
+                        </p>
+                        <button onClick={handleImportAllClick} disabled={isSyncing} className="bg-rose-500 text-white font-semibold rounded-lg py-2 px-6 hover:bg-rose-600 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed">
+                            {isSyncing ? 'Processing...' : 'Import from data.json'}
+                        </button>
+                        {importStatus && (
+                            <p className={`mt-3 text-sm font-medium ${importStatus.isError ? 'text-rose-600' : 'text-emerald-600'}`}>
+                                {importStatus.message}
                             </p>
                         )}
-                    </div>
-                    
-                    <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
-                        <h3 className="font-semibold text-lg text-slate-700 mb-2">Export All Application Data</h3>
-                        <p className="text-sm text-slate-600 mb-4">Download a single JSON file containing all users, quizzes, settings, and logs. This file can be used for backups or migration.</p>
-                        <button onClick={handleExportAllData} className="bg-indigo-500 text-white font-semibold rounded-lg py-2 px-6 hover:bg-indigo-600 transition-colors">
-                            Export All Data
-                        </button>
                     </div>
 
                     <h2 className="text-2xl font-bold text-slate-800 pt-6 border-t border-slate-200">Certificate Settings</h2>
