@@ -26,10 +26,6 @@ const defaultSettings: AppSettings = {
   certificationBodyText: 'Having met all of the certification requirements, adoption of the Code of Ethics, and successful performance on the required competency examination, subject to recertification every three years, this individual is entitled to all of the rights and privileges associated with this designation.',
   certificationSeal: null,
   certificationCycleYears: 3,
-  githubOwner: 'xcode96',
-  githubRepo: 'API-testing',
-  githubPath: 'training-data.json',
-  githubPat: '',
 };
 
 const getInitialData = () => ({

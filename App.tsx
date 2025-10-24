@@ -129,16 +129,6 @@ function App() {
     setActiveQuizId(null);
   };
   
-  const handleForceSync = (syncedData: AppData) => {
-    setQuizzes(syncedData.quizzes);
-    setUsers(syncedData.users);
-    setEmailLog(syncedData.emailLog || []);
-    setSettings(syncedData.settings);
-    setModuleCategoriesState(reconcileModuleCategories(syncedData.quizzes, syncedData.moduleCategories));
-    
-    alert("Sync successful! The application has been updated with the latest data from your GitHub repository.");
-  };
-
   const handleCreateExamCategory = (title: string): string | undefined => {
     const newId = title.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
     if (quizzes.some(q => q.name.toLowerCase() === title.toLowerCase()) || moduleCategoriesState.some(c => c.id === newId)) {
@@ -264,181 +254,188 @@ function App() {
           const newTheme = THEMES[totalModules % THEMES.length];
           const iconKeys = Object.keys(ICONS);
           const newIconKey = iconKeys[totalModules % iconKeys.length];
-
-          const newModule: Module = {
-              id: newSubTopicId,
-              title: subTopicTitle,
-              questions: 1,
-              iconKey: newIconKey,
-              status: ModuleStatus.NotStarted,
-              theme: newTheme,
-          };
-
+          const newModule: Module = { id: newSubTopicId, title: subTopicTitle, questions: 1, iconKey: newIconKey, status: ModuleStatus.NotStarted, theme: newTheme, subCategory: subTopicTitle };
+          
           setModuleCategoriesState(prev => prev.map(cat => 
-              cat.id === parentCategoryId
-                  ? { ...cat, modules: [...cat.modules, newModule] }
+              cat.id === parentCategoryId 
+                  ? { ...cat, modules: [...cat.modules, newModule] } 
                   : cat
           ));
       }
   };
 
   const handleUpdateQuestion = (updatedQuestion: Question) => {
+    setQuizzes(prev => prev.map(quiz => {
+        const questionIndex = quiz.questions.findIndex(q => q.id === updatedQuestion.id);
+        if (questionIndex > -1) {
+            const newQuestions = [...quiz.questions];
+            newQuestions[questionIndex] = updatedQuestion;
+            return { ...quiz, questions: newQuestions };
+        }
+        return quiz;
+    }));
+  };
+
+  const handleDeleteQuestion = (questionId: number) => {
+    if (!window.confirm("Are you sure you want to delete this question?")) return;
     setQuizzes(prev => prev.map(quiz => ({
         ...quiz,
-        questions: quiz.questions.map(q => q.id === updatedQuestion.id ? updatedQuestion : q)
+        questions: quiz.questions.filter(q => q.id !== questionId)
     })));
   };
   
-  const handleDeleteQuestion = (questionId: number) => {
-    let quizIdContainingQuestion: string | null = null;
-    let updatedQuizzes: Quiz[] = [];
-
-    setQuizzes(prev => {
-        updatedQuizzes = prev.map(quiz => {
-            const initialLength = quiz.questions.length;
-            const updatedQuestions = quiz.questions.filter(q => q.id !== questionId);
-            if (updatedQuestions.length < initialLength) {
-                quizIdContainingQuestion = quiz.id;
-            }
-            return { ...quiz, questions: updatedQuestions };
-        });
-        return updatedQuizzes;
-    });
-
-    if (quizIdContainingQuestion) {
-        const finalQuizId = quizIdContainingQuestion;
-        setModuleCategoriesState(prev => prev.map(category => ({
-            ...category,
-            modules: category.modules.map(module => {
-                if (module.id === finalQuizId) {
-                     const updatedQuiz = updatedQuizzes.find(q => q.id === finalQuizId);
-                     return { ...module, questions: updatedQuiz ? updatedQuiz.questions.length : module.questions };
-                }
-                return module;
-            })
-        })));
-    }
-  };
-  
-  const handleImportFolderStructure = (folderStructure: Record<string, Omit<Question, 'id'|'category'>[]>, targetCategoryId: string) => {
-    const targetCategory = moduleCategoriesState.find(c => c.id === targetCategoryId);
-    if (!targetCategory) {
-        alert("Target import folder not found.");
+  const handleStartQuiz = (moduleId: string) => {
+    if (!currentUser) return;
+    const assignedExams = currentUser.assignedExams || [];
+    const moduleCategory = moduleCategoriesState.find(cat => cat.modules.some(m => m.id === moduleId));
+    if (moduleCategory && !assignedExams.includes(moduleCategory.id)) {
+        alert("You are not assigned to this exam. Please contact your administrator.");
         return;
     }
+    setActiveQuizId(moduleId);
+  };
+  
+  const handleQuizComplete = (score: number, answers: UserAnswer[]) => {
+    if (!currentUser || !activeQuizId) return;
 
-    let newQuizzes: Quiz[] = [];
-    let newModules: Module[] = [];
-    const existingModuleNames = new Set(targetCategory.modules.map(m => m.title.toLowerCase()));
-    const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
-    let moduleCounter = 0;
+    const updatedUsers = users.map(user => {
+      if (user.id === currentUser.id) {
+        const newModuleProgress = {
+          ...(user.moduleProgress || {}),
+          [activeQuizId]: ModuleStatus.Completed,
+        };
 
-    for (const subTopicName in folderStructure) {
-        if (existingModuleNames.has(subTopicName.toLowerCase())) {
-            console.warn(`Skipping import for sub-topic "${subTopicName}" as it already exists in the target folder.`);
-            continue;
+        const allUserModules = moduleCategoriesState
+            .filter(cat => user.assignedExams?.includes(cat.id))
+            .flatMap(cat => cat.modules);
+        
+        const completedModules = Object.keys(newModuleProgress).filter(
+            key => newModuleProgress[key] === ModuleStatus.Completed
+        );
+        
+        const allModulesCompleted = allUserModules.every(
+            mod => completedModules.includes(mod.id)
+        );
+
+        const newAnswers = [...(user.answers || []).filter(a => !answers.some(na => na.questionId === a.questionId)), ...answers];
+
+        const totalCorrect = newAnswers.filter(a => a.isCorrect).length;
+        const totalAttempted = newAnswers.length;
+        const finalScore = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
+        
+        let newTrainingStatus = user.trainingStatus;
+        if (allModulesCompleted) {
+          newTrainingStatus = finalScore >= PASSING_PERCENTAGE ? 'passed' : 'failed';
         }
 
-        const questionsData = folderStructure[subTopicName];
-        const newSubTopicId = subTopicName.toLowerCase().replace(/\s+/g, '_') + `_${Date.now() + Math.random()}`;
-        
-        const newQuestions: Question[] = questionsData.map((q, index) => ({
-            id: Date.now() + Math.random() * 1000 + index,
-            category: subTopicName,
-            ...q,
-        }));
-
-        newQuizzes.push({ id: newSubTopicId, name: subTopicName, questions: newQuestions });
-        
-        const currentModuleIndex = totalModules + moduleCounter;
-        const iconKeys = Object.keys(ICONS);
-        
-        newModules.push({
-            id: newSubTopicId,
-            title: subTopicName,
-            questions: newQuestions.length,
-            iconKey: iconKeys[currentModuleIndex % iconKeys.length],
-            status: ModuleStatus.NotStarted,
-            theme: THEMES[currentModuleIndex % THEMES.length],
-        });
-        moduleCounter++;
-    }
-
-    if (newQuizzes.length > 0) {
-        setQuizzes(prev => [...prev, ...newQuizzes]);
-        setModuleCategoriesState(prev => prev.map(cat => 
-            cat.id === targetCategoryId
-                ? { ...cat, modules: [...cat.modules, ...newModules] }
-                : cat
-        ));
-        alert(`Successfully imported ${newModules.length} new sub-topics.`);
-    } else {
-        alert("No new sub-topics to import. All sub-topics in the file may already exist in the target folder.");
-    }
-  };
-
-  const handleCompletion = (quizId: string, score: number, answers: UserAnswer[]) => {
-    if (currentUser) {
-      const updatedUser = {
-        ...currentUser,
-        answers: [...(currentUser.answers || []), ...answers],
-        moduleProgress: {
-          ...(currentUser.moduleProgress || {}),
-          [quizId]: ModuleStatus.Completed,
-        },
-      };
-      
-      const allModulesForUser = allUserModules.filter(m => currentUser.assignedExams?.includes(m.parentCategoryId));
-      const completedModules = Object.values(updatedUser.moduleProgress || {}).filter(status => status === ModuleStatus.Completed).length;
-      
-      if (completedModules === allModulesForUser.length) {
-          const finalScore = Math.round(
-              (updatedUser.answers.filter(a => a.isCorrect).length / updatedUser.answers.length) * 100
-          );
-          updatedUser.lastScore = finalScore;
-          updatedUser.trainingStatus = finalScore >= PASSING_PERCENTAGE ? 'passed' : 'failed';
-          updatedUser.submissionDate = new Date().toISOString();
-          setView('completion');
-      }
-
-      const updatedUsers = users.map(u => (u.id === currentUser.id ? updatedUser : u));
-      setUsers(updatedUsers);
-      setCurrentUser(updatedUser);
-      setActiveQuizId(null);
-    }
-  };
-
-  const handleStartQuiz = (quizId: string) => {
-    if (currentUser) {
-        const updatedUser = {
-            ...currentUser,
-            moduleProgress: {
-                ...(currentUser.moduleProgress || {}),
-                [quizId]: ModuleStatus.InProgress,
-            }
+        const updatedUser: User = {
+          ...user,
+          moduleProgress: newModuleProgress,
+          answers: newAnswers,
+          lastScore: allModulesCompleted ? finalScore : user.lastScore,
+          trainingStatus: newTrainingStatus,
+          submissionDate: allModulesCompleted ? new Date().toISOString() : user.submissionDate,
         };
-        const updatedUsers = users.map(u => u.id === currentUser.id ? updatedUser : u);
-        setUsers(updatedUsers);
         setCurrentUser(updatedUser);
+
+        if (allModulesCompleted) {
+            handleSendNotification({
+              to: user.username,
+              subject: `Training Assessment ${newTrainingStatus === 'passed' ? 'Passed' : 'Failed'}`,
+              body: `Hi ${user.fullName},\n\nYou have completed your assigned training modules with a final score of ${finalScore}%.\nYour status is now: ${newTrainingStatus}.\n\nPlease log in to view your report.`,
+            });
+        }
+        
+        return updatedUser;
+      }
+      return user;
+    });
+
+    setUsers(updatedUsers);
+    setActiveQuizId(null);
+    const reloadedCurrentUser = updatedUsers.find(u => u.id === currentUser.id);
+    if (reloadedCurrentUser && (reloadedCurrentUser.trainingStatus === 'passed' || reloadedCurrentUser.trainingStatus === 'failed')) {
+      setView('completion');
     }
-    setActiveQuizId(quizId);
   };
   
   const handleResetProgress = () => {
-    if (currentUser && window.confirm("Are you sure you want to reset your progress? All completed modules will be marked as 'Not Started'.")) {
-      const updatedUser = { 
-        ...currentUser, 
-        moduleProgress: {},
-        answers: [],
-        trainingStatus: 'not-started' as const,
-        lastScore: null,
-        submissionDate: undefined,
-       };
-      const updatedUsers = users.map(u => u.id === currentUser.id ? updatedUser : u);
+    if (!currentUser) return;
+    if (window.confirm("Are you sure you want to reset all your progress? This cannot be undone.")) {
+      const updatedUsers = users.map(user =>
+        user.id === currentUser.id
+          ? { ...user, moduleProgress: {}, answers: [], lastScore: null, trainingStatus: 'not-started' }
+          : user
+      );
       setUsers(updatedUsers);
-      setCurrentUser(updatedUser);
-      setView('dashboard');
+      const updatedCurrentUser = updatedUsers.find(u => u.id === currentUser.id);
+      if (updatedCurrentUser) setCurrentUser(updatedCurrentUser);
     }
+  };
+  
+  const handleGenerateReport = () => {
+      setView('report');
+  };
+  
+  const handleImportFolderStructure = (folderStructure: Record<string, any[]>, targetCategoryId: string) => {
+    let parentCategory = moduleCategoriesState.find(c => c.id === targetCategoryId);
+    if (!parentCategory) {
+      console.error("Target category not found for import");
+      return;
+    }
+    
+    const newQuizzes: Quiz[] = [];
+    const newModules: Module[] = [];
+    let allModulesCount = moduleCategoriesState.flatMap(c => c.modules).length;
+    const existingQuizNames = new Set(quizzes.map(q => q.name.toLowerCase()));
+
+    for (const subTopicTitle of Object.keys(folderStructure)) {
+        if (existingQuizNames.has(subTopicTitle.toLowerCase())) {
+            alert(`A sub-topic named "${subTopicTitle}" already exists. Skipping this sub-topic.`);
+            continue;
+        }
+
+        const questionsData = folderStructure[subTopicTitle];
+        if (!Array.isArray(questionsData)) {
+            console.warn(`Skipping "${subTopicTitle}" due to invalid question format.`);
+            continue;
+        }
+
+        const newSubTopicId = subTopicTitle.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
+        
+        const newQuestions: Question[] = questionsData.map((q, index) => ({
+            id: Date.now() + index,
+            category: subTopicTitle,
+            question: q.question || '',
+            options: q.options || [],
+            correctAnswer: q.correctAnswer || '',
+        }));
+
+        newQuizzes.push({ id: newSubTopicId, name: subTopicTitle, questions: newQuestions });
+        
+        const newTheme = THEMES[allModulesCount % THEMES.length];
+        const iconKeys = Object.keys(ICONS);
+        const newIconKey = iconKeys[allModulesCount % iconKeys.length];
+        allModulesCount++;
+
+        newModules.push({ 
+            id: newSubTopicId, 
+            title: subTopicTitle, 
+            questions: newQuestions.length, 
+            iconKey: newIconKey, 
+            status: ModuleStatus.NotStarted, 
+            theme: newTheme, 
+            subCategory: subTopicTitle 
+        });
+    }
+
+    setQuizzes(prev => [...prev, ...newQuizzes]);
+    setModuleCategoriesState(prev => prev.map(cat => 
+        cat.id === targetCategoryId 
+            ? { ...cat, modules: [...cat.modules, ...newModules] } 
+            : cat
+    ));
+    alert(`${newModules.length} new sub-topics imported successfully into "${parentCategory.title}".`);
   };
   
   const handleSendNotification = (emailData: Omit<Email, 'id' | 'timestamp'>) => {
@@ -447,130 +444,135 @@ function App() {
       id: Date.now(),
       timestamp: new Date().toISOString(),
     };
+    sendEmail(newEmail);
     setEmailLog(prev => [newEmail, ...prev]);
-    sendEmail(emailData);
   };
   
-  const handleUpdateUsers = (updatedUsers: User[]) => {
-    setUsers(updatedUsers);
-  };
-
   const handleAddNewUser = (user: User) => {
-      setUsers(prev => [...prev, user]);
+    setUsers(prev => [...prev, user]);
   };
   
-  const allUserModules = useMemo(() => {
-    return moduleCategoriesState.flatMap(category => category.modules.map(module => ({ ...module, parentCategoryId: category.id })));
-  }, [moduleCategoriesState]);
-
-  const userModules = useMemo(() => {
-    if (!currentUser) return [];
+  // Memos for dashboard
+  const userModuleCategories = useMemo(() => {
+    if (!currentUser || currentUser.role === 'admin') return moduleCategoriesState;
     
-    const userAssignedCategories = new Set(currentUser.assignedExams || []);
+    const assignedExamIds = new Set(currentUser.assignedExams || []);
     
     return moduleCategoriesState
-      .filter(category => userAssignedCategories.has(category.id))
-      .map(category => ({
-        ...category,
-        modules: category.modules.map(module => ({
-          ...module,
-          status: currentUser.moduleProgress?.[module.id] || ModuleStatus.NotStarted,
-        })),
-      }));
-  }, [currentUser, moduleCategoriesState]);
-  
-  const { completedModulesCount, totalModulesCount, overallProgress } = useMemo(() => {
-    if (!currentUser) return { completedModulesCount: 0, totalModulesCount: 0, overallProgress: 0 };
-    const relevantModules = allUserModules.filter(m => currentUser.assignedExams?.includes(m.parentCategoryId));
-    const completed = relevantModules.filter(module => currentUser.moduleProgress?.[module.id] === ModuleStatus.Completed).length;
-    const total = relevantModules.length;
-    const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
-    return { completedModulesCount: completed, totalModulesCount: total, overallProgress: progress };
-  }, [currentUser, allUserModules]);
+        .filter(category => assignedExamIds.has(category.id))
+        .map(category => ({
+            ...category,
+            modules: category.modules.map(module => ({
+                ...module,
+                status: currentUser?.moduleProgress?.[module.id] || ModuleStatus.NotStarted,
+            }))
+        }));
+    }, [currentUser, moduleCategoriesState]);
+    
+  const totalModules = useMemo(() => userModuleCategories.flatMap(c => c.modules).length, [userModuleCategories]);
+  const completedModules = useMemo(() => {
+    if (!currentUser) return 0;
+    return Object.values(currentUser.moduleProgress || {}).filter(s => s === ModuleStatus.Completed).length;
+  }, [currentUser]);
+  const progress = totalModules > 0 ? Math.round((completedModules / totalModules) * 100) : 0;
   
   const activeQuiz = useMemo(() => {
     if (!activeQuizId) return null;
     return quizzes.find(q => q.id === activeQuizId) || null;
   }, [activeQuizId, quizzes]);
-
-  if (loading) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-  }
   
-  if (error) {
-     return <div className="min-h-screen flex items-center justify-center text-red-500">{error}</div>;
-  }
+  const activeModuleTheme = useMemo(() => {
+    if (!activeQuizId) return undefined;
+    for (const category of moduleCategoriesState) {
+        const module = category.modules.find(m => m.id === activeQuizId);
+        if (module) return module.theme;
+    }
+    return undefined;
+  }, [activeQuizId, moduleCategoriesState]);
 
-  const renderView = () => {
+  // Main render logic
+  if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  if (error) return <div className="min-h-screen flex items-center justify-center text-red-500">{error}</div>;
+
+  const renderContent = () => {
     switch (view) {
       case 'user_login':
         return <UserLoginPage users={users} onLogin={handleUserLogin} />;
       case 'login':
-        return <LoginPage onLogin={handleAdminLogin} users={users} />;
+        return <LoginPage users={users} onLogin={handleAdminLogin} />;
       case 'admin':
-        return (
-          <AdminPanel
-            quizzes={quizzes}
-            users={users}
-            onUpdateUsers={handleUpdateUsers}
-            onAddNewUser={handleAddNewUser}
-            onLogout={handleLogout}
-            activeView={adminView}
-            setActiveView={setAdminView}
-            emailLog={emailLog}
-            onSendNotification={handleSendNotification}
-            settings={settings!}
-            onSettingsChange={setSettings}
-            moduleCategories={moduleCategoriesState}
-            onCreateExamCategory={handleCreateExamCategory}
-            onEditExamCategory={handleEditExamCategory}
-            onDeleteExamCategory={handleDeleteExamCategory}
-            onAddNewQuestion={handleAddNewQuestion}
-            onAddQuestionToNewCategory={handleAddQuestionToNewCategory}
-            onAddQuestionToNewSubTopic={handleAddQuestionToNewSubTopic}
-            onUpdateQuestion={handleUpdateQuestion}
-            onDeleteQuestion={handleDeleteQuestion}
-            onImportFolderStructure={handleImportFolderStructure}
-            onForceSync={handleForceSync}
-          />
-        );
+        if (!settings) return <div>Loading settings...</div>;
+        return <AdminPanel 
+                    quizzes={quizzes}
+                    users={users}
+                    onUpdateUsers={setUsers}
+                    onAddNewUser={handleAddNewUser}
+                    onLogout={() => setView('user_login')}
+                    activeView={adminView}
+                    setActiveView={setAdminView}
+                    emailLog={emailLog}
+                    onSendNotification={handleSendNotification}
+                    settings={settings}
+                    onSettingsChange={setSettings}
+                    moduleCategories={moduleCategoriesState}
+                    onCreateExamCategory={handleCreateExamCategory}
+                    onEditExamCategory={handleEditExamCategory}
+                    onDeleteExamCategory={handleDeleteExamCategory}
+                    onAddNewQuestion={handleAddNewQuestion}
+                    onAddQuestionToNewCategory={handleAddQuestionToNewCategory}
+                    onAddQuestionToNewSubTopic={handleAddQuestionToNewSubTopic}
+                    onUpdateQuestion={handleUpdateQuestion}
+                    onDeleteQuestion={handleDeleteQuestion}
+                    onImportFolderStructure={handleImportFolderStructure}
+                />;
       case 'report':
         return <FinalReport answers={currentUser?.answers || []} onBack={() => setView('dashboard')} />;
       case 'completion':
-        return <CompletionScreen currentUser={currentUser} onGenerateReport={() => setView('report')} onLogout={handleLogout} />;
+        return <CompletionScreen currentUser={currentUser} onGenerateReport={handleGenerateReport} onLogout={handleLogout} />;
       case 'dashboard':
       default:
+        if (!currentUser) return <UserLoginPage users={users} onLogin={handleUserLogin} />;
+
         return (
           <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-rose-50 text-slate-800 font-sans">
-            <div className="container mx-auto p-4 sm:p-6 md:p-8">
-              <main className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                <div className="lg:col-span-4">
-                  <Sidebar
-                    userName={currentUser?.fullName || 'User'}
-                    completedCount={completedModulesCount}
-                    totalCount={totalModulesCount}
-                    progress={overallProgress}
-                    onReset={handleResetProgress}
-                    onAdminClick={() => setView('login')}
-                    onLogout={handleLogout}
-                    currentUser={currentUser}
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+              {activeQuiz ? (
+                <div className="flex justify-center">
+                  <QuizView 
+                    quiz={activeQuiz} 
+                    theme={activeModuleTheme}
+                    onComplete={handleQuizComplete}
                   />
                 </div>
-                <div className="lg:col-span-8">
-                  {activeQuiz ? (
-                    <QuizView quiz={activeQuiz} onComplete={(score, answers) => handleCompletion(activeQuiz.id, score, answers)} />
-                  ) : (
-                    <ModuleList moduleCategories={userModules} onStartQuiz={handleStartQuiz} />
-                  )}
+              ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  <div className="lg:col-span-4">
+                    <Sidebar 
+                      userName={currentUser.fullName}
+                      completedCount={completedModules}
+                      totalCount={totalModules}
+                      progress={progress}
+                      onReset={handleResetProgress}
+                      onAdminClick={() => setView('login')}
+                      onLogout={handleLogout}
+                      currentUser={currentUser}
+                    />
+                  </div>
+                  <div className="lg:col-span-8">
+                    <ModuleList 
+                      moduleCategories={userModuleCategories}
+                      onStartQuiz={handleStartQuiz} 
+                    />
+                  </div>
                 </div>
-              </main>
-            </div>
+              )}
+            </main>
           </div>
         );
     }
   };
-
-  return <>{renderView()}</>;
+  
+  return renderContent();
 }
 
 export default App;

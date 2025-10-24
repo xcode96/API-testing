@@ -136,15 +136,15 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategori
     <>
       <input type="file" ref={importFileInputRef} onChange={handleFileImport} accept=".json" className="hidden" />
       <div className="space-y-6">
-        <div className="bg-emerald-100/60 border border-emerald-200/80 rounded-lg p-4 text-center">
-            <h3 className="font-semibold text-emerald-800 flex items-center justify-center gap-2">
+        <div className="bg-blue-100/60 border border-blue-200/80 rounded-lg p-4 text-center">
+            <h3 className="font-semibold text-blue-800 flex items-center justify-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
-                Automatic Sync is Active
+                Auto-Save Enabled
             </h3>
             <p className="text-sm text-slate-600 mt-1">
-                All changes are automatically published to your GitHub repository.
+                All changes made here are saved automatically to the database.
             </p>
         </div>
 
