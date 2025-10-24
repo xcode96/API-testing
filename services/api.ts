@@ -107,6 +107,23 @@ export const saveData = async (data: AppData): Promise<void> => {
     }
 };
 
+export const savePartialData = async (key: string, value: any): Promise<void> => {
+    try {
+        const response = await fetch('/api/update-partial', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ key, value }),
+        });
+        if (!response.ok) {
+            const errorBody = await response.text();
+            throw new Error(`Server partial save failed for key '${key}' with status ${response.status}: ${errorBody}`);
+        }
+    } catch (error) {
+        console.error(`API partial save failed for key '${key}'.`, error);
+        throw error;
+    }
+};
+
 export const fetchFromGitHub = async (config: { owner: string, repo: string, path: string, pat: string }): Promise<AppData> => {
     const { owner, repo, path, pat } = config;
     const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;

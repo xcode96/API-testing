@@ -11,7 +11,7 @@ import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
 import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question } from './types';
 import { sendEmail } from './services/emailService';
-import { fetchData, saveData, AppData, fetchFromGitHub } from './services/api';
+import { fetchData, saveData, AppData, fetchFromGitHub, savePartialData } from './services/api';
 
 type View = 'user_login' | 'dashboard' | 'login' | 'admin' | 'report' | 'completion';
 export type AdminView = 'users' | 'questions' | 'notifications' | 'settings';
@@ -520,8 +520,21 @@ function App() {
         moduleCategories: reconcileModuleCategories(data.quizzes, data.moduleCategories),
       };
 
-      await saveData(reconciledData);
+      // Save data in chunks to avoid server payload size limits
+      const dataParts = {
+          users: reconciledData.users,
+          quizzes: reconciledData.quizzes,
+          emailLog: reconciledData.emailLog || [],
+          settings: reconciledData.settings,
+          moduleCategories: reconciledData.moduleCategories || [],
+      };
 
+      const savePromises = Object.entries(dataParts).map(([key, value]) => 
+          savePartialData(key, value)
+      );
+      await Promise.all(savePromises);
+
+      // After successful save, update the local state
       setQuizzes(reconciledData.quizzes);
       setUsers(reconciledData.users);
       setEmailLog(reconciledData.emailLog || []);
