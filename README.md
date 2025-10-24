@@ -18,13 +18,11 @@ This application uses a database for live data storage. The `training-data.json`
 
 To manage your training data using a file (e.g., a JSON file in a GitHub repository), please follow this workflow:
 
-1.  **Exporting Data (Backup)**:
+1.  **Use `data.json`**: The `data.json` file in this project is your primary template. Edit this file to add or modify users, questions, and exam folders.
+2.  **Host Your File**: Upload your modified `data.json` file to a service where it's accessible via a direct URL (like GitHub).
+3.  **Get the "Raw" URL**: If using GitHub, navigate to your file and click the **"Raw"** button to get a direct link. The URL will start with `raw.githubusercontent.com`.
+4.  **Sync the Application**:
     - Go to the **Admin Panel** -> **Settings** -> **Data Management**.
-    - Click the **"Export All Data"** button.
-    - This will download a file named `data.json` containing all current users, quizzes, and settings. You can store this file as a backup or commit it to your own repository.
-
-2.  **Importing Data (Restore/Sync)**:
-    - Host your `data.json` file online (e.g., in a public GitHub repository).
-    - Get the "Raw" URL for the file.
-    - In the **Admin Panel** -> **Settings** -> **Data Management**, paste this URL into the **"External Data Source Sync"** field.
+    - Paste your raw URL into the **"External Data Source Sync"** field.
     - Click **"Sync Now"**. The application will fetch the data from your URL, permanently save it to the database, and update the live application.
+5.  **Backup Your Data**: You can also use the **"Export All Data"** button on the same settings page to download the current live state of the application into a `data.json` file at any time.
