@@ -149,7 +149,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
         )}`;
         const link = document.createElement("a");
         link.href = jsonString;
-        link.download = `training-data-export.json`;
+        link.download = `data.json`;
         link.click();
     };
 
