@@ -12,7 +12,7 @@
         "it_security_policy",
         "hr_exam",
         "audit_1761298583092",
-        "demo_1761299863294"
+        "new_1761299950028"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -29,7 +29,7 @@
         "it_security_policy",
         "it_developer_policy",
         "audit_1761298583092",
-        "demo_1761299863294"
+        "new_1761299950028"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -48,7 +48,7 @@
         "it_policy_exam",
         "operation_exam",
         "audit_1761298583092",
-        "demo_1761299863294"
+        "new_1761299950028"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -65,7 +65,7 @@
         "it_security_policy",
         "it_policy_exam",
         "audit_1761298583092",
-        "demo_1761299863294"
+        "new_1761299950028"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -82,7 +82,7 @@
         "it_security_policy",
         "data_analyst_exam",
         "audit_1761298583092",
-        "demo_1761299863294"
+        "new_1761299950028"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -6017,8 +6017,8 @@
       ]
     },
     {
-      "id": "demo_1761299863294",
-      "name": "demo",
+      "id": "new_1761299950028",
+      "name": "new",
       "questions": []
     }
   ],
@@ -6744,12 +6744,12 @@
       ]
     },
     {
-      "id": "demo_1761299863294",
-      "title": "demo",
+      "id": "new_1761299950028",
+      "title": "new",
       "modules": [
         {
-          "id": "demo_1761299863294",
-          "title": "demo",
+          "id": "new_1761299950028",
+          "title": "new",
           "questions": 0,
           "iconKey": "GlobeAlt",
           "status": "Not Started",
