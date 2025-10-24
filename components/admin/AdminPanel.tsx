@@ -32,6 +32,8 @@ interface AdminPanelProps {
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
   onImportFolderStructure: (folderStructure: Record<string, any[]>, targetCategoryId: string) => void;
+  onSyncFromUrl: () => Promise<boolean>;
+  isSyncing: boolean;
 }
 
 const AdminPanel: React.FC<AdminPanelProps> = ({
@@ -56,6 +58,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onUpdateQuestion,
   onDeleteQuestion,
   onImportFolderStructure,
+  onSyncFromUrl,
+  isSyncing,
 }) => {
   const [questionFilter, setQuestionFilter] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -92,6 +96,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                     quizzes={quizzes}
                     emailLog={emailLog}
                     moduleCategories={moduleCategories}
+                    onSyncFromUrl={onSyncFromUrl}
+                    isSyncing={isSyncing}
                 />;
       case 'questions':
         return (

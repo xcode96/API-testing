@@ -82,4 +82,5 @@ export interface AppSettings {
   certificationBodyText: string;
   certificationSeal: string | null;
   certificationCycleYears: number;
+  dataSourceUrl: string;
 }

@@ -32,6 +32,7 @@ const defaultSettings: AppSettings = {
   certificationBodyText: 'Having met all of the certification requirements, adoption of the Code of Ethics, and successful performance on the required competency examination, subject to recertification every three years, this individual is entitled to all of the rights and privileges associated with this designation.',
   certificationSeal: null,
   certificationCycleYears: 3,
+  dataSourceUrl: '',
 };
 
 const getInitialData = (): AppData => ({
@@ -93,4 +94,25 @@ export const saveData = async (data: AppData): Promise<void> => {
             error
         );
     });
+};
+
+export const fetchFromUrl = async (url: string): Promise<AppData> => {
+    if (!url || !url.startsWith('http')) {
+        throw new Error('Invalid or missing Data Source URL.');
+    }
+    
+    const response = await fetch(url, { cache: 'no-store' });
+    
+    if (!response.ok) {
+        throw new Error(`Failed to fetch from URL: ${response.status} ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    
+    // Basic validation
+    if (!data.users || !data.quizzes || !data.settings) {
+        throw new Error('Fetched data is missing required fields (users, quizzes, settings).');
+    }
+    
+    return data as AppData;
 };

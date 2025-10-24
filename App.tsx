@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import ModuleList from './components/ModuleList';
@@ -11,7 +12,7 @@ import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
 import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question } from './types';
 import { sendEmail } from './services/emailService';
-import { fetchData, saveData, AppData } from './services/api';
+import { fetchData, saveData, AppData, fetchFromUrl } from './services/api';
 
 type View = 'user_login' | 'dashboard' | 'login' | 'admin' | 'report' | 'completion';
 export type AdminView = 'users' | 'questions' | 'notifications' | 'settings';
@@ -59,6 +60,7 @@ function App() {
   const [settings, setSettings] = useState<AppSettings | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isSyncing, setIsSyncing] = useState(false);
 
   const [moduleCategoriesState, setModuleCategoriesState] = useState<ModuleCategory[]>([]);
   
@@ -364,7 +366,8 @@ function App() {
     if (window.confirm("Are you sure you want to reset all your progress? This cannot be undone.")) {
       const updatedUsers = users.map(user =>
         user.id === currentUser.id
-          ? { ...user, moduleProgress: {}, answers: [], lastScore: null, trainingStatus: 'not-started' }
+          // FIX: Explicitly cast 'not-started' to its literal type to prevent type widening to 'string'.
+          ? { ...user, moduleProgress: {}, answers: [], lastScore: null, trainingStatus: 'not-started' as const }
           : user
       );
       setUsers(updatedUsers);
@@ -451,6 +454,35 @@ function App() {
   const handleAddNewUser = (user: User) => {
     setUsers(prev => [...prev, user]);
   };
+
+  const handleSyncFromUrl = async (): Promise<boolean> => {
+    if (!settings?.dataSourceUrl) {
+        alert("Please set a Data Source URL in the settings first.");
+        return false;
+    }
+
+    setIsSyncing(true);
+    setError(null);
+
+    try {
+        const data = await fetchFromUrl(settings.dataSourceUrl);
+        
+        setQuizzes(data.quizzes);
+        setUsers(data.users);
+        setEmailLog(data.emailLog || []);
+        const newSettings = { ...data.settings, dataSourceUrl: settings.dataSourceUrl };
+        setSettings(newSettings);
+        setModuleCategoriesState(reconcileModuleCategories(data.quizzes, data.moduleCategories));
+        
+        setIsSyncing(false);
+        return true;
+    } catch (err: any) {
+        console.error("Failed to sync from URL:", err);
+        setError(`Sync Failed: ${err.message}`);
+        setIsSyncing(false);
+        return false;
+    }
+  };
   
   // Memos for dashboard
   const userModuleCategories = useMemo(() => {
@@ -524,6 +556,8 @@ function App() {
                     onUpdateQuestion={handleUpdateQuestion}
                     onDeleteQuestion={handleDeleteQuestion}
                     onImportFolderStructure={handleImportFolderStructure}
+                    onSyncFromUrl={handleSyncFromUrl}
+                    isSyncing={isSyncing}
                 />;
       case 'report':
         return <FinalReport answers={currentUser?.answers || []} onBack={() => setView('dashboard')} />;

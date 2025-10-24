@@ -9,6 +9,8 @@ interface SettingsPanelProps {
     quizzes: Quiz[];
     emailLog: Email[];
     moduleCategories: ModuleCategory[];
+    onSyncFromUrl: () => Promise<boolean>;
+    isSyncing: boolean;
 }
 
 const SignatureUploader: React.FC<{
@@ -113,8 +115,9 @@ const AssetUploader: React.FC<{
 };
 
 
-const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChange, users, quizzes, emailLog, moduleCategories }) => {
-    
+const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChange, users, quizzes, emailLog, moduleCategories, onSyncFromUrl, isSyncing }) => {
+    const [syncStatus, setSyncStatus] = useState<{ message: string; isError: boolean } | null>(null);
+
     const handleFileUpload = (file: File, type: 'logo' | 'signature1' | 'signature2' | 'certificationSeal') => {
         const reader = new FileReader();
         reader.onload = () => {
@@ -149,6 +152,17 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
         link.download = `training-data-export.json`;
         link.click();
     };
+
+    const handleSyncClick = async () => {
+        setSyncStatus(null);
+        const success = await onSyncFromUrl();
+        if (success) {
+            setSyncStatus({ message: 'Sync successful! Data has been updated.', isError: false });
+        } else {
+            setSyncStatus({ message: 'Sync failed. Check the URL and file format.', isError: true });
+        }
+        setTimeout(() => setSyncStatus(null), 5000);
+    };
     
     return (
         <>
@@ -159,6 +173,32 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
             <div className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-2xl p-6 shadow-lg shadow-slate-200/80">
                 <div className="space-y-6">
                     <h2 className="text-2xl font-bold text-slate-800">Data Management</h2>
+
+                    <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
+                        <h3 className="font-semibold text-lg text-slate-700 mb-2">External Data Source Sync</h3>
+                        <p className="text-sm text-slate-600 mb-4">
+                            Provide a URL to a raw JSON file (e.g., from GitHub) to act as the source of truth. Clicking "Sync Now" will fetch the latest data from this URL, overwriting the current application data.
+                        </p>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                            <input 
+                                type="url" 
+                                name="dataSourceUrl" 
+                                value={settings.dataSourceUrl}
+                                onChange={handleInputChange}
+                                placeholder="https://raw.githubusercontent.com/user/repo/main/data.json" 
+                                className="flex-grow w-full p-2 bg-white/50 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors" 
+                            />
+                            <button onClick={handleSyncClick} disabled={isSyncing || !settings.dataSourceUrl} className="w-full sm:w-auto bg-emerald-500 text-white font-semibold rounded-lg py-2 px-6 hover:bg-emerald-600 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex-shrink-0">
+                                {isSyncing ? 'Syncing...' : 'Sync Now'}
+                            </button>
+                        </div>
+                        {syncStatus && (
+                            <p className={`mt-3 text-sm font-medium ${syncStatus.isError ? 'text-rose-600' : 'text-emerald-600'}`}>
+                                {syncStatus.message}
+                            </p>
+                        )}
+                    </div>
+                    
                     <div className="bg-slate-100/80 p-6 rounded-xl border border-slate-200">
                         <h3 className="font-semibold text-lg text-slate-700 mb-2">Export All Application Data</h3>
                         <p className="text-sm text-slate-600 mb-4">Download a single JSON file containing all users, quizzes, settings, and logs. This file can be used for backups or migration.</p>
