@@ -9,4 +9,12 @@ export const kv = process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN
     })
   : null;
 
-export const DATA_KEY = "cyber-security-training-data";
+// New multi-key structure to avoid 1MB value limit
+export const KEY_USERS = "data:users";
+export const KEY_QUIZZES = "data:quizzes";
+export const KEY_EMAIL_LOG = "data:emailLog";
+export const KEY_SETTINGS = "data:settings";
+export const KEY_MODULE_CATEGORIES = "data:moduleCategories";
+
+// Legacy key for one-time migration
+export const LEGACY_DATA_KEY = "cyber-security-training-data";

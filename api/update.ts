@@ -1,4 +1,4 @@
-import { kv, DATA_KEY } from './db';
+import { kv, KEY_USERS, KEY_QUIZZES, KEY_EMAIL_LOG, KEY_SETTINGS, KEY_MODULE_CATEGORIES } from './db';
 
 export const maxDuration = 60; // Increase timeout to 60 seconds
 
@@ -20,7 +20,16 @@ export default async function POST(request: Request) {
         });
     }
 
-    await kv.set(DATA_KEY, body);
+    // Use a transaction to save all parts atomically to the new multi-key structure
+    const tx = kv.multi();
+    tx.set(KEY_USERS, body.users);
+    tx.set(KEY_QUIZZES, body.quizzes);
+    tx.set(KEY_EMAIL_LOG, body.emailLog || []);
+    tx.set(KEY_SETTINGS, body.settings);
+    if (body.moduleCategories) {
+        tx.set(KEY_MODULE_CATEGORIES, body.moduleCategories);
+    }
+    await tx.exec();
     
     return new Response(JSON.stringify({ success: true }), {
       headers: { 'Content-Type': 'application/json' },

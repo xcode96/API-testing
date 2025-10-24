@@ -1,4 +1,4 @@
-import { kv, DATA_KEY } from './db';
+import { kv, LEGACY_DATA_KEY, KEY_USERS, KEY_QUIZZES, KEY_EMAIL_LOG, KEY_SETTINGS, KEY_MODULE_CATEGORIES } from './db';
 import { Quiz, User, AppSettings, Email } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
 
@@ -36,6 +36,20 @@ const getInitialData = () => ({
     settings: defaultSettings,
 });
 
+
+async function initializeAndSaveData() {
+    if (!kv) return getInitialData();
+    const initialData = getInitialData();
+    const tx = kv.multi();
+    tx.set(KEY_USERS, initialData.users);
+    tx.set(KEY_QUIZZES, initialData.quizzes);
+    tx.set(KEY_EMAIL_LOG, initialData.emailLog);
+    tx.set(KEY_SETTINGS, initialData.settings);
+    await tx.exec();
+    return initialData;
+}
+
+
 export default async function GET(request: Request) {
   if (!kv) {
      return new Response(JSON.stringify({ error: 'KV store is not configured.' }), {
@@ -45,13 +59,56 @@ export default async function GET(request: Request) {
   }
 
   try {
-    let data = await kv.get(DATA_KEY);
-    if (!data) {
-        console.log('No data found in KV, returning initial data.');
-        data = getInitialData();
-        // Also save the initial data to the store for future requests
-        await kv.set(DATA_KEY, data);
+    // 1. Check for legacy data and migrate if found
+    const legacyData = await kv.get(LEGACY_DATA_KEY);
+    if (legacyData && typeof legacyData === 'object' && 'users' in legacyData) {
+        console.log('Found legacy data, migrating to multi-key structure...');
+        const data = legacyData as any; // Cast for simplicity
+        const tx = kv.multi();
+        tx.set(KEY_USERS, data.users);
+        tx.set(KEY_QUIZZES, data.quizzes);
+        tx.set(KEY_EMAIL_LOG, data.emailLog || []);
+        tx.set(KEY_SETTINGS, data.settings);
+        if (data.moduleCategories) {
+            tx.set(KEY_MODULE_CATEGORIES, data.moduleCategories);
+        }
+        tx.del(LEGACY_DATA_KEY);
+        await tx.exec();
+        console.log('Migration complete.');
+        return new Response(JSON.stringify(data), {
+            headers: { 'Content-Type': 'application/json' },
+            status: 200,
+        });
     }
+
+    // 2. Fetch data using the new multi-key structure
+    const [users, quizzes, emailLog, settings, moduleCategories] = await kv.mget(
+        KEY_USERS,
+        KEY_QUIZZES,
+        KEY_EMAIL_LOG,
+        KEY_SETTINGS,
+        KEY_MODULE_CATEGORIES
+    );
+
+    // 3. If no data found, initialize it
+    if (!users || !quizzes || !settings) {
+        console.log('No data found in KV, initializing with default data.');
+        const initialData = await initializeAndSaveData();
+        return new Response(JSON.stringify(initialData), {
+            headers: { 'Content-Type': 'application/json' },
+            status: 200,
+        });
+    }
+    
+    // 4. Assemble and return the data
+    const data = {
+        users,
+        quizzes,
+        emailLog: emailLog || [],
+        settings,
+        moduleCategories: moduleCategories || [], // Ensure it's an array
+    };
+    
     return new Response(JSON.stringify(data), {
       headers: { 'Content-Type': 'application/json' },
       status: 200,
