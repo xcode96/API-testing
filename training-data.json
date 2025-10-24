@@ -11,13 +11,8 @@
       "assignedExams": [
         "it_security_policy",
         "hr_exam",
-        "it_policy_exam",
-        "server_exam",
-        "operation_exam",
-        "legal_exam",
-        "data_analyst_exam",
-        "it_developer_policy",
-        "master_audit_1761299599483"
+        "audit_1761298583092",
+        "demo_1761299863294"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -33,7 +28,8 @@
       "assignedExams": [
         "it_security_policy",
         "it_developer_policy",
-        "master_audit_1761299599483"
+        "audit_1761298583092",
+        "demo_1761299863294"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -51,7 +47,8 @@
         "server_exam",
         "it_policy_exam",
         "operation_exam",
-        "master_audit_1761299599483"
+        "audit_1761298583092",
+        "demo_1761299863294"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -67,7 +64,8 @@
       "assignedExams": [
         "it_security_policy",
         "it_policy_exam",
-        "master_audit_1761299599483"
+        "audit_1761298583092",
+        "demo_1761299863294"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -83,7 +81,8 @@
       "assignedExams": [
         "it_security_policy",
         "data_analyst_exam",
-        "master_audit_1761299599483"
+        "audit_1761298583092",
+        "demo_1761299863294"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -1416,16 +1415,16 @@
       ]
     },
     {
-      "id": "master_audit_1761299599483",
-      "name": "Master Audit",
+      "id": "audit_1761298583092",
+      "name": "Audit",
       "questions": []
     },
     {
-      "id": "information_security_(infosec)_1761299609369.6016",
+      "id": "information_security_(infosec)_1761298594365.365",
       "name": "Information Security (InfoSec)",
       "questions": [
         {
-          "id": 1761299610149.6091,
+          "id": 1761298594529.373,
           "category": "Information Security (InfoSec)",
           "question": "Which encryption algorithm is required for data at rest?",
           "options": [
@@ -1437,7 +1436,7 @@
           "correctAnswer": "AES‑256"
         },
         {
-          "id": 1761299610366.2314,
+          "id": 1761298594375.345,
           "category": "Information Security (InfoSec)",
           "question": "Minimum TLS version for data in transit is:",
           "options": [
@@ -1449,7 +1448,7 @@
           "correctAnswer": "TLS 1.2+"
         },
         {
-          "id": 1761299610305.2046,
+          "id": 1761298594578.1213,
           "category": "Information Security (InfoSec)",
           "question": "How often must vulnerability scans be performed?",
           "options": [
@@ -1461,7 +1460,7 @@
           "correctAnswer": "Monthly"
         },
         {
-          "id": 1761299609375.1216,
+          "id": 1761298594839.473,
           "category": "Information Security (InfoSec)",
           "question": "Penetration testing frequency is:",
           "options": [
@@ -1473,7 +1472,7 @@
           "correctAnswer": "Quarterly"
         },
         {
-          "id": 1761299609689.7778,
+          "id": 1761298594874.7263,
           "category": "Information Security (InfoSec)",
           "question": "Which of the following is not a mandatory InfoSec control?",
           "options": [
@@ -1485,7 +1484,7 @@
           "correctAnswer": "Password expiration every 30 days *(optional)*"
         },
         {
-          "id": 1761299610018.8574,
+          "id": 1761298594494.4167,
           "category": "Information Security (InfoSec)",
           "question": "The Incident Response (IR) plan must be tested:",
           "options": [
@@ -1497,7 +1496,7 @@
           "correctAnswer": "Bi‑annually"
         },
         {
-          "id": 1761299609756.2747,
+          "id": 1761298594612.549,
           "category": "Information Security (InfoSec)",
           "question": "Which SIEM platforms are approved in the framework?",
           "options": [
@@ -1509,7 +1508,7 @@
           "correctAnswer": "Both Splunk and QRadar"
         },
         {
-          "id": 1761299610060.2463,
+          "id": 1761298594471.6772,
           "category": "Information Security (InfoSec)",
           "question": "Which role owns InfoSec operations?",
           "options": [
@@ -1521,7 +1520,7 @@
           "correctAnswer": "CISO"
         },
         {
-          "id": 1761299610024.4062,
+          "id": 1761298594874.303,
           "category": "Information Security (InfoSec)",
           "question": "What is the minimum password complexity requirement?",
           "options": [
@@ -1533,7 +1532,7 @@
           "correctAnswer": "12 chars, alphanum+spec"
         },
         {
-          "id": 1761299609826.3638,
+          "id": 1761298594449.2131,
           "category": "Information Security (InfoSec)",
           "question": "MFA must be enabled for which of the following?",
           "options": [
@@ -1545,7 +1544,7 @@
           "correctAnswer": "All systems"
         },
         {
-          "id": 1761299609756.8884,
+          "id": 1761298595304.898,
           "category": "Information Security (InfoSec)",
           "question": "Which log type must be retained for at least 1 year?",
           "options": [
@@ -1557,7 +1556,7 @@
           "correctAnswer": "Security event logs"
         },
         {
-          "id": 1761299609439.274,
+          "id": 1761298594711.2285,
           "category": "Information Security (InfoSec)",
           "question": "Which of these is a continuous monitoring activity?",
           "options": [
@@ -1569,7 +1568,7 @@
           "correctAnswer": "Real‑time SIEM alerts"
         },
         {
-          "id": 1761299609961.9631,
+          "id": 1761298594804.1946,
           "category": "Information Security (InfoSec)",
           "question": "Which standard is not explicitly referenced in the InfoSec policy?",
           "options": [
@@ -1581,7 +1580,7 @@
           "correctAnswer": "PCI‑DSS"
         },
         {
-          "id": 1761299609596.1243,
+          "id": 1761298595017.777,
           "category": "Information Security (InfoSec)",
           "question": "Who must approve a major security exception?",
           "options": [
@@ -1593,7 +1592,7 @@
           "correctAnswer": "CISO"
         },
         {
-          "id": 1761299609822.6382,
+          "id": 1761298595198.4731,
           "category": "Information Security (InfoSec)",
           "question": "What is the minimum RPO for critical systems?",
           "options": [
@@ -1605,7 +1604,7 @@
           "correctAnswer": "1 hour"
         },
         {
-          "id": 1761299609745.2063,
+          "id": 1761298594524.8171,
           "category": "Information Security (InfoSec)",
           "question": "Which device must be encrypted before being issued to an employee?",
           "options": [
@@ -1617,7 +1616,7 @@
           "correctAnswer": "Laptops"
         },
         {
-          "id": 1761299609909.4602,
+          "id": 1761298594468.4453,
           "category": "Information Security (InfoSec)",
           "question": "Which statement about password vaults is correct?",
           "options": [
@@ -1629,7 +1628,7 @@
           "correctAnswer": "Must be centrally managed and audited"
         },
         {
-          "id": 1761299610050.0503,
+          "id": 1761298594675.375,
           "category": "Information Security (InfoSec)",
           "question": "Remote workstations must connect through:",
           "options": [
@@ -1641,7 +1640,7 @@
           "correctAnswer": "Corporate VPN with MFA"
         },
         {
-          "id": 1761299609990.3555,
+          "id": 1761298594874.147,
           "category": "Information Security (InfoSec)",
           "question": "Which of the following is a false statement?",
           "options": [
@@ -1653,7 +1652,7 @@
           "correctAnswer": "Patch management is optional"
         },
         {
-          "id": 1761299609524.8215,
+          "id": 1761298595269.7148,
           "category": "Information Security (InfoSec)",
           "question": "Which metric is used to measure security awareness effectiveness?",
           "options": [
@@ -1665,7 +1664,7 @@
           "correctAnswer": "Phishing click‑through rate"
         },
         {
-          "id": 1761299609795.5056,
+          "id": 1761298594581.6807,
           "category": "Information Security (InfoSec)",
           "question": "Which type of data is not covered by GDPR?",
           "options": [
@@ -1677,7 +1676,7 @@
           "correctAnswer": "Anonymous aggregated statistics"
         },
         {
-          "id": 1761299610306.3203,
+          "id": 1761298594454.0842,
           "category": "Information Security (InfoSec)",
           "question": "What is the required frequency for internal security audits?",
           "options": [
@@ -1689,7 +1688,7 @@
           "correctAnswer": "Annually"
         },
         {
-          "id": 1761299609402.221,
+          "id": 1761298595269.143,
           "category": "Information Security (InfoSec)",
           "question": "Which of the following must be documented for every security incident?",
           "options": [
@@ -1701,7 +1700,7 @@
           "correctAnswer": "Timeline, impact, root cause"
         },
         {
-          "id": 1761299609776.8364,
+          "id": 1761298594831.6926,
           "category": "Information Security (InfoSec)",
           "question": "Which control mitigates credential‑stuffing attacks?",
           "options": [
@@ -1713,7 +1712,7 @@
           "correctAnswer": "Rate‑limiting & CAPTCHA on login"
         },
         {
-          "id": 1761299610244.3103,
+          "id": 1761298594422.8591,
           "category": "Information Security (InfoSec)",
           "question": "Which of these is a mandatory component of the IR plan?",
           "options": [
@@ -1725,7 +1724,7 @@
           "correctAnswer": "Defined communication chain (CISO → exec)"
         },
         {
-          "id": 1761299609797.6382,
+          "id": 1761298594693.3958,
           "category": "Information Security (InfoSec)",
           "question": "Which cloud service model requires shared responsibility for security?",
           "options": [
@@ -1737,7 +1736,7 @@
           "correctAnswer": "All (IaaS, PaaS, SaaS)"
         },
         {
-          "id": 1761299609530.661,
+          "id": 1761298594433.0544,
           "category": "Information Security (InfoSec)",
           "question": "Which of the following is not a permitted data classification level?",
           "options": [
@@ -1749,7 +1748,7 @@
           "correctAnswer": "Restricted‑Top *(not defined)*"
         },
         {
-          "id": 1761299609532.77,
+          "id": 1761298594839.4363,
           "category": "Information Security (InfoSec)",
           "question": "Who signs off on the annual InfoSec policy review?",
           "options": [
@@ -1761,7 +1760,7 @@
           "correctAnswer": "CISO & Legal Head"
         },
         {
-          "id": 1761299609783.792,
+          "id": 1761298594561.873,
           "category": "Information Security (InfoSec)",
           "question": "Which type of access review is mandated?",
           "options": [
@@ -1773,7 +1772,7 @@
           "correctAnswer": "Annual for privileged accounts"
         },
         {
-          "id": 1761299609623.0146,
+          "id": 1761298594665.25,
           "category": "Information Security (InfoSec)",
           "question": "Which activity must be performed during a security tabletop exercise?",
           "options": [
@@ -1787,11 +1786,11 @@
       ]
     },
     {
-      "id": "it_infrastructure_1761299609369.5608",
+      "id": "it_infrastructure_1761298594365.6409",
       "name": "IT Infrastructure",
       "questions": [
         {
-          "id": 1761299609946.2183,
+          "id": 1761298594871.6208,
           "category": "IT Infrastructure",
           "question": "Which OS hardening step is required on all servers?",
           "options": [
@@ -1803,7 +1802,7 @@
           "correctAnswer": "Disable SMBv1"
         },
         {
-          "id": 1761299610332.387,
+          "id": 1761298594657.9812,
           "category": "IT Infrastructure",
           "question": "Centralised monitoring must achieve an SLA of ?",
           "options": [
@@ -1815,7 +1814,7 @@
           "correctAnswer": "99.9 %"
         },
         {
-          "id": 1761299610304.5652,
+          "id": 1761298594923.1035,
           "category": "IT Infrastructure",
           "question": "Server‑room physical access is limited to:",
           "options": [
@@ -1827,7 +1826,7 @@
           "correctAnswer": "Authorized IT engineers"
         },
         {
-          "id": 1761299609736.6892,
+          "id": 1761298595169.148,
           "category": "IT Infrastructure",
           "question": "The primary tool for environment monitoring is:",
           "options": [
@@ -1839,7 +1838,7 @@
           "correctAnswer": "Zabbix / PRTG"
         },
         {
-          "id": 1761299610076.1753,
+          "id": 1761298595245.0842,
           "category": "IT Infrastructure",
           "question": "How often must backup verification be performed?",
           "options": [
@@ -1851,7 +1850,7 @@
           "correctAnswer": "Monthly"
         },
         {
-          "id": 1761299610066.2026,
+          "id": 1761298594840.7607,
           "category": "IT Infrastructure",
           "question": "Which device must be tagged in the Asset Management System?",
           "options": [
@@ -1863,7 +1862,7 @@
           "correctAnswer": "All hardware assets"
         },
         {
-          "id": 1761299609718.5632,
+          "id": 1761298594944.7517,
           "category": "IT Infrastructure",
           "question": "What is the minimum environmental monitoring interval for data‑center temperature?",
           "options": [
@@ -1875,7 +1874,7 @@
           "correctAnswer": "Every 5 minutes"
         },
         {
-          "id": 1761299609613.3745,
+          "id": 1761298594781.229,
           "category": "IT Infrastructure",
           "question": "Which backup media type is not part of the 3‑2‑1 rule?",
           "options": [
@@ -1887,7 +1886,7 @@
           "correctAnswer": "Tape *(allowed)*"
         },
         {
-          "id": 1761299610057.4695,
+          "id": 1761298595011.2603,
           "category": "IT Infrastructure",
           "question": "Who is the owner of the IT Infrastructure policy?",
           "options": [
@@ -1899,7 +1898,7 @@
           "correctAnswer": "IT Head"
         },
         {
-          "id": 1761299610250.1133,
+          "id": 1761298594970.8928,
           "category": "IT Infrastructure",
           "question": "Which of the following is not a server‑configuration baseline item?",
           "options": [
@@ -1911,7 +1910,7 @@
           "correctAnswer": "Install GUI"
         },
         {
-          "id": 1761299609386.5725,
+          "id": 1761298595090.2024,
           "category": "IT Infrastructure",
           "question": "The primary purpose of the UPS in the data centre is to:",
           "options": [
@@ -1923,7 +1922,7 @@
           "correctAnswer": "Provide power continuity"
         },
         {
-          "id": 1761299609889.925,
+          "id": 1761298594907.3428,
           "category": "IT Infrastructure",
           "question": "Which log source is mandatory for infrastructure monitoring?",
           "options": [
@@ -1935,7 +1934,7 @@
           "correctAnswer": "Syslog from servers"
         },
         {
-          "id": 1761299609533.3643,
+          "id": 1761298594461.3403,
           "category": "IT Infrastructure",
           "question": "Asset inventory must be reconciled how often?",
           "options": [
@@ -1947,7 +1946,7 @@
           "correctAnswer": "Quarterly"
         },
         {
-          "id": 1761299609829.5562,
+          "id": 1761298595336.778,
           "category": "IT Infrastructure",
           "question": "Which of the following is required for a new server commissioning?",
           "options": [
@@ -1959,7 +1958,7 @@
           "correctAnswer": "Change request & approval"
         },
         {
-          "id": 1761299609627.5544,
+          "id": 1761298594850.675,
           "category": "IT Infrastructure",
           "question": "Which software license model must be tracked in the Asset system?",
           "options": [
@@ -1971,7 +1970,7 @@
           "correctAnswer": "Commercial & open‑source"
         },
         {
-          "id": 1761299609807.9673,
+          "id": 1761298594753.7778,
           "category": "IT Infrastructure",
           "question": "What is the maximum acceptable server patch delay?",
           "options": [
@@ -1983,7 +1982,7 @@
           "correctAnswer": "2 weeks"
         },
         {
-          "id": 1761299610047.074,
+          "id": 1761298594431.4146,
           "category": "IT Infrastructure",
           "question": "Which of these is not part of the “Infrastructure” policy scope?",
           "options": [
@@ -1995,7 +1994,7 @@
           "correctAnswer": "HR onboarding"
         },
         {
-          "id": 1761299610341.293,
+          "id": 1761298594935.1282,
           "category": "IT Infrastructure",
           "question": "Which monitoring metric is used for capacity planning?",
           "options": [
@@ -2007,7 +2006,7 @@
           "correctAnswer": "Average CPU utilization"
         },
         {
-          "id": 1761299609451.8691,
+          "id": 1761298594857.031,
           "category": "IT Infrastructure",
           "question": "What is the minimum retention period for infrastructure logs?",
           "options": [
@@ -2019,7 +2018,7 @@
           "correctAnswer": "1 year"
         },
         {
-          "id": 1761299609401.2925,
+          "id": 1761298594793.1372,
           "category": "IT Infrastructure",
           "question": "Which of the following statements is true?",
           "options": [
@@ -2031,7 +2030,7 @@
           "correctAnswer": "All servers must follow OS hardening baseline"
         },
         {
-          "id": 1761299609859.382,
+          "id": 1761298594968.4573,
           "category": "IT Infrastructure",
           "question": "Who can approve a new hardware purchase exceeding $10 k?",
           "options": [
@@ -2043,7 +2042,7 @@
           "correctAnswer": "IT Head + Finance"
         },
         {
-          "id": 1761299610330.7625,
+          "id": 1761298594597.26,
           "category": "IT Infrastructure",
           "question": "Which of these is mandatory before de‑commissioning a server?",
           "options": [
@@ -2055,7 +2054,7 @@
           "correctAnswer": "Secure data wipe"
         },
         {
-          "id": 1761299609512.6482,
+          "id": 1761298595321.939,
           "category": "IT Infrastructure",
           "question": "The environmental monitoring system must generate alerts for:",
           "options": [
@@ -2067,7 +2066,7 @@
           "correctAnswer": "Temperature > 30 °C"
         },
         {
-          "id": 1761299609410.4456,
+          "id": 1761298594897.3645,
           "category": "IT Infrastructure",
           "question": "Which tool is recommended for configuration management?",
           "options": [
@@ -2079,7 +2078,7 @@
           "correctAnswer": "Ansible / Puppet / Chef"
         },
         {
-          "id": 1761299609933.6462,
+          "id": 1761298594561.8325,
           "category": "IT Infrastructure",
           "question": "What is the primary purpose of the “Server Room Access Log”?",
           "options": [
@@ -2091,7 +2090,7 @@
           "correctAnswer": "Audit physical entry"
         },
         {
-          "id": 1761299610301.1426,
+          "id": 1761298595317.0632,
           "category": "IT Infrastructure",
           "question": "Which of the following is not a valid backup verification method?",
           "options": [
@@ -2103,7 +2102,7 @@
           "correctAnswer": "Manual file open (no checksum)"
         },
         {
-          "id": 1761299609510.9338,
+          "id": 1761298594689.9697,
           "category": "IT Infrastructure",
           "question": "The minimum network bandwidth for the backup window is:",
           "options": [
@@ -2115,7 +2114,7 @@
           "correctAnswer": "100 Mbps"
         },
         {
-          "id": 1761299609928.7786,
+          "id": 1761298594940.6245,
           "category": "IT Infrastructure",
           "question": "Which of these is required for the “Server Configuration” checklist?",
           "options": [
@@ -2127,7 +2126,7 @@
           "correctAnswer": "OS version & patch level"
         },
         {
-          "id": 1761299609662.0972,
+          "id": 1761298595109.4275,
           "category": "IT Infrastructure",
           "question": "Which type of monitoring is emphasized for the IT Infrastructure policy?",
           "options": [
@@ -2139,7 +2138,7 @@
           "correctAnswer": "Performance & availability monitoring"
         },
         {
-          "id": 1761299610259.1497,
+          "id": 1761298594494.0664,
           "category": "IT Infrastructure",
           "question": "Which role is responsible for approving a change to the server hardening baseline?",
           "options": [
@@ -2153,11 +2152,11 @@
       ]
     },
     {
-      "id": "network_&_firewall_1761299609369.6387",
+      "id": "network_&_firewall_1761298594365.1191",
       "name": "Network & Firewall",
       "questions": [
         {
-          "id": 1761299609420.0637,
+          "id": 1761298594525.269,
           "category": "Network & Firewall",
           "question": "Which VLAN is dedicated for guest access?",
           "options": [
@@ -2169,7 +2168,7 @@
           "correctAnswer": "Guest"
         },
         {
-          "id": 1761299609891.793,
+          "id": 1761298595139.254,
           "category": "Network & Firewall",
           "question": "Firewall rule review frequency is:",
           "options": [
@@ -2181,7 +2180,7 @@
           "correctAnswer": "Every 3 months"
         },
         {
-          "id": 1761299609426.341,
+          "id": 1761298595249.2249,
           "category": "Network & Firewall",
           "question": "VPN authentication must include:",
           "options": [
@@ -2193,7 +2192,7 @@
           "correctAnswer": "MFA + certificate"
         },
         {
-          "id": 1761299609524.8105,
+          "id": 1761298594373.7097,
           "category": "Network & Firewall",
           "question": "Split‑tunneling for VPN users is:",
           "options": [
@@ -2205,7 +2204,7 @@
           "correctAnswer": "Disabled"
         },
         {
-          "id": 1761299609500.3406,
+          "id": 1761298594603.2422,
           "category": "Network & Firewall",
           "question": "Which firewall vendor is approved?",
           "options": [
@@ -2217,7 +2216,7 @@
           "correctAnswer": "Palo Alto / Fortinet / Cisco"
         },
         {
-          "id": 1761299609982.776,
+          "id": 1761298595261.0825,
           "category": "Network & Firewall",
           "question": "IDS/IPS logs must be forwarded to:",
           "options": [
@@ -2229,7 +2228,7 @@
           "correctAnswer": "SIEM"
         },
         {
-          "id": 1761299609574.1084,
+          "id": 1761298594638.9365,
           "category": "Network & Firewall",
           "question": "VLAN segregation does NOT include:",
           "options": [
@@ -2241,7 +2240,7 @@
           "correctAnswer": "Finance"
         },
         {
-          "id": 1761299609550.4248,
+          "id": 1761298594445.8672,
           "category": "Network & Firewall",
           "question": "Which protocol is explicitly prohibited on the corporate LAN?",
           "options": [
@@ -2253,7 +2252,7 @@
           "correctAnswer": "Telnet"
         },
         {
-          "id": 1761299610025.488,
+          "id": 1761298594478.4937,
           "category": "Network & Firewall",
           "question": "The primary purpose of a DMZ is to:",
           "options": [
@@ -2265,7 +2264,7 @@
           "correctAnswer": "Isolate public‑facing services"
         },
         {
-          "id": 1761299609387.389,
+          "id": 1761298594530.9062,
           "category": "Network & Firewall",
           "question": "How often must the VPN client software be refreshed?",
           "options": [
@@ -2277,7 +2276,7 @@
           "correctAnswer": "Whenever a critical vulnerability is disclosed"
         },
         {
-          "id": 1761299610138.4402,
+          "id": 1761298594561.5708,
           "category": "Network & Firewall",
           "question": "Which of the following is a required firewall configuration element?",
           "options": [
@@ -2289,7 +2288,7 @@
           "correctAnswer": "Least‑privilege rule set"
         },
         {
-          "id": 1761299610035.183,
+          "id": 1761298595172.5112,
           "category": "Network & Firewall",
           "question": "Network monitoring must include which metric?",
           "options": [
@@ -2301,7 +2300,7 @@
           "correctAnswer": "Latency & packet loss"
         },
         {
-          "id": 1761299610064.393,
+          "id": 1761298595247.994,
           "category": "Network & Firewall",
           "question": "Which device is not part of the network security perimeter?",
           "options": [
@@ -2313,7 +2312,7 @@
           "correctAnswer": "Workstation (end‑point)"
         },
         {
-          "id": 1761299609873.0732,
+          "id": 1761298594855.7705,
           "category": "Network & Firewall",
           "question": "The owner of the Network & Firewall policy is:",
           "options": [
@@ -2325,7 +2324,7 @@
           "correctAnswer": "IT Head"
         },
         {
-          "id": 1761299609849.9387,
+          "id": 1761298594941.7227,
           "category": "Network & Firewall",
           "question": "Which of the following is mandatory for wireless security?",
           "options": [
@@ -2337,7 +2336,7 @@
           "correctAnswer": "WPA3‑Enterprise"
         },
         {
-          "id": 1761299610001.5386,
+          "id": 1761298594712.2307,
           "category": "Network & Firewall",
           "question": "When a new branch office is added, which action is required?",
           "options": [
@@ -2349,7 +2348,7 @@
           "correctAnswer": "Create VLANs and firewall rules"
         },
         {
-          "id": 1761299609968.4465,
+          "id": 1761298594746.7441,
           "category": "Network & Firewall",
           "question": "Which of the following best describes “defense‑in‑depth”?",
           "options": [
@@ -2361,7 +2360,7 @@
           "correctAnswer": "Multiple overlapping controls"
         },
         {
-          "id": 1761299610375.2427,
+          "id": 1761298594829.0867,
           "category": "Network & Firewall",
           "question": "Which of these statements about firewall rule ordering is true?",
           "options": [
@@ -2373,7 +2372,7 @@
           "correctAnswer": "First match wins"
         },
         {
-          "id": 1761299609663.988,
+          "id": 1761298594523.3162,
           "category": "Network & Firewall",
           "question": "What is the minimum password length for VPN local accounts?",
           "options": [
@@ -2385,7 +2384,7 @@
           "correctAnswer": "8 characters"
         },
         {
-          "id": 1761299609832.781,
+          "id": 1761298594579.28,
           "category": "Network & Firewall",
           "question": "Which protocol should be used for secure remote administration?",
           "options": [
@@ -2397,7 +2396,7 @@
           "correctAnswer": "SSH"
         },
         {
-          "id": 1761299609585.6462,
+          "id": 1761298594917.64,
           "category": "Network & Firewall",
           "question": "Which of the following is not a component of the Network policy scope?",
           "options": [
@@ -2409,7 +2408,7 @@
           "correctAnswer": "Asset tagging"
         },
         {
-          "id": 1761299610309.4673,
+          "id": 1761298595294.2493,
           "category": "Network & Firewall",
           "question": "The maximum allowed number of failed VPN login attempts before lockout is:",
           "options": [
@@ -2421,7 +2420,7 @@
           "correctAnswer": "10"
         },
         {
-          "id": 1761299610121.128,
+          "id": 1761298594702.001,
           "category": "Network & Firewall",
           "question": "Which of the following must be logged for every firewall change?",
           "options": [
@@ -2433,7 +2432,7 @@
           "correctAnswer": "Who, what, when, why"
         },
         {
-          "id": 1761299610389.4604,
+          "id": 1761298594792.8333,
           "category": "Network & Firewall",
           "question": "Which of these statements about “Zero‑Trust” is correct?",
           "options": [
@@ -2445,7 +2444,7 @@
           "correctAnswer": "Never trust, always verify"
         },
         {
-          "id": 1761299610363.6658,
+          "id": 1761298595317.4316,
           "category": "Network & Firewall",
           "question": "The primary method to detect lateral movement is:",
           "options": [
@@ -2457,7 +2456,7 @@
           "correctAnswer": "Network flow analytics"
         },
         {
-          "id": 1761299609531.8552,
+          "id": 1761298595034.1553,
           "category": "Network & Firewall",
           "question": "Which of the following is required before adding a new firewall rule?",
           "options": [
@@ -2469,7 +2468,7 @@
           "correctAnswer": "Change request + CAB"
         },
         {
-          "id": 1761299610046.429,
+          "id": 1761298594924.1096,
           "category": "Network & Firewall",
           "question": "Which of these devices must be placed in a management VLAN?",
           "options": [
@@ -2481,7 +2480,7 @@
           "correctAnswer": "Network switches (management IP)"
         },
         {
-          "id": 1761299609873.651,
+          "id": 1761298595107.4062,
           "category": "Network & Firewall",
           "question": "What is the minimum retention period for firewall logs?",
           "options": [
@@ -2493,7 +2492,7 @@
           "correctAnswer": "1 year"
         },
         {
-          "id": 1761299610137.383,
+          "id": 1761298595065.624,
           "category": "Network & Firewall",
           "question": "Which of the following is an acceptable use of the corporate VPN?",
           "options": [
@@ -2505,7 +2504,7 @@
           "correctAnswer": "Accessing internal applications remotely"
         },
         {
-          "id": 1761299610244.007,
+          "id": 1761298595221.0083,
           "category": "Network & Firewall",
           "question": "Which of the following is not a recommended practice for firewall hardening?",
           "options": [
@@ -2519,11 +2518,11 @@
       ]
     },
     {
-      "id": "application_development_&_deployment_1761299609369.8567",
+      "id": "application_development_&_deployment_1761298594365.1804",
       "name": "Application Development & Deployment",
       "questions": [
         {
-          "id": 1761299609406.0645,
+          "id": 1761298594501.5022,
           "category": "Application Development & Deployment",
           "question": "Which SDLC phase includes threat modelling?",
           "options": [
@@ -2535,7 +2534,7 @@
           "correctAnswer": "Design"
         },
         {
-          "id": 1761299610242.4478,
+          "id": 1761298594818.1882,
           "category": "Application Development & Deployment",
           "question": "Which secure‑coding guideline must be satisfied?",
           "options": [
@@ -2547,7 +2546,7 @@
           "correctAnswer": "OWASP Top 10"
         },
         {
-          "id": 1761299609891.7388,
+          "id": 1761298594676.0964,
           "category": "Application Development & Deployment",
           "question": "Secrets (API keys, passwords) must be stored in:",
           "options": [
@@ -2559,7 +2558,7 @@
           "correctAnswer": "Secrets vault (e.g., HashiCorp Vault)"
         },
         {
-          "id": 1761299609966.7756,
+          "id": 1761298594790.805,
           "category": "Application Development & Deployment",
           "question": "Code must be peer‑reviewed before merging. This is an example of:",
           "options": [
@@ -2571,7 +2570,7 @@
           "correctAnswer": "Change control"
         },
         {
-          "id": 1761299609401.7932,
+          "id": 1761298594629.4795,
           "category": "Application Development & Deployment",
           "question": "Which CI/CD tool is explicitly allowed?",
           "options": [
@@ -2583,7 +2582,7 @@
           "correctAnswer": "GitLab CI / Azure DevOps"
         },
         {
-          "id": 1761299609822.2417,
+          "id": 1761298594706.592,
           "category": "Application Development & Deployment",
           "question": "Developers are prohibited from having direct production access. This is enforced by:",
           "options": [
@@ -2595,7 +2594,7 @@
           "correctAnswer": "RBAC and jump‑servers"
         },
         {
-          "id": 1761299610227.4187,
+          "id": 1761298595218.515,
           "category": "Application Development & Deployment",
           "question": "Which of the following is a mandatory pre‑release step?",
           "options": [
@@ -2607,7 +2606,7 @@
           "correctAnswer": "QA + CAB sign‑off"
         },
         {
-          "id": 1761299609927.4468,
+          "id": 1761298594750.8655,
           "category": "Application Development & Deployment",
           "question": "Which of the following is not a secure coding practice?",
           "options": [
@@ -2619,7 +2618,7 @@
           "correctAnswer": "Hard‑coding credentials"
         },
         {
-          "id": 1761299609818.494,
+          "id": 1761298595284.9238,
           "category": "Application Development & Deployment",
           "question": "The owner of the Application Development policy is:",
           "options": [
@@ -2631,7 +2630,7 @@
           "correctAnswer": "DevOps Lead"
         },
         {
-          "id": 1761299610103.87,
+          "id": 1761298594816.0073,
           "category": "Application Development & Deployment",
           "question": "Which environment must NOT contain production data?",
           "options": [
@@ -2643,7 +2642,7 @@
           "correctAnswer": "Sandbox"
         },
         {
-          "id": 1761299609487.8508,
+          "id": 1761298594601.1782,
           "category": "Application Development & Deployment",
           "question": "Which of the following is required for container images?",
           "options": [
@@ -2655,7 +2654,7 @@
           "correctAnswer": "Vulnerability scanning before push"
         },
         {
-          "id": 1761299609919.615,
+          "id": 1761298594971.489,
           "category": "Application Development & Deployment",
           "question": "What is the minimum frequency for dependency‑check updates?",
           "options": [
@@ -2667,7 +2666,7 @@
           "correctAnswer": "Weekly"
         },
         {
-          "id": 1761299610163.29,
+          "id": 1761298594819.1418,
           "category": "Application Development & Deployment",
           "question": "Which of the following is the primary purpose of a CAB (Change Advisory Board)?",
           "options": [
@@ -2679,7 +2678,7 @@
           "correctAnswer": "Assess risk & impact of changes"
         },
         {
-          "id": 1761299609776.6067,
+          "id": 1761298594479.6953,
           "category": "Application Development & Deployment",
           "question": "Which of the following is mandatory for every release branch?",
           "options": [
@@ -2691,7 +2690,7 @@
           "correctAnswer": "Semantic versioning"
         },
         {
-          "id": 1761299609934.0105,
+          "id": 1761298595266.5667,
           "category": "Application Development & Deployment",
           "question": "Which testing type focuses on security flaws?",
           "options": [
@@ -2703,7 +2702,7 @@
           "correctAnswer": "Static Application Security Testing (SAST)"
         },
         {
-          "id": 1761299609942.1926,
+          "id": 1761298594594.3645,
           "category": "Application Development & Deployment",
           "question": "Which of the following is the preferred method to manage database connection strings?",
           "options": [
@@ -2715,7 +2714,7 @@
           "correctAnswer": "Store in secret manager and inject at runtime"
         },
         {
-          "id": 1761299609981.998,
+          "id": 1761298594555.4314,
           "category": "Application Development & Deployment",
           "question": "Which of the following is not a required artifact in the release pipeline?",
           "options": [
@@ -2727,7 +2726,7 @@
           "correctAnswer": "User manual (optional)"
         },
         {
-          "id": 1761299610088.0806,
+          "id": 1761298595080.648,
           "category": "Application Development & Deployment",
           "question": "Which of these statements about infrastructure‑as‑code (IaC) is true?",
           "options": [
@@ -2739,7 +2738,7 @@
           "correctAnswer": "IaC enables repeatable, version‑controlled infra"
         },
         {
-          "id": 1761299609779.968,
+          "id": 1761298594555.8296,
           "category": "Application Development & Deployment",
           "question": "Which of the following is required for a production rollback?",
           "options": [
@@ -2751,7 +2750,7 @@
           "correctAnswer": "Documented rollback plan"
         },
         {
-          "id": 1761299610349.76,
+          "id": 1761298594625.5352,
           "category": "Application Development & Deployment",
           "question": "Which tool would you use for dynamic application security testing (DAST)?",
           "options": [
@@ -2763,7 +2762,7 @@
           "correctAnswer": "OWASP ZAP"
         },
         {
-          "id": 1761299610096.5647,
+          "id": 1761298594416.6973,
           "category": "Application Development & Deployment",
           "question": "Which of these is a mandatory compliance check before shipping to customers?",
           "options": [
@@ -2775,7 +2774,7 @@
           "correctAnswer": "Data protection & privacy assessment"
         },
         {
-          "id": 1761299609879.976,
+          "id": 1761298595378.9436,
           "category": "Application Development & Deployment",
           "question": "Which of the following best describes “Shift‑Left” testing?",
           "options": [
@@ -2787,7 +2786,7 @@
           "correctAnswer": "Testing early in the SDLC"
         },
         {
-          "id": 1761299609966.9976,
+          "id": 1761298595160.4932,
           "category": "Application Development & Deployment",
           "question": "Which of the following is not a recommended practice for API design?",
           "options": [
@@ -2799,7 +2798,7 @@
           "correctAnswer": "Exposing internal DB schema"
         },
         {
-          "id": 1761299609977.7412,
+          "id": 1761298594403.098,
           "category": "Application Development & Deployment",
           "question": "Which of the following must be included in the deployment checklist?",
           "options": [
@@ -2811,7 +2810,7 @@
           "correctAnswer": "Verification of environment variables"
         },
         {
-          "id": 1761299610076.0425,
+          "id": 1761298594740.0076,
           "category": "Application Development & Deployment",
           "question": "Which of the following is required for handling third‑party libraries?",
           "options": [
@@ -2823,7 +2822,7 @@
           "correctAnswer": "Perform license and vulnerability review"
         },
         {
-          "id": 1761299609793.4163,
+          "id": 1761298594434.0034,
           "category": "Application Development & Deployment",
           "question": "Which of the following is not a part of the Development policy scope?",
           "options": [
@@ -2835,7 +2834,7 @@
           "correctAnswer": "Hardware procurement"
         },
         {
-          "id": 1761299610332.944,
+          "id": 1761298595144.1003,
           "category": "Application Development & Deployment",
           "question": "Which of the following is mandatory for handling security incidents discovered in code?",
           "options": [
@@ -2847,7 +2846,7 @@
           "correctAnswer": "Escalate to InfoSec & patch"
         },
         {
-          "id": 1761299609675.219,
+          "id": 1761298595201.1719,
           "category": "Application Development & Deployment",
           "question": "Which of these is the primary purpose of feature toggles?",
           "options": [
@@ -2859,7 +2858,7 @@
           "correctAnswer": "Gradual rollout and rollback"
         },
         {
-          "id": 1761299609671.8367,
+          "id": 1761298595096.9912,
           "category": "Application Development & Deployment",
           "question": "Which of the following is required for static code analysis?",
           "options": [
@@ -2871,7 +2870,7 @@
           "correctAnswer": "Automated tooling integrated in CI"
         },
         {
-          "id": 1761299610064.4973,
+          "id": 1761298594889.878,
           "category": "Application Development & Deployment",
           "question": "Which of the following statements about container registry security is true?",
           "options": [
@@ -2885,11 +2884,11 @@
       ]
     },
     {
-      "id": "database_&_storage_1761299609369.2068",
+      "id": "database_&_storage_1761298594365.2637",
       "name": "Database & Storage",
       "questions": [
         {
-          "id": 1761299609487.0571,
+          "id": 1761298594395.0095,
           "category": "Database & Storage",
           "question": "Database access is only permitted via:",
           "options": [
@@ -2901,7 +2900,7 @@
           "correctAnswer": "Jump servers"
         },
         {
-          "id": 1761299610105.3398,
+          "id": 1761298594609.5918,
           "category": "Database & Storage",
           "question": "Backup data must be encrypted and stored off‑site. This satisfies which control?",
           "options": [
@@ -2913,7 +2912,7 @@
           "correctAnswer": "Confidentiality"
         },
         {
-          "id": 1761299610187.7078,
+          "id": 1761298595110.5696,
           "category": "Database & Storage",
           "question": "How long must database logs be retained?",
           "options": [
@@ -2925,7 +2924,7 @@
           "correctAnswer": "1 year"
         },
         {
-          "id": 1761299609777.4321,
+          "id": 1761298595167.3901,
           "category": "Database & Storage",
           "question": "Production data may be used in testing environments if:",
           "options": [
@@ -2937,7 +2936,7 @@
           "correctAnswer": "It is anonymised"
         },
         {
-          "id": 1761299609888.7344,
+          "id": 1761298594547.0955,
           "category": "Database & Storage",
           "question": "The owner of the Database & Storage policy is:",
           "options": [
@@ -2949,7 +2948,7 @@
           "correctAnswer": "DBA Lead / IT Head"
         },
         {
-          "id": 1761299609671.883,
+          "id": 1761298594414.2239,
           "category": "Database & Storage",
           "question": "Which of the following is a required data‑masking technique?",
           "options": [
@@ -2961,7 +2960,7 @@
           "correctAnswer": "Partial redaction of PII fields"
         },
         {
-          "id": 1761299609749.8494,
+          "id": 1761298595352.238,
           "category": "Database & Storage",
           "question": "Which backup verification step is mandatory?",
           "options": [
@@ -2973,7 +2972,7 @@
           "correctAnswer": "Validate checksum and restore a sample"
         },
         {
-          "id": 1761299609419.291,
+          "id": 1761298594536.19,
           "category": "Database & Storage",
           "question": "What is the minimum frequency for a DB performance audit?",
           "options": [
@@ -2985,7 +2984,7 @@
           "correctAnswer": "Quarterly"
         },
         {
-          "id": 1761299609847.6145,
+          "id": 1761298594522.741,
           "category": "Database & Storage",
           "question": "Which of the following is not a storage‑type covered by the policy?",
           "options": [
@@ -2997,7 +2996,7 @@
           "correctAnswer": "Physical paper records"
         },
         {
-          "id": 1761299610216.9128,
+          "id": 1761298594490.5999,
           "category": "Database & Storage",
           "question": "Which of the following is a required security control for database administrators?",
           "options": [
@@ -3009,7 +3008,7 @@
           "correctAnswer": "Just‑in‑time privileged access"
         },
         {
-          "id": 1761299610293.4187,
+          "id": 1761298595371.473,
           "category": "Database & Storage",
           "question": "Where are database backups stored?",
           "options": [
@@ -3021,7 +3020,7 @@
           "correctAnswer": "Off‑site, encrypted, separate media"
         },
         {
-          "id": 1761299610294.9988,
+          "id": 1761298594675.689,
           "category": "Database & Storage",
           "question": "Which of these actions must be taken before de‑commissioning a database?",
           "options": [
@@ -3033,7 +3032,7 @@
           "correctAnswer": "Secure data wipe & migration"
         },
         {
-          "id": 1761299609729.7322,
+          "id": 1761298594795.446,
           "category": "Database & Storage",
           "question": "Which of the following is required for data retention?",
           "options": [
@@ -3045,7 +3044,7 @@
           "correctAnswer": "Define minimum retention per regulation"
         },
         {
-          "id": 1761299610327.6726,
+          "id": 1761298594579.5083,
           "category": "Database & Storage",
           "question": "Which of the following best describes “least privilege” for DB users?",
           "options": [
@@ -3057,7 +3056,7 @@
           "correctAnswer": "Grant only needed permissions"
         },
         {
-          "id": 1761299609955.2925,
+          "id": 1761298595061.194,
           "category": "Database & Storage",
           "question": "Which of the following is not a component of the Database policy scope?",
           "options": [
@@ -3069,7 +3068,7 @@
           "correctAnswer": "Physical building security"
         },
         {
-          "id": 1761299609657.3367,
+          "id": 1761298594702.2087,
           "category": "Database & Storage",
           "question": "Which of the following must be logged for all DB access?",
           "options": [
@@ -3081,7 +3080,7 @@
           "correctAnswer": "User ID, time, query type"
         },
         {
-          "id": 1761299609715.7537,
+          "id": 1761298595280.778,
           "category": "Database & Storage",
           "question": "Which encryption standard is mandatory for DB backups?",
           "options": [
@@ -3093,7 +3092,7 @@
           "correctAnswer": "AES‑256"
         },
         {
-          "id": 1761299610270.9045,
+          "id": 1761298594513.42,
           "category": "Database & Storage",
           "question": "Who must approve a new database platform purchase?",
           "options": [
@@ -3105,7 +3104,7 @@
           "correctAnswer": "IT Head + Finance"
         },
         {
-          "id": 1761299610168.7942,
+          "id": 1761298595219.9514,
           "category": "Database & Storage",
           "question": "Which step is required before loading production data into a data‑warehouse?",
           "options": [
@@ -3117,7 +3116,7 @@
           "correctAnswer": "Data profiling & cleansing"
         },
         {
-          "id": 1761299610104.405,
+          "id": 1761298594587.2166,
           "category": "Database & Storage",
           "question": "Which type of storage must have immutability for ransomware protection?",
           "options": [
@@ -3129,7 +3128,7 @@
           "correctAnswer": "Object storage with Write‑Once‑Read‑Many (WORM)"
         },
         {
-          "id": 1761299609787.163,
+          "id": 1761298594420.6162,
           "category": "Database & Storage",
           "question": "Which statement about database patching is true?",
           "options": [
@@ -3141,7 +3140,7 @@
           "correctAnswer": "Patch within 30 days of release"
         },
         {
-          "id": 1761299609703.3486,
+          "id": 1761298594887.169,
           "category": "Database & Storage",
           "question": "Which of the following is required for audit logging of privileged DB actions?",
           "options": [
@@ -3153,7 +3152,7 @@
           "correctAnswer": "Log both successful and failed privileged commands"
         },
         {
-          "id": 1761299610050.4565,
+          "id": 1761298595379.4036,
           "category": "Database & Storage",
           "question": "Which of these is not a recommended practice for database key management?",
           "options": [
@@ -3165,7 +3164,7 @@
           "correctAnswer": "Store keys in plain‑text on the server"
         },
         {
-          "id": 1761299610255.7522,
+          "id": 1761298595109.2043,
           "category": "Database & Storage",
           "question": "Which describes the “3‑2‑1” backup rule?",
           "options": [
@@ -3177,7 +3176,7 @@
           "correctAnswer": "3 copies, 2 media types, 1 off‑site"
         },
         {
-          "id": 1761299609482.0928,
+          "id": 1761298594835.8918,
           "category": "Database & Storage",
           "question": "Which metric is required for storage capacity planning?",
           "options": [
@@ -3189,7 +3188,7 @@
           "correctAnswer": "Growth trend in TB per quarter"
         },
         {
-          "id": 1761299609760.911,
+          "id": 1761298594708.8047,
           "category": "Database & Storage",
           "question": "Which is mandatory for database change management?",
           "options": [
@@ -3201,7 +3200,7 @@
           "correctAnswer": "Change request + CAB approval"
         },
         {
-          "id": 1761299609811.1714,
+          "id": 1761298594919.4648,
           "category": "Database & Storage",
           "question": "Which is not a data‑classification level in the policy?",
           "options": [
@@ -3213,7 +3212,7 @@
           "correctAnswer": "Top‑Secret (not defined)"
         },
         {
-          "id": 1761299610193.765,
+          "id": 1761298594840.4563,
           "category": "Database & Storage",
           "question": "Which must be encrypted in transit?",
           "options": [
@@ -3225,7 +3224,7 @@
           "correctAnswer": "Database replication traffic"
         },
         {
-          "id": 1761299609922.6453,
+          "id": 1761298594405.6733,
           "category": "Database & Storage",
           "question": "Which is required when a vendor requests DB access?",
           "options": [
@@ -3237,7 +3236,7 @@
           "correctAnswer": "Security risk assessment & NDA"
         },
         {
-          "id": 1761299609768.773,
+          "id": 1761298595131.046,
           "category": "Database & Storage",
           "question": "Which is a primary reason for database segmentation?",
           "options": [
@@ -3251,11 +3250,11 @@
       ]
     },
     {
-      "id": "procurement_&_vendor_management_1761299609369.0513",
+      "id": "procurement_&_vendor_management_1761298594365.7083",
       "name": "Procurement & Vendor Management",
       "questions": [
         {
-          "id": 1761299609423.6226,
+          "id": 1761298594399.5889,
           "category": "Procurement & Vendor Management",
           "question": "All procurement requests must be approved by:",
           "options": [
@@ -3267,7 +3266,7 @@
           "correctAnswer": "IT Head + Finance"
         },
         {
-          "id": 1761299609828.1685,
+          "id": 1761298594855.2278,
           "category": "Procurement & Vendor Management",
           "question": "Before onboarding a new vendor, which assessment is mandatory?",
           "options": [
@@ -3279,7 +3278,7 @@
           "correctAnswer": "Security Risk Assessment"
         },
         {
-          "id": 1761299609402.2695,
+          "id": 1761298594985.3416,
           "category": "Procurement & Vendor Management",
           "question": "Vendor contracts must include a signed:",
           "options": [
@@ -3291,7 +3290,7 @@
           "correctAnswer": "NDA"
         },
         {
-          "id": 1761299609632.0024,
+          "id": 1761298594894.8167,
           "category": "Procurement & Vendor Management",
           "question": "License audits are performed:",
           "options": [
@@ -3303,7 +3302,7 @@
           "correctAnswer": "Annually"
         },
         {
-          "id": 1761299610241.1238,
+          "id": 1761298595281.087,
           "category": "Procurement & Vendor Management",
           "question": "Who is the owner of the Procurement & Vendor Management policy?",
           "options": [
@@ -3315,7 +3314,7 @@
           "correctAnswer": "IT Head + Finance"
         },
         {
-          "id": 1761299610180.007,
+          "id": 1761298595359.1218,
           "category": "Procurement & Vendor Management",
           "question": "Which of the following cannot be procured without a purchase order?",
           "options": [
@@ -3327,7 +3326,7 @@
           "correctAnswer": "Cloud SaaS subscription"
         },
         {
-          "id": 1761299610329.1257,
+          "id": 1761298594489.061,
           "category": "Procurement & Vendor Management",
           "question": "Which of the following is a required document for a software purchase?",
           "options": [
@@ -3339,7 +3338,7 @@
           "correctAnswer": "Software licence agreement"
         },
         {
-          "id": 1761299610166.9092,
+          "id": 1761298594401.5283,
           "category": "Procurement & Vendor Management",
           "question": "Which of these must be verified before renewing a vendor contract?",
           "options": [
@@ -3351,7 +3350,7 @@
           "correctAnswer": "Compliance with security requirements"
         },
         {
-          "id": 1761299610336.9326,
+          "id": 1761298594467.312,
           "category": "Procurement & Vendor Management",
           "question": "Which must be kept for audit on vendor relationships?",
           "options": [
@@ -3363,7 +3362,7 @@
           "correctAnswer": "Risk assessment report, SLA, NDA"
         },
         {
-          "id": 1761299609764.7383,
+          "id": 1761298594841.6943,
           "category": "Procurement & Vendor Management",
           "question": "Which is a justified reason to blacklist a vendor?",
           "options": [
@@ -3375,7 +3374,7 @@
           "correctAnswer": "Repeated security findings"
         },
         {
-          "id": 1761299610203.418,
+          "id": 1761298594478.8699,
           "category": "Procurement & Vendor Management",
           "question": "Which cannot be a payment method for IT purchases?",
           "options": [
@@ -3387,7 +3386,7 @@
           "correctAnswer": "Cash payment (policy disallows)"
         },
         {
-          "id": 1761299610025.4297,
+          "id": 1761298594624.9841,
           "category": "Procurement & Vendor Management",
           "question": "Which must be documented for every hardware purchase?",
           "options": [
@@ -3399,7 +3398,7 @@
           "correctAnswer": "Asset tag, serial number, cost centre"
         },
         {
-          "id": 1761299609930.3735,
+          "id": 1761298594907.6147,
           "category": "Procurement & Vendor Management",
           "question": "Which must be performed before accepting a new hardware delivery?",
           "options": [
@@ -3411,7 +3410,7 @@
           "correctAnswer": "Validate against purchase order & inspect for damage"
         },
         {
-          "id": 1761299609701.369,
+          "id": 1761298595175.8066,
           "category": "Procurement & Vendor Management",
           "question": "Which must be included in a vendor security questionnaire?",
           "options": [
@@ -3423,7 +3422,7 @@
           "correctAnswer": "Encryption practices, incident response process"
         },
         {
-          "id": 1761299609957.5715,
+          "id": 1761298594886.0247,
           "category": "Procurement & Vendor Management",
           "question": "Which cannot be a valid reason for expedited procurement?",
           "options": [
@@ -3435,7 +3434,7 @@
           "correctAnswer": "Personal desire for a new laptop"
         },
         {
-          "id": 1761299610274.606,
+          "id": 1761298595015.6602,
           "category": "Procurement & Vendor Management",
           "question": "Which must be reviewed annually?",
           "options": [
@@ -3447,7 +3446,7 @@
           "correctAnswer": "Vendor security posture & contract terms"
         },
         {
-          "id": 1761299610009.726,
+          "id": 1761298595048.8232,
           "category": "Procurement & Vendor Management",
           "question": "Which must be done before splitting a purchase across multiple vendors?",
           "options": [
@@ -3459,7 +3458,7 @@
           "correctAnswer": "Ensure no single‑source risk & obtain approvals"
         },
         {
-          "id": 1761299609649.4568,
+          "id": 1761298594671.7927,
           "category": "Procurement & Vendor Management",
           "question": "Which must be recorded when a vendor is released from contract?",
           "options": [
@@ -3471,7 +3470,7 @@
           "correctAnswer": "Formal termination notice and asset hand‑over"
         },
         {
-          "id": 1761299609727.467,
+          "id": 1761298595068.5781,
           "category": "Procurement & Vendor Management",
           "question": "Which must be present on all software licences?",
           "options": [
@@ -3483,7 +3482,7 @@
           "correctAnswer": "Version, seat count, expiry date"
         },
         {
-          "id": 1761299609389.6106,
+          "id": 1761298594566.251,
           "category": "Procurement & Vendor Management",
           "question": "Which must be included in a procurement checklist?",
           "options": [
@@ -3495,7 +3494,7 @@
           "correctAnswer": "Compliance check, budget verification, approval signatures"
         },
         {
-          "id": 1761299609557.1907,
+          "id": 1761298594923.6982,
           "category": "Procurement & Vendor Management",
           "question": "Which cannot be a justified cost for a new tool?",
           "options": [
@@ -3507,7 +3506,7 @@
           "correctAnswer": "Free coffee for the team"
         },
         {
-          "id": 1761299609926.8855,
+          "id": 1761298594986.388,
           "category": "Procurement & Vendor Management",
           "question": "What must be done when a vendor requests access to internal systems?",
           "options": [
@@ -3519,7 +3518,7 @@
           "correctAnswer": "Perform a security assessment and grant least‑privilege access"
         },
         {
-          "id": 1761299610043.1606,
+          "id": 1761298594670.9517,
           "category": "Procurement & Vendor Management",
           "question": "Which must be part of a vendor exit strategy?",
           "options": [
@@ -3531,7 +3530,7 @@
           "correctAnswer": "Data retrieval, revocation of credentials, destruction of copies"
         },
         {
-          "id": 1761299609790.256,
+          "id": 1761298595041.858,
           "category": "Procurement & Vendor Management",
           "question": "Which must be included in an SLA with a vendor?",
           "options": [
@@ -3543,7 +3542,7 @@
           "correctAnswer": "Uptime target, response time, penalties"
         },
         {
-          "id": 1761299609566.047,
+          "id": 1761298594766.567,
           "category": "Procurement & Vendor Management",
           "question": "Which cannot be a risk category for a vendor?",
           "options": [
@@ -3555,7 +3554,7 @@
           "correctAnswer": "Colour of the logo"
         },
         {
-          "id": 1761299609695.4893,
+          "id": 1761298595126.0728,
           "category": "Procurement & Vendor Management",
           "question": "Which must be performed pre‑deployment for purchased hardware?",
           "options": [
@@ -3567,7 +3566,7 @@
           "correctAnswer": "Configuration according to hardening baseline"
         },
         {
-          "id": 1761299610065.6206,
+          "id": 1761298595115.3125,
           "category": "Procurement & Vendor Management",
           "question": "Which must be captured in the procurement register?",
           "options": [
@@ -3579,7 +3578,7 @@
           "correctAnswer": "Item description, cost, PO number, approver"
         },
         {
-          "id": 1761299609806.1272,
+          "id": 1761298594639.7305,
           "category": "Procurement & Vendor Management",
           "question": "Which must be verified before renewing a cloud‑service contract?",
           "options": [
@@ -3591,7 +3590,7 @@
           "correctAnswer": "Data residency, encryption, compliance certifications"
         },
         {
-          "id": 1761299609498.7563,
+          "id": 1761298595077.1982,
           "category": "Procurement & Vendor Management",
           "question": "Which must be part of vendor onboarding?",
           "options": [
@@ -3603,7 +3602,7 @@
           "correctAnswer": "Security questionnaire, contract signing, asset tagging"
         },
         {
-          "id": 1761299609652.6267,
+          "id": 1761298594900.0496,
           "category": "Procurement & Vendor Management",
           "question": "Which cannot be a valid reason for contract termination?",
           "options": [
@@ -3617,11 +3616,11 @@
       ]
     },
     {
-      "id": "compliance_&_legal_1761299609369.106",
+      "id": "compliance_&_legal_1761298594365.694",
       "name": "Compliance & Legal",
       "questions": [
         {
-          "id": 1761299609403.1472,
+          "id": 1761298594571.3706,
           "category": "Compliance & Legal",
           "question": "Minimum data‑retention period across the organization is:",
           "options": [
@@ -3633,7 +3632,7 @@
           "correctAnswer": "1 year"
         },
         {
-          "id": 1761299609706.7083,
+          "id": 1761298595235.9136,
           "category": "Compliance & Legal",
           "question": "Which external audit is performed annually?",
           "options": [
@@ -3645,7 +3644,7 @@
           "correctAnswer": "InfoSec compliance (ISO 27001/GDPR)"
         },
         {
-          "id": 1761299609725.192,
+          "id": 1761298594416.253,
           "category": "Compliance & Legal",
           "question": "Who reviews non‑compliance incidents?",
           "options": [
@@ -3657,7 +3656,7 @@
           "correctAnswer": "CISO & Legal Head"
         },
         {
-          "id": 1761299609439.3318,
+          "id": 1761298595006.7725,
           "category": "Compliance & Legal",
           "question": "Which regulation is explicitly referenced in the policy?",
           "options": [
@@ -3669,7 +3668,7 @@
           "correctAnswer": "GDPR"
         },
         {
-          "id": 1761299610349.4226,
+          "id": 1761298594371.069,
           "category": "Compliance & Legal",
           "question": "The owner of the Compliance & Legal policy is:",
           "options": [
@@ -3681,7 +3680,7 @@
           "correctAnswer": "Legal Head"
         },
         {
-          "id": 1761299609995.47,
+          "id": 1761298594465.0574,
           "category": "Compliance & Legal",
           "question": "Which of the following must be documented for every data‑subject request?",
           "options": [
@@ -3693,7 +3692,7 @@
           "correctAnswer": "Request date, scope, response action"
         },
         {
-          "id": 1761299609674.0613,
+          "id": 1761298594810.9282,
           "category": "Compliance & Legal",
           "question": "Which of the following cannot be a legal justification for data processing?",
           "options": [
@@ -3705,7 +3704,7 @@
           "correctAnswer": "Personal curiosity"
         },
         {
-          "id": 1761299610149.2095,
+          "id": 1761298595049.6133,
           "category": "Compliance & Legal",
           "question": "Which must be retained for audit?",
           "options": [
@@ -3717,7 +3716,7 @@
           "correctAnswer": "Policy version, approval logs, audit reports"
         },
         {
-          "id": 1761299610251.265,
+          "id": 1761298595270.7517,
           "category": "Compliance & Legal",
           "question": "Which must be performed bi‑annually?",
           "options": [
@@ -3729,7 +3728,7 @@
           "correctAnswer": "Policy review & risk assessment"
         },
         {
-          "id": 1761299609663.3628,
+          "id": 1761298594790.5854,
           "category": "Compliance & Legal",
           "question": "Which must be included in the privacy notice?",
           "options": [
@@ -3741,7 +3740,7 @@
           "correctAnswer": "Legal basis for processing, data subject rights"
         },
         {
-          "id": 1761299609392.6104,
+          "id": 1761298594793.17,
           "category": "Compliance & Legal",
           "question": "What must be done when a European employee requests data deletion?",
           "options": [
@@ -3753,7 +3752,7 @@
           "correctAnswer": "Execute Right‑to‑Erasure per GDPR"
         },
         {
-          "id": 1761299610324.3118,
+          "id": 1761298595349.2935,
           "category": "Compliance & Legal",
           "question": "Which must be reported to the regulator within 72 hours after a breach?",
           "options": [
@@ -3765,7 +3764,7 @@
           "correctAnswer": "Personal data breach"
         },
         {
-          "id": 1761299609766.5125,
+          "id": 1761298595179.35,
           "category": "Compliance & Legal",
           "question": "Which must be part of the record‑keeping for GDPR?",
           "options": [
@@ -3777,7 +3776,7 @@
           "correctAnswer": "Processing activities register"
         },
         {
-          "id": 1761299609895.6238,
+          "id": 1761298594711.5767,
           "category": "Compliance & Legal",
           "question": "Which is a mandatory control for PCI‑DSS (if applicable)?",
           "options": [
@@ -3789,7 +3788,7 @@
           "correctAnswer": "Encryption of cardholder data"
         },
         {
-          "id": 1761299610111.1208,
+          "id": 1761298595213.0618,
           "category": "Compliance & Legal",
           "question": "Which cannot be a justified reason to retain personal data beyond the 1‑year minimum?",
           "options": [
@@ -3801,7 +3800,7 @@
           "correctAnswer": "Employee’s personal preference"
         },
         {
-          "id": 1761299610196.3416,
+          "id": 1761298594958.8987,
           "category": "Compliance & Legal",
           "question": "Which must be included in a vendor contract to satisfy compliance?",
           "options": [
@@ -3813,7 +3812,7 @@
           "correctAnswer": "Data protection clauses & audit rights"
         },
         {
-          "id": 1761299609610.4124,
+          "id": 1761298595172.1746,
           "category": "Compliance & Legal",
           "question": "Which must be performed quarterly?",
           "options": [
@@ -3825,7 +3824,7 @@
           "correctAnswer": "Compliance self‑assessment"
         },
         {
-          "id": 1761299609553.5356,
+          "id": 1761298594820.4407,
           "category": "Compliance & Legal",
           "question": "Which must be verified before exporting personal data abroad?",
           "options": [
@@ -3837,7 +3836,7 @@
           "correctAnswer": "Adequate safeguards / Standard Contractual Clauses"
         },
         {
-          "id": 1761299610275.3806,
+          "id": 1761298595152.3806,
           "category": "Compliance & Legal",
           "question": "Which must be part of the incident‑response documentation?",
           "options": [
@@ -3849,7 +3848,7 @@
           "correctAnswer": "Timeline, impact assessment, containment steps"
         },
         {
-          "id": 1761299609799.482,
+          "id": 1761298595349.6528,
           "category": "Compliance & Legal",
           "question": "Which must be maintained for audit of policy changes?",
           "options": [
@@ -3861,7 +3860,7 @@
           "correctAnswer": "Version control, change‑log, approver signatures"
         },
         {
-          "id": 1761299610360.1096,
+          "id": 1761298594568.7673,
           "category": "Compliance & Legal",
           "question": "Which must be reviewed annually by the Legal team?",
           "options": [
@@ -3873,7 +3872,7 @@
           "correctAnswer": "Contracts, licensing agreements, NDAs"
         },
         {
-          "id": 1761299610052.2292,
+          "id": 1761298594564.4521,
           "category": "Compliance & Legal",
           "question": "Which must be done when a lawful request for data is received from law enforcement?",
           "options": [
@@ -3885,7 +3884,7 @@
           "correctAnswer": "Verify request, involve Legal, provide data securely"
         },
         {
-          "id": 1761299609932.772,
+          "id": 1761298595308.8298,
           "category": "Compliance & Legal",
           "question": "Which must be part of the training curriculum for compliance?",
           "options": [
@@ -3897,7 +3896,7 @@
           "correctAnswer": "Privacy, data‑subject rights, reporting obligations"
         },
         {
-          "id": 1761299609938.5605,
+          "id": 1761298594926.569,
           "category": "Compliance & Legal",
           "question": "Which cannot be an acceptable data‑transfer method for regulated data?",
           "options": [
@@ -3909,7 +3908,7 @@
           "correctAnswer": "Plain‑text email"
         },
         {
-          "id": 1761299609862.4136,
+          "id": 1761298594827.5576,
           "category": "Compliance & Legal",
           "question": "Which must be documented when de‑identifying personal data?",
           "options": [
@@ -3921,7 +3920,7 @@
           "correctAnswer": "Method used, risk of re‑identification"
         },
         {
-          "id": 1761299609409.975,
+          "id": 1761298594803.902,
           "category": "Compliance & Legal",
           "question": "Which must be included in a risk‑assessment report?",
           "options": [
@@ -3933,7 +3932,7 @@
           "correctAnswer": "Likelihood, impact, mitigation controls"
         },
         {
-          "id": 1761299610164.168,
+          "id": 1761298594825.4792,
           "category": "Compliance & Legal",
           "question": "Which must be done before launching a new marketing campaign that uses personal data?",
           "options": [
@@ -3945,7 +3944,7 @@
           "correctAnswer": "Data‑processing impact assessment"
         },
         {
-          "id": 1761299609721.2197,
+          "id": 1761298594608.6526,
           "category": "Compliance & Legal",
           "question": "Which must be part of records retention for financial data?",
           "options": [
@@ -3957,7 +3956,7 @@
           "correctAnswer": "7 years (per local law)"
         },
         {
-          "id": 1761299610217.9614,
+          "id": 1761298595319.091,
           "category": "Compliance & Legal",
           "question": "Which must be performed if a data‑processor fails a security audit?",
           "options": [
@@ -3969,7 +3968,7 @@
           "correctAnswer": "Terminate or remediate the contract"
         },
         {
-          "id": 1761299609653.1921,
+          "id": 1761298595369.3071,
           "category": "Compliance & Legal",
           "question": "Which must be included in the annual compliance report to the board?",
           "options": [
@@ -3983,11 +3982,11 @@
       ]
     },
     {
-      "id": "change_management_1761299609369.9255",
+      "id": "change_management_1761298594365.2722",
       "name": "Change Management",
       "questions": [
         {
-          "id": 1761299609732.654,
+          "id": 1761298594457.1423,
           "category": "Change Management",
           "question": "Major changes require approval from:",
           "options": [
@@ -3999,7 +3998,7 @@
           "correctAnswer": "CAB (Change Advisory Board)"
         },
         {
-          "id": 1761299609518.1843,
+          "id": 1761298594523.333,
           "category": "Change Management",
           "question": "Which document must accompany every change request?",
           "options": [
@@ -4009,7 +4008,7 @@
           "correctAnswer": "Change Request Form"
         },
         {
-          "id": 1761299609825.248,
+          "id": 1761298594810.3708,
           "category": "Change Management",
           "question": "A rollback plan is:",
           "options": [
@@ -4019,7 +4018,7 @@
           "correctAnswer": "Mandatory"
         },
         {
-          "id": 1761299610329.3706,
+          "id": 1761298594836.879,
           "category": "Change Management",
           "question": "Which of the following cannot be a type of change?",
           "options": [
@@ -4031,7 +4030,7 @@
           "correctAnswer": "Holiday"
         },
         {
-          "id": 1761299610293.4495,
+          "id": 1761298595247.6794,
           "category": "Change Management",
           "question": "The owner of the Change Management policy is:",
           "options": [
@@ -4043,7 +4042,7 @@
           "correctAnswer": "CIO"
         },
         {
-          "id": 1761299609848.515,
+          "id": 1761298594828.7512,
           "category": "Change Management",
           "question": "Which of the following must be performed after a change is implemented?",
           "options": [
@@ -4053,7 +4052,7 @@
           "correctAnswer": "Post‑implementation review"
         },
         {
-          "id": 1761299609935.8318,
+          "id": 1761298594387.403,
           "category": "Change Management",
           "question": "Which must be documented for a failed change?",
           "options": [
@@ -4063,7 +4062,7 @@
           "correctAnswer": "Root cause, impact, corrective actions"
         },
         {
-          "id": 1761299609723.7659,
+          "id": 1761298594853.838,
           "category": "Change Management",
           "question": "Which must be included in the change schedule?",
           "options": [
@@ -4073,7 +4072,7 @@
           "correctAnswer": "Planned start/end times, affected services"
         },
         {
-          "id": 1761299610344.7893,
+          "id": 1761298595165.637,
           "category": "Change Management",
           "question": "Which must be verified before promoting a change to production?",
           "options": [
@@ -4083,7 +4082,7 @@
           "correctAnswer": "Successful testing in staging"
         },
         {
-          "id": 1761299609876.513,
+          "id": 1761298594481.3713,
           "category": "Change Management",
           "question": "Which cannot be a reason to bypass CAB approval?",
           "options": [
@@ -4095,7 +4094,7 @@
           "correctAnswer": "Personal preference"
         },
         {
-          "id": 1761299609459.4897,
+          "id": 1761298594656.0686,
           "category": "Change Management",
           "question": "Which must be communicated to end‑users for a planned outage?",
           "options": [
@@ -4105,7 +4104,7 @@
           "correctAnswer": "Outage window, impact, expected restoration time"
         },
         {
-          "id": 1761299609712.9443,
+          "id": 1761298595296.744,
           "category": "Change Management",
           "question": "Which must be archived for audit?",
           "options": [
@@ -4115,7 +4114,7 @@
           "correctAnswer": "Change request, approvals, test results"
         },
         {
-          "id": 1761299610153.9224,
+          "id": 1761298594420.4097,
           "category": "Change Management",
           "question": "Which must be part of emergency change handling?",
           "options": [
@@ -4125,7 +4124,7 @@
           "correctAnswer": "Rapid risk assessment, immediate stakeholder notification"
         },
         {
-          "id": 1761299610177.689,
+          "id": 1761298595281.5999,
           "category": "Change Management",
           "question": "Which must be completed before de‑commissioning a service?",
           "options": [
@@ -4135,7 +4134,7 @@
           "correctAnswer": "Remove from CMDB, update documentation"
         },
         {
-          "id": 1761299610182.531,
+          "id": 1761298595224.7834,
           "category": "Change Management",
           "question": "Which cannot be a risk associated with a change?",
           "options": [
@@ -4147,7 +4146,7 @@
           "correctAnswer": "Improved performance (positive)"
         },
         {
-          "id": 1761299609522.8618,
+          "id": 1761298594655.22,
           "category": "Change Management",
           "question": "Which must be done when a change fails during deployment?",
           "options": [
@@ -4157,7 +4156,7 @@
           "correctAnswer": "Execute rollback plan"
         },
         {
-          "id": 1761299610093.0742,
+          "id": 1761298594665.5603,
           "category": "Change Management",
           "question": "Which must be performed weekly?",
           "options": [
@@ -4167,7 +4166,7 @@
           "correctAnswer": "Review of pending change requests"
         },
         {
-          "id": 1761299610071.3179,
+          "id": 1761298594545.2283,
           "category": "Change Management",
           "question": "Which must be part of the change classification?",
           "options": [
@@ -4177,7 +4176,7 @@
           "correctAnswer": "Impact, urgency, effort"
         },
         {
-          "id": 1761299610010.006,
+          "id": 1761298594424.1934,
           "category": "Change Management",
           "question": "Which must be recorded for every change?",
           "options": [
@@ -4187,7 +4186,7 @@
           "correctAnswer": "Change ID, description, owner, timestamps"
         },
         {
-          "id": 1761299610172.4866,
+          "id": 1761298594664.0063,
           "category": "Change Management",
           "question": "Which must be reviewed monthly by the CAB?",
           "options": [
@@ -4197,7 +4196,7 @@
           "correctAnswer": "Open high‑risk changes"
         },
         {
-          "id": 1761299609812.6113,
+          "id": 1761298595001.2488,
           "category": "Change Management",
           "question": "Which cannot be a valid reason for reverting a change?",
           "options": [
@@ -4209,7 +4208,7 @@
           "correctAnswer": "Personal dislike of the UI colour"
         },
         {
-          "id": 1761299610011.4797,
+          "id": 1761298594505.3022,
           "category": "Change Management",
           "question": "Which must be included in the change communication to IT staff?",
           "options": [
@@ -4219,7 +4218,7 @@
           "correctAnswer": "Scope, schedule, back‑out plan"
         },
         {
-          "id": 1761299610153.6545,
+          "id": 1761298595161.565,
           "category": "Change Management",
           "question": "Which must be verified after a successful change?",
           "options": [
@@ -4229,7 +4228,7 @@
           "correctAnswer": "Service health and monitoring alerts"
         },
         {
-          "id": 1761299610289.0217,
+          "id": 1761298594620.5508,
           "category": "Change Management",
           "question": "Which must be documented for a standard change?",
           "options": [
@@ -4239,7 +4238,7 @@
           "correctAnswer": "Procedure, pre‑approval, minimal risk"
         },
         {
-          "id": 1761299610046.4485,
+          "id": 1761298595056.0215,
           "category": "Change Management",
           "question": "Which must be performed before a major infrastructure upgrade?",
           "options": [
@@ -4249,7 +4248,7 @@
           "correctAnswer": "Capacity planning, risk assessment"
         },
         {
-          "id": 1761299609446.8738,
+          "id": 1761298595256.3286,
           "category": "Change Management",
           "question": "Which must be communicated to the Steering Committee?",
           "options": [
@@ -4259,7 +4258,7 @@
           "correctAnswer": "Strategic impact, cost, timeline"
         },
         {
-          "id": 1761299609669.1858,
+          "id": 1761298594942.946,
           "category": "Change Management",
           "question": "Which must be part of the post‑implementation audit?",
           "options": [
@@ -4269,7 +4268,7 @@
           "correctAnswer": "Verification that objectives were met"
         },
         {
-          "id": 1761299610068.192,
+          "id": 1761298594804.4578,
           "category": "Change Management",
           "question": "Which must be reviewed annually?",
           "options": [
@@ -4279,7 +4278,7 @@
           "correctAnswer": "Change Management process effectiveness"
         },
         {
-          "id": 1761299610381.531,
+          "id": 1761298595307.1536,
           "category": "Change Management",
           "question": "Which must be done if a change introduces a security defect?",
           "options": [
@@ -4289,7 +4288,7 @@
           "correctAnswer": "Escalate to InfoSec and remediate"
         },
         {
-          "id": 1761299609858.307,
+          "id": 1761298594460.0154,
           "category": "Change Management",
           "question": "Which must be included in the change backlog?",
           "options": [
@@ -4301,11 +4300,11 @@
       ]
     },
     {
-      "id": "backup_&_disaster_recovery_1761299609369.8152",
+      "id": "backup_&_disaster_recovery_1761298594365.7153",
       "name": "Backup & Disaster Recovery",
       "questions": [
         {
-          "id": 1761299610151.1846,
+          "id": 1761298595308.6272,
           "category": "Backup & Disaster Recovery",
           "question": "The “3‑2‑1” backup rule means:",
           "options": [
@@ -4317,7 +4316,7 @@
           "correctAnswer": "3 copies, 2 media types, 1 off‑site"
         },
         {
-          "id": 1761299609523.413,
+          "id": 1761298594945.0583,
           "category": "Backup & Disaster Recovery",
           "question": "Maximum RPO permitted is:",
           "options": [
@@ -4329,7 +4328,7 @@
           "correctAnswer": "1 hour"
         },
         {
-          "id": 1761299609808.176,
+          "id": 1761298594773.894,
           "category": "Backup & Disaster Recovery",
           "question": "Maximum RTO permitted is:",
           "options": [
@@ -4341,7 +4340,7 @@
           "correctAnswer": "4 hours"
         },
         {
-          "id": 1761299610115.7634,
+          "id": 1761298594571.809,
           "category": "Backup & Disaster Recovery",
           "question": "How often must DR drills be performed?",
           "options": [
@@ -4353,7 +4352,7 @@
           "correctAnswer": "Quarterly"
         },
         {
-          "id": 1761299609691.7495,
+          "id": 1761298594909.4797,
           "category": "Backup & Disaster Recovery",
           "question": "Who owns the Backup & DR policy?",
           "options": [
@@ -4365,7 +4364,7 @@
           "correctAnswer": "CIO"
         },
         {
-          "id": 1761299609624.0168,
+          "id": 1761298595310.3633,
           "category": "Backup & Disaster Recovery",
           "question": "Which of the following is mandatory for each backup?",
           "options": [
@@ -4375,7 +4374,7 @@
           "correctAnswer": "Checksum verification"
         },
         {
-          "id": 1761299609473.141,
+          "id": 1761298594446.904,
           "category": "Backup & Disaster Recovery",
           "question": "Where must critical backups be stored?",
           "options": [
@@ -4385,7 +4384,7 @@
           "correctAnswer": "Off‑site (cloud or remote site)"
         },
         {
-          "id": 1761299609656.8154,
+          "id": 1761298595012.8694,
           "category": "Backup & Disaster Recovery",
           "question": "Which cannot be a backup medium?",
           "options": [
@@ -4397,7 +4396,7 @@
           "correctAnswer": "Live production database"
         },
         {
-          "id": 1761299609687.7412,
+          "id": 1761298594915.106,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be included in the DR run‑book?",
           "options": [
@@ -4407,7 +4406,7 @@
           "correctAnswer": "Step‑by‑step recovery procedures"
         },
         {
-          "id": 1761299610342.5159,
+          "id": 1761298594653.7334,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be done monthly?",
           "options": [
@@ -4417,7 +4416,7 @@
           "correctAnswer": "Verify backup integrity"
         },
         {
-          "id": 1761299609823.4548,
+          "id": 1761298595240.1118,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be documented for each backup job?",
           "options": [
@@ -4427,7 +4426,7 @@
           "correctAnswer": "Schedule, scope, retention period"
         },
         {
-          "id": 1761299610105.6638,
+          "id": 1761298594803.0474,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be performed before a major system upgrade?",
           "options": [
@@ -4437,7 +4436,7 @@
           "correctAnswer": "Full backup & verification"
         },
         {
-          "id": 1761299609588.0024,
+          "id": 1761298595135.996,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be retained for audit?",
           "options": [
@@ -4447,7 +4446,7 @@
           "correctAnswer": "Backup logs for at least 1 year"
         },
         {
-          "id": 1761299610002.2236,
+          "id": 1761298595192.9294,
           "category": "Backup & Disaster Recovery",
           "question": "Which cannot be a DR site?",
           "options": [
@@ -4457,7 +4456,7 @@
           "correctAnswer": "Employee’s home laptop"
         },
         {
-          "id": 1761299609646.3252,
+          "id": 1761298595123.5312,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be tested during a DR drill?",
           "options": [
@@ -4467,7 +4466,7 @@
           "correctAnswer": "Failover of critical services"
         },
         {
-          "id": 1761299609723.7368,
+          "id": 1761298595362.2842,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be performed after a successful DR test?",
           "options": [
@@ -4477,7 +4476,7 @@
           "correctAnswer": "Update run‑book with lessons learned"
         },
         {
-          "id": 1761299609685.662,
+          "id": 1761298594585.4739,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be verified during a backup verification?",
           "options": [
@@ -4487,7 +4486,7 @@
           "correctAnswer": "Data integrity and restorability"
         },
         {
-          "id": 1761299610297.1904,
+          "id": 1761298594540.7126,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be included in the backup retention policy?",
           "options": [
@@ -4497,7 +4496,7 @@
           "correctAnswer": "Retention period per data class"
         },
         {
-          "id": 1761299609909.7424,
+          "id": 1761298594714.91,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be done when a backup fails?",
           "options": [
@@ -4507,7 +4506,7 @@
           "correctAnswer": "Raise an incident, investigate, remediate"
         },
         {
-          "id": 1761299609771.9023,
+          "id": 1761298595368.849,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be documented in the disaster‑recovery SLA?",
           "options": [
@@ -4517,7 +4516,7 @@
           "correctAnswer": "RPO / RTO commitments"
         },
         {
-          "id": 1761299609490.7207,
+          "id": 1761298594529.548,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be part of the DR strategy for critical apps?",
           "options": [
@@ -4527,7 +4526,7 @@
           "correctAnswer": "Geographically separate replication"
         },
         {
-          "id": 1761299609660.8955,
+          "id": 1761298595326.1506,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be performed after a major outage?",
           "options": [
@@ -4537,7 +4536,7 @@
           "correctAnswer": "Root‑cause analysis and corrective actions"
         },
         {
-          "id": 1761299609491.6914,
+          "id": 1761298594485.7336,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be reviewed annually?",
           "options": [
@@ -4547,7 +4546,7 @@
           "correctAnswer": "Backup & DR policy effectiveness"
         },
         {
-          "id": 1761299610375.0635,
+          "id": 1761298595136.6042,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be done before de‑commissioning a backup server?",
           "options": [
@@ -4557,7 +4556,7 @@
           "correctAnswer": "Migrate backups, verify migration"
         },
         {
-          "id": 1761299610319.3757,
+          "id": 1761298595134.9758,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be included in the DR communication plan?",
           "options": [
@@ -4567,7 +4566,7 @@
           "correctAnswer": "Contact list, escalation matrix"
         },
         {
-          "id": 1761299609811.3987,
+          "id": 1761298594536.5312,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be validated during a DR test?",
           "options": [
@@ -4577,7 +4576,7 @@
           "correctAnswer": "Data consistency across sites"
         },
         {
-          "id": 1761299609870.4402,
+          "id": 1761298594963.2095,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be recorded for each DR incident?",
           "options": [
@@ -4587,7 +4586,7 @@
           "correctAnswer": "Start/end time, systems affected, recovery steps"
         },
         {
-          "id": 1761299610303.0442,
+          "id": 1761298595045.86,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be performed quarterly?",
           "options": [
@@ -4597,7 +4596,7 @@
           "correctAnswer": "Backup media rotation"
         },
         {
-          "id": 1761299610156.2693,
+          "id": 1761298595321.5671,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be part of the capacity planning for backups?",
           "options": [
@@ -4607,7 +4606,7 @@
           "correctAnswer": "Growth forecast, storage sizing"
         },
         {
-          "id": 1761299609935.5671,
+          "id": 1761298594824.7815,
           "category": "Backup & Disaster Recovery",
           "question": "Which must be communicated to the executive board after a DR event?",
           "options": [
@@ -4619,11 +4618,11 @@
       ]
     },
     {
-      "id": "physical_security_1761299609369.7478",
+      "id": "physical_security_1761298594365.0876",
       "name": "Physical Security",
       "questions": [
         {
-          "id": 1761299609397.0493,
+          "id": 1761298594847.8633,
           "category": "Physical Security",
           "question": "Access to the data‑center is granted via:",
           "options": [
@@ -4633,7 +4632,7 @@
           "correctAnswer": "Smart‑card / biometric"
         },
         {
-          "id": 1761299610322.3628,
+          "id": 1761298595168.0435,
           "category": "Physical Security",
           "question": "CCTV footage must be retained for at least:",
           "options": [
@@ -4644,7 +4643,7 @@
           "correctAnswer": "90 days"
         },
         {
-          "id": 1761299609606.068,
+          "id": 1761298594974.7708,
           "category": "Physical Security",
           "question": "No photography is allowed inside which area?",
           "options": [
@@ -4654,7 +4653,7 @@
           "correctAnswer": "Server rooms"
         },
         {
-          "id": 1761299609754.3113,
+          "id": 1761298594600.9521,
           "category": "Physical Security",
           "question": "Who is the owner of the Physical Security policy?",
           "options": [
@@ -4666,7 +4665,7 @@
           "correctAnswer": "CISO"
         },
         {
-          "id": 1761299610171.6155,
+          "id": 1761298595310.1145,
           "category": "Physical Security",
           "question": "Fire suppression systems must be checked:",
           "options": [
@@ -4676,7 +4675,7 @@
           "correctAnswer": "Monthly"
         },
         {
-          "id": 1761299609484.6006,
+          "id": 1761298594629.6013,
           "category": "Physical Security",
           "question": "Visitor management must include:",
           "options": [
@@ -4686,7 +4685,7 @@
           "correctAnswer": "Signed NDAs and badge issuance"
         },
         {
-          "id": 1761299609658.488,
+          "id": 1761298594889.689,
           "category": "Physical Security",
           "question": "Which of the following cannot be a physical‑security control?",
           "options": [
@@ -4696,7 +4695,7 @@
           "correctAnswer": "Password policies"
         },
         {
-          "id": 1761299610262.692,
+          "id": 1761298594613.1921,
           "category": "Physical Security",
           "question": "Which must be performed after a security breach in the data‑center?",
           "options": [
@@ -4706,7 +4705,7 @@
           "correctAnswer": "Incident report and forensic analysis"
         },
         {
-          "id": 1761299610099.3762,
+          "id": 1761298594464.4932,
           "category": "Physical Security",
           "question": "Which must be logged for facility access?",
           "options": [
@@ -4716,7 +4715,7 @@
           "correctAnswer": "Who entered, when, where"
         },
         {
-          "id": 1761299610135.123,
+          "id": 1761298594682.8894,
           "category": "Physical Security",
           "question": "Which must be part of the environmental monitoring?",
           "options": [
@@ -4726,7 +4725,7 @@
           "correctAnswer": "Temperature & humidity"
         },
         {
-          "id": 1761299609414.8425,
+          "id": 1761298594679.6865,
           "category": "Physical Security",
           "question": "Which must be done before granting a visitor access?",
           "options": [
@@ -4736,7 +4735,7 @@
           "correctAnswer": "Pre‑approval, background check, badge"
         },
         {
-          "id": 1761299610288.3203,
+          "id": 1761298594605.641,
           "category": "Physical Security",
           "question": "Which must be verified during a security patrol?",
           "options": [
@@ -4746,7 +4745,7 @@
           "correctAnswer": "Doors locked, alarms armed"
         },
         {
-          "id": 1761299610089.9282,
+          "id": 1761298594730.2861,
           "category": "Physical Security",
           "question": "Which must be included in the disaster‑recovery site?",
           "options": [
@@ -4756,7 +4755,7 @@
           "correctAnswer": "Separate power & cooling"
         },
         {
-          "id": 1761299610197.0903,
+          "id": 1761298594622.8796,
           "category": "Physical Security",
           "question": "Which cannot be a reason to revoke a badge?",
           "options": [
@@ -4766,7 +4765,7 @@
           "correctAnswer": "Employee’s birthday"
         },
         {
-          "id": 1761299610126.731,
+          "id": 1761298594640.7427,
           "category": "Physical Security",
           "question": "Which must be documented after a fire‑alarm event?",
           "options": [
@@ -4776,7 +4775,7 @@
           "correctAnswer": "Time of alarm, response actions"
         },
         {
-          "id": 1761299610001.151,
+          "id": 1761298595297.0227,
           "category": "Physical Security",
           "question": "Which must be in the physical‑security incident response plan?",
           "options": [
@@ -4786,7 +4785,7 @@
           "correctAnswer": "Evacuation routes, communication chain"
         },
         {
-          "id": 1761299609673.7646,
+          "id": 1761298595341.5173,
           "category": "Physical Security",
           "question": "Which must be performed annually?",
           "options": [
@@ -4796,7 +4795,7 @@
           "correctAnswer": "Security awareness for physical staff"
         },
         {
-          "id": 1761299609628.0818,
+          "id": 1761298594392.0806,
           "category": "Physical Security",
           "question": "Which must be secured with a lock?",
           "options": [
@@ -4806,7 +4805,7 @@
           "correctAnswer": "Server rack doors"
         },
         {
-          "id": 1761299609759.1804,
+          "id": 1761298595237.0872,
           "category": "Physical Security",
           "question": "Which must be included in the access‑control policy?",
           "options": [
@@ -4816,7 +4815,7 @@
           "correctAnswer": "Role‑based badge permissions"
         },
         {
-          "id": 1761299609840.4407,
+          "id": 1761298594686.2915,
           "category": "Physical Security",
           "question": "Which must be checked during UPS testing?",
           "options": [
@@ -4828,11 +4827,11 @@
       ]
     },
     {
-      "id": "email_&_communication_1761299609369.1396",
+      "id": "email_&_communication_1761298594365.857",
       "name": "Email & Communication",
       "questions": [
         {
-          "id": 1761299610258.0776,
+          "id": 1761298595212.4155,
           "category": "Email & Communication",
           "question": "Official company communication must use:",
           "options": [
@@ -4844,7 +4843,7 @@
           "correctAnswer": "Company‑issued email"
         },
         {
-          "id": 1761299610018.849,
+          "id": 1761298594432.348,
           "category": "Email & Communication",
           "question": "Auto‑forwarding corporate email to a personal address is:",
           "options": [
@@ -4856,7 +4855,7 @@
           "correctAnswer": "Prohibited"
         },
         {
-          "id": 1761299609990.4775,
+          "id": 1761298594943.157,
           "category": "Email & Communication",
           "question": "Every external email must contain:",
           "options": [
@@ -4868,7 +4867,7 @@
           "correctAnswer": "Legal disclaimer"
         },
         {
-          "id": 1761299610368.1375,
+          "id": 1761298594434.766,
           "category": "Email & Communication",
           "question": "Owner of the Email & Communication policy:",
           "options": [
@@ -4880,7 +4879,7 @@
           "correctAnswer": "Legal Head"
         },
         {
-          "id": 1761299609868.6533,
+          "id": 1761298595315.5105,
           "category": "Email & Communication",
           "question": "Attachments are scanned for malware by:",
           "options": [
@@ -4890,7 +4889,7 @@
           "correctAnswer": "Email gateway scanner"
         },
         {
-          "id": 1761299609924.0103,
+          "id": 1761298594645.6013,
           "category": "Email & Communication",
           "question": "Use of personal instant‑messaging apps for work purposes is:",
           "options": [
@@ -4902,7 +4901,7 @@
           "correctAnswer": "Allowed only for approved business use"
         },
         {
-          "id": 1761299609446.458,
+          "id": 1761298594849.8113,
           "category": "Email & Communication",
           "question": "Which of the following is not permitted in the subject line of a company email?",
           "options": [
@@ -4912,7 +4911,7 @@
           "correctAnswer": "Confidential data without encryption tag"
         },
         {
-          "id": 1761299609891.7217,
+          "id": 1761298594578.2712,
           "category": "Email & Communication",
           "question": "Email retention period for business records is:",
           "options": [
@@ -4923,7 +4922,7 @@
           "correctAnswer": "1 year (minimum)"
         },
         {
-          "id": 1761299610227.353,
+          "id": 1761298594877.7903,
           "category": "Email & Communication",
           "question": "What must be done before sending bulk marketing email?",
           "options": [
@@ -4933,7 +4932,7 @@
           "correctAnswer": "Obtain opt‑in consent & include unsubscribe link"
         },
         {
-          "id": 1761299609549.6348,
+          "id": 1761298595035.609,
           "category": "Email & Communication",
           "question": "Phishing‑simulation emails are sent how often?",
           "options": [
@@ -4945,7 +4944,7 @@
           "correctAnswer": "Quarterly"
         },
         {
-          "id": 1761299609543.8245,
+          "id": 1761298594685.3855,
           "category": "Email & Communication",
           "question": "Which cannot be used to protect email confidentiality?",
           "options": [
@@ -4955,7 +4954,7 @@
           "correctAnswer": "Plain‑text SMTP"
         },
         {
-          "id": 1761299610280.197,
+          "id": 1761298595295.352,
           "category": "Email & Communication",
           "question": "When an employee leaves, their mailbox must be:",
           "options": [
@@ -4965,7 +4964,7 @@
           "correctAnswer": "Disabled within 1 hour and exported if required"
         },
         {
-          "id": 1761299609654.1245,
+          "id": 1761298594564.3606,
           "category": "Email & Communication",
           "question": "Which is a required element of an email signature?",
           "options": [
@@ -4975,7 +4974,7 @@
           "correctAnswer": "Legal disclaimer & contact info"
         },
         {
-          "id": 1761299609737.2788,
+          "id": 1761298594923.1555,
           "category": "Email & Communication",
           "question": "Use of personal cloud storage to share work files is:",
           "options": [
@@ -4985,7 +4984,7 @@
           "correctAnswer": "Prohibited unless approved"
         },
         {
-          "id": 1761299610096.9897,
+          "id": 1761298594914.223,
           "category": "Email & Communication",
           "question": "Which must be logged for every email‑gateway alert?",
           "options": [
@@ -4995,7 +4994,7 @@
           "correctAnswer": "Timestamp, sender, recipient, rule triggered"
         },
         {
-          "id": 1761299609989.8096,
+          "id": 1761298594723.7563,
           "category": "Email & Communication",
           "question": "Which is mandatory for sending classified information via email?",
           "options": [
@@ -5005,7 +5004,7 @@
           "correctAnswer": "End‑to‑end encryption"
         },
         {
-          "id": 1761299609702.982,
+          "id": 1761298594703.2415,
           "category": "Email & Communication",
           "question": "Which must be included in a “Do‑Not‑Reply” automated email?",
           "options": [
@@ -5015,7 +5014,7 @@
           "correctAnswer": "Clear purpose & contact alternative"
         },
         {
-          "id": 1761299610354.872,
+          "id": 1761298595305.0613,
           "category": "Email & Communication",
           "question": "What must be performed after a mass‑mailing failure?",
           "options": [
@@ -5025,7 +5024,7 @@
           "correctAnswer": "Investigate root cause & remediate"
         },
         {
-          "id": 1761299609709.7974,
+          "id": 1761298594925.7327,
           "category": "Email & Communication",
           "question": "Which must be part of the email archiving solution?",
           "options": [
@@ -5035,7 +5034,7 @@
           "correctAnswer": "Searchable, tamper‑evident storage"
         },
         {
-          "id": 1761299610066.9648,
+          "id": 1761298595250.7122,
           "category": "Email & Communication",
           "question": "The policy states that “email for personal use” is:",
           "options": [
@@ -5047,7 +5046,7 @@
           "correctAnswer": "Strictly prohibited"
         },
         {
-          "id": 1761299609478.194,
+          "id": 1761298594916.484,
           "category": "Email & Communication",
           "question": "Which must be verified before adding a new mail domain?",
           "options": [
@@ -5057,7 +5056,7 @@
           "correctAnswer": "DMARC/DKIM/SPF alignment"
         },
         {
-          "id": 1761299610147.802,
+          "id": 1761298595333.5132,
           "category": "Email & Communication",
           "question": "What must be done when an email contains PII and is sent externally?",
           "options": [
@@ -5067,7 +5066,7 @@
           "correctAnswer": "Apply encryption & add classification label"
         },
         {
-          "id": 1761299609827.1487,
+          "id": 1761298594703.2502,
           "category": "Email & Communication",
           "question": "Which cannot be a justified reason to bypass the email disclaimer?",
           "options": [
@@ -5077,7 +5076,7 @@
           "correctAnswer": "Personal preference"
         },
         {
-          "id": 1761299609554.385,
+          "id": 1761298594400.6697,
           "category": "Email & Communication",
           "question": "Which must be documented when an employee reports a phishing email?",
           "options": [
@@ -5087,7 +5086,7 @@
           "correctAnswer": "Incident ticket, analysis, user education"
         },
         {
-          "id": 1761299609454.304,
+          "id": 1761298594531.7288,
           "category": "Email & Communication",
           "question": "Which must be performed annually?",
           "options": [
@@ -5097,7 +5096,7 @@
           "correctAnswer": "Review of email security controls"
         },
         {
-          "id": 1761299609766.8633,
+          "id": 1761298594889.5098,
           "category": "Email & Communication",
           "question": "Which must be included in the email‑gateway change‑control?",
           "options": [
@@ -5107,7 +5106,7 @@
           "correctAnswer": "Scope, impact, rollback plan"
         },
         {
-          "id": 1761299609514.1301,
+          "id": 1761298594993.8477,
           "category": "Email & Communication",
           "question": "Which must be communicated to all staff after a major email‑service outage?",
           "options": [
@@ -5117,7 +5116,7 @@
           "correctAnswer": "Outage timeline, impact, restoration ETA"
         },
         {
-          "id": 1761299609794.1045,
+          "id": 1761298594471.4685,
           "category": "Email & Communication",
           "question": "Which must be done before de‑commissioning the corporate email server?",
           "options": [
@@ -5127,7 +5126,7 @@
           "correctAnswer": "Migrate mailboxes, verify delivery, retire DNS records"
         },
         {
-          "id": 1761299610295.9697,
+          "id": 1761298595007.4346,
           "category": "Email & Communication",
           "question": "Which must be retained for audit purposes?",
           "options": [
@@ -5137,7 +5136,7 @@
           "correctAnswer": "Email logs, security alerts, disposition records"
         },
         {
-          "id": 1761299609678.0896,
+          "id": 1761298594984.1367,
           "category": "Email & Communication",
           "question": "Which must be part of the training curriculum for new hires?",
           "options": [
@@ -5149,11 +5148,11 @@
       ]
     },
     {
-      "id": "monitoring_&_logging_1761299609369.4807",
+      "id": "monitoring_&_logging_1761298594365.6677",
       "name": "Monitoring & Logging",
       "questions": [
         {
-          "id": 1761299609447.359,
+          "id": 1761298595112.7588,
           "category": "Monitoring & Logging",
           "question": "Log retention minimum is:",
           "options": [
@@ -5164,7 +5163,7 @@
           "correctAnswer": "1 year"
         },
         {
-          "id": 1761299609558.8438,
+          "id": 1761298594506.904,
           "category": "Monitoring & Logging",
           "question": "All logs must be forwarded to the SIEM. This is a:",
           "options": [
@@ -5174,7 +5173,7 @@
           "correctAnswer": "Mandatory"
         },
         {
-          "id": 1761299610240.845,
+          "id": 1761298594706.2534,
           "category": "Monitoring & Logging",
           "question": "Which must be logged for privileged accounts?",
           "options": [
@@ -5184,7 +5183,7 @@
           "correctAnswer": "All actions, including commands"
         },
         {
-          "id": 1761299609853.8838,
+          "id": 1761298594394.3745,
           "category": "Monitoring & Logging",
           "question": "Owner of the Monitoring & Logging policy:",
           "options": [
@@ -5196,7 +5195,7 @@
           "correctAnswer": "CISO"
         },
         {
-          "id": 1761299609627.6858,
+          "id": 1761298594590.8606,
           "category": "Monitoring & Logging",
           "question": "Which log source is not part of the standard collection?",
           "options": [
@@ -5206,7 +5205,7 @@
           "correctAnswer": "Personal social‑media accounts"
         },
         {
-          "id": 1761299609632.9011,
+          "id": 1761298595144.9182,
           "category": "Monitoring & Logging",
           "question": "Correlation rules in the SIEM must be updated:",
           "options": [
@@ -5216,7 +5215,7 @@
           "correctAnswer": "Monthly"
         },
         {
-          "id": 1761299610170.8906,
+          "id": 1761298594630.4897,
           "category": "Monitoring & Logging",
           "question": "Which must be encrypted in transit?",
           "options": [
@@ -5226,7 +5225,7 @@
           "correctAnswer": "Log forwarder traffic"
         },
         {
-          "id": 1761299609874.2068,
+          "id": 1761298594813.8228,
           "category": "Monitoring & Logging",
           "question": "Which metric is required for log‑storage capacity planning?",
           "options": [
@@ -5236,7 +5235,7 @@
           "correctAnswer": "Log volume growth rate"
         },
         {
-          "id": 1761299610070.8079,
+          "id": 1761298594888.8152,
           "category": "Monitoring & Logging",
           "question": "What must be performed after a critical security alert?",
           "options": [
@@ -5246,7 +5245,7 @@
           "correctAnswer": "Create an incident ticket & investigate"
         },
         {
-          "id": 1761299610234.251,
+          "id": 1761298595172.1855,
           "category": "Monitoring & Logging",
           "question": "What must be included in a log‑analysis report?",
           "options": [
@@ -5256,7 +5255,7 @@
           "correctAnswer": "Timeline, affected assets, severity"
         },
         {
-          "id": 1761299610250.802,
+          "id": 1761298595352.328,
           "category": "Monitoring & Logging",
           "question": "Which cannot be a log source?",
           "options": [
@@ -5266,7 +5265,7 @@
           "correctAnswer": "Employee personal phone"
         },
         {
-          "id": 1761299609805.5293,
+          "id": 1761298594587.5007,
           "category": "Monitoring & Logging",
           "question": "What must be done before decommissioning a log server?",
           "options": [
@@ -5276,7 +5275,7 @@
           "correctAnswer": "Export and archive logs, verify integrity"
         },
         {
-          "id": 1761299609944.4858,
+          "id": 1761298595074.4954,
           "category": "Monitoring & Logging",
           "question": "What must be part of the alert‑handling SOP?",
           "options": [
@@ -5286,7 +5285,7 @@
           "correctAnswer": "Triage, assignment, escalation matrix"
         },
         {
-          "id": 1761299609611.2017,
+          "id": 1761298594704.335,
           "category": "Monitoring & Logging",
           "question": "Which must be reviewed quarterly?",
           "options": [
@@ -5296,7 +5295,7 @@
           "correctAnswer": "Correlation rule efficacy"
         },
         {
-          "id": 1761299609798.3513,
+          "id": 1761298595306.278,
           "category": "Monitoring & Logging",
           "question": "Which must be logged for VPN connections?",
           "options": [
@@ -5306,7 +5305,7 @@
           "correctAnswer": "User, source IP, timestamp, duration"
         },
         {
-          "id": 1761299609657.5383,
+          "id": 1761298594434.2341,
           "category": "Monitoring & Logging",
           "question": "Which must be retained for audit?",
           "options": [
@@ -5316,7 +5315,7 @@
           "correctAnswer": "Full log files for the defined retention period"
         },
         {
-          "id": 1761299609449.5059,
+          "id": 1761298594753.1284,
           "category": "Monitoring & Logging",
           "question": "What must be performed after a log‑tampering incident?",
           "options": [
@@ -5326,7 +5325,7 @@
           "correctAnswer": "Forensic analysis & rebuild of missing logs"
         },
         {
-          "id": 1761299609630.0312,
+          "id": 1761298594469.5828,
           "category": "Monitoring & Logging",
           "question": "What must be part of the change‑control for a logging component?",
           "options": [
@@ -5336,7 +5335,7 @@
           "correctAnswer": "Impact assessment, rollback plan"
         },
         {
-          "id": 1761299610364.242,
+          "id": 1761298595298.7378,
           "category": "Monitoring & Logging",
           "question": "What must be included in a daily health‑check of the SIEM?",
           "options": [
@@ -5346,7 +5345,7 @@
           "correctAnswer": "Ingestion status, storage usage, alert generation"
         },
         {
-          "id": 1761299609669.6982,
+          "id": 1761298595004.242,
           "category": "Monitoring & Logging",
           "question": "What must be documented for each log‑source onboarding?",
           "options": [
@@ -5356,7 +5355,7 @@
           "correctAnswer": "Source type, format, collection method, parser version"
         },
         {
-          "id": 1761299610274.9878,
+          "id": 1761298594523.9675,
           "category": "Monitoring & Logging",
           "question": "What must be performed annually?",
           "options": [
@@ -5366,7 +5365,7 @@
           "correctAnswer": "Policy review & compliance audit"
         },
         {
-          "id": 1761299609428.1257,
+          "id": 1761298595218.9888,
           "category": "Monitoring & Logging",
           "question": "What must be done when a log‑aggregation server hits 90 % disk usage?",
           "options": [
@@ -5376,7 +5375,7 @@
           "correctAnswer": "Trigger alert, increase capacity or prune logs"
         },
         {
-          "id": 1761299610196.3464,
+          "id": 1761298594959.3284,
           "category": "Monitoring & Logging",
           "question": "What must be logged for cloud‑service API calls?",
           "options": [
@@ -5386,7 +5385,7 @@
           "correctAnswer": "Caller, endpoint, request/response, timestamp"
         },
         {
-          "id": 1761299610286.0747,
+          "id": 1761298595205.496,
           "category": "Monitoring & Logging",
           "question": "What must be included in the disaster‑recovery plan for logging?",
           "options": [
@@ -5396,7 +5395,7 @@
           "correctAnswer": "Off‑site log archive and restoration steps"
         },
         {
-          "id": 1761299609935.2612,
+          "id": 1761298594449.7356,
           "category": "Monitoring & Logging",
           "question": "What must be part of the incident‑response timeline?",
           "options": [
@@ -5406,7 +5405,7 @@
           "correctAnswer": "Detection → Triage → Containment → Eradication → Recovery"
         },
         {
-          "id": 1761299610021.2727,
+          "id": 1761298594553.1929,
           "category": "Monitoring & Logging",
           "question": "What must be verified during a log‑integrity check?",
           "options": [
@@ -5416,7 +5415,7 @@
           "correctAnswer": "Checksum / digital signature"
         },
         {
-          "id": 1761299610393.9558,
+          "id": 1761298595347.8584,
           "category": "Monitoring & Logging",
           "question": "What must be performed after a major configuration change to logging?",
           "options": [
@@ -5426,7 +5425,7 @@
           "correctAnswer": "Validate that logs are still being collected correctly"
         },
         {
-          "id": 1761299610129.1162,
+          "id": 1761298594571.2231,
           "category": "Monitoring & Logging",
           "question": "What must be communicated to the steering committee after a significant log‑related breach?",
           "options": [
@@ -5436,7 +5435,7 @@
           "correctAnswer": "Impact, root cause, remediation actions"
         },
         {
-          "id": 1761299609773.3364,
+          "id": 1761298594900.8713,
           "category": "Monitoring & Logging",
           "question": "What must be part of the security monitoring coverage matrix?",
           "options": [
@@ -5446,7 +5445,7 @@
           "correctAnswer": "Asset, log source, required controls, monitoring frequency"
         },
         {
-          "id": 1761299609503.9307,
+          "id": 1761298595331.3088,
           "category": "Monitoring & Logging",
           "question": "What must be included in training for SOC analysts?",
           "options": [
@@ -5458,11 +5457,11 @@
       ]
     },
     {
-      "id": "management_&_governance_1761299609369.55",
+      "id": "management_&_governance_1761298594365.6055",
       "name": "Management & Governance",
       "questions": [
         {
-          "id": 1761299610262.8215,
+          "id": 1761298594742.3809,
           "category": "Management & Governance",
           "question": "Who is the policy owner for overall IT governance?",
           "options": [
@@ -5474,7 +5473,7 @@
           "correctAnswer": "CIO"
         },
         {
-          "id": 1761299609647.672,
+          "id": 1761298594467.3867,
           "category": "Management & Governance",
           "question": "The IT Steering Committee meets:",
           "options": [
@@ -5484,7 +5483,7 @@
           "correctAnswer": "Monthly"
         },
         {
-          "id": 1761299609782.4429,
+          "id": 1761298595271.165,
           "category": "Management & Governance",
           "question": "Which role is responsible for InfoSec operations?",
           "options": [
@@ -5496,7 +5495,7 @@
           "correctAnswer": "CISO"
         },
         {
-          "id": 1761299609887.1326,
+          "id": 1761298594508.7302,
           "category": "Management & Governance",
           "question": "Which of the following cannot be a defined risk‑owner?",
           "options": [
@@ -5506,7 +5505,7 @@
           "correctAnswer": "Office cleaning staff"
         },
         {
-          "id": 1761299609914.5955,
+          "id": 1761298594577.0906,
           "category": "Management & Governance",
           "question": "All policy changes must be approved by:",
           "options": [
@@ -5516,7 +5515,7 @@
           "correctAnswer": "Policy Owner & Steering Committee"
         },
         {
-          "id": 1761299610293.2483,
+          "id": 1761298594471.808,
           "category": "Management & Governance",
           "question": "Which of the following must be part of the risk‑management framework?",
           "options": [
@@ -5528,7 +5527,7 @@
           "correctAnswer": "Risk identification, assessment, mitigation, monitoring"
         },
         {
-          "id": 1761299609684.6633,
+          "id": 1761298594752.3267,
           "category": "Management & Governance",
           "question": "Which must be documented for every major project?",
           "options": [
@@ -5540,7 +5539,7 @@
           "correctAnswer": "Business case, stakeholders, risk register"
         },
         {
-          "id": 1761299609660.1477,
+          "id": 1761298595048.6106,
           "category": "Management & Governance",
           "question": "Who signs off on the annual IT budget?",
           "options": [
@@ -5550,7 +5549,7 @@
           "correctAnswer": "CIO / CFO"
         },
         {
-          "id": 1761299610202.3918,
+          "id": 1761298594590.9014,
           "category": "Management & Governance",
           "question": "Which must be included in the IT charter?",
           "options": [
@@ -5562,7 +5561,7 @@
           "correctAnswer": "Mission, scope, authority, responsibilities"
         },
         {
-          "id": 1761299610348.1704,
+          "id": 1761298594492.0393,
           "category": "Management & Governance",
           "question": "Which must be reported to the executive board on a quarterly basis?",
           "options": [
@@ -5574,7 +5573,7 @@
           "correctAnswer": "Key performance indicators, risk status, audit findings"
         },
         {
-          "id": 1761299609809.5005,
+          "id": 1761298594967.5215,
           "category": "Management & Governance",
           "question": "Which must be part of the delegation of authority matrix?",
           "options": [
@@ -5586,7 +5585,7 @@
           "correctAnswer": "Who can approve spend, change, hire"
         },
         {
-          "id": 1761299609792.1487,
+          "id": 1761298594658.877,
           "category": "Management & Governance",
           "question": "Which must be reviewed annually?",
           "options": [
@@ -5596,7 +5595,7 @@
           "correctAnswer": "Governance framework effectiveness"
         },
         {
-          "id": 1761299609911.204,
+          "id": 1761298594756.066,
           "category": "Management & Governance",
           "question": "Which must be part of the service‑catalogue?",
           "options": [
@@ -5608,7 +5607,7 @@
           "correctAnswer": "Service description, SLA, ownership"
         },
         {
-          "id": 1761299609970.4575,
+          "id": 1761298594549.5227,
           "category": "Management & Governance",
           "question": "Which must be communicated when a new policy is released?",
           "options": [
@@ -5620,7 +5619,7 @@
           "correctAnswer": "Purpose, scope, responsibilities, compliance deadline"
         },
         {
-          "id": 1761299610150.7146,
+          "id": 1761298594998.439,
           "category": "Management & Governance",
           "question": "Which must be part of the IT risk register?",
           "options": [
@@ -5632,7 +5631,7 @@
           "correctAnswer": "Risk description, likelihood, impact, owner, mitigation"
         },
         {
-          "id": 1761299609442.3782,
+          "id": 1761298595322.7625,
           "category": "Management & Governance",
           "question": "Which must be performed after a major governance audit?",
           "options": [
@@ -5642,7 +5641,7 @@
           "correctAnswer": "Implement corrective actions, update policies"
         },
         {
-          "id": 1761299609881.4592,
+          "id": 1761298594483.3074,
           "category": "Management & Governance",
           "question": "Which must be included in the IT strategic plan?",
           "options": [
@@ -5654,7 +5653,7 @@
           "correctAnswer": "Vision, objectives, initiatives, resource plan"
         },
         {
-          "id": 1761299609947.596,
+          "id": 1761298595225.8337,
           "category": "Management & Governance",
           "question": "Which must be part of the escalation matrix?",
           "options": [
@@ -5666,7 +5665,7 @@
           "correctAnswer": "Contact name, role, response time, escalation level"
         },
         {
-          "id": 1761299610241.9583,
+          "id": 1761298594505.421,
           "category": "Management & Governance",
           "question": "Which must be tracked in the CAPA system?",
           "options": [
@@ -5678,7 +5677,7 @@
           "correctAnswer": "Non‑compliance incidents, corrective actions, verification"
         },
         {
-          "id": 1761299609666.982,
+          "id": 1761298595215.3774,
           "category": "Management & Governance",
           "question": "Which must be documented for vendor‑related risks?",
           "options": [
@@ -5690,7 +5689,7 @@
           "correctAnswer": "Contract terms, security assessment, monitoring"
         },
         {
-          "id": 1761299609890.2837,
+          "id": 1761298594880.3262,
           "category": "Management & Governance",
           "question": "Which must be reviewed before approving a large capital project?",
           "options": [
@@ -5702,7 +5701,7 @@
           "correctAnswer": "Business case, ROI, risk assessment"
         },
         {
-          "id": 1761299610233.982,
+          "id": 1761298595324.6924,
           "category": "Management & Governance",
           "question": "Which must be part of the IT policies repository?",
           "options": [
@@ -5714,7 +5713,7 @@
           "correctAnswer": "Version control, approval date, owner"
         },
         {
-          "id": 1761299609751.4133,
+          "id": 1761298594488.1362,
           "category": "Management & Governance",
           "question": "Which must be communicated to all staff after a policy breach?",
           "options": [
@@ -5726,7 +5725,7 @@
           "correctAnswer": "What happened, impact, remediation steps"
         },
         {
-          "id": 1761299609503.7385,
+          "id": 1761298595182.2424,
           "category": "Management & Governance",
           "question": "Which must be part of the continuous‑improvement process?",
           "options": [
@@ -5738,7 +5737,7 @@
           "correctAnswer": "Metrics, feedback loops, action plans"
         },
         {
-          "id": 1761299609585.5417,
+          "id": 1761298594866.5288,
           "category": "Management & Governance",
           "question": "Which must be documented in the project‑closeout report?",
           "options": [
@@ -5750,7 +5749,7 @@
           "correctAnswer": "Objectives met, lessons learned, financials"
         },
         {
-          "id": 1761299609932.4011,
+          "id": 1761298595012.3887,
           "category": "Management & Governance",
           "question": "Which must be included in the IT policy awareness campaign?",
           "options": [
@@ -5762,7 +5761,7 @@
           "correctAnswer": "Poster, email, quiz, sign‑off"
         },
         {
-          "id": 1761299609436.922,
+          "id": 1761298594889.657,
           "category": "Management & Governance",
           "question": "Which must be part of the incident‑escalation policy?",
           "options": [
@@ -5774,7 +5773,7 @@
           "correctAnswer": "Severity levels, owners, communication channels"
         },
         {
-          "id": 1761299609968.3953,
+          "id": 1761298594908.6284,
           "category": "Management & Governance",
           "question": "Which must be reviewed after a merger or acquisition?",
           "options": [
@@ -5786,7 +5785,7 @@
           "correctAnswer": "IT asset inventory, contracts, security posture"
         },
         {
-          "id": 1761299610356.0205,
+          "id": 1761298595080.2808,
           "category": "Management & Governance",
           "question": "Which must be part of the data‑classification framework?",
           "options": [
@@ -5798,7 +5797,7 @@
           "correctAnswer": "Classification level, handling requirements"
         },
         {
-          "id": 1761299609460.5574,
+          "id": 1761298594620.2432,
           "category": "Management & Governance",
           "question": "Which must be included in the annual governance report?",
           "options": [
@@ -5812,11 +5811,11 @@
       ]
     },
     {
-      "id": "training_&_awareness_1761299609369.519",
+      "id": "training_&_awareness_1761298594365.47",
       "name": "Training & Awareness",
       "questions": [
         {
-          "id": 1761299610039.4502,
+          "id": 1761298595229.1216,
           "category": "Training & Awareness",
           "question": "The policy states that social‑engineering awareness is:",
           "options": [
@@ -5826,7 +5825,7 @@
           "correctAnswer": "Mandatory"
         },
         {
-          "id": 1761299609564.5967,
+          "id": 1761298595088.9058,
           "category": "Training & Awareness",
           "question": "Which must be part of the induction program?",
           "options": [
@@ -5836,7 +5835,7 @@
           "correctAnswer": "Acceptable‑Use Policy signing"
         },
         {
-          "id": 1761299609374.1616,
+          "id": 1761298595327.6628,
           "category": "Training & Awareness",
           "question": "Which must be reviewed annually?",
           "options": [
@@ -5846,7 +5845,7 @@
           "correctAnswer": "Training content relevance"
         },
         {
-          "id": 1761299609916.1235,
+          "id": 1761298595330.6418,
           "category": "Training & Awareness",
           "question": "Which must be documented after each security‑awareness session?",
           "options": [
@@ -5856,7 +5855,7 @@
           "correctAnswer": "Attendance, topics covered, feedback"
         },
         {
-          "id": 1761299610222.966,
+          "id": 1761298595019.8804,
           "category": "Training & Awareness",
           "question": "Which must be communicated after a major security incident?",
           "options": [
@@ -5866,7 +5865,7 @@
           "correctAnswer": "What happened, how to protect oneself, next steps"
         },
         {
-          "id": 1761299610330.959,
+          "id": 1761298595101.0674,
           "category": "Training & Awareness",
           "question": "Which must be part of the developer‑focused training?",
           "options": [
@@ -5876,7 +5875,7 @@
           "correctAnswer": "OWASP Top 10, code review process"
         },
         {
-          "id": 1761299610005.0483,
+          "id": 1761298594506.048,
           "category": "Training & Awareness",
           "question": "Which must be included in the remote‑work awareness module?",
           "options": [
@@ -5886,7 +5885,7 @@
           "correctAnswer": "Secure home‑network, VPN usage, device hardening"
         },
         {
-          "id": 1761299610222.0317,
+          "id": 1761298595135.6135,
           "category": "Training & Awareness",
           "question": "Which must be logged for training attendance?",
           "options": [
@@ -5896,7 +5895,7 @@
           "correctAnswer": "Employee ID, date, course title"
         },
         {
-          "id": 1761299609586.5488,
+          "id": 1761298594800.8474,
           "category": "Training & Awareness",
           "question": "Which must be performed after a regulatory change?",
           "options": [
@@ -5906,7 +5905,7 @@
           "correctAnswer": "Update training material & schedule refresher"
         },
         {
-          "id": 1761299609984.349,
+          "id": 1761298594635.6025,
           "category": "Training & Awareness",
           "question": "Which must be part of the communication plan for new policies?",
           "options": [
@@ -5916,7 +5915,7 @@
           "correctAnswer": "Policy summary, impact, required actions"
         },
         {
-          "id": 1761299609655.0283,
+          "id": 1761298594852.3413,
           "category": "Training & Awareness",
           "question": "Which must be included in the security‑culture survey?",
           "options": [
@@ -5926,7 +5925,7 @@
           "correctAnswer": "Perceived effectiveness of awareness program"
         },
         {
-          "id": 1761299610077.6199,
+          "id": 1761298594660.8845,
           "category": "Training & Awareness",
           "question": "Which must be done when a user fails a compliance quiz?",
           "options": [
@@ -5936,7 +5935,7 @@
           "correctAnswer": "Offer remedial training"
         },
         {
-          "id": 1761299609680.3945,
+          "id": 1761298594872.0596,
           "category": "Training & Awareness",
           "question": "Which must be included in the board‑level security report?",
           "options": [
@@ -5946,7 +5945,7 @@
           "correctAnswer": "Training participation rates, incident trends"
         },
         {
-          "id": 1761299609660.8184,
+          "id": 1761298595247.2605,
           "category": "Training & Awareness",
           "question": "Which must be performed before launching a new SaaS tool?",
           "options": [
@@ -5956,7 +5955,7 @@
           "correctAnswer": "User‑access review & security briefing"
         },
         {
-          "id": 1761299609865.6926,
+          "id": 1761298594715.5823,
           "category": "Training & Awareness",
           "question": "Which must be part of the continuous‑learning portal?",
           "options": [
@@ -5966,7 +5965,7 @@
           "correctAnswer": "Updated policy documents & e‑learning modules"
         },
         {
-          "id": 1761299610283.6885,
+          "id": 1761298594868.185,
           "category": "Training & Awareness",
           "question": "Which must be reviewed quarterly?",
           "options": [
@@ -5976,7 +5975,7 @@
           "correctAnswer": "Effectiveness of phishing simulations"
         },
         {
-          "id": 1761299610038.979,
+          "id": 1761298594791.596,
           "category": "Training & Awareness",
           "question": "Which must be included in phishing‑simulation email?",
           "options": [
@@ -5986,7 +5985,7 @@
           "correctAnswer": "Realistic lure, clear “phish‑test” header for post‑test"
         },
         {
-          "id": 1761299609475.5815,
+          "id": 1761298594472.218,
           "category": "Training & Awareness",
           "question": "Which must be done after a successful social‑engineering test?",
           "options": [
@@ -5996,7 +5995,7 @@
           "correctAnswer": "Update training based on identified gaps"
         },
         {
-          "id": 1761299609473.8528,
+          "id": 1761298595091.6375,
           "category": "Training & Awareness",
           "question": "Which must be documented for external trainer engagements?",
           "options": [
@@ -6006,7 +6005,7 @@
           "correctAnswer": "Trainer credentials, agenda, evaluation"
         },
         {
-          "id": 1761299610070.2324,
+          "id": 1761298595282.6526,
           "category": "Training & Awareness",
           "question": "Which must be part of the post‑incident awareness communication?",
           "options": [
@@ -6016,6 +6015,11 @@
           "correctAnswer": "Lessons learned, preventive steps, resources"
         }
       ]
+    },
+    {
+      "id": "demo_1761299863294",
+      "name": "demo",
+      "questions": []
     }
   ],
   "emailLog": [],
@@ -6569,12 +6573,12 @@
       ]
     },
     {
-      "id": "master_audit_1761299599483",
-      "title": "Master Audit",
+      "id": "audit_1761298583092",
+      "title": "Audit",
       "modules": [
         {
-          "id": "master_audit_1761299599483",
-          "title": "Master Audit",
+          "id": "audit_1761298583092",
+          "title": "Audit",
           "questions": 0,
           "iconKey": "Device",
           "status": "Not Started",
@@ -6584,7 +6588,7 @@
           }
         },
         {
-          "id": "information_security_(infosec)_1761299609369.6016",
+          "id": "information_security_(infosec)_1761298594365.365",
           "title": "Information Security (InfoSec)",
           "questions": 30,
           "iconKey": "Lock",
@@ -6595,7 +6599,7 @@
           }
         },
         {
-          "id": "it_infrastructure_1761299609369.5608",
+          "id": "it_infrastructure_1761298594365.6409",
           "title": "IT Infrastructure",
           "questions": 30,
           "iconKey": "Warning",
@@ -6606,7 +6610,7 @@
           }
         },
         {
-          "id": "network_&_firewall_1761299609369.6387",
+          "id": "network_&_firewall_1761298594365.1191",
           "title": "Network & Firewall",
           "questions": 30,
           "iconKey": "ChatBubble",
@@ -6617,7 +6621,7 @@
           }
         },
         {
-          "id": "application_development_&_deployment_1761299609369.8567",
+          "id": "application_development_&_deployment_1761298594365.1804",
           "title": "Application Development & Deployment",
           "questions": 30,
           "iconKey": "Check",
@@ -6628,7 +6632,7 @@
           }
         },
         {
-          "id": "database_&_storage_1761299609369.2068",
+          "id": "database_&_storage_1761298594365.2637",
           "title": "Database & Storage",
           "questions": 30,
           "iconKey": "Home",
@@ -6639,7 +6643,7 @@
           }
         },
         {
-          "id": "procurement_&_vendor_management_1761299609369.0513",
+          "id": "procurement_&_vendor_management_1761298594365.7083",
           "title": "Procurement & Vendor Management",
           "questions": 30,
           "iconKey": "Clock",
@@ -6650,7 +6654,7 @@
           }
         },
         {
-          "id": "compliance_&_legal_1761299609369.106",
+          "id": "compliance_&_legal_1761298594365.694",
           "title": "Compliance & Legal",
           "questions": 30,
           "iconKey": "Users",
@@ -6661,7 +6665,7 @@
           }
         },
         {
-          "id": "change_management_1761299609369.9255",
+          "id": "change_management_1761298594365.2722",
           "title": "Change Management",
           "questions": 30,
           "iconKey": "DocumentText",
@@ -6672,7 +6676,7 @@
           }
         },
         {
-          "id": "backup_&_disaster_recovery_1761299609369.8152",
+          "id": "backup_&_disaster_recovery_1761298594365.7153",
           "title": "Backup & Disaster Recovery",
           "questions": 30,
           "iconKey": "Server",
@@ -6683,7 +6687,7 @@
           }
         },
         {
-          "id": "physical_security_1761299609369.7478",
+          "id": "physical_security_1761298594365.0876",
           "title": "Physical Security",
           "questions": 20,
           "iconKey": "Cog",
@@ -6694,7 +6698,7 @@
           }
         },
         {
-          "id": "email_&_communication_1761299609369.1396",
+          "id": "email_&_communication_1761298594365.857",
           "title": "Email & Communication",
           "questions": 30,
           "iconKey": "Scale",
@@ -6705,7 +6709,7 @@
           }
         },
         {
-          "id": "monitoring_&_logging_1761299609369.4807",
+          "id": "monitoring_&_logging_1761298594365.6677",
           "title": "Monitoring & Logging",
           "questions": 30,
           "iconKey": "ChartBar",
@@ -6716,7 +6720,7 @@
           }
         },
         {
-          "id": "management_&_governance_1761299609369.55",
+          "id": "management_&_governance_1761298594365.6055",
           "title": "Management & Governance",
           "questions": 30,
           "iconKey": "Briefcase",
@@ -6727,7 +6731,7 @@
           }
         },
         {
-          "id": "training_&_awareness_1761299609369.519",
+          "id": "training_&_awareness_1761298594365.47",
           "title": "Training & Awareness",
           "questions": 20,
           "iconKey": "ShieldCheck",
@@ -6735,6 +6739,23 @@
           "theme": {
             "iconBg": "bg-stone-100",
             "iconColor": "text-stone-500"
+          }
+        }
+      ]
+    },
+    {
+      "id": "demo_1761299863294",
+      "title": "demo",
+      "modules": [
+        {
+          "id": "demo_1761299863294",
+          "title": "demo",
+          "questions": 0,
+          "iconKey": "GlobeAlt",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-zinc-100",
+            "iconColor": "text-zinc-500"
           }
         }
       ]
