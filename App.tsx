@@ -130,20 +130,35 @@ function App() {
     setActiveQuizId(null);
   };
   
-  const handleCreateExamCategory = (title: string): string | undefined => {
+  const handleCreateExamCategory = (title: string, question?: Omit<Question, 'id'>): string | undefined => {
     const newId = title.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
     if (quizzes.some(q => q.name.toLowerCase() === title.toLowerCase()) || moduleCategoriesState.some(c => c.id === newId)) {
-      alert("An exam category with a similar name already exists.");
-      return undefined;
+        alert("An exam category with a similar name already exists.");
+        return undefined;
     }
-    const newQuiz: Quiz = { id: newId, name: title, questions: [] };
+
+    const newQuestionWithId: Question | null = question ? { ...question, id: Date.now() } : null;
+    const initialQuestions: Question[] = newQuestionWithId ? [newQuestionWithId] : [];
+
+    const newQuiz: Quiz = { id: newId, name: title, questions: initialQuestions };
     const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
     const iconKeys = Object.keys(ICONS);
     const newIconKey = iconKeys[totalModules % iconKeys.length];
-    const newModule: Module = { id: newId, title: title, questions: 0, iconKey: newIconKey, status: ModuleStatus.NotStarted, theme: THEMES[totalModules % THEMES.length] };
+    
+    const newModule: Module = {
+        id: newId,
+        title: title,
+        questions: initialQuestions.length,
+        iconKey: newIconKey,
+        status: ModuleStatus.NotStarted,
+        theme: THEMES[totalModules % THEMES.length],
+    };
+
     const newCategory: ModuleCategory = { id: newId, title: title, modules: [newModule] };
+
     setQuizzes(prev => [...prev, newQuiz]);
     setModuleCategoriesState(prev => [...prev, newCategory]);
+
     setUsers(prevUsers => prevUsers.map(user => {
         if (user.role === 'user') {
             const assignedExams = new Set(user.assignedExams || []);
@@ -152,6 +167,7 @@ function App() {
         }
         return user;
     }));
+
     return newId;
   };
 
@@ -213,27 +229,7 @@ function App() {
   };
 
   const handleAddQuestionToNewCategory = (question: Omit<Question, 'id'>, categoryTitle: string) => {
-      const newId = handleCreateExamCategory(categoryTitle);
-      if (newId) {
-        const newQuestion: Question = {
-            id: Date.now(),
-            ...question,
-        };
-        setQuizzes(prev => prev.map(quiz => 
-            quiz.id === newId 
-              ? { ...quiz, questions: [newQuestion] }
-              : quiz
-        ));
-         setModuleCategoriesState(prev => prev.map(category => ({
-            ...category,
-            modules: category.modules.map(module => {
-                if (module.id === newId) {
-                    return { ...module, questions: 1 };
-                }
-                return module;
-            })
-        })));
-      }
+    handleCreateExamCategory(categoryTitle, question);
   };
   
   const handleAddQuestionToNewSubTopic = (question: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => {
