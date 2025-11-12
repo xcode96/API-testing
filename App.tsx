@@ -197,29 +197,37 @@ function App() {
   };
 
   const handleAddNewQuestion = (question: Omit<Question, 'id' | 'category'>, quizId: string) => {
-    const newQuestion: Question = {
-        id: Date.now(),
-        category: quizzes.find(q => q.id === quizId)?.name || 'Uncategorized',
-        ...question,
-    };
-    
-    setQuizzes(prev => prev.map(quiz => 
-        quiz.id === quizId 
-            ? { ...quiz, questions: [...quiz.questions, newQuestion] } 
-            : quiz
-    ));
+    setQuizzes(prevQuizzes => {
+        const quizToUpdate = prevQuizzes.find(q => q.id === quizId);
+        if (!quizToUpdate) return prevQuizzes;
 
-    setModuleCategoriesState(prev => prev.map(category => ({
-        ...category,
-        modules: category.modules.map(module => {
-            if (module.id === quizId) {
-                // Safely increment question count without relying on external variables
-                return { ...module, questions: module.questions + 1 };
-            }
-            return module;
-        })
-    })));
-  };
+        const newQuestion: Question = {
+            id: Date.now(),
+            category: quizToUpdate.name,
+            ...question,
+        };
+
+        const updatedQuizzes = prevQuizzes.map(quiz =>
+            quiz.id === quizId
+                ? { ...quiz, questions: [...quiz.questions, newQuestion] }
+                : quiz
+        );
+
+        setModuleCategoriesState(prevCategories =>
+            prevCategories.map(category => ({
+                ...category,
+                modules: category.modules.map(module =>
+                    module.id === quizId
+                        ? { ...module, questions: updatedQuizzes.find(q => q.id === quizId)?.questions.length || module.questions }
+                        : module
+                ),
+            }))
+        );
+
+        return updatedQuizzes;
+    });
+};
+
 
   const handleAddQuestionToNewCategory = (question: Omit<Question, 'id'>, categoryTitle: string) => {
     const newId = categoryTitle.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
@@ -229,25 +237,28 @@ function App() {
     }
 
     const newQuestionWithId: Question = { ...question, id: Date.now(), category: categoryTitle };
-    const newQuiz: Quiz = { id: newId, name: categoryTitle, questions: [newQuestionWithId] };
     
-    const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
-    const iconKeys = Object.keys(ICONS);
-    const newIconKey = iconKeys[totalModules % iconKeys.length];
-    
-    const newModule: Module = {
-        id: newId,
-        title: categoryTitle,
-        questions: 1,
-        iconKey: newIconKey,
-        status: ModuleStatus.NotStarted,
-        theme: THEMES[totalModules % THEMES.length],
-    };
+    // Use functional updates to ensure atomicity and prevent race conditions
+    setQuizzes(prevQuizzes => {
+        const newQuiz: Quiz = { id: newId, name: categoryTitle, questions: [newQuestionWithId] };
+        return [...prevQuizzes, newQuiz];
+    });
 
-    const newCategory: ModuleCategory = { id: newId, title: categoryTitle, modules: [newModule] };
-    
-    setQuizzes(prev => [...prev, newQuiz]);
-    setModuleCategoriesState(prev => [...prev, newCategory]);
+    setModuleCategoriesState(prevCategories => {
+        const totalModules = prevCategories.flatMap(c => c.modules).length;
+        const iconKeys = Object.keys(ICONS);
+        const newIconKey = iconKeys[totalModules % iconKeys.length];
+        const newModule: Module = {
+            id: newId,
+            title: categoryTitle,
+            questions: 1,
+            iconKey: newIconKey,
+            status: ModuleStatus.NotStarted,
+            theme: THEMES[totalModules % THEMES.length],
+        };
+        const newCategory: ModuleCategory = { id: newId, title: categoryTitle, modules: [newModule] };
+        return [...prevCategories, newCategory];
+    });
     
     setUsers(prevUsers => prevUsers.map(user => {
         if (user.role === 'user') {
@@ -574,6 +585,20 @@ function App() {
       return false;
     }
   };
+
+  const handleManualSave = async (): Promise<{ success: boolean; error?: string }> => {
+    try {
+        if (loading || !settings) {
+             return { success: false, error: "Data is not ready to be saved." };
+        }
+        const dataToSave = { users, quizzes, emailLog, settings, moduleCategories: moduleCategoriesState };
+        await saveData(dataToSave);
+        return { success: true };
+    } catch (err: any) {
+        console.error("Failed to manually save data:", err);
+        return { success: false, error: err.message || "An unknown error occurred." };
+    }
+  };
   
   // Memos for dashboard
   const userModuleCategories = useMemo(() => {
@@ -649,6 +674,7 @@ function App() {
                     onImportFolderStructure={handleImportFolderStructure}
                     onSyncFromGitHub={handleSyncFromGitHub}
                     onImportAllData={handleImportAllData}
+                    onManualSave={handleManualSave}
                     isSyncing={isSyncing}
                 />;
       case 'report':

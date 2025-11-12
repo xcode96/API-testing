@@ -35,6 +35,7 @@ interface AdminPanelProps {
   onSyncFromGitHub: () => Promise<{ success: boolean; error?: string }>;
   onImportAllData: (file: File) => Promise<boolean>;
   isSyncing: boolean;
+  onManualSave: () => Promise<{ success: boolean; error?: string }>;
 }
 
 const AdminPanel: React.FC<AdminPanelProps> = ({
@@ -62,6 +63,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onSyncFromGitHub,
   onImportAllData,
   isSyncing,
+  onManualSave,
 }) => {
   const [questionFilter, setQuestionFilter] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -122,6 +124,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                     onUpdateQuestion={onUpdateQuestion}
                     onDeleteQuestion={onDeleteQuestion}
                     onImportFolderStructure={onImportFolderStructure}
+                    onManualSave={onManualSave}
                   />
                 </div>
               </div>

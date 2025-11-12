@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useMemo } from 'react';
 import { Quiz, Question, ModuleCategory } from '../../types';
 import EditQuestionModal from './EditQuestionModal';
@@ -12,6 +11,7 @@ interface DataManagementProps {
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
   onImportFolderStructure: (folderStructure: Record<string, Omit<Question, 'id'|'category'>[]>, targetCategoryId: string) => void;
+  onManualSave: () => Promise<{ success: boolean; error?: string }>;
 }
 
 const Accordion: React.FC<{ title: React.ReactNode; children: React.ReactNode, startOpen?: boolean }> = ({ title, children, startOpen = false }) => {
@@ -30,10 +30,12 @@ const Accordion: React.FC<{ title: React.ReactNode; children: React.ReactNode, s
 }
 
 
-const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategories, questionFilter, onEditExamCategory, onDeleteExamCategory, onUpdateQuestion, onDeleteQuestion, onImportFolderStructure }) => {
+const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategories, questionFilter, onEditExamCategory, onDeleteExamCategory, onUpdateQuestion, onDeleteQuestion, onImportFolderStructure, onManualSave }) => {
     const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
     const importFileInputRef = useRef<HTMLInputElement>(null);
     const [importTargetCategory, setImportTargetCategory] = useState<string | null>(null);
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveMessage, setSaveMessage] = useState<{ text: string; isError: boolean } | null>(null);
 
 
     const filteredModuleCategories = useMemo(() => {
@@ -54,6 +56,19 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategori
         if (newTitle) {
             onEditExamCategory(categoryId, newTitle);
         }
+    };
+
+    const handleSaveClick = async () => {
+        setIsSaving(true);
+        setSaveMessage(null);
+        const result = await onManualSave();
+        if (result.success) {
+            setSaveMessage({ text: 'Saved successfully!', isError: false });
+        } else {
+            setSaveMessage({ text: `Save failed: ${result.error}`, isError: true });
+        }
+        setIsSaving(false);
+        setTimeout(() => setSaveMessage(null), 4000);
     };
 
     const handleExportFolder = (categoryId: string) => {
@@ -144,8 +159,22 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategori
                 Auto-Save Enabled
             </h3>
             <p className="text-sm text-slate-600 mt-1">
-                All changes made here are saved automatically to the database.
+                Changes are saved automatically. For peace of mind, you can also save manually.
             </p>
+            <div className="mt-3">
+                <button
+                    onClick={handleSaveClick}
+                    disabled={isSaving}
+                    className="bg-white border border-slate-300 text-slate-700 font-semibold rounded-lg py-1.5 px-4 hover:bg-slate-50 transition-colors text-sm disabled:bg-slate-200 disabled:cursor-not-allowed"
+                >
+                    {isSaving ? 'Saving...' : 'Save Manually'}
+                </button>
+            </div>
+            {saveMessage && (
+                <p className={`mt-2 text-sm font-medium ${saveMessage.isError ? 'text-rose-600' : 'text-emerald-600'}`}>
+                    {saveMessage.text}
+                </p>
+            )}
         </div>
 
         <div className="border-t border-slate-200 pt-6">
