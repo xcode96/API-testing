@@ -130,17 +130,14 @@ function App() {
     setActiveQuizId(null);
   };
   
-  const handleCreateExamCategory = (title: string, question?: Omit<Question, 'id'>): string | undefined => {
+  const handleCreateExamCategory = (title: string): string | undefined => {
     const newId = title.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
     if (quizzes.some(q => q.name.toLowerCase() === title.toLowerCase()) || moduleCategoriesState.some(c => c.id === newId)) {
         alert("An exam category with a similar name already exists.");
         return undefined;
     }
 
-    const newQuestionWithId: Question | null = question ? { ...question, id: Date.now() } : null;
-    const initialQuestions: Question[] = newQuestionWithId ? [newQuestionWithId] : [];
-
-    const newQuiz: Quiz = { id: newId, name: title, questions: initialQuestions };
+    const newQuiz: Quiz = { id: newId, name: title, questions: [] };
     const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
     const iconKeys = Object.keys(ICONS);
     const newIconKey = iconKeys[totalModules % iconKeys.length];
@@ -148,7 +145,7 @@ function App() {
     const newModule: Module = {
         id: newId,
         title: title,
-        questions: initialQuestions.length,
+        questions: 0,
         iconKey: newIconKey,
         status: ModuleStatus.NotStarted,
         theme: THEMES[totalModules % THEMES.length],
@@ -206,22 +203,18 @@ function App() {
         ...question,
     };
     
-    let updatedQuizzes: Quiz[] = [];
-    setQuizzes(prev => {
-        updatedQuizzes = prev.map(quiz => 
-            quiz.id === quizId 
-                ? { ...quiz, questions: [...quiz.questions, newQuestion] } 
-                : quiz
-        );
-        return updatedQuizzes;
-    });
+    setQuizzes(prev => prev.map(quiz => 
+        quiz.id === quizId 
+            ? { ...quiz, questions: [...quiz.questions, newQuestion] } 
+            : quiz
+    ));
 
     setModuleCategoriesState(prev => prev.map(category => ({
         ...category,
         modules: category.modules.map(module => {
             if (module.id === quizId) {
-                const updatedQuiz = updatedQuizzes.find(q => q.id === quizId);
-                return { ...module, questions: updatedQuiz ? updatedQuiz.questions.length : module.questions };
+                // Safely increment question count without relying on external variables
+                return { ...module, questions: module.questions + 1 };
             }
             return module;
         })
@@ -229,7 +222,41 @@ function App() {
   };
 
   const handleAddQuestionToNewCategory = (question: Omit<Question, 'id'>, categoryTitle: string) => {
-    handleCreateExamCategory(categoryTitle, question);
+    const newId = categoryTitle.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
+    if (quizzes.some(q => q.name.toLowerCase() === categoryTitle.toLowerCase()) || moduleCategoriesState.some(c => c.id === newId)) {
+        alert("An exam category with a similar name already exists.");
+        return;
+    }
+
+    const newQuestionWithId: Question = { ...question, id: Date.now(), category: categoryTitle };
+    const newQuiz: Quiz = { id: newId, name: categoryTitle, questions: [newQuestionWithId] };
+    
+    const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
+    const iconKeys = Object.keys(ICONS);
+    const newIconKey = iconKeys[totalModules % iconKeys.length];
+    
+    const newModule: Module = {
+        id: newId,
+        title: categoryTitle,
+        questions: 1,
+        iconKey: newIconKey,
+        status: ModuleStatus.NotStarted,
+        theme: THEMES[totalModules % THEMES.length],
+    };
+
+    const newCategory: ModuleCategory = { id: newId, title: categoryTitle, modules: [newModule] };
+    
+    setQuizzes(prev => [...prev, newQuiz]);
+    setModuleCategoriesState(prev => [...prev, newCategory]);
+    
+    setUsers(prevUsers => prevUsers.map(user => {
+        if (user.role === 'user') {
+            const assignedExams = new Set(user.assignedExams || []);
+            assignedExams.add(newId);
+            return { ...user, assignedExams: Array.from(assignedExams) };
+        }
+        return user;
+    }));
   };
   
   const handleAddQuestionToNewSubTopic = (question: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => {
