@@ -134,6 +134,7 @@ export const fetchFromGitHub = async (config: { owner: string, repo: string, pat
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ owner, repo, path, pat }),
+            cache: 'no-store', // Prevent caching of the proxy request itself
         });
 
         const data = await response.json();
