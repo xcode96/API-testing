@@ -13,55 +13,32 @@ export default async function POST(request: Request) {
             });
         }
         
-        const commonHeaders = {
-            'Authorization': `token ${pat}`,
-            'Accept': 'application/vnd.github.v3+json',
-        };
-        const commonFetchOptions: RequestInit = {
-            headers: commonHeaders,
-            // FIX: Replaced non-standard `next` property with standard `cache` property to resolve TypeScript error.
-            // This achieves the same goal of preventing caching.
-            cache: 'no-store',
-        };
-
-        // Step 1: Get the latest commit SHA from the default branch to ensure we get the freshest data
-        const commitsUrl = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`;
-        const commitsResponse = await fetch(commitsUrl, commonFetchOptions);
+        // A single, direct call to the contents API is more robust.
+        // It defaults to the HEAD of the default branch.
+        const contentUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
         
-        if (!commitsResponse.ok) {
-            const errorText = await commitsResponse.json();
-            console.error('GitHub API (commits) error:', errorText);
-            const errorMessage = `GitHub API Error (${commitsResponse.status}): ${errorText.message || 'Could not fetch repository commits. Check owner, repo, and token permissions.'}`;
-            return new Response(JSON.stringify({ error: errorMessage }), {
-                status: commitsResponse.status,
-                headers: { 'Content-Type': 'application/json' },
-            });
-        }
+        const response = await fetch(contentUrl, {
+            headers: {
+                'Authorization': `token ${pat}`,
+                'Accept': 'application/vnd.github.v3+json',
+                // Explicitly ask for fresh data from GitHub's servers
+                'X-GitHub-Api-Version': '2022-11-28'
+            },
+            // This header tells Vercel's fetch and network to not cache the response.
+            cache: 'no-store',
+        });
 
-        const commitsData = await commitsResponse.json();
-        if (!commitsData || commitsData.length === 0 || !commitsData[0].sha) {
-            return new Response(JSON.stringify({ error: 'Could not find the latest commit SHA. The repository might be empty.' }), {
-                status: 404,
-                headers: { 'Content-Type': 'application/json' },
-            });
-        }
-        const latestSha = commitsData[0].sha;
-
-        // Step 2: Fetch the file content using the specific commit SHA
-        const contentUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${latestSha}`;
-        const contentResponse = await fetch(contentUrl, commonFetchOptions);
-
-        if (!contentResponse.ok) {
-             const errorText = await contentResponse.json();
-             console.error('GitHub API (contents) error:', errorText);
-             const errorMessage = `GitHub API Error (${contentResponse.status}): ${errorText.message || 'Could not fetch file content. Check file path.'}`;
+        if (!response.ok) {
+             const errorData = await response.json();
+             console.error('GitHub API error:', errorData);
+             const errorMessage = `GitHub API Error (${response.status}): ${errorData.message || 'Could not fetch file. Check owner, repo, path, and token permissions.'}`;
              return new Response(JSON.stringify({ error: errorMessage }), {
-                status: contentResponse.status,
+                status: response.status,
                 headers: { 'Content-Type': 'application/json' },
             });
         }
 
-        const responseData = await contentResponse.json();
+        const responseData = await response.json();
         if (responseData.content === undefined) {
              return new Response(JSON.stringify({ error: 'File content not found in GitHub API response. The file might be empty or a submodule.' }), {
                 status: 404,

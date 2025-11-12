@@ -523,7 +523,15 @@ function App() {
             users: data.users,
             quizzes: data.quizzes,
             emailLog: data.emailLog || [],
-            settings: { ...data.settings, ...settings }, // Preserve current GitHub settings
+            settings: {
+                ...data.settings,
+                // Preserve the GitHub PAT and connection settings from the current state,
+                // as they are not meant to be synced from the file.
+                githubOwner: settings.githubOwner,
+                githubRepo: settings.githubRepo,
+                githubPath: settings.githubPath,
+                githubPat: settings.githubPat,
+            },
             moduleCategories: reconcileModuleCategories(data.quizzes, data.moduleCategories),
         };
 
