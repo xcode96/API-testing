@@ -125,24 +125,32 @@ export const savePartialData = async (key: string, value: any): Promise<void> =>
 };
 
 export const fetchFromGitHub = async (config: { owner: string, repo: string, path: string, pat: string }): Promise<AppData> => {
-    const { owner, repo, path, pat } = config;
-
     try {
         const response = await fetch('/api/github-proxy', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ owner, repo, path, pat }),
-            cache: 'no-store', // Prevent caching of the proxy request itself
+            body: JSON.stringify(config),
+            cache: 'no-store',
         });
 
-        const data = await response.json();
-
         if (!response.ok) {
-            // The proxy forwards meaningful error messages from the GitHub API or its own logic.
-            throw new Error(data.error || `Proxy request failed with status: ${response.status}`);
+            let errorData;
+            try {
+                // The proxy should return a JSON with an 'error' key
+                errorData = await response.json();
+            } catch (e) {
+                // If parsing fails, it's not a JSON response (e.g., HTML error page from Vercel)
+                const errorText = await response.text();
+                // Use the text as the error message, or a fallback.
+                throw new Error(errorText || `Proxy request failed with status: ${response.status}`);
+            }
+            // If it's a valid JSON response but not ok, use the 'error' key.
+            throw new Error(errorData.error || `Proxy request failed with status: ${response.status}`);
         }
+
+        const data = await response.json();
 
         // Basic validation of the final data from the proxy
         if (!data.users || !data.quizzes || !data.settings) {

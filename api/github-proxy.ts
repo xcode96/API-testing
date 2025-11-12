@@ -78,7 +78,19 @@ export default async function POST(request: Request) {
         }
         
         const fileContent = Buffer.from(fileContentBase64, 'base64').toString('utf-8');
-        const data = JSON.parse(fileContent);
+        
+        let data;
+        try {
+            data = JSON.parse(fileContent);
+        } catch (parseError: any) {
+            console.error('JSON parsing error in GitHub proxy:', parseError.message);
+            // Provide a user-friendly error message indicating the file is malformed.
+            const errorMessage = `The file '${path}' from your repository is not valid JSON. Please check the file's syntax. Details: ${parseError.message}`;
+             return new Response(JSON.stringify({ error: errorMessage }), {
+                status: 400, // Bad Request, as the source file is malformed.
+                headers: { 'Content-Type': 'application/json' },
+            });
+        }
 
         return new Response(JSON.stringify(data), {
             status: 200,
