@@ -1147,4 +1147,124 @@ export const INITIAL_QUIZZES: Quiz[] = [
       },
     ],
   },
+    {
+    "id": "finance_expense_reporting",
+    "name": "Expense Reporting & Reimbursement",
+    "questions": [
+      {
+        "id": 801,
+        "category": "Expense Reporting & Reimbursement",
+        "question": "What is the deadline for submitting expense reports after a business trip?",
+        "options": [
+          "Within 10 business days",
+          "Within 30 calendar days",
+          "Whenever you have time",
+          "At the end of the financial year"
+        ],
+        "correctAnswer": "Within 30 calendar days"
+      },
+      {
+        "id": 802,
+        "category": "Expense Reporting & Reimbursement",
+        "question": "Which of the following requires a pre-approval before booking?",
+        "options": [
+          "A client lunch under $50",
+          "Standard office supplies",
+          "International flights",
+          "A taxi ride from the office to the airport"
+        ],
+        "correctAnswer": "International flights"
+      }
+    ]
+  },
+  {
+    "id": "finance_procurement",
+    "name": "Procurement & Vendor Payments",
+    "questions": [
+      {
+        "id": 803,
+        "category": "Procurement & Vendor Payments",
+        "question": "A new vendor sends an email with updated bank details for an outstanding invoice. What should you do first?",
+        "options": [
+          "Update the details and process the payment immediately to avoid delays.",
+          "Reply to the email to confirm the change.",
+          "Verbally verify the change with the vendor using a known contact number before making any payment.",
+          "Forward the email to your manager for approval."
+        ],
+        "correctAnswer": "Verbally verify the change with the vendor using a known contact number before making any payment."
+      },
+      {
+        "id": 804,
+        "category": "Procurement & Vendor Payments",
+        "question": "For purchases over $10,000, what is the standard procurement policy?",
+        "options": [
+          "Use the company credit card.",
+          "Get approval from your direct manager.",
+          "A formal process requiring at least three competitive quotes must be followed.",
+          "Pay with personal funds and claim it back on expenses."
+        ],
+        "correctAnswer": "A formal process requiring at least three competitive quotes must be followed."
+      }
+    ]
+  },
+  {
+    "id": "finance_data_security",
+    "name": "Handling Financial Data",
+    "questions": [
+      {
+        "id": 805,
+        "category": "Handling Financial Data",
+        "question": "Where is it safe to store spreadsheets containing sensitive customer financial data?",
+        "options": [
+          "In your personal cloud drive for easy access.",
+          "On your unencrypted laptop desktop.",
+          "On a company-approved, encrypted network drive with restricted access.",
+          "In your email inbox."
+        ],
+        "correctAnswer": "On a company-approved, encrypted network drive with restricted access."
+      },
+      {
+        "id": 806,
+        "category": "Handling Financial Data",
+        "question": "You receive a request to share a quarterly financial report with an external consultant. What must you do before sending it?",
+        "options": [
+          "Send it immediately to be helpful.",
+          "Ensure there is a signed Non-Disclosure Agreement (NDA) in place and the data is shared via a secure method.",
+          "Convert the file to a PDF to prevent editing.",
+          "Ask a colleague if they think it is okay."
+        ],
+        "correctAnswer": "Ensure there is a signed Non-Disclosure Agreement (NDA) in place and the data is shared via a secure method."
+      }
+    ]
+  },
+  {
+    "id": "finance_anti_fraud",
+    "name": "Anti-Fraud Policy",
+    "questions": [
+      {
+        "id": 807,
+        "category": "Anti-Fraud Policy",
+        "question": "If you suspect a colleague is committing expense fraud, what is the appropriate action according to the company's whistleblower policy?",
+        "options": [
+          "Confront the colleague directly.",
+          "Ignore it, as it is not your responsibility.",
+          "Anonymously report your suspicions to the designated compliance officer or through the official reporting hotline.",
+          "Discuss your suspicions with other team members."
+        ],
+        "correctAnswer": "Anonymously report your suspicions to the designated compliance officer or through the official reporting hotline."
+      },
+      {
+        "id": 808,
+        "category": "Anti-Fraud Policy",
+        "question": "Which of these is an example of a \"red flag\" for potential invoice fraud?",
+        "options": [
+          "An invoice from a well-known, long-term supplier.",
+          "An invoice that is missing a purchase order number, has a vague description of services, and is from an unknown vendor.",
+          "An invoice that has been approved by the department head.",
+          "An invoice that is slightly higher than the previous month due to inflation."
+        ],
+        "correctAnswer": "An invoice that is missing a purchase order number, has a vague description of services, and is from an unknown vendor."
+      }
+    ]
+  }
 ];

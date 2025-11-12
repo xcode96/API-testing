@@ -138,5 +138,15 @@ export const INITIAL_MODULE_CATEGORIES: ModuleCategory[] = [
             { id: 'it_dev_dependency_mgmt', title: 'Dependency Management', questions: 2, iconKey: 'GlobeAlt', status: ModuleStatus.NotStarted, theme: THEMES[9] },
             { id: 'it_dev_data_handling', title: 'Data Handling & Privacy', questions: 2, iconKey: 'Download', status: ModuleStatus.NotStarted, theme: THEMES[1] },
         ]
+    },
+    {
+        id: 'finance_policy_exam',
+        title: 'Finance Department Policy',
+        modules: [
+            { id: 'finance_expense_reporting', title: 'Expense Reporting & Reimbursement', questions: 2, iconKey: 'DocumentText', status: ModuleStatus.NotStarted, theme: THEMES[12] },
+            { id: 'finance_procurement', title: 'Procurement & Vendor Payments', questions: 2, iconKey: 'BuildingOffice2', status: ModuleStatus.NotStarted, theme: THEMES[17] },
+            { id: 'finance_data_security', title: 'Handling Financial Data', questions: 2, iconKey: 'ShieldCheck', status: ModuleStatus.NotStarted, theme: THEMES[16] },
+            { id: 'finance_anti_fraud', title: 'Anti-Fraud Policy', questions: 2, iconKey: 'Warning', status: ModuleStatus.NotStarted, theme: THEMES[5] },
+        ]
     }
 ];
