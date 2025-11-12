@@ -126,32 +126,51 @@ export const savePartialData = async (key: string, value: any): Promise<void> =>
 
 export const fetchFromGitHub = async (config: { owner: string, repo: string, path: string, pat: string }): Promise<AppData> => {
     const { owner, repo, path, pat } = config;
-    // Add a cache-busting timestamp to the URL to ensure freshness
-    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?t=${new Date().getTime()}`;
 
-    const response = await fetch(url, {
-        headers: {
-            'Authorization': `token ${pat}`,
-            'Accept': 'application/vnd.github.v3+json',
-            // Explicitly add cache-control headers for good measure
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0',
-        },
+    const commonHeaders = {
+        'Authorization': `token ${pat}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+    };
+    const commonFetchOptions: RequestInit = {
+        headers: commonHeaders,
         cache: 'no-store'
-    });
+    };
 
-    if (!response.ok) {
-        if (response.status === 401) {
-            throw new Error(`GitHub API Error: 401 Unauthorized. Please check if your Personal Access Token is correct, has not expired, and has the required 'repo' scope permissions.`);
+    // Step 1: Get the latest commit SHA from the default branch
+    const commitsUrl = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`;
+    const commitsResponse = await fetch(commitsUrl, commonFetchOptions);
+
+    if (!commitsResponse.ok) {
+        if (commitsResponse.status === 404) {
+             throw new Error(`GitHub API Error: 404 Not Found. Could not fetch commits. Please check if the Owner and Repository are correct.`);
         }
-        if (response.status === 404) {
-            throw new Error(`GitHub API Error: 404 Not Found. Please check if the Owner, Repository, and File Path are correct.`);
+        if (commitsResponse.status === 401) {
+            throw new Error(`GitHub API Error: 401 Unauthorized. Please check your Personal Access Token.`);
         }
-        throw new Error(`GitHub API request failed: ${response.status} ${response.statusText}`);
+        throw new Error(`GitHub API (commits) request failed: ${commitsResponse.status} ${commitsResponse.statusText}`);
     }
 
-    const responseData = await response.json();
+    const commitsData = await commitsResponse.json();
+    if (!commitsData || commitsData.length === 0 || !commitsData[0].sha) {
+        throw new Error('Could not find the latest commit SHA. The repository might be empty.');
+    }
+    const latestSha = commitsData[0].sha;
+
+    // Step 2: Fetch the file content using the specific commit SHA
+    const contentUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${latestSha}`;
+    const contentResponse = await fetch(contentUrl, commonFetchOptions);
+
+    if (!contentResponse.ok) {
+        if (contentResponse.status === 404) {
+            throw new Error(`GitHub API Error: 404 Not Found. Could not find the file at path '${path}'. Please check if the File Path is correct and exists in the latest commit.`);
+        }
+        throw new Error(`GitHub API (contents) request failed: ${contentResponse.status} ${contentResponse.statusText}`);
+    }
+
+    const responseData = await contentResponse.json();
     if (!responseData.content) {
         throw new Error('File content not found in GitHub API response. The file might be empty or in a submodule.');
     }
