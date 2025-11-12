@@ -126,12 +126,17 @@ export const savePartialData = async (key: string, value: any): Promise<void> =>
 
 export const fetchFromGitHub = async (config: { owner: string, repo: string, path: string, pat: string }): Promise<AppData> => {
     const { owner, repo, path, pat } = config;
-    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+    // Add a cache-busting timestamp to the URL to ensure freshness
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?t=${new Date().getTime()}`;
 
     const response = await fetch(url, {
         headers: {
             'Authorization': `token ${pat}`,
             'Accept': 'application/vnd.github.v3+json',
+            // Explicitly add cache-control headers for good measure
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0',
         },
         cache: 'no-store'
     });
