@@ -27,7 +27,7 @@ interface AdminPanelProps {
   onEditExamCategory: (categoryId: string, newTitle: string) => void;
   onDeleteExamCategory: (categoryId: string) => void;
   onAddNewQuestion: (question: Omit<Question, 'id' | 'category'>, quizId: string) => void;
-  onAddQuestionToNewCategory: (question: Omit<Question, 'id'>, categoryTitle: string) => void;
+  onAddQuestionToNewCategory: (question: Omit<Question, 'id'>, categoryTitle: string) => string | undefined;
   onAddQuestionToNewSubTopic: (question: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => void;
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
@@ -79,6 +79,15 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
     }
   };
   
+  const handleAddQuestionToNewCategoryAndFocus = (question: Omit<Question, 'id'>, categoryTitle: string) => {
+    const newId = onAddQuestionToNewCategory(question, categoryTitle);
+    if (newId) {
+        // Set the filter immediately. The parent state update will be batched
+        // by React, and the UI will correctly show the new category and its question on re-render.
+        setQuestionFilter(newId);
+    }
+  };
+
   const renderActiveView = () => {
     switch (activeView) {
       case 'users':
@@ -155,7 +164,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                         moduleCategories={moduleCategories}
                         quizzes={quizzes}
                         onAddQuestion={onAddNewQuestion}
-                        onAddQuestionToNewCategory={onAddQuestionToNewCategory}
+                        onAddQuestionToNewCategory={handleAddQuestionToNewCategoryAndFocus}
                         onAddQuestionToNewSubTopic={onAddQuestionToNewSubTopic}
                         activeFilterId={questionFilter}
                       />

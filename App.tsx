@@ -138,23 +138,28 @@ function App() {
     }
 
     const newQuiz: Quiz = { id: newId, name: title, questions: [] };
-    const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
-    const iconKeys = Object.keys(ICONS);
-    const newIconKey = iconKeys[totalModules % iconKeys.length];
     
-    const newModule: Module = {
-        id: newId,
-        title: title,
-        questions: 0,
-        iconKey: newIconKey,
-        status: ModuleStatus.NotStarted,
-        theme: THEMES[totalModules % THEMES.length],
-    };
+    let newCategory: ModuleCategory | null = null;
 
-    const newCategory: ModuleCategory = { id: newId, title: title, modules: [newModule] };
+    setModuleCategoriesState(prev => {
+        const totalModules = prev.flatMap(c => c.modules).length;
+        const iconKeys = Object.keys(ICONS);
+        const newIconKey = iconKeys[totalModules % iconKeys.length];
+        
+        const newModule: Module = {
+            id: newId,
+            title: title,
+            questions: 0,
+            iconKey: newIconKey,
+            status: ModuleStatus.NotStarted,
+            theme: THEMES[totalModules % THEMES.length],
+        };
+
+        newCategory = { id: newId, title: title, modules: [newModule] };
+        return [...prev, newCategory];
+    });
 
     setQuizzes(prev => [...prev, newQuiz]);
-    setModuleCategoriesState(prev => [...prev, newCategory]);
 
     setUsers(prevUsers => prevUsers.map(user => {
         if (user.role === 'user') {
@@ -197,53 +202,55 @@ function App() {
   };
 
   const handleAddNewQuestion = (question: Omit<Question, 'id' | 'category'>, quizId: string) => {
+    let updatedQuestionCount = 0;
+
+    // Use a functional update for quizzes to ensure we're working with the latest state.
     setQuizzes(prevQuizzes => {
-        const quizToUpdate = prevQuizzes.find(q => q.id === quizId);
-        if (!quizToUpdate) return prevQuizzes;
+        const newQuizzes = prevQuizzes.map(quiz => {
+            if (quiz.id === quizId) {
+                const newQuestion: Question = {
+                    id: Date.now(),
+                    category: quiz.name,
+                    ...question,
+                };
+                const updatedQuiz = { ...quiz, questions: [...quiz.questions, newQuestion] };
+                updatedQuestionCount = updatedQuiz.questions.length; // Capture the new count
+                return updatedQuiz;
+            }
+            return quiz;
+        });
 
-        const newQuestion: Question = {
-            id: Date.now(),
-            category: quizToUpdate.name,
-            ...question,
-        };
-
-        const updatedQuizzes = prevQuizzes.map(quiz =>
-            quiz.id === quizId
-                ? { ...quiz, questions: [...quiz.questions, newQuestion] }
-                : quiz
-        );
-
-        setModuleCategoriesState(prevCategories =>
-            prevCategories.map(category => ({
-                ...category,
-                modules: category.modules.map(module =>
-                    module.id === quizId
-                        ? { ...module, questions: updatedQuizzes.find(q => q.id === quizId)?.questions.length || module.questions }
-                        : module
-                ),
-            }))
-        );
-
-        return updatedQuizzes;
+        // Now that we have the accurate new count, queue the update for module categories.
+        // React's batching will ensure these updates happen in the same render cycle.
+        if (updatedQuestionCount > 0) {
+            setModuleCategoriesState(prevCategories =>
+                prevCategories.map(category => ({
+                    ...category,
+                    modules: category.modules.map(module =>
+                        module.id === quizId
+                            ? { ...module, questions: updatedQuestionCount }
+                            : module
+                    ),
+                }))
+            );
+        }
+        
+        return newQuizzes;
     });
 };
 
 
-  const handleAddQuestionToNewCategory = (question: Omit<Question, 'id'>, categoryTitle: string) => {
+  const handleAddQuestionToNewCategory = (question: Omit<Question, 'id'>, categoryTitle: string): string | undefined => {
     const newId = categoryTitle.toLowerCase().replace(/\s+/g, '_') + `_${Date.now()}`;
     if (quizzes.some(q => q.name.toLowerCase() === categoryTitle.toLowerCase()) || moduleCategoriesState.some(c => c.id === newId)) {
         alert("An exam category with a similar name already exists.");
-        return;
+        return undefined;
     }
 
     const newQuestionWithId: Question = { ...question, id: Date.now(), category: categoryTitle };
-    
-    // Use functional updates to ensure atomicity and prevent race conditions
-    setQuizzes(prevQuizzes => {
-        const newQuiz: Quiz = { id: newId, name: categoryTitle, questions: [newQuestionWithId] };
-        return [...prevQuizzes, newQuiz];
-    });
+    const newQuiz: Quiz = { id: newId, name: categoryTitle, questions: [newQuestionWithId] };
 
+    // Atomically create the new category and module, calculating theme/icon based on the *next* state.
     setModuleCategoriesState(prevCategories => {
         const totalModules = prevCategories.flatMap(c => c.modules).length;
         const iconKeys = Object.keys(ICONS);
@@ -251,7 +258,7 @@ function App() {
         const newModule: Module = {
             id: newId,
             title: categoryTitle,
-            questions: 1,
+            questions: 1, // It starts with one question
             iconKey: newIconKey,
             status: ModuleStatus.NotStarted,
             theme: THEMES[totalModules % THEMES.length],
@@ -260,6 +267,10 @@ function App() {
         return [...prevCategories, newCategory];
     });
     
+    // Add the quiz with its question.
+    setQuizzes(prevQuizzes => [...prevQuizzes, newQuiz]);
+    
+    // Assign the new exam to all users.
     setUsers(prevUsers => prevUsers.map(user => {
         if (user.role === 'user') {
             const assignedExams = new Set(user.assignedExams || []);
@@ -268,6 +279,8 @@ function App() {
         }
         return user;
     }));
+
+    return newId;
   };
   
   const handleAddQuestionToNewSubTopic = (question: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => {
@@ -285,17 +298,19 @@ function App() {
 
       const parentCategory = moduleCategoriesState.find(c => c.id === parentCategoryId);
       if (parentCategory) {
-          const totalModules = moduleCategoriesState.flatMap(c => c.modules).length;
-          const newTheme = THEMES[totalModules % THEMES.length];
-          const iconKeys = Object.keys(ICONS);
-          const newIconKey = iconKeys[totalModules % iconKeys.length];
-          const newModule: Module = { id: newSubTopicId, title: subTopicTitle, questions: 1, iconKey: newIconKey, status: ModuleStatus.NotStarted, theme: newTheme, subCategory: subTopicTitle };
-          
-          setModuleCategoriesState(prev => prev.map(cat => 
-              cat.id === parentCategoryId 
-                  ? { ...cat, modules: [...cat.modules, newModule] } 
-                  : cat
-          ));
+          setModuleCategoriesState(prev => {
+              const totalModules = prev.flatMap(c => c.modules).length;
+              const newTheme = THEMES[totalModules % THEMES.length];
+              const iconKeys = Object.keys(ICONS);
+              const newIconKey = iconKeys[totalModules % iconKeys.length];
+              const newModule: Module = { id: newSubTopicId, title: subTopicTitle, questions: 1, iconKey: newIconKey, status: ModuleStatus.NotStarted, theme: newTheme, subCategory: subTopicTitle };
+              
+              return prev.map(cat => 
+                  cat.id === parentCategoryId 
+                      ? { ...cat, modules: [...cat.modules, newModule] } 
+                      : cat
+              );
+          });
       }
   };
 
@@ -377,7 +392,7 @@ function App() {
             handleSendNotification({
               to: user.username,
               subject: `Training Assessment ${newTrainingStatus === 'passed' ? 'Passed' : 'Failed'}`,
-              body: `Hi ${user.fullName},\n\nYou have completed your assigned training modules with a final score of ${finalScore}%.\nYour status is now: ${newTrainingStatus}.\n\nPlease log in to view your report.`,
+              body: `Hi ${user.fullName},\n\nYou have completed your assigned training modules with a final score of ${finalScore}%.\n\nYour status is now: ${newTrainingStatus}.\n\nPlease log in to view your report.`,
             });
         }
         
