@@ -85,24 +85,26 @@ export const saveData = async (data: AppData): Promise<void> => {
     } catch (e) {
         console.error("Failed to save data to local storage", e);
     }
-    
-    // Attempt to save to the persistent backend. This is the critical part.
-    try {
-        const response = await fetch('/api/update', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
 
-        if (!response.ok) {
-            const errorBody = await response.text();
-            throw new Error(`Server save failed with status ${response.status}: ${errorBody}`);
-        }
+    // Attempt to save to the persistent backend in chunks to avoid payload size limits.
+    try {
+        const dataParts = {
+            users: data.users,
+            quizzes: data.quizzes,
+            emailLog: data.emailLog || [],
+            settings: data.settings,
+            moduleCategories: data.moduleCategories || [],
+        };
+
+        const savePromises = Object.entries(dataParts).map(([key, value]) =>
+            savePartialData(key, value)
+        );
+
+        await Promise.all(savePromises);
+
     } catch (error) {
         console.error('API save failed (KV). Data is saved locally but not permanently.', error);
-        // Re-throw the error so the caller (like the Sync function) knows it failed.
+        // Re-throw the error so the caller knows it failed.
         throw error;
     }
 };

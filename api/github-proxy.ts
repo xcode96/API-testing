@@ -2,6 +2,13 @@ import { Buffer } from 'buffer';
 
 export const maxDuration = 60; // Set a longer timeout for GitHub API calls
 
+const RESPONSE_HEADERS = {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0',
+};
+
 export default async function POST(request: Request) {
     try {
         const { owner, repo, path, pat } = await request.json();
@@ -9,7 +16,7 @@ export default async function POST(request: Request) {
         if (!owner || !repo || !path || !pat) {
             return new Response(JSON.stringify({ error: 'Missing GitHub configuration parameters.' }), {
                 status: 400,
-                headers: { 'Content-Type': 'application/json' },
+                headers: RESPONSE_HEADERS,
             });
         }
         
@@ -32,7 +39,7 @@ export default async function POST(request: Request) {
             const errorMessage = `GitHub API Error (${contentResponse.status}): ${errorData.message || 'Could not fetch file metadata. Check owner, repo, path, and token permissions.'}`;
             return new Response(JSON.stringify({ error: errorMessage }), {
                 status: contentResponse.status,
-                headers: { 'Content-Type': 'application/json' },
+                headers: RESPONSE_HEADERS,
             });
         }
 
@@ -57,7 +64,7 @@ export default async function POST(request: Request) {
                  const errorMessage = `GitHub API Error (${blobResponse.status}): ${errorData.message || 'Could not fetch large file content.'}`;
                  return new Response(JSON.stringify({ error: errorMessage }), {
                     status: blobResponse.status,
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: RESPONSE_HEADERS,
                 });
             }
             const blobData = await blobResponse.json();
@@ -65,7 +72,7 @@ export default async function POST(request: Request) {
         } else {
              return new Response(JSON.stringify({ error: 'Invalid response from GitHub Contents API. No content or SHA found.' }), {
                 status: 404,
-                headers: { 'Content-Type': 'application/json' },
+                headers: RESPONSE_HEADERS,
             });
         }
 
@@ -73,7 +80,7 @@ export default async function POST(request: Request) {
         if (!fileContentBase64) {
             return new Response(JSON.stringify({ error: 'File appears to be empty.' }), {
                 status: 404,
-                headers: { 'Content-Type': 'application/json' },
+                headers: RESPONSE_HEADERS,
             });
         }
         
@@ -88,20 +95,20 @@ export default async function POST(request: Request) {
             const errorMessage = `The file '${path}' from your repository is not valid JSON. Please check the file's syntax. Details: ${parseError.message}`;
              return new Response(JSON.stringify({ error: errorMessage }), {
                 status: 400, // Bad Request, as the source file is malformed.
-                headers: { 'Content-Type': 'application/json' },
+                headers: RESPONSE_HEADERS,
             });
         }
 
         return new Response(JSON.stringify(data), {
             status: 200,
-            headers: { 'Content-Type': 'application/json' },
+            headers: RESPONSE_HEADERS,
         });
 
     } catch (error: any) {
         console.error('Error in GitHub proxy:', error);
         return new Response(JSON.stringify({ error: 'An internal server error occurred in the proxy.', details: error.message }), {
             status: 500,
-            headers: { 'Content-Type': 'application/json' },
+            headers: RESPONSE_HEADERS,
         });
     }
 }
