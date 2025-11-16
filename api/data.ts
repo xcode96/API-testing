@@ -1,5 +1,6 @@
-import { kv, LEGACY_DATA_KEY, KEY_USERS, KEY_QUIZZES, KEY_MODULE_CATEGORIES } from './db';
-import { Quiz, User } from '../types';
+
+import { kv, LEGACY_DATA_KEY, KEY_USERS, KEY_QUIZZES, KEY_MODULE_CATEGORIES, KEY_SETTINGS } from './db';
+import { Quiz, User, AppSettings } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
 
 export const maxDuration = 60; // Increase timeout to 60 seconds
@@ -10,12 +11,21 @@ const initialUsers: User[] = [
   { id: 3, fullName: 'Sys Admin', username: 'server', password: 'server', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'server_exam', 'it_policy_exam', 'operation_exam'], answers: [], moduleProgress: {} },
   { id: 4, fullName: 'IT Support', username: 'it', password: 'it', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'it_policy_exam'], answers: [], moduleProgress: {} },
   { id: 5, fullName: 'Data Analyst', username: 'analyst', password: 'analyst', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'data_analyst_exam'], answers: [], moduleProgress: {} },
-  { id: 999, fullName: 'Default Admin', username: 'admin', password: 'dqadm', trainingStatus: 'not-started', lastScore: null, role: 'admin', answers: [], moduleProgress: {} },
+  { id: 999, fullName: 'Default Admin', username: 'admin', password: 'dqadm', trainingStatus: 'not-started', lastScore: null, role: 'admin', assignedExams: [], answers: [], moduleProgress: {} },
 ];
+
+const defaultSettings: AppSettings = {
+    githubOwner: '',
+    githubRepo: '',
+    githubPath: 'data.json',
+    githubPat: '',
+};
+
 
 const getInitialData = () => ({
     users: initialUsers,
     quizzes: INITIAL_QUIZZES,
+    settings: defaultSettings,
 });
 
 
@@ -25,6 +35,7 @@ async function initializeAndSaveData() {
     const tx = kv.multi();
     tx.set(KEY_USERS, initialData.users);
     tx.set(KEY_QUIZZES, initialData.quizzes);
+    tx.set(KEY_SETTINGS, initialData.settings);
     await tx.exec();
     return initialData;
 }
@@ -39,36 +50,33 @@ export default async function GET(request: Request) {
   }
 
   try {
-    // 1. Check for legacy data and migrate if found
     const legacyData = await kv.get(LEGACY_DATA_KEY);
     if (legacyData && typeof legacyData === 'object' && 'users' in legacyData) {
         console.log('Found legacy data, migrating to multi-key structure...');
-        const data = legacyData as any; // Cast for simplicity
+        const data = legacyData as any;
         const tx = kv.multi();
         tx.set(KEY_USERS, data.users);
         tx.set(KEY_QUIZZES, data.quizzes);
-        if (data.moduleCategories) {
-            tx.set(KEY_MODULE_CATEGORIES, data.moduleCategories);
-        }
+        if (data.moduleCategories) tx.set(KEY_MODULE_CATEGORIES, data.moduleCategories);
+        tx.set(KEY_SETTINGS, data.settings || defaultSettings);
         tx.del(LEGACY_DATA_KEY);
         await tx.exec();
         console.log('Migration complete.');
         
-        return new Response(JSON.stringify(data), {
+        return new Response(JSON.stringify({ ...data, settings: data.settings || defaultSettings }), {
             headers: { 'Content-Type': 'application/json' },
             status: 200,
         });
     }
 
-    // 2. Fetch data using the new multi-key structure
-    const [users, quizzes, moduleCategories] = await kv.mget(
+    const [users, quizzes, moduleCategories, settings] = await kv.mget(
         KEY_USERS,
         KEY_QUIZZES,
         KEY_MODULE_CATEGORIES,
+        KEY_SETTINGS
     );
 
-    // 3. If no data found, initialize it
-    if (!users || !quizzes) {
+    if (!users || !quizzes || !settings) {
         console.log('No data found in KV, initializing with default data.');
         const initialData = await initializeAndSaveData();
         return new Response(JSON.stringify(initialData), {
@@ -77,11 +85,11 @@ export default async function GET(request: Request) {
         });
     }
     
-    // 4. Assemble and return the data
     const data = {
         users,
         quizzes,
-        moduleCategories: moduleCategories || [], // Ensure it's an array
+        moduleCategories: moduleCategories || [],
+        settings: settings || defaultSettings,
     };
     
     return new Response(JSON.stringify(data), {

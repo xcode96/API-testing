@@ -1,9 +1,35 @@
-import { ReactNode } from 'react';
+
+
+export interface Resource {
+  title: string;
+  url: string;
+}
 
 export enum ModuleStatus {
   NotStarted = 'Not Started',
   InProgress = 'In Progress',
   Completed = 'Completed',
+}
+
+export interface Theme {
+  iconBg: string;
+  iconColor: string;
+}
+
+export interface Module {
+  id: string;
+  title: string;
+  subCategory?: string;
+  questions: number;
+  iconKey: string;
+  status: ModuleStatus;
+  theme: Theme;
+}
+
+export interface ModuleCategory {
+  id: string;
+  title: string;
+  modules: Module[];
 }
 
 export interface Question {
@@ -20,25 +46,6 @@ export interface Quiz {
   questions: Question[];
 }
 
-export interface Module {
-  id: string;
-  title: string;
-  questions: number;
-  iconKey: string;
-  status: ModuleStatus;
-  theme: {
-    iconBg: string;
-    iconColor: string;
-  };
-  subCategory?: string;
-}
-
-export interface ModuleCategory {
-  id: string;
-  title: string;
-  modules: Module[];
-}
-
 export interface UserAnswer {
   questionId: number;
   questionText: string;
@@ -51,28 +58,28 @@ export interface User {
   id: number;
   fullName: string;
   username: string;
-  password?: string;
-  trainingStatus: 'not-started' | 'in-progress' | 'passed' | 'failed';
-  lastScore?: number | null;
+  password: string;
   role: 'user' | 'admin';
-  assignedExams?: string[];
-  answers?: UserAnswer[];
-  moduleProgress?: Record<string, ModuleStatus>;
-  // Fix: Add optional submissionDate property for certificate generation.
-  submissionDate?: number | string;
+  assignedExams: string[];
+  trainingStatus: 'not-started' | 'in-progress' | 'passed' | 'failed';
+  lastScore: number | null;
+  answers: UserAnswer[];
+  moduleProgress: { [moduleId: string]: { score: number; answers: UserAnswer[] } };
+  // FIX: Add optional submissionDate property for certificate generation.
+  submissionDate?: number;
 }
 
-// Fix: Define AppSettings for use in SettingsPanel and Certificate components.
 export interface AppSettings {
     githubOwner: string;
     githubRepo: string;
     githubPath: string;
     githubPat: string;
-    companyFullName: string;
-    courseName: string;
-    certificationBodyText: string;
-    certificationCycleYears: number;
+    // FIX: Add optional properties for certificate generation.
     logo?: string;
+    companyFullName?: string;
+    courseName?: string;
+    certificationBodyText?: string;
+    certificationCycleYears?: number;
     signature1?: string;
     signature1Name?: string;
     signature1Title?: string;
@@ -82,11 +89,11 @@ export interface AppSettings {
     certificationSeal?: string;
 }
 
-// Fix: Define Email type for use in NotificationLog.
+// FIX: Define and export the Email interface for notification logs.
 export interface Email {
-    id: number;
-    to: string;
-    subject: string;
-    body: string;
-    timestamp: number;
+  id: number;
+  to: string;
+  subject: string;
+  body: string;
+  timestamp: number;
 }

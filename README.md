@@ -1,3 +1,4 @@
+
 # Cyber Security Training Dashboard
 
 An interactive dashboard application designed to manage and track cyber security training modules. It features a user-facing dashboard for taking quizzes and a powerful admin panel for comprehensive management of users and question content.
@@ -20,7 +21,7 @@ This application is built as a robust, single-source-of-truth system, leveraging
     - Create and manage "Exam Folders" (top-level categories).
     - Add "Sub-Topics" (individual quizzes) within each folder.
     - Create, edit, and delete questions with ease.
-- **Centralized Question Export**: A single "Export All Questions" button generates a complete JSON backup of all your exam folders and questions.
+- **Publish to GitHub**: Securely configure your GitHub repository to publish a `data.json` file of your application's current state for backup and version control.
 
 ---
 
@@ -39,11 +40,12 @@ This application uses the Vercel KV database as its **single source of truth**. 
 ### 1. In-App Content Management (Recommended)
 You can create, edit, and delete all exam folders, sub-topics, and questions directly within the **Admin Panel** -> **Questions** tab. This is the simplest and recommended way to manage your curriculum.
 
-### 2. Manual Backup & Version Control
-For backing up your content or managing it in a version control system like GitHub, a simple manual workflow is provided:
--   **Export All Questions**: In the **Admin Panel -> Questions** tab, click the "Export All Questions" button.
--   This will download a single JSON file containing all your exam folders and questions.
--   You can store this file as a backup or commit it to a Git repository to track changes over time.
+### 2. Publish to GitHub (for Backups & Version Control)
+For backing up your content or managing it in a version control system like GitHub, a simple and secure workflow is provided:
+
+1.  **Generate a Token**: Create a GitHub [Classic Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with the full `repo` scope.
+2.  **Configure Settings**: In the **Admin Panel -> Settings** tab, enter your repository details (owner, name, file path) and the Personal Access Token. Click "Save Settings".
+3.  **Publish**: Click the "Publish to GitHub" button. This will commit a `data.json` file containing a full snapshot of your app's data to your repository.
 
 ---
 

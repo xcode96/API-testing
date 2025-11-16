@@ -1,3 +1,4 @@
+
 import { createClient } from "@vercel/kv";
 
 // This check is to prevent errors during local development if env vars are not set.
@@ -13,6 +14,7 @@ export const kv = process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN
 export const KEY_USERS = "data:users";
 export const KEY_QUIZZES = "data:quizzes";
 export const KEY_MODULE_CATEGORIES = "data:moduleCategories";
+export const KEY_SETTINGS = "data:settings";
 
 // Legacy key for one-time migration
 export const LEGACY_DATA_KEY = "cyber-security-training-data";

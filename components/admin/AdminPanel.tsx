@@ -1,16 +1,20 @@
+
 import React, { useState } from 'react';
-import { Quiz, User, ModuleCategory, Question } from '../../types';
+import { Quiz, User, ModuleCategory, Question, AppSettings } from '../../types';
 import { AdminView } from '../../App';
 import AdminSidebar from './AdminSidebar';
 import DataManagement from './DataManagement';
 import UserManagement from './UserManagement';
 import QuestionForm from './QuestionForm';
+import SettingsPanel from './SettingsPanel';
 
 interface AdminPanelProps {
   quizzes: Quiz[];
   users: User[];
+  settings: AppSettings;
   onUpdateUsers: (users: User[]) => void;
   onAddNewUser: (user: User) => void;
+  onUpdateSettings: (settings: AppSettings) => void;
   onLogout: () => void;
   activeView: AdminView;
   setActiveView: (view: AdminView) => void;
@@ -23,14 +27,15 @@ interface AdminPanelProps {
   onAddQuestionToNewSubTopic: (question: Omit<Question, 'id'>, subTopicTitle: string, parentCategoryId: string) => void;
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
-  onImportFolderStructure: (folderStructure: Record<string, any[]>, targetCategoryId: string) => void;
 }
 
 const AdminPanel: React.FC<AdminPanelProps> = ({
   quizzes,
   users,
+  settings,
   onUpdateUsers,
   onAddNewUser,
+  onUpdateSettings,
   onLogout,
   activeView,
   setActiveView,
@@ -43,7 +48,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onAddQuestionToNewSubTopic,
   onUpdateQuestion,
   onDeleteQuestion,
-  onImportFolderStructure,
 }) => {
   const [questionFilter, setQuestionFilter] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -62,8 +66,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   const handleAddQuestionToNewCategoryAndFocus = (question: Omit<Question, 'id'>, categoryTitle: string) => {
     const newId = onAddQuestionToNewCategory(question, categoryTitle);
     if (newId) {
-        // Set the filter immediately. The parent state update will be batched
-        // by React, and the UI will correctly show the new category and its question on re-render.
         setQuestionFilter(newId);
     }
   };
@@ -136,6 +138,12 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
           </>
         );
+      case 'settings':
+        return <SettingsPanel 
+                  settings={settings} 
+                  onUpdateSettings={onUpdateSettings}
+                  allData={{ users, quizzes, moduleCategories }}
+               />;
       default:
         return null;
     }

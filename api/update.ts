@@ -1,4 +1,5 @@
-import { kv, KEY_USERS, KEY_QUIZZES, KEY_MODULE_CATEGORIES } from './db';
+
+import { kv, KEY_USERS, KEY_QUIZZES, KEY_MODULE_CATEGORIES, KEY_SETTINGS } from './db';
 
 export const maxDuration = 60; // Increase timeout to 60 seconds
 
@@ -12,7 +13,6 @@ export default async function POST(request: Request) {
   try {
     const body = await request.json();
     
-    // Simple validation to ensure we're not saving empty/malformed data
     if (!body.users || !body.quizzes) {
         return new Response(JSON.stringify({ error: 'Invalid data structure' }), {
             headers: { 'Content-Type': 'application/json' },
@@ -20,12 +20,14 @@ export default async function POST(request: Request) {
         });
     }
 
-    // Use a transaction to save all parts atomically to the new multi-key structure
     const tx = kv.multi();
     tx.set(KEY_USERS, body.users);
     tx.set(KEY_QUIZZES, body.quizzes);
     if (body.moduleCategories) {
         tx.set(KEY_MODULE_CATEGORIES, body.moduleCategories);
+    }
+    if (body.settings) {
+        tx.set(KEY_SETTINGS, body.settings);
     }
     await tx.exec();
     

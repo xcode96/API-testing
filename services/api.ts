@@ -1,28 +1,37 @@
-// Fix: Import AppSettings to use it in the AppData interface.
+
 import { Quiz, User, ModuleCategory, AppSettings } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
+import { INITIAL_MODULE_CATEGORIES } from '../constants';
 
 export interface AppData {
     users: User[];
     quizzes: Quiz[];
     moduleCategories?: ModuleCategory[];
-    // Fix: Add optional settings to allow exporting all application data in one file.
     settings?: AppSettings;
 }
 
-// --- Start: Duplicated initial data from api/data.ts for fallback ---
+// --- Start: Duplicated initial data for complete fallback ---
 const initialUsers: User[] = [
   { id: 1, fullName: 'Demo User', username: 'demo', password: 'demo', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'hr_exam', 'it_policy_exam', 'server_exam', 'operation_exam', 'legal_exam', 'data_analyst_exam', 'it_developer_policy', 'finance_policy_exam'], answers: [], moduleProgress: {} },
   { id: 2, fullName: 'Dev Lead', username: 'dev', password: 'dev', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'it_developer_policy'], answers: [], moduleProgress: {} },
   { id: 3, fullName: 'Sys Admin', username: 'server', password: 'server', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'server_exam', 'it_policy_exam', 'operation_exam'], answers: [], moduleProgress: {} },
   { id: 4, fullName: 'IT Support', username: 'it', password: 'it', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'it_policy_exam'], answers: [], moduleProgress: {} },
   { id: 5, fullName: 'Data Analyst', username: 'analyst', password: 'analyst', trainingStatus: 'not-started', lastScore: null, role: 'user', assignedExams: ['it_security_policy', 'data_analyst_exam'], answers: [], moduleProgress: {} },
-  { id: 999, fullName: 'Default Admin', username: 'admin', password: 'dqadm', trainingStatus: 'not-started', lastScore: null, role: 'admin', answers: [], moduleProgress: {} },
+  { id: 999, fullName: 'Default Admin', username: 'admin', password: 'dqadm', trainingStatus: 'not-started', lastScore: null, role: 'admin', assignedExams: [], answers: [], moduleProgress: {} },
 ];
+
+const defaultSettings: AppSettings = {
+    githubOwner: '',
+    githubRepo: '',
+    githubPath: 'data.json',
+    githubPat: '',
+};
 
 const getInitialData = (): AppData => ({
     users: initialUsers,
     quizzes: INITIAL_QUIZZES,
+    moduleCategories: INITIAL_MODULE_CATEGORIES,
+    settings: defaultSettings,
 });
 // --- End: Duplicated initial data ---
 
@@ -59,19 +68,18 @@ export const fetchData = async (): Promise<AppData> => {
 };
 
 export const saveData = async (data: AppData): Promise<void> => {
-    // Always save to local storage as a backup
     try {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
     } catch (e) {
         console.error("Failed to save data to local storage", e);
     }
 
-    // Attempt to save to the persistent backend in chunks to avoid payload size limits.
     try {
         const dataParts: Record<string, any> = {
             users: data.users,
             quizzes: data.quizzes,
             moduleCategories: data.moduleCategories || [],
+            settings: data.settings || {},
         };
 
         const savePromises = Object.entries(dataParts).map(([key, value]) =>
@@ -82,7 +90,6 @@ export const saveData = async (data: AppData): Promise<void> => {
 
     } catch (error) {
         console.error('API save failed (KV). Data is saved locally but not permanently.', error);
-        // Re-throw the error so the caller knows it failed.
         throw error;
     }
 };
@@ -104,26 +111,21 @@ export const savePartialData = async (key: string, value: any): Promise<void> =>
     }
 };
 
-// Fix: Add fetchFromGitHub function to call the API proxy for fetching data from GitHub.
-export const fetchFromGitHub = async (config: {
-    owner: string;
-    repo: string;
-    path: string;
-    pat: string;
-}): Promise<AppData> => {
-    const response = await fetch('/api/github-proxy', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(config),
-    });
+interface PublishParams {
+  settings: AppSettings;
+  data: Omit<AppData, 'settings'>;
+}
 
-    const data = await response.json();
+export const publishToGitHub = async ({ settings, data }: PublishParams): Promise<{ success: boolean; message: string }> => {
+  const response = await fetch('/api/publish-github', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ settings, data }),
+  });
 
-    if (!response.ok) {
-        throw new Error(data.error || `GitHub fetch failed with status ${response.status}`);
-    }
-
-    return data as AppData;
+  const result = await response.json();
+  if (!response.ok) {
+    throw new Error(result.error || `Failed to publish to GitHub. Status: ${response.status}`);
+  }
+  return result;
 };
