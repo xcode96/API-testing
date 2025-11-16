@@ -6,8 +6,8 @@ import { INITIAL_MODULE_CATEGORIES } from '../constants';
 export interface AppData {
     users: User[];
     quizzes: Quiz[];
-    moduleCategories?: ModuleCategory[];
-    settings?: AppSettings;
+    moduleCategories: ModuleCategory[];
+    settings: AppSettings;
 }
 
 // --- Start: Duplicated initial data for complete fallback ---
@@ -37,34 +37,46 @@ const getInitialData = (): AppData => ({
 
 const LOCAL_STORAGE_KEY = 'cyber-security-training-data-local-backup';
 
+const ensureCompleteData = (data: Partial<AppData> | null): AppData => {
+    const defaults = getInitialData();
+    if (!data) return defaults;
+    return {
+        users: data.users && data.users.length > 0 ? data.users : defaults.users,
+        quizzes: data.quizzes && data.quizzes.length > 0 ? data.quizzes : defaults.quizzes,
+        moduleCategories: data.moduleCategories && data.moduleCategories.length > 0 ? data.moduleCategories : defaults.moduleCategories,
+        settings: data.settings ? { ...defaults.settings, ...data.settings } : defaults.settings,
+    };
+};
+
 // --- Main Data Functions ---
 
 export const fetchData = async (): Promise<AppData> => {
+    let loadedData: Partial<AppData> | null = null;
     try {
         const response = await fetch('/api/data', { cache: 'no-store' });
         if (!response.ok) {
             throw new Error(`API failed with status: ${response.status}`);
         }
-        const kvData = await response.json() as AppData;
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(kvData));
-        return kvData;
+        loadedData = await response.json() as Partial<AppData>;
     } catch (error) {
         console.warn('API fetch failed, trying local storage.', error);
-    }
-    
-    const localDataString = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (localDataString) {
-        try {
-            return JSON.parse(localDataString) as AppData;
-        } catch (e) {
-            console.error('Failed to parse local storage data.', e);
+        const localDataString = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (localDataString) {
+            try {
+                loadedData = JSON.parse(localDataString) as Partial<AppData>;
+            } catch (e) {
+                console.error('Failed to parse local storage data.', e);
+                loadedData = null;
+            }
         }
     }
     
-    console.log("No valid data source found, returning initial data.");
-    const initialData = getInitialData();
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(initialData));
-    return initialData;
+    const completeData = ensureCompleteData(loadedData);
+    
+    // Always update local storage with the complete, sanitized data to prevent future issues.
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(completeData));
+    
+    return completeData;
 };
 
 export const saveData = async (data: AppData): Promise<void> => {

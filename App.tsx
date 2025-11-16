@@ -57,10 +57,10 @@ function App() {
         const loadData = async () => {
             setIsLoading(true);
             const data = await fetchData();
-            setUsers(data.users || []);
-            setQuizzes(data.quizzes || INITIAL_QUIZZES);
-            setModuleCategories(data.moduleCategories || INITIAL_MODULE_CATEGORIES);
-            setSettings(data.settings || null);
+            setUsers(data.users);
+            setQuizzes(data.quizzes);
+            setModuleCategories(data.moduleCategories);
+            setSettings(data.settings);
             setIsLoading(false);
         };
         loadData();
@@ -111,7 +111,7 @@ function App() {
             [activeQuizId]: { score, answers },
         };
 
-        const updatedUser = {
+        const updatedUser: User = {
             ...currentUser,
             moduleProgress: updatedModuleProgress,
         };
@@ -131,6 +131,7 @@ function App() {
             updatedUser.trainingStatus = totalScore >= PASSING_PERCENTAGE ? 'passed' : 'failed';
             updatedUser.lastScore = totalScore;
             updatedUser.answers = allAnswers;
+            updatedUser.submissionDate = Date.now();
         }
 
         setCurrentUser(updatedUser);
@@ -179,7 +180,7 @@ function App() {
                 progress={userModuleCategories.flatMap(c => c.modules).length > 0 ? Math.round((Object.keys(currentUser.moduleProgress).length / userModuleCategories.flatMap(c => c.modules).length) * 100) : 0}
                 onReset={() => {
                     if(window.confirm('Are you sure you want to reset your progress?')) {
-                        const resetUser = {...currentUser, moduleProgress: {}, answers: [], lastScore: null, trainingStatus: 'not-started' as const};
+                        const resetUser = {...currentUser, moduleProgress: {}, answers: [], lastScore: null, trainingStatus: 'not-started' as const, submissionDate: undefined};
                         setCurrentUser(resetUser);
                         const updatedUsers = users.map(u => u.id === currentUser.id ? resetUser : u);
                         setUsers(updatedUsers);

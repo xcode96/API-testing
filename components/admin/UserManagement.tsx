@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useRef } from 'react';
 import { User, ModuleCategory } from '../../types';
 import UserDetailsModal from './ReportDetailsModal';
@@ -46,7 +47,7 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
          if (user) {
             const updatedUsers = users.map(u => {
               if (u.id === userId) {
-                return { ...u, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {} };
+                return { ...u, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {}, submissionDate: undefined };
               }
               return u;
             });
@@ -206,7 +207,7 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
         if (window.confirm("Are you sure you want to clear all submitted reports? This action will reset the status for all passed/failed users and cannot be undone.")) {
             const updatedUsers = users.map(u => {
                 if (u.trainingStatus === 'passed' || u.trainingStatus === 'failed') {
-                    return { ...u, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {} };
+                    return { ...u, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {}, submissionDate: undefined };
                 }
                 return u;
             });
