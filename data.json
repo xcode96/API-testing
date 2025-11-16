@@ -17,7 +17,7 @@
         "legal_exam",
         "data_analyst_exam",
         "it_developer_policy",
-        "finance_policy_exam"
+        "demo_1763299312007"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -32,7 +32,8 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "it_developer_policy"
+        "it_developer_policy",
+        "demo_1763299312007"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -49,7 +50,8 @@
         "it_security_policy",
         "server_exam",
         "it_policy_exam",
-        "operation_exam"
+        "operation_exam",
+        "demo_1763299312007"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -64,7 +66,8 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "it_policy_exam"
+        "it_policy_exam",
+        "demo_1763299312007"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -79,7 +82,8 @@
       "role": "user",
       "assignedExams": [
         "it_security_policy",
-        "data_analyst_exam"
+        "data_analyst_exam",
+        "demo_1763299312007"
       ],
       "answers": [],
       "moduleProgress": {}
@@ -1412,131 +1416,28 @@
       ]
     },
     {
-      "id": "finance_expense_reporting",
-      "name": "Expense Reporting & Reimbursement",
-      "questions": [
-        {
-          "id": 801,
-          "category": "Expense Reporting & Reimbursement",
-          "question": "What is the deadline for submitting expense reports after a business trip?",
-          "options": [
-            "Within 10 business days",
-            "Within 30 calendar days",
-            "Whenever you have time",
-            "At the end of the financial year"
-          ],
-          "correctAnswer": "Within 30 calendar days"
-        },
-        {
-          "id": 802,
-          "category": "Expense Reporting & Reimbursement",
-          "question": "Which of the following requires a pre-approval before booking?",
-          "options": [
-            "A client lunch under $50",
-            "Standard office supplies",
-            "International flights",
-            "A taxi ride from the office to the airport"
-          ],
-          "correctAnswer": "International flights"
-        }
-      ]
-    },
-    {
-      "id": "finance_procurement",
-      "name": "Procurement & Vendor Payments",
-      "questions": [
-        {
-          "id": 803,
-          "category": "Procurement & Vendor Payments",
-          "question": "A new vendor sends an email with updated bank details for an outstanding invoice. What should you do first?",
-          "options": [
-            "Update the details and process the payment immediately to avoid delays.",
-            "Reply to the email to confirm the change.",
-            "Verbally verify the change with the vendor using a known contact number before making any payment.",
-            "Forward the email to your manager for approval."
-          ],
-          "correctAnswer": "Verbally verify the change with the vendor using a known contact number before making any payment."
-        },
-        {
-          "id": 804,
-          "category": "Procurement & Vendor Payments",
-          "question": "For purchases over $10,000, what is the standard procurement policy?",
-          "options": [
-            "Use the company credit card.",
-            "Get approval from your direct manager.",
-            "A formal process requiring at least three competitive quotes must be followed.",
-            "Pay with personal funds and claim it back on expenses."
-          ],
-          "correctAnswer": "A formal process requiring at least three competitive quotes must be followed."
-        }
-      ]
-    },
-    {
-      "id": "finance_data_security",
-      "name": "Handling Financial Data",
-      "questions": [
-        {
-          "id": 805,
-          "category": "Handling Financial Data",
-          "question": "Where is it safe to store spreadsheets containing sensitive customer financial data?",
-          "options": [
-            "In your personal cloud drive for easy access.",
-            "On your unencrypted laptop desktop.",
-            "On a company-approved, encrypted network drive with restricted access.",
-            "In your email inbox."
-          ],
-          "correctAnswer": "On a company-approved, encrypted network drive with restricted access."
-        },
-        {
-          "id": 806,
-          "category": "Handling Financial Data",
-          "question": "You receive a request to share a quarterly financial report with an external consultant. What must you do before sending it?",
-          "options": [
-            "Send it immediately to be helpful.",
-            "Ensure there is a signed Non-Disclosure Agreement (NDA) in place and the data is shared via a secure method.",
-            "Convert the file to a PDF to prevent editing.",
-            "Ask a colleague if they think it is okay."
-          ],
-          "correctAnswer": "Ensure there is a signed Non-Disclosure Agreement (NDA) in place and the data is shared via a secure method."
-        }
-      ]
-    },
-    {
-      "id": "finance_anti_fraud",
-      "name": "Anti-Fraud Policy",
-      "questions": [
-        {
-          "id": 807,
-          "category": "Anti-Fraud Policy",
-          "question": "If you suspect a colleague is committing expense fraud, what is the appropriate action according to the company's whistleblower policy?",
-          "options": [
-            "Confront the colleague directly.",
-            "Ignore it, as it is not your responsibility.",
-            "Anonymously report your suspicions to the designated compliance officer or through the official reporting hotline.",
-            "Discuss your suspicions with other team members."
-          ],
-          "correctAnswer": "Anonymously report your suspicions to the designated compliance officer or through the official reporting hotline."
-        },
-        {
-          "id": 808,
-          "category": "Anti-Fraud Policy",
-          "question": "Which of these is an example of a \"red flag\" for potential invoice fraud?",
-          "options": [
-            "An invoice from a well-known, long-term supplier.",
-            "An invoice that is missing a purchase order number, has a vague description of services, and is from an unknown vendor.",
-            "An invoice that has been approved by the department head.",
-            "An invoice that is slightly higher than the previous month due to inflation."
-          ],
-          "correctAnswer": "An invoice that is missing a purchase order number, has a vague description of services, and is from an unknown vendor."
-        }
-      ]
+      "id": "demo_1763299312007",
+      "name": "demo",
+      "questions": []
     }
   ],
   "settings": {
-    "githubOwner": "",
-    "githubRepo": "",
+    "logo": null,
+    "companyFullName": "Cyber Security Training Consortium",
+    "signature1": null,
+    "signature1Name": "Dan Houser",
+    "signature1Title": "Chairperson",
+    "signature2": null,
+    "signature2Name": "Laurie-Anne Bourdain",
+    "signature2Title": "Secretary",
+    "courseName": "Certified Cyber Security Professional",
+    "certificationBodyText": "Having met all of the certification requirements, adoption of the Code of Ethics, and successful performance on the required competency examination, subject to recertification every three years, this individual is entitled to all of the rights and privileges associated with this designation.",
+    "certificationSeal": null,
+    "certificationCycleYears": 3,
+    "githubOwner": "xcode96",
+    "githubRepo": "API-testing",
     "githubPath": "data.json",
-    "githubPat": ""
+    "githubPat": "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"
   },
   "moduleCategories": [
     {
@@ -1550,7 +1451,10 @@
           "questions": 2,
           "iconKey": "Key",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-rose-100", "iconColor": "text-rose-500" }
+          "theme": {
+            "iconBg": "bg-rose-100",
+            "iconColor": "text-rose-500"
+          }
         },
         {
           "id": "data_protection_handling",
@@ -1559,7 +1463,10 @@
           "questions": 2,
           "iconKey": "Download",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-emerald-100", "iconColor": "text-emerald-500" }
+          "theme": {
+            "iconBg": "bg-emerald-100",
+            "iconColor": "text-emerald-500"
+          }
         },
         {
           "id": "email_communication_security",
@@ -1568,7 +1475,10 @@
           "questions": 1,
           "iconKey": "AtSymbol",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-amber-100", "iconColor": "text-amber-500" }
+          "theme": {
+            "iconBg": "bg-amber-100",
+            "iconColor": "text-amber-500"
+          }
         },
         {
           "id": "device_internet_usage",
@@ -1577,7 +1487,10 @@
           "questions": 1,
           "iconKey": "Device",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-indigo-100", "iconColor": "text-indigo-500" }
+          "theme": {
+            "iconBg": "bg-indigo-100",
+            "iconColor": "text-indigo-500"
+          }
         },
         {
           "id": "physical_security",
@@ -1586,7 +1499,10 @@
           "questions": 1,
           "iconKey": "Lock",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-cyan-100", "iconColor": "text-cyan-500" }
+          "theme": {
+            "iconBg": "bg-cyan-100",
+            "iconColor": "text-cyan-500"
+          }
         },
         {
           "id": "incident_reporting",
@@ -1595,7 +1511,10 @@
           "questions": 1,
           "iconKey": "Warning",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-orange-100", "iconColor": "text-orange-500" }
+          "theme": {
+            "iconBg": "bg-orange-100",
+            "iconColor": "text-orange-500"
+          }
         },
         {
           "id": "social_engineering_awareness",
@@ -1604,7 +1523,10 @@
           "questions": 1,
           "iconKey": "ChatBubble",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-teal-100", "iconColor": "text-teal-500" }
+          "theme": {
+            "iconBg": "bg-teal-100",
+            "iconColor": "text-teal-500"
+          }
         },
         {
           "id": "acceptable_use_compliance",
@@ -1613,7 +1535,10 @@
           "questions": 1,
           "iconKey": "Check",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-lime-100", "iconColor": "text-lime-500" }
+          "theme": {
+            "iconBg": "bg-lime-100",
+            "iconColor": "text-lime-500"
+          }
         },
         {
           "id": "remote_work_byod",
@@ -1622,7 +1547,10 @@
           "questions": 1,
           "iconKey": "Home",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-fuchsia-100", "iconColor": "text-fuchsia-500" }
+          "theme": {
+            "iconBg": "bg-fuchsia-100",
+            "iconColor": "text-fuchsia-500"
+          }
         },
         {
           "id": "backup_recovery_awareness",
@@ -1631,7 +1559,10 @@
           "questions": 1,
           "iconKey": "Clock",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-sky-100", "iconColor": "text-sky-500" }
+          "theme": {
+            "iconBg": "bg-sky-100",
+            "iconColor": "text-sky-500"
+          }
         }
       ]
     },
@@ -1639,112 +1570,421 @@
       "id": "hr_exam",
       "title": "HR Exam",
       "modules": [
-        { "id": "hr_recruitment_onboarding", "title": "Recruitment & Onboarding", "questions": 2, "iconKey": "Briefcase", "status": "Not Started", "theme": { "iconBg": "bg-green-100", "iconColor": "text-green-500" } },
-        { "id": "hr_attendance_leave", "title": "Attendance & Leave Policy", "questions": 2, "iconKey": "Clock", "status": "Not Started", "theme": { "iconBg": "bg-fuchsia-100", "iconColor": "text-fuchsia-500" } },
-        { "id": "hr_workplace_conduct", "title": "Workplace Conduct & Ethics", "questions": 2, "iconKey": "Scale", "status": "Not Started", "theme": { "iconBg": "bg-pink-100", "iconColor": "text-pink-500" } },
-        { "id": "hr_benefits_payroll", "title": "Employee Benefits & Payroll", "questions": 2, "iconKey": "DocumentText", "status": "Not Started", "theme": { "iconBg": "bg-red-100", "iconColor": "text-red-500" } },
-        { "id": "hr_performance_appraisal", "title": "Performance & Appraisal", "questions": 2, "iconKey": "ChartBar", "status": "Not Started", "theme": { "iconBg": "bg-blue-100", "iconColor": "text-blue-500" } },
-        { "id": "hr_grievance_resolution", "title": "Grievance & Conflict Resolution", "questions": 2, "iconKey": "Warning", "status": "Not Started", "theme": { "iconBg": "bg-orange-100", "iconColor": "text-orange-500" } },
-        { "id": "hr_exit_clearance", "title": "Exit & Clearance Policy", "questions": 2, "iconKey": "Lock", "status": "Not Started", "theme": { "iconBg": "bg-cyan-100", "iconColor": "text-cyan-500" } }
+        {
+          "id": "hr_recruitment_onboarding",
+          "title": "Recruitment & Onboarding",
+          "questions": 2,
+          "iconKey": "Briefcase",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-green-100",
+            "iconColor": "text-green-500"
+          }
+        },
+        {
+          "id": "hr_attendance_leave",
+          "title": "Attendance & Leave Policy",
+          "questions": 2,
+          "iconKey": "Clock",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-fuchsia-100",
+            "iconColor": "text-fuchsia-500"
+          }
+        },
+        {
+          "id": "hr_workplace_conduct",
+          "title": "Workplace Conduct & Ethics",
+          "questions": 2,
+          "iconKey": "Scale",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-pink-100",
+            "iconColor": "text-pink-500"
+          }
+        },
+        {
+          "id": "hr_benefits_payroll",
+          "title": "Employee Benefits & Payroll",
+          "questions": 2,
+          "iconKey": "DocumentText",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-yellow-100",
+            "iconColor": "text-yellow-500"
+          }
+        },
+        {
+          "id": "hr_performance_appraisal",
+          "title": "Performance & Appraisal",
+          "questions": 2,
+          "iconKey": "ChartBar",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-blue-100",
+            "iconColor": "text-blue-500"
+          }
+        },
+        {
+          "id": "hr_grievance_resolution",
+          "title": "Grievance & Conflict Resolution",
+          "questions": 2,
+          "iconKey": "Warning",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-orange-100",
+            "iconColor": "text-orange-500"
+          }
+        },
+        {
+          "id": "hr_exit_clearance",
+          "title": "Exit & Clearance Policy",
+          "questions": 2,
+          "iconKey": "Lock",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-cyan-100",
+            "iconColor": "text-cyan-500"
+          }
+        }
       ]
     },
     {
       "id": "it_policy_exam",
       "title": "IT Department Policy",
       "modules": [
-        { "id": "it_software_installation", "title": "Software Installation & Configuration Management", "questions": 4, "iconKey": "Download", "status": "Not Started", "theme": { "iconBg": "bg-cyan-100", "iconColor": "text-cyan-500" } },
-        { "id": "it_app_testing", "title": "Application Testing & Release Management", "questions": 4, "iconKey": "Check", "status": "Not Started", "theme": { "iconBg": "bg-lime-100", "iconColor": "text-lime-500" } },
-        { "id": "it_ticketing_change_control", "title": "Ticketing & Change Control", "questions": 4, "iconKey": "DocumentText", "status": "Not Started", "theme": { "iconBg": "bg-red-100", "iconColor": "text-red-500" } },
-        { "id": "it_security_compliance_dev", "title": "Security & Compliance in Development", "questions": 4, "iconKey": "ShieldCheck", "status": "Not Started", "theme": { "iconBg": "bg-gray-100", "iconColor": "text-gray-500" } },
-        { "id": "it_env_access_control", "title": "Environment & Access Control", "questions": 4, "iconKey": "Key", "status": "Not Started", "theme": { "iconBg": "bg-rose-100", "iconColor": "text-rose-500" } },
-        { "id": "it_dos_donts", "title": "Do’s and Don’ts of Enterprise Development", "questions": 5, "iconKey": "Warning", "status": "Not Started", "theme": { "iconBg": "bg-orange-100", "iconColor": "text-orange-500" } }
+        {
+          "id": "it_software_installation",
+          "title": "Software Installation & Configuration Management",
+          "questions": 4,
+          "iconKey": "Download",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-cyan-100",
+            "iconColor": "text-cyan-500"
+          }
+        },
+        {
+          "id": "it_app_testing",
+          "title": "Application Testing & Release Management",
+          "questions": 4,
+          "iconKey": "Check",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-lime-100",
+            "iconColor": "text-lime-500"
+          }
+        },
+        {
+          "id": "it_ticketing_change_control",
+          "title": "Ticketing & Change Control",
+          "questions": 4,
+          "iconKey": "DocumentText",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-yellow-100",
+            "iconColor": "text-yellow-500"
+          }
+        },
+        {
+          "id": "it_security_compliance_dev",
+          "title": "Security & Compliance in Development",
+          "questions": 4,
+          "iconKey": "ShieldCheck",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-gray-100",
+            "iconColor": "text-gray-500"
+          }
+        },
+        {
+          "id": "it_env_access_control",
+          "title": "Environment & Access Control",
+          "questions": 4,
+          "iconKey": "Key",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-rose-100",
+            "iconColor": "text-rose-500"
+          }
+        },
+        {
+          "id": "it_dos_donts",
+          "title": "Do’s and Don’ts of Enterprise Development",
+          "questions": 5,
+          "iconKey": "Warning",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-orange-100",
+            "iconColor": "text-orange-500"
+          }
+        }
       ]
     },
     {
       "id": "server_exam",
       "title": "Server Policy",
       "modules": [
-        { "id": "server_exam", "title": "Server Exam", "questions": 1, "iconKey": "Server", "status": "Not Started", "theme": { "iconBg": "bg-red-100", "iconColor": "text-red-500" } }
+        {
+          "id": "server_exam",
+          "title": "Server Exam",
+          "questions": 1,
+          "iconKey": "Server",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-yellow-100",
+            "iconColor": "text-yellow-500"
+          }
+        }
       ]
     },
     {
       "id": "operation_exam",
       "title": "Operations Policy",
       "modules": [
-        { "id": "op_bcp", "title": "Business Continuity Planning", "questions": 1, "iconKey": "Briefcase", "status": "Not Started", "theme": { "iconBg": "bg-rose-100", "iconColor": "text-rose-500" } },
-        { "id": "op_dr", "title": "Disaster Recovery", "questions": 1, "iconKey": "Server", "status": "Not Started", "theme": { "iconBg": "bg-emerald-100", "iconColor": "text-emerald-500" } },
-        { "id": "op_incident_mgmt", "title": "Incident Management", "questions": 1, "iconKey": "Warning", "status": "Not Started", "theme": { "iconBg": "bg-amber-100", "iconColor": "text-amber-500" } },
-        { "id": "op_physical_security_ops", "title": "Physical Security Policy", "questions": 1, "iconKey": "Lock", "status": "Not Started", "theme": { "iconBg": "bg-indigo-100", "iconColor": "text-indigo-500" } },
-        { "id": "op_vendor_mgmt", "title": "Vendor Management", "questions": 1, "iconKey": "Users", "status": "Not Started", "theme": { "iconBg": "bg-cyan-100", "iconColor": "text-cyan-500" } },
-        { "id": "op_supply_chain", "title": "Supply Chain Security", "questions": 1, "iconKey": "GlobeAlt", "status": "Not Started", "theme": { "iconBg": "bg-orange-100", "iconColor": "text-orange-500" } },
-        { "id": "op_health_safety", "title": "Health and Safety Policy", "questions": 1, "iconKey": "ShieldCheck", "status": "Not Started", "theme": { "iconBg": "bg-teal-100", "iconColor": "text-teal-500" } },
-        { "id": "op_qa", "title": "Quality Assurance", "questions": 1, "iconKey": "Check", "status": "Not Started", "theme": { "iconBg": "bg-lime-100", "iconColor": "text-lime-500" } },
-        { "id": "op_resource_mgmt", "title": "Resource Management", "questions": 1, "iconKey": "Cog", "status": "Not Started", "theme": { "iconBg": "bg-fuchsia-100", "iconColor": "text-fuchsia-500" } },
-        { "id": "op_logistics", "title": "Logistics and Distribution", "questions": 1, "iconKey": "BuildingOffice2", "status": "Not Started", "theme": { "iconBg": "bg-sky-100", "iconColor": "text-sky-500" } }
+        {
+          "id": "op_bcp",
+          "title": "Business Continuity Planning",
+          "questions": 1,
+          "iconKey": "Briefcase",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-rose-100",
+            "iconColor": "text-rose-500"
+          }
+        },
+        {
+          "id": "op_dr",
+          "title": "Disaster Recovery",
+          "questions": 1,
+          "iconKey": "Server",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-emerald-100",
+            "iconColor": "text-emerald-500"
+          }
+        },
+        {
+          "id": "op_incident_mgmt",
+          "title": "Incident Management",
+          "questions": 1,
+          "iconKey": "Warning",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-amber-100",
+            "iconColor": "text-amber-500"
+          }
+        },
+        {
+          "id": "op_physical_security_ops",
+          "title": "Physical Security Policy",
+          "questions": 1,
+          "iconKey": "Lock",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-indigo-100",
+            "iconColor": "text-indigo-500"
+          }
+        },
+        {
+          "id": "op_vendor_mgmt",
+          "title": "Vendor Management",
+          "questions": 1,
+          "iconKey": "Users",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-cyan-100",
+            "iconColor": "text-cyan-500"
+          }
+        },
+        {
+          "id": "op_supply_chain",
+          "title": "Supply Chain Security",
+          "questions": 1,
+          "iconKey": "GlobeAlt",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-orange-100",
+            "iconColor": "text-orange-500"
+          }
+        },
+        {
+          "id": "op_health_safety",
+          "title": "Health and Safety Policy",
+          "questions": 1,
+          "iconKey": "ShieldCheck",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-teal-100",
+            "iconColor": "text-teal-500"
+          }
+        },
+        {
+          "id": "op_qa",
+          "title": "Quality Assurance",
+          "questions": 1,
+          "iconKey": "Check",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-lime-100",
+            "iconColor": "text-lime-500"
+          }
+        },
+        {
+          "id": "op_resource_mgmt",
+          "title": "Resource Management",
+          "questions": 1,
+          "iconKey": "Cog",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-fuchsia-100",
+            "iconColor": "text-fuchsia-500"
+          }
+        },
+        {
+          "id": "op_logistics",
+          "title": "Logistics and Distribution",
+          "questions": 1,
+          "iconKey": "BuildingOffice2",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-sky-100",
+            "iconColor": "text-sky-500"
+          }
+        }
       ]
     },
     {
       "id": "legal_exam",
       "title": "Legal Policy",
       "modules": [
-        { "id": "legal_exam", "title": "Legal Exam", "questions": 10, "iconKey": "Scale", "status": "Not Started", "theme": { "iconBg": "bg-pink-100", "iconColor": "text-pink-500" } }
+        {
+          "id": "legal_exam",
+          "title": "Legal Exam",
+          "questions": 10,
+          "iconKey": "Scale",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-pink-100",
+            "iconColor": "text-pink-500"
+          }
+        }
       ]
     },
     {
       "id": "data_analyst_exam",
       "title": "Data Analyst Policy",
       "modules": [
-        { "id": "data_analyst_governance", "title": "Data Governance & Compliance", "questions": 2, "iconKey": "ShieldCheck", "status": "Not Started", "theme": { "iconBg": "bg-gray-100", "iconColor": "text-gray-500" } },
-        { "id": "data_analyst_handling", "title": "Secure Data Handling & Storage", "questions": 2, "iconKey": "Lock", "status": "Not Started", "theme": { "iconBg": "bg-cyan-100", "iconColor": "text-cyan-500" } },
-        { "id": "data_analyst_integrity", "title": "Data Quality & Integrity", "questions": 2, "iconKey": "Check", "status": "Not Started", "theme": { "iconBg": "bg-lime-100", "iconColor": "text-lime-500" } },
-        { "id": "data_analyst_ethics", "title": "Ethical Data Usage & Reporting", "questions": 2, "iconKey": "Scale", "status": "Not Started", "theme": { "iconBg": "bg-pink-100", "iconColor": "text-pink-500" } }
+        {
+          "id": "data_analyst_governance",
+          "title": "Data Governance & Compliance",
+          "questions": 2,
+          "iconKey": "ShieldCheck",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-gray-100",
+            "iconColor": "text-gray-500"
+          }
+        },
+        {
+          "id": "data_analyst_handling",
+          "title": "Secure Data Handling & Storage",
+          "questions": 2,
+          "iconKey": "Lock",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-cyan-100",
+            "iconColor": "text-cyan-500"
+          }
+        },
+        {
+          "id": "data_analyst_integrity",
+          "title": "Data Quality & Integrity",
+          "questions": 2,
+          "iconKey": "Check",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-lime-100",
+            "iconColor": "text-lime-500"
+          }
+        },
+        {
+          "id": "data_analyst_ethics",
+          "title": "Ethical Data Usage & Reporting",
+          "questions": 2,
+          "iconKey": "Scale",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-pink-100",
+            "iconColor": "text-pink-500"
+          }
+        }
       ]
     },
     {
       "id": "it_developer_policy",
       "title": "IT Developer Policy",
       "modules": [
-        { "id": "it_dev_secure_coding", "title": "Secure Coding Practices", "questions": 2, "iconKey": "ShieldCheck", "status": "Not Started", "theme": { "iconBg": "bg-gray-100", "iconColor": "text-gray-500" } },
-        { "id": "it_dev_api_security", "title": "API Security", "questions": 2, "iconKey": "Key", "status": "Not Started", "theme": { "iconBg": "bg-rose-100", "iconColor": "text-rose-500" } },
-        { "id": "it_dev_dependency_mgmt", "title": "Dependency Management", "questions": 2, "iconKey": "GlobeAlt", "status": "Not Started", "theme": { "iconBg": "bg-fuchsia-100", "iconColor": "text-fuchsia-500" } },
-        { "id": "it_dev_data_handling", "title": "Data Handling & Privacy", "questions": 2, "iconKey": "Download", "status": "Not Started", "theme": { "iconBg": "bg-emerald-100", "iconColor": "text-emerald-500" } }
-      ]
-    },
-    {
-      "id": "finance_policy_exam",
-      "title": "Finance Department Policy",
-      "modules": [
         {
-          "id": "finance_expense_reporting",
-          "title": "Expense Reporting & Reimbursement",
-          "questions": 2,
-          "iconKey": "DocumentText",
-          "status": "Not Started",
-          "theme": { "iconBg": "bg-red-100", "iconColor": "text-red-500" }
-        },
-        {
-          "id": "finance_procurement",
-          "title": "Procurement & Vendor Payments",
-          "questions": 2,
-          "iconKey": "BuildingOffice2",
-          "status": "Not Started",
-          "theme": { "iconBg": "bg-stone-100", "iconColor": "text-stone-500" }
-        },
-        {
-          "id": "finance_data_security",
-          "title": "Handling Financial Data",
+          "id": "it_dev_secure_coding",
+          "title": "Secure Coding Practices",
           "questions": 2,
           "iconKey": "ShieldCheck",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-gray-100", "iconColor": "text-gray-500" }
+          "theme": {
+            "iconBg": "bg-gray-100",
+            "iconColor": "text-gray-500"
+          }
         },
         {
-          "id": "finance_anti_fraud",
-          "title": "Anti-Fraud Policy",
+          "id": "it_dev_api_security",
+          "title": "API Security",
           "questions": 2,
-          "iconKey": "Warning",
+          "iconKey": "Key",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-orange-100", "iconColor": "text-orange-500" }
+          "theme": {
+            "iconBg": "bg-rose-100",
+            "iconColor": "text-rose-500"
+          }
+        },
+        {
+          "id": "it_dev_dependency_mgmt",
+          "title": "Dependency Management",
+          "questions": 2,
+          "iconKey": "GlobeAlt",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-sky-100",
+            "iconColor": "text-sky-500"
+          }
+        },
+        {
+          "id": "it_dev_data_handling",
+          "title": "Data Handling & Privacy",
+          "questions": 2,
+          "iconKey": "Download",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-emerald-100",
+            "iconColor": "text-emerald-500"
+          }
+        }
+      ]
+    },
+    {
+      "id": "demo_1763299312007",
+      "title": "demo",
+      "modules": [
+        {
+          "id": "demo_1763299312007",
+          "title": "demo",
+          "questions": 0,
+          "iconKey": "Device",
+          "status": "Not Started",
+          "theme": {
+            "iconBg": "bg-indigo-100",
+            "iconColor": "text-indigo-500"
+          }
         }
       ]
     }
