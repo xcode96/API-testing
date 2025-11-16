@@ -24,6 +24,7 @@ interface AdminPanelProps {
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
   onImportFolderStructure: (folderStructure: Record<string, any[]>, targetCategoryId: string) => void;
+  // FIX: Add missing onManualSave prop.
   onManualSave: () => Promise<{ success: boolean; error?: string }>;
 }
 
@@ -45,7 +46,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onUpdateQuestion,
   onDeleteQuestion,
   onImportFolderStructure,
-  onManualSave,
 }) => {
   const [questionFilter, setQuestionFilter] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -99,7 +99,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                     onUpdateQuestion={onUpdateQuestion}
                     onDeleteQuestion={onDeleteQuestion}
                     onImportFolderStructure={onImportFolderStructure}
-                    onManualSave={onManualSave}
                   />
                 </div>
               </div>

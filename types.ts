@@ -1,34 +1,5 @@
 import { ReactNode } from 'react';
 
-// FIX: Add AppSettings interface for application settings.
-export interface AppSettings {
-    companyFullName: string;
-    courseName: string;
-    certificationBodyText: string;
-    certificationCycleYears: number;
-    logo?: string;
-    signature1?: string;
-    signature1Name?: string;
-    signature1Title?: string;
-    signature2?: string;
-    signature2Name?: string;
-    signature2Title?: string;
-    certificationSeal?: string;
-    githubOwner?: string;
-    githubRepo?: string;
-    githubPath?: string;
-    githubPat?: string;
-}
-
-// FIX: Add Email interface for notification logs.
-export interface Email {
-    id: number;
-    to: string;
-    subject: string;
-    body: string;
-    timestamp: number;
-}
-
 export enum ModuleStatus {
   NotStarted = 'Not Started',
   InProgress = 'In Progress',
@@ -87,6 +58,35 @@ export interface User {
   assignedExams?: string[];
   answers?: UserAnswer[];
   moduleProgress?: Record<string, ModuleStatus>;
-  // FIX: Add optional submissionDate property to User type.
-  submissionDate?: string | number;
+  // FIX: Added missing submissionDate property for certificate generation.
+  submissionDate?: number;
+}
+
+// FIX: Added missing AppSettings type for certificate and GitHub settings.
+export interface AppSettings {
+    companyFullName: string;
+    courseName: string;
+    certificationBodyText: string;
+    certificationCycleYears: number;
+    logo?: string;
+    signature1?: string;
+    signature1Name?: string;
+    signature1Title?: string;
+    signature2?: string;
+    signature2Name?: string;
+    signature2Title?: string;
+    certificationSeal?: string;
+    githubPat: string;
+    githubOwner: string;
+    githubRepo: string;
+    githubPath: string;
+}
+
+// FIX: Added missing Email type for notification logs.
+export interface Email {
+    id: number;
+    to: string;
+    subject: string;
+    body: string;
+    timestamp: number;
 }

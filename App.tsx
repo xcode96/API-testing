@@ -10,7 +10,7 @@ import CompletionScreen from './components/CompletionScreen';
 import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
 import { Module, ModuleStatus, Quiz, User, UserAnswer, ModuleCategory, Question } from './types';
-import { fetchData, saveData, AppData } from './services/api';
+import { fetchData, saveData } from './services/api';
 
 type View = 'user_login' | 'dashboard' | 'login' | 'admin' | 'report' | 'completion';
 export type AdminView = 'users' | 'questions';

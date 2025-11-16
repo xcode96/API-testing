@@ -1,4 +1,4 @@
-import { kv, KEY_USERS, KEY_QUIZZES, KEY_MODULE_CATEGORIES, KEY_SETTINGS } from './db';
+import { kv, KEY_USERS, KEY_QUIZZES, KEY_MODULE_CATEGORIES } from './db';
 
 export const maxDuration = 60;
 
@@ -6,8 +6,6 @@ const VALID_KEYS: Record<string, string> = {
     users: KEY_USERS,
     quizzes: KEY_QUIZZES,
     moduleCategories: KEY_MODULE_CATEGORIES,
-    // FIX: Add 'settings' as a valid key for partial updates
-    settings: KEY_SETTINGS,
 };
 
 export default async function POST(request: Request) {

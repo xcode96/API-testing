@@ -1,4 +1,4 @@
-import { kv, KEY_USERS, KEY_QUIZZES, KEY_MODULE_CATEGORIES, KEY_SETTINGS } from './db';
+import { kv, KEY_USERS, KEY_QUIZZES, KEY_MODULE_CATEGORIES } from './db';
 
 export const maxDuration = 60; // Increase timeout to 60 seconds
 
@@ -26,10 +26,6 @@ export default async function POST(request: Request) {
     tx.set(KEY_QUIZZES, body.quizzes);
     if (body.moduleCategories) {
         tx.set(KEY_MODULE_CATEGORIES, body.moduleCategories);
-    }
-    // FIX: Save settings if they are provided
-    if (body.settings) {
-        tx.set(KEY_SETTINGS, body.settings);
     }
     await tx.exec();
     

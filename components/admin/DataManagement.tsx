@@ -11,7 +11,6 @@ interface DataManagementProps {
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
   onImportFolderStructure: (folderStructure: Record<string, Omit<Question, 'id'|'category'>[]>, targetCategoryId: string) => void;
-  onManualSave: () => Promise<{ success: boolean; error?: string }>;
 }
 
 const Accordion: React.FC<{ title: React.ReactNode; children: React.ReactNode, startOpen?: boolean }> = ({ title, children, startOpen = false }) => {
@@ -30,13 +29,10 @@ const Accordion: React.FC<{ title: React.ReactNode; children: React.ReactNode, s
 }
 
 
-const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategories, questionFilter, onEditExamCategory, onDeleteExamCategory, onUpdateQuestion, onDeleteQuestion, onImportFolderStructure, onManualSave }) => {
+const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategories, questionFilter, onEditExamCategory, onDeleteExamCategory, onUpdateQuestion, onDeleteQuestion, onImportFolderStructure }) => {
     const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
     const importFileInputRef = useRef<HTMLInputElement>(null);
     const [importTargetCategory, setImportTargetCategory] = useState<string | null>(null);
-    const [isSaving, setIsSaving] = useState(false);
-    const [saveMessage, setSaveMessage] = useState<{ text: string; isError: boolean } | null>(null);
-
 
     const filteredModuleCategories = useMemo(() => {
         if (!questionFilter) {
@@ -56,19 +52,6 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategori
         if (newTitle) {
             onEditExamCategory(categoryId, newTitle);
         }
-    };
-
-    const handleSaveClick = async () => {
-        setIsSaving(true);
-        setSaveMessage(null);
-        const result = await onManualSave();
-        if (result.success) {
-            setSaveMessage({ text: 'Saved successfully!', isError: false });
-        } else {
-            setSaveMessage({ text: `Save failed: ${result.error}`, isError: true });
-        }
-        setIsSaving(false);
-        setTimeout(() => setSaveMessage(null), 4000);
     };
 
     const handleExportFolder = (categoryId: string) => {
@@ -151,40 +134,14 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategori
     <>
       <input type="file" ref={importFileInputRef} onChange={handleFileImport} accept=".json" className="hidden" />
       <div className="space-y-6">
-        <div className="bg-blue-100/60 border border-blue-200/80 rounded-lg p-4 text-center">
-            <h3 className="font-semibold text-blue-800 flex items-center justify-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                Auto-Save Enabled
-            </h3>
-            <p className="text-sm text-slate-600 mt-1">
-                Changes are saved automatically. For peace of mind, you can also save manually.
-            </p>
-            <div className="mt-3">
-                <button
-                    onClick={handleSaveClick}
-                    disabled={isSaving}
-                    className="bg-white border border-slate-300 text-slate-700 font-semibold rounded-lg py-1.5 px-4 hover:bg-slate-50 transition-colors text-sm disabled:bg-slate-200 disabled:cursor-not-allowed"
-                >
-                    {isSaving ? 'Saving...' : 'Save Manually'}
-                </button>
-            </div>
-            {saveMessage && (
-                <p className={`mt-2 text-sm font-medium ${saveMessage.isError ? 'text-rose-600' : 'text-emerald-600'}`}>
-                    {saveMessage.text}
-                </p>
-            )}
-        </div>
-
-        <div className="border-t border-slate-200 pt-6">
+        <div>
           <h3 className="text-xl font-semibold text-slate-800 mb-4">
             {questionFilter 
                 ? `Editing Folder: ${moduleCategories.find(c => c.id === questionFilter)?.title}`
                 : "All Exam Folders"
             }
           </h3>
-            <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+            <div className="space-y-4 max-h-[75vh] overflow-y-auto pr-2">
               {filteredModuleCategories.map(category => {
                 const modulesContent = (
                   <div className="space-y-3">
