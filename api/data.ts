@@ -1,7 +1,8 @@
 
 import { kv, LEGACY_DATA_KEY, KEY_USERS, KEY_QUIZZES, KEY_MODULE_CATEGORIES, KEY_SETTINGS } from './db';
-import { Quiz, User, AppSettings } from '../types';
+import { Quiz, User, AppSettings, ModuleCategory } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
+import { INITIAL_MODULE_CATEGORIES } from '../constants';
 
 export const maxDuration = 60; // Increase timeout to 60 seconds
 
@@ -25,6 +26,7 @@ const defaultSettings: AppSettings = {
 const getInitialData = () => ({
     users: initialUsers,
     quizzes: INITIAL_QUIZZES,
+    moduleCategories: INITIAL_MODULE_CATEGORIES,
     settings: defaultSettings,
 });
 
@@ -35,6 +37,7 @@ async function initializeAndSaveData() {
     const tx = kv.multi();
     tx.set(KEY_USERS, initialData.users);
     tx.set(KEY_QUIZZES, initialData.quizzes);
+    tx.set(KEY_MODULE_CATEGORIES, initialData.moduleCategories);
     tx.set(KEY_SETTINGS, initialData.settings);
     await tx.exec();
     return initialData;
@@ -76,7 +79,7 @@ export default async function GET(request: Request) {
         KEY_SETTINGS
     );
 
-    if (!users || !quizzes || !settings) {
+    if (!users || !quizzes || !settings || !moduleCategories) {
         console.log('No data found in KV, initializing with default data.');
         const initialData = await initializeAndSaveData();
         return new Response(JSON.stringify(initialData), {

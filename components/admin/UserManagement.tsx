@@ -1,8 +1,6 @@
 
 import React, { useState, useMemo, useRef } from 'react';
 import { User, ModuleCategory } from '../../types';
-import UserDetailsModal from './ReportDetailsModal';
-import ShareFeedbackModal from './ShareFeedbackModal';
 
 interface UserManagementProps {
     users: User[];
@@ -23,31 +21,18 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
     const [newUser, setNewUser] = useState({ fullName: '', username: '', password: '', role: 'user' as 'user' | 'admin', assignedExams: [] as string[] });
     const [filter, setFilter] = useState('All');
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [feedbackUser, setFeedbackUser] = useState<User | null>(null);
-    const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
     const importFileInputRef = useRef<HTMLInputElement>(null);
 
     const assignableCategories = useMemo(() => {
         return moduleCategories;
     }, [moduleCategories]);
-    
-    const handleOpenDetails = (user: User) => {
-        setSelectedUser(user);
-        setIsDetailsModalOpen(true);
-    };
-
-    const handleCloseDetails = () => {
-        setIsDetailsModalOpen(false);
-        setSelectedUser(null);
-    };
 
     const handleGrantRetake = (userId: number) => {
          const user = users.find(u => u.id === userId);
          if (user) {
             const updatedUsers = users.map(u => {
               if (u.id === userId) {
-                return { ...u, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {}, submissionDate: undefined };
+                return { ...u, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {} };
               }
               return u;
             });
@@ -207,7 +192,7 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
         if (window.confirm("Are you sure you want to clear all submitted reports? This action will reset the status for all passed/failed users and cannot be undone.")) {
             const updatedUsers = users.map(u => {
                 if (u.trainingStatus === 'passed' || u.trainingStatus === 'failed') {
-                    return { ...u, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {}, submissionDate: undefined };
+                    return { ...u, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {} };
                 }
                 return u;
             });
@@ -361,17 +346,8 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
                                     </div>
                                     
                                     <div className="mt-3 pt-3 border-t border-slate-200 flex flex-wrap justify-end items-center gap-2">
-                                         {user.trainingStatus === 'passed' && (
-                                            <>
-                                               <button onClick={() => handleOpenDetails(user)} className="text-xs font-semibold bg-blue-500 text-white rounded-md py-1.5 px-3 hover:bg-blue-600 transition-colors">Details</button>
-                                            </>
-                                        )}
                                          {user.trainingStatus === 'failed' && (
-                                            <>
-                                               <button onClick={() => handleOpenDetails(user)} className="text-xs font-semibold bg-blue-500 text-white rounded-md py-1.5 px-3 hover:bg-blue-600 transition-colors">Details</button>
-                                                <button onClick={() => setFeedbackUser(user)} className="text-xs font-semibold bg-gray-500 text-white rounded-md py-1.5 px-3 hover:bg-gray-600 transition-colors">Share Feedback</button>
-                                                <button onClick={() => handleGrantRetake(user.id)} className="text-xs font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-md px-3 py-1.5 transition-colors">Grant Retake</button>
-                                            </>
+                                            <button onClick={() => handleGrantRetake(user.id)} className="text-xs font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-md px-3 py-1.5 transition-colors">Grant Retake</button>
                                         )}
                                     </div>
                                 </div>
@@ -381,12 +357,6 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
                     </div>
                 </div>
             </div>
-            
-            <UserDetailsModal isOpen={isDetailsModalOpen} onClose={handleCloseDetails} user={selectedUser} />
-            
-            {feedbackUser && (
-                <ShareFeedbackModal user={feedbackUser} onClose={() => setFeedbackUser(null)} />
-            )}
         </>
     );
 };

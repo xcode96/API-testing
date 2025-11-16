@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { User, Quiz, ModuleCategory, ModuleStatus, UserAnswer, AppSettings, Question, Theme, Module } from './types';
-import { INITIAL_QUIZZES, PASSING_PERCENTAGE } from './quizzes';
-import { INITIAL_MODULE_CATEGORIES } from './constants';
+import { PASSING_PERCENTAGE } from './quizzes';
 import { AppData, fetchData, saveData } from './services/api';
 
 import UserLoginPage from './components/UserLoginPage';
@@ -10,8 +9,6 @@ import LoginPage from './components/LoginPage';
 import Sidebar from './components/Sidebar';
 import ModuleList from './components/ModuleList';
 import QuizView from './components/QuizView';
-import CompletionScreen from './components/CompletionScreen';
-import FinalReport from './components/FinalReport';
 import AdminPanel from './components/admin/AdminPanel';
 
 export type AdminView = 'users' | 'questions' | 'settings';
@@ -74,11 +71,7 @@ function App() {
     const handleUserLogin = (user: User | null) => {
         if (user) {
             setCurrentUser(user);
-            if (user.trainingStatus === 'passed' || user.trainingStatus === 'failed') {
-                setView('completion');
-            } else {
-                setView('dashboard');
-            }
+            setView('dashboard');
         }
     };
     
@@ -131,7 +124,6 @@ function App() {
             updatedUser.trainingStatus = totalScore >= PASSING_PERCENTAGE ? 'passed' : 'failed';
             updatedUser.lastScore = totalScore;
             updatedUser.answers = allAnswers;
-            updatedUser.submissionDate = Date.now();
         }
 
         setCurrentUser(updatedUser);
@@ -139,11 +131,7 @@ function App() {
         setUsers(updatedUsers);
         saveData({ users: updatedUsers, quizzes, moduleCategories, settings });
 
-        if (allModulesCompleted) {
-            setView('completion');
-        } else {
-            setView('dashboard');
-        }
+        setView('dashboard');
         setActiveQuizId(null);
     };
     
@@ -180,7 +168,7 @@ function App() {
                 progress={userModuleCategories.flatMap(c => c.modules).length > 0 ? Math.round((Object.keys(currentUser.moduleProgress).length / userModuleCategories.flatMap(c => c.modules).length) * 100) : 0}
                 onReset={() => {
                     if(window.confirm('Are you sure you want to reset your progress?')) {
-                        const resetUser = {...currentUser, moduleProgress: {}, answers: [], lastScore: null, trainingStatus: 'not-started' as const, submissionDate: undefined};
+                        const resetUser = {...currentUser, moduleProgress: {}, answers: [], lastScore: null, trainingStatus: 'not-started' as const };
                         setCurrentUser(resetUser);
                         const updatedUsers = users.map(u => u.id === currentUser.id ? resetUser : u);
                         setUsers(updatedUsers);
@@ -318,14 +306,6 @@ function App() {
                 <QuizView quiz={quiz} onComplete={handleQuizComplete} />
             </div>
         );
-    }
-    
-    if(view === 'completion') {
-        return <CompletionScreen currentUser={currentUser} onGenerateReport={() => setView('report')} onLogout={handleLogout} />
-    }
-    
-    if(view === 'report') {
-        return <FinalReport answers={currentUser.answers} onBack={() => setView('dashboard')} />
     }
 
     return dashboardContent;

@@ -42,12 +42,21 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onUpdateSetting
         setPublishStatus({ message: 'Publishing data to GitHub...', isError: false });
 
         try {
+            // Create a copy of settings and remove the PAT for publishing.
+            // This ensures the sensitive token is not saved to the repository.
+            const { githubPat, ...publishableSettings } = formState;
+
             const dataToPublish = {
-                users: allData.users,
-                quizzes: allData.quizzes,
-                moduleCategories: allData.moduleCategories,
+                ...allData,
+                settings: publishableSettings,
             };
-            const result = await publishToGitHub({ settings: formState, data: dataToPublish });
+            
+            // The service call needs the full settings object (including PAT) for authentication.
+            // The type for `publishToGitHub`'s data property is `AppData`, which incorrectly
+            // requires the `githubPat` in the settings. We cast to `any` here to bypass the type
+            // check, as we intentionally remove the PAT for security reasons before publishing.
+            const result = await publishToGitHub({ settings: formState, data: dataToPublish as any });
+
             setPublishStatus({ message: result.message, isError: false });
         } catch (err: any) {
             setPublishStatus({ message: `Publish Failed: ${err.message}`, isError: true });

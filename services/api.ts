@@ -125,7 +125,7 @@ export const savePartialData = async (key: string, value: any): Promise<void> =>
 
 interface PublishParams {
   settings: AppSettings;
-  data: Omit<AppData, 'settings'>;
+  data: AppData;
 }
 
 export const publishToGitHub = async ({ settings, data }: PublishParams): Promise<{ success: boolean; message: string }> => {

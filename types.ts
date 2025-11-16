@@ -65,8 +65,6 @@ export interface User {
   lastScore: number | null;
   answers: UserAnswer[];
   moduleProgress: { [moduleId: string]: { score: number; answers: UserAnswer[] } };
-  // FIX: Add optional submissionDate property for certificate generation.
-  submissionDate?: number;
 }
 
 export interface AppSettings {
@@ -74,26 +72,4 @@ export interface AppSettings {
     githubRepo: string;
     githubPath: string;
     githubPat: string;
-    // FIX: Add optional properties for certificate generation.
-    logo?: string;
-    companyFullName?: string;
-    courseName?: string;
-    certificationBodyText?: string;
-    certificationCycleYears?: number;
-    signature1?: string;
-    signature1Name?: string;
-    signature1Title?: string;
-    signature2?: string;
-    signature2Name?: string;
-    signature2Title?: string;
-    certificationSeal?: string;
-}
-
-// FIX: Define and export the Email interface for notification logs.
-export interface Email {
-  id: number;
-  to: string;
-  subject: string;
-  body: string;
-  timestamp: number;
 }
