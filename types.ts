@@ -58,12 +58,16 @@ export interface User {
   assignedExams?: string[];
   answers?: UserAnswer[];
   moduleProgress?: Record<string, ModuleStatus>;
-  // FIX: Added missing submissionDate property for certificate generation.
-  submissionDate?: number;
+  // Fix: Add optional submissionDate property for certificate generation.
+  submissionDate?: number | string;
 }
 
-// FIX: Added missing AppSettings type for certificate and GitHub settings.
+// Fix: Define AppSettings for use in SettingsPanel and Certificate components.
 export interface AppSettings {
+    githubOwner: string;
+    githubRepo: string;
+    githubPath: string;
+    githubPat: string;
     companyFullName: string;
     courseName: string;
     certificationBodyText: string;
@@ -76,13 +80,9 @@ export interface AppSettings {
     signature2Name?: string;
     signature2Title?: string;
     certificationSeal?: string;
-    githubPat: string;
-    githubOwner: string;
-    githubRepo: string;
-    githubPath: string;
 }
 
-// FIX: Added missing Email type for notification logs.
+// Fix: Define Email type for use in NotificationLog.
 export interface Email {
     id: number;
     to: string;

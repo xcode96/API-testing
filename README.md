@@ -20,7 +20,7 @@ This application is built as a robust, single-source-of-truth system, leveraging
     - Create and manage "Exam Folders" (top-level categories).
     - Add "Sub-Topics" (individual quizzes) within each folder.
     - Create, edit, and delete questions with ease.
-- **Modular Content Management**: Import and export individual Exam Folders as JSON files, allowing for modular and shareable training content.
+- **Centralized Question Export**: A single "Export All Questions" button generates a complete JSON backup of all your exam folders and questions.
 
 ---
 
@@ -37,12 +37,13 @@ This application is built as a robust, single-source-of-truth system, leveraging
 This application uses the Vercel KV database as its **single source of truth**. All changes made in the admin panel are saved automatically and permanently.
 
 ### 1. In-App Content Management (Recommended)
-You can create, edit, and delete all exam folders, sub-topics, and questions directly within the **Admin Panel** -> **Questions** tab without ever touching a JSON file. This is the simplest way to manage your curriculum.
+You can create, edit, and delete all exam folders, sub-topics, and questions directly within the **Admin Panel** -> **Questions** tab. This is the simplest and recommended way to manage your curriculum.
 
-### 2. Modular Content Import/Export
-For greater flexibility, such as moving content between different instances of this application or building it offline, you can manage content at the "Exam Folder" level.
--   **Export Folder**: In the **Questions** tab, click the "Export Folder" button next to any exam folder to download its structure and questions as a JSON file.
--   **Import Folder**: Click the "Import Folder" button to upload a folder JSON file. This will add the new sub-topics and questions to the selected folder without overwriting other data.
+### 2. Manual Backup & Version Control
+For backing up your content or managing it in a version control system like GitHub, a simple manual workflow is provided:
+-   **Export All Questions**: In the **Admin Panel -> Questions** tab, click the "Export All Questions" button.
+-   This will download a single JSON file containing all your exam folders and questions.
+-   You can store this file as a backup or commit it to a Git repository to track changes over time.
 
 ---
 

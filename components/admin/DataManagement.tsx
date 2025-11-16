@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Quiz, Question, ModuleCategory } from '../../types';
 import EditQuestionModal from './EditQuestionModal';
 
@@ -10,7 +10,6 @@ interface DataManagementProps {
   onDeleteExamCategory: (categoryId: string) => void;
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
-  onImportFolderStructure: (folderStructure: Record<string, Omit<Question, 'id'|'category'>[]>, targetCategoryId: string) => void;
 }
 
 const Accordion: React.FC<{ title: React.ReactNode; children: React.ReactNode, startOpen?: boolean }> = ({ title, children, startOpen = false }) => {
@@ -29,10 +28,8 @@ const Accordion: React.FC<{ title: React.ReactNode; children: React.ReactNode, s
 }
 
 
-const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategories, questionFilter, onEditExamCategory, onDeleteExamCategory, onUpdateQuestion, onDeleteQuestion, onImportFolderStructure }) => {
+const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategories, questionFilter, onEditExamCategory, onDeleteExamCategory, onUpdateQuestion, onDeleteQuestion }) => {
     const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
-    const importFileInputRef = useRef<HTMLInputElement>(null);
-    const [importTargetCategory, setImportTargetCategory] = useState<string | null>(null);
 
     const filteredModuleCategories = useMemo(() => {
         if (!questionFilter) {
@@ -54,86 +51,31 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategori
         }
     };
 
-    const handleExportFolder = (categoryId: string) => {
-        const category = moduleCategories.find(c => c.id === categoryId);
-        if (!category) {
-            alert("Could not find category to export.");
-            return;
-        }
-
-        const moduleIds = new Set(category.modules.map(m => m.id));
-        const quizzesToExport = quizzes.filter(quiz => moduleIds.has(quiz.id));
-
-        if (quizzesToExport.length === 0 || quizzesToExport.every(q => q.questions.length === 0)) {
-            alert("This exam folder has no questions to export.");
-            return;
-        }
-
-        const structuredExport: Record<string, Omit<Question, 'id' | 'category'>[]> = {};
-
-        quizzesToExport.forEach(quiz => {
-            if (quiz.questions.length > 0) {
-                structuredExport[quiz.name] = quiz.questions.map(({ id, category, ...rest }) => rest);
-            }
-        });
-        
-        if (Object.keys(structuredExport).length === 0) {
-             alert("This exam folder has no questions to export.");
-             return;
-        }
-
+    const handleExportAllQuestions = () => {
+        const dataToExport = {
+            quizzes,
+            moduleCategories,
+        };
         const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(
-            JSON.stringify(structuredExport, null, 2)
+            JSON.stringify(dataToExport, null, 2)
         )}`;
-        
         const link = document.createElement("a");
         link.href = jsonString;
-        link.download = `folder-export-${category.title.toLowerCase().replace(/\s+/g, '-')}.json`;
+        link.download = `all-questions-export.json`;
         link.click();
-    };
-
-    const handleImportClick = (categoryId: string) => {
-        setImportTargetCategory(categoryId);
-        importFileInputRef.current?.click();
-    };
-
-    const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (!file || !importTargetCategory) {
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            try {
-                const text = e.target?.result;
-                if (typeof text !== 'string') {
-                    throw new Error("Could not read file content.");
-                }
-                const folderStructure = JSON.parse(text);
-                if (typeof folderStructure !== 'object' || folderStructure === null || Array.isArray(folderStructure)) {
-                    throw new Error("Invalid JSON format: The file should contain an object where keys are quiz names and values are arrays of questions.");
-                }
-                onImportFolderStructure(folderStructure, importTargetCategory);
-            } catch (error: any) {
-                alert(`Failed to import questions. Please check the file format. Error: ${error.message}`);
-            } finally {
-                if (importFileInputRef.current) {
-                    importFileInputRef.current.value = ""; // Reset input
-                }
-                setImportTargetCategory(null);
-            }
-        };
-        reader.onerror = () => {
-            alert("An error occurred while reading the file.");
-        };
-        reader.readAsText(file);
     };
 
   return (
     <>
-      <input type="file" ref={importFileInputRef} onChange={handleFileImport} accept=".json" className="hidden" />
       <div className="space-y-6">
+          <div className="bg-slate-100/80 p-4 rounded-xl border border-slate-200">
+              <h3 className="font-semibold text-lg text-slate-700 mb-2">Export All Questions</h3>
+              <p className="text-sm text-slate-600 mb-4">Download a single JSON file containing all exam folders, sub-topics, and questions. This is the recommended way to create a backup or version your content using Git.</p>
+              <button onClick={handleExportAllQuestions} className="bg-indigo-500 text-white font-semibold rounded-lg py-2 px-6 hover:bg-indigo-600 transition-colors">
+                  Export All Questions
+              </button>
+          </div>
+
         <div>
           <h3 className="text-xl font-semibold text-slate-800 mb-4">
             {questionFilter 
@@ -141,7 +83,7 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategori
                 : "All Exam Folders"
             }
           </h3>
-            <div className="space-y-4 max-h-[75vh] overflow-y-auto pr-2">
+            <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
               {filteredModuleCategories.map(category => {
                 const modulesContent = (
                   <div className="space-y-3">
@@ -181,8 +123,6 @@ const DataManagement: React.FC<DataManagementProps> = ({ quizzes, moduleCategori
                 
                 const editDeleteButtons = (
                     <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
-                        <button onClick={() => handleExportFolder(category.id)} className="text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors p-1">Export Folder</button>
-                        <button onClick={() => handleImportClick(category.id)} className="text-xs font-semibold text-emerald-600 hover:text-emerald-800 transition-colors p-1">Import Folder</button>
                         <button onClick={() => handleEditCategory(category.id, category.title)} className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors p-1">Edit Name</button>
                         <button onClick={() => onDeleteExamCategory(category.id)} className="text-xs font-semibold text-rose-500 hover:text-rose-700 transition-colors p-1">Delete Folder</button>
                     </div>

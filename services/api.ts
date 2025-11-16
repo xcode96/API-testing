@@ -1,3 +1,4 @@
+// Fix: Import AppSettings to use it in the AppData interface.
 import { Quiz, User, ModuleCategory, AppSettings } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
 
@@ -5,7 +6,7 @@ export interface AppData {
     users: User[];
     quizzes: Quiz[];
     moduleCategories?: ModuleCategory[];
-    // FIX: Add settings property to AppData interface.
+    // Fix: Add optional settings to allow exporting all application data in one file.
     settings?: AppSettings;
 }
 
@@ -103,25 +104,26 @@ export const savePartialData = async (key: string, value: any): Promise<void> =>
     }
 };
 
-// FIX: Add fetchFromGitHub function to call the proxy API endpoint.
-export interface GitHubFetchConfig {
+// Fix: Add fetchFromGitHub function to call the API proxy for fetching data from GitHub.
+export const fetchFromGitHub = async (config: {
     owner: string;
     repo: string;
     path: string;
     pat: string;
-}
-
-export const fetchFromGitHub = async (config: GitHubFetchConfig): Promise<AppData> => {
+}): Promise<AppData> => {
     const response = await fetch('/api/github-proxy', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(config),
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-        const errorBody = await response.json().catch(() => ({ error: 'Failed to parse error response.' }));
-        throw new Error(errorBody.error || `GitHub proxy failed with status: ${response.status}`);
+        throw new Error(data.error || `GitHub fetch failed with status ${response.status}`);
     }
 
-    return response.json();
+    return data as AppData;
 };

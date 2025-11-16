@@ -24,8 +24,6 @@ interface AdminPanelProps {
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
   onImportFolderStructure: (folderStructure: Record<string, any[]>, targetCategoryId: string) => void;
-  // FIX: Add missing onManualSave prop.
-  onManualSave: () => Promise<{ success: boolean; error?: string }>;
 }
 
 const AdminPanel: React.FC<AdminPanelProps> = ({
@@ -84,7 +82,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
           <>
             <header className="mb-8">
                 <h1 className="text-3xl font-bold text-slate-800">Question Management</h1>
-                <p className="text-slate-500">Create, edit, and delete exam folders and their questions.</p>
+                <p className="text-slate-500">Create, edit, and export exam folders and their questions.</p>
             </header>
             
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -98,7 +96,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                     onDeleteExamCategory={onDeleteExamCategory}
                     onUpdateQuestion={onUpdateQuestion}
                     onDeleteQuestion={onDeleteQuestion}
-                    onImportFolderStructure={onImportFolderStructure}
                   />
                 </div>
               </div>

@@ -479,20 +479,6 @@ function App() {
     setUsers(prev => [...prev, user]);
   };
   
-  const handleManualSave = async (): Promise<{ success: boolean; error?: string }> => {
-    try {
-        if (loading) {
-             return { success: false, error: "Data is not ready to be saved." };
-        }
-        const dataToSave = { users, quizzes, moduleCategories: moduleCategoriesState };
-        await saveData(dataToSave);
-        return { success: true };
-    } catch (err: any) {
-        console.error("Failed to manually save data:", err);
-        return { success: false, error: err.message || "An unknown error occurred." };
-    }
-  };
-  
   // Memos for dashboard
   const userModuleCategories = useMemo(() => {
     if (!currentUser || currentUser.role === 'admin') return moduleCategoriesState;
@@ -560,7 +546,6 @@ function App() {
                     onUpdateQuestion={handleUpdateQuestion}
                     onDeleteQuestion={handleDeleteQuestion}
                     onImportFolderStructure={handleImportFolderStructure}
-                    onManualSave={handleManualSave}
                 />;
       case 'report':
         return <FinalReport answers={currentUser?.answers || []} onBack={() => setView('dashboard')} />;
