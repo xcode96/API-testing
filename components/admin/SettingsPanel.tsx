@@ -123,6 +123,52 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
     const importAllDataInputRef = useRef<HTMLInputElement>(null);
     const [importStatus, setImportStatus] = useState<{ message: string; isError: boolean } | null>(null);
 
+    const StatusDisplay = () => {
+        const status = isSyncing ? { message: 'Syncing data from GitHub...', type: 'pending' as const }
+            : isTesting ? { message: 'Testing connection to GitHub...', type: 'pending' as const }
+            : syncStatus ? { message: syncStatus.message, type: syncStatus.isError ? 'error' as const : 'success' as const }
+            : testStatus ? { message: testStatus.message, type: testStatus.isError ? 'error' as const : 'success' as const }
+            : null;
+
+        if (!status) return null;
+
+        const config = {
+            pending: {
+                icon: (
+                    <svg className="h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                ),
+                style: 'bg-blue-100 border-blue-200 text-blue-800',
+            },
+            success: {
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                ),
+                style: 'bg-emerald-100 border-emerald-200 text-emerald-800',
+            },
+            error: {
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                    </svg>
+                ),
+                style: 'bg-rose-100 border-rose-200 text-rose-800',
+            },
+        };
+
+        const currentConfig = config[status.type];
+
+        return (
+            <div className={`p-3.5 mt-4 rounded-lg border flex items-center gap-3 text-sm font-medium ${currentConfig.style}`}>
+                <span className="flex-shrink-0">{currentConfig.icon}</span>
+                <p className="flex-grow break-words">{status.message}</p>
+            </div>
+        );
+    };
 
     const handleFileUpload = (file: File, type: 'logo' | 'signature1' | 'signature2' | 'certificationSeal') => {
         const reader = new FileReader();
@@ -165,7 +211,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
             return;
         }
         setSyncStatus(null);
-        setTestStatus({ message: "Testing...", isError: false });
+        setTestStatus(null);
         setIsTesting(true);
         try {
             await fetchFromGitHub({
@@ -251,16 +297,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ settings, onSettingsChang
                                 {isSyncing ? 'Syncing...' : 'Sync from GitHub'}
                             </button>
                           </div>
-                          {testStatus && (
-                              <p className={`mt-3 text-sm font-medium ${testStatus.isError ? 'text-rose-600' : 'text-emerald-600'}`}>
-                                  {testStatus.message}
-                              </p>
-                          )}
-                           {syncStatus && (
-                              <p className={`mt-3 text-sm font-medium ${syncStatus.isError ? 'text-rose-600' : 'text-emerald-600'}`}>
-                                  {syncStatus.message}
-                              </p>
-                          )}
+                          <StatusDisplay />
                         </div>
                         <div className="border-t border-slate-200 pt-6">
                           <h3 className="font-semibold text-lg text-slate-700 mb-2">Export All Application Data</h3>
