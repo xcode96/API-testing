@@ -44,12 +44,9 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
     const handleGrantRetake = (userId: number) => {
          const user = users.find(u => u.id === userId);
          if (user) {
-            // FIX: Also clear submissionDate on progress reset.
             const updatedUsers = users.map(u => {
               if (u.id === userId) {
-                const { submissionDate, ...rest } = u;
-                // FIX: Explicitly cast 'not-started' to its literal type to prevent type widening to 'string'.
-                return { ...rest, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {} };
+                return { ...u, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {} };
               }
               return u;
             });
@@ -209,10 +206,7 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
         if (window.confirm("Are you sure you want to clear all submitted reports? This action will reset the status for all passed/failed users and cannot be undone.")) {
             const updatedUsers = users.map(u => {
                 if (u.trainingStatus === 'passed' || u.trainingStatus === 'failed') {
-                    // FIX: Also clear submissionDate on progress reset.
-                    const { submissionDate, ...rest } = u;
-                    // FIX: Explicitly cast 'not-started' to its literal type to prevent type widening to 'string'.
-                    return { ...rest, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {} };
+                    return { ...u, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {} };
                 }
                 return u;
             });

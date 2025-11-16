@@ -20,14 +20,12 @@ This application is built as a robust, single-source-of-truth system, leveraging
     - Create and manage "Exam Folders" (top-level categories).
     - Add "Sub-Topics" (individual quizzes) within each folder.
     - Create, edit, and delete questions with ease.
-- **Certificate Customization**: Upload a company logo, official seal, and digital signatures. Customize all text, signatory names, and titles that appear on the printable Certificate of Completion.
-- **Notification Log**: View a log of all simulated emails sent by the system for user actions like registration or retakes.
 
 ### Data & Integration
 - **Persistent Data Storage**: Uses Vercel KV as a fast and reliable database, ensuring all data is saved permanently.
 - **GitHub Synchronization (GitOps)**: Manage your training content in a `data.json` file within a GitHub repository. A single click in the admin panel syncs all changes, treating Git as your content management system.
 - **Robust Backup & Restore**:
-    - **Full System Backup**: Export all application data (users, quizzes, settings, logs) into a single JSON file.
+    - **Full System Backup**: Export all application data (users, quizzes, settings) into a single JSON file.
     - **Full System Restore**: Import a `data.json` file to completely overwrite the application's live data—perfect for migration or restoring from a backup.
 - **Modular Content Management**: Import and export individual Exam Folders as JSON files, allowing for modular and shareable training content.
 
@@ -37,7 +35,6 @@ This application is built as a robust, single-source-of-truth system, leveraging
 
 - **Frontend**: React, TypeScript, Tailwind CSS
 - **Data Persistence**: Vercel KV
-- **Certificate Generation**: `html2canvas`, `jspdf`, `html-to-image`
 - **Deployment**: Vercel
 
 ---
@@ -87,4 +84,3 @@ For greater flexibility, you can manage content at the "Exam Folder" level.
 
 -   **Styling**: The UI is built with Tailwind CSS. You can modify colors, fonts, and layouts by editing the class names in the React components.
 -   **Icons**: Module icons are managed in `constants.tsx`. You can add or change the SVG icons in the `ICONS` object.
--   **Certificate Appearance**: All aspects of the certificate (logo, seal, signatures, names, titles, and body text) can be configured directly in the **Admin Panel** -> **Settings** page. No code changes are needed.

@@ -47,15 +47,6 @@ export interface UserAnswer {
   isCorrect: boolean;
 }
 
-// FIX: Add missing Email interface to resolve import errors.
-export interface Email {
-  id: number;
-  to: string;
-  subject: string;
-  body: string;
-  timestamp: number;
-}
-
 export interface User {
   id: number;
   fullName: string;
@@ -67,8 +58,7 @@ export interface User {
   assignedExams?: string[];
   answers?: UserAnswer[];
   moduleProgress?: Record<string, ModuleStatus>;
-  // FIX: Add optional submissionDate for certificate generation.
-  submissionDate?: number | string;
+  submissionDate?: number;
 }
 
 export interface AppSettings {
@@ -76,11 +66,11 @@ export interface AppSettings {
   githubRepo: string;
   githubPath: string;
   githubPat: string;
-  // FIX: Add optional fields for certificate generation.
   logo?: string;
   companyFullName?: string;
   courseName?: string;
   certificationBodyText?: string;
+  certificationCycleYears?: number;
   signature1?: string;
   signature1Name?: string;
   signature1Title?: string;
@@ -88,5 +78,12 @@ export interface AppSettings {
   signature2Name?: string;
   signature2Title?: string;
   certificationSeal?: string;
-  certificationCycleYears?: number;
+}
+// Fix: Add missing Email interface for NotificationLog and emailService
+export interface Email {
+  id: number;
+  to: string;
+  subject: string;
+  body: string;
+  timestamp: number;
 }

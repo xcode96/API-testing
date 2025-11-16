@@ -381,8 +381,6 @@ function App() {
           answers: newAnswers,
           lastScore: allModulesCompleted ? finalScore : user.lastScore,
           trainingStatus: newTrainingStatus,
-          // FIX: Add submissionDate when all modules are completed.
-          submissionDate: allModulesCompleted ? Date.now() : user.submissionDate,
         };
         setCurrentUser(updatedUser);
         
@@ -404,10 +402,7 @@ function App() {
     if (window.confirm("Are you sure you want to reset all your progress? This cannot be undone.")) {
       const updatedUsers = users.map(user => {
           if (user.id === currentUser.id) {
-            // FIX: Also clear submissionDate on progress reset.
-            const { submissionDate, ...rest } = user;
-            // FIX: Explicitly cast 'not-started' to its literal type to prevent type widening to 'string'.
-            return { ...rest, moduleProgress: {}, answers: [], lastScore: null, trainingStatus: 'not-started' as const };
+            return { ...user, moduleProgress: {}, answers: [], lastScore: null, trainingStatus: 'not-started' as const };
           }
           return user;
         }
