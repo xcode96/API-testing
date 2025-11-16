@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef } from 'react';
-import { User, AppSettings, ModuleCategory } from '../../types';
+import { User, ModuleCategory } from '../../types';
 import UserDetailsModal from './ReportDetailsModal';
 import ShareFeedbackModal from './ShareFeedbackModal';
 

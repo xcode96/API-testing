@@ -1,12 +1,26 @@
-import { Quiz, User, AppSettings, ModuleCategory } from '../types';
+import { Quiz, User, ModuleCategory, AppSettings } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
 
 export interface AppData {
     users: User[];
     quizzes: Quiz[];
-    settings: AppSettings;
     moduleCategories?: ModuleCategory[];
+    // FIX: Add settings to AppData interface
+    settings?: AppSettings;
 }
+
+// FIX: Add initial settings for client-side fallback
+const initialSettings: AppSettings = {
+    companyFullName: "Cyberdyne Systems",
+    courseName: "Cyber Security Awareness",
+    certificationBodyText: "This certifies that the individual has successfully completed all modules and requirements for the Cyber Security Awareness training program, demonstrating proficiency in key security principles and practices.",
+    certificationCycleYears: 3,
+    githubOwner: '',
+    githubRepo: '',
+    githubPath: '',
+    githubPat: ''
+};
+
 
 // --- Start: Duplicated initial data from api/data.ts for fallback ---
 const initialUsers: User[] = [
@@ -18,23 +32,38 @@ const initialUsers: User[] = [
   { id: 999, fullName: 'Default Admin', username: 'admin', password: 'dqadm', trainingStatus: 'not-started', lastScore: null, role: 'admin', answers: [], moduleProgress: {} },
 ];
 
-const defaultSettings: AppSettings = {
-  githubOwner: '',
-  githubRepo: '',
-  githubPath: 'data.json',
-  githubPat: '',
-};
-
 const getInitialData = (): AppData => ({
     users: initialUsers,
     quizzes: INITIAL_QUIZZES,
-    settings: defaultSettings,
+    settings: initialSettings,
 });
 // --- End: Duplicated initial data ---
 
 const LOCAL_STORAGE_KEY = 'cyber-security-training-data-local-backup';
 
 // --- Main Data Functions ---
+
+// FIX: Implement and export fetchFromGitHub to resolve import error in SettingsPanel.
+interface GitHubParams {
+    owner: string;
+    repo: string;
+    path: string;
+    pat: string;
+}
+
+export const fetchFromGitHub = async (params: GitHubParams): Promise<any> => {
+    const response = await fetch('/api/github-proxy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(params),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `GitHub proxy failed with status ${response.status}`);
+    }
+    return response.json();
+};
 
 export const fetchData = async (): Promise<AppData> => {
     try {
@@ -74,12 +103,15 @@ export const saveData = async (data: AppData): Promise<void> => {
 
     // Attempt to save to the persistent backend in chunks to avoid payload size limits.
     try {
-        const dataParts = {
+        // FIX: Include settings when saving data.
+        const dataParts: Record<string, any> = {
             users: data.users,
             quizzes: data.quizzes,
-            settings: data.settings,
             moduleCategories: data.moduleCategories || [],
         };
+        if (data.settings) {
+            dataParts.settings = data.settings;
+        }
 
         const savePromises = Object.entries(dataParts).map(([key, value]) =>
             savePartialData(key, value)
@@ -108,46 +140,5 @@ export const savePartialData = async (key: string, value: any): Promise<void> =>
     } catch (error) {
         console.error(`API partial save failed for key '${key}'.`, error);
         throw error;
-    }
-};
-
-export const fetchFromGitHub = async (config: { owner: string, repo: string, path: string, pat: string }): Promise<AppData> => {
-    try {
-        const response = await fetch('/api/github-proxy', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(config),
-            cache: 'no-store',
-        });
-
-        if (!response.ok) {
-            let errorData;
-            try {
-                // The proxy should return a JSON with an 'error' key
-                errorData = await response.json();
-            } catch (e) {
-                // If parsing fails, it's not a JSON response (e.g., HTML error page from Vercel)
-                const errorText = await response.text();
-                // Use the text as the error message, or a fallback.
-                throw new Error(errorText || `Proxy request failed with status: ${response.status}`);
-            }
-            // If it's a valid JSON response but not ok, use the 'error' key.
-            throw new Error(errorData.error || `Proxy request failed with status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        // Basic validation of the final data from the proxy
-        if (!data.users || !data.quizzes || !data.settings) {
-            throw new Error('Fetched data from GitHub is missing required fields (users, quizzes, settings).');
-        }
-
-        return data as AppData;
-    } catch (error: any) {
-        console.error("Error fetching from GitHub via proxy:", error);
-        // Re-throw a cleaner error message for the UI to display.
-        throw new Error(error.message || 'An unknown error occurred during GitHub sync.');
     }
 };

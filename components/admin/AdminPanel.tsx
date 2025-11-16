@@ -1,13 +1,10 @@
-import React, { useState, useMemo } from 'react';
-import { Quiz, User, AppSettings, ModuleCategory, Question } from '../../types';
+import React, { useState } from 'react';
+import { Quiz, User, ModuleCategory, Question } from '../../types';
 import { AdminView } from '../../App';
 import AdminSidebar from './AdminSidebar';
 import DataManagement from './DataManagement';
 import UserManagement from './UserManagement';
-import SettingsPanel from './SettingsPanel';
 import QuestionForm from './QuestionForm';
-import { AppData } from '../../services/api';
-
 
 interface AdminPanelProps {
   quizzes: Quiz[];
@@ -17,8 +14,6 @@ interface AdminPanelProps {
   onLogout: () => void;
   activeView: AdminView;
   setActiveView: (view: AdminView) => void;
-  settings: AppSettings;
-  onSettingsChange: React.Dispatch<React.SetStateAction<AppSettings | null>>;
   moduleCategories: ModuleCategory[];
   onCreateExamCategory: (title: string) => string | undefined;
   onEditExamCategory: (categoryId: string, newTitle: string) => void;
@@ -29,9 +24,6 @@ interface AdminPanelProps {
   onUpdateQuestion: (question: Question) => void;
   onDeleteQuestion: (questionId: number) => void;
   onImportFolderStructure: (folderStructure: Record<string, any[]>, targetCategoryId: string) => void;
-  onSyncFromGitHub: () => Promise<{ success: boolean; error?: string }>;
-  onImportAllData: (file: File) => Promise<boolean>;
-  isSyncing: boolean;
   onManualSave: () => Promise<{ success: boolean; error?: string }>;
 }
 
@@ -43,8 +35,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onLogout,
   activeView,
   setActiveView,
-  settings,
-  onSettingsChange,
   moduleCategories,
   onCreateExamCategory,
   onEditExamCategory,
@@ -55,9 +45,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onUpdateQuestion,
   onDeleteQuestion,
   onImportFolderStructure,
-  onSyncFromGitHub,
-  onImportAllData,
-  isSyncing,
   onManualSave,
 }) => {
   const [questionFilter, setQuestionFilter] = useState<string | null>(null);
@@ -91,17 +78,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                     onUpdateUsers={onUpdateUsers}
                     onAddNewUser={onAddNewUser}
                     moduleCategories={moduleCategories} 
-                />;
-      case 'settings':
-        return <SettingsPanel 
-                    settings={settings} 
-                    onSettingsChange={onSettingsChange as React.Dispatch<React.SetStateAction<AppSettings>>}
-                    users={users}
-                    quizzes={quizzes}
-                    moduleCategories={moduleCategories}
-                    onSyncFromGitHub={onSyncFromGitHub}
-                    onImportAllData={onImportAllData}
-                    isSyncing={isSyncing}
                 />;
       case 'questions':
         return (

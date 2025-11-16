@@ -1,4 +1,4 @@
-import { kv, LEGACY_DATA_KEY, KEY_USERS, KEY_QUIZZES, KEY_SETTINGS, KEY_MODULE_CATEGORIES } from './db';
+import { kv, LEGACY_DATA_KEY, KEY_USERS, KEY_QUIZZES, KEY_MODULE_CATEGORIES, KEY_SETTINGS } from './db';
 import { Quiz, User, AppSettings } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
 
@@ -13,17 +13,23 @@ const initialUsers: User[] = [
   { id: 999, fullName: 'Default Admin', username: 'admin', password: 'dqadm', trainingStatus: 'not-started', lastScore: null, role: 'admin', answers: [], moduleProgress: {} },
 ];
 
-const defaultSettings: AppSettings = {
-  githubOwner: '',
-  githubRepo: '',
-  githubPath: 'data.json',
-  githubPat: '',
+// FIX: Define initial settings for server-side initialization
+const initialSettings: AppSettings = {
+    companyFullName: "Cyberdyne Systems",
+    courseName: "Cyber Security Awareness",
+    certificationBodyText: "This certifies that the individual has successfully completed all modules and requirements for the Cyber Security Awareness training program, demonstrating proficiency in key security principles and practices.",
+    certificationCycleYears: 3,
+    githubOwner: '',
+    githubRepo: '',
+    githubPath: '',
+    githubPat: ''
 };
 
 const getInitialData = () => ({
     users: initialUsers,
     quizzes: INITIAL_QUIZZES,
-    settings: defaultSettings,
+    // FIX: Include settings in initial data
+    settings: initialSettings,
 });
 
 
@@ -33,6 +39,7 @@ async function initializeAndSaveData() {
     const tx = kv.multi();
     tx.set(KEY_USERS, initialData.users);
     tx.set(KEY_QUIZZES, initialData.quizzes);
+    // FIX: Save initial settings to KV store
     tx.set(KEY_SETTINGS, initialData.settings);
     await tx.exec();
     return initialData;
@@ -56,13 +63,17 @@ export default async function GET(request: Request) {
         const tx = kv.multi();
         tx.set(KEY_USERS, data.users);
         tx.set(KEY_QUIZZES, data.quizzes);
-        tx.set(KEY_SETTINGS, data.settings);
         if (data.moduleCategories) {
             tx.set(KEY_MODULE_CATEGORIES, data.moduleCategories);
+        }
+        // FIX: Migrate settings if they exist
+        if (data.settings) {
+            tx.set(KEY_SETTINGS, data.settings);
         }
         tx.del(LEGACY_DATA_KEY);
         await tx.exec();
         console.log('Migration complete.');
+        
         return new Response(JSON.stringify(data), {
             headers: { 'Content-Type': 'application/json' },
             status: 200,
@@ -70,15 +81,16 @@ export default async function GET(request: Request) {
     }
 
     // 2. Fetch data using the new multi-key structure
-    const [users, quizzes, settings, moduleCategories] = await kv.mget(
+    // FIX: Fetch settings along with other data
+    const [users, quizzes, moduleCategories, settings] = await kv.mget(
         KEY_USERS,
         KEY_QUIZZES,
-        KEY_SETTINGS,
-        KEY_MODULE_CATEGORIES
+        KEY_MODULE_CATEGORIES,
+        KEY_SETTINGS
     );
 
     // 3. If no data found, initialize it
-    if (!users || !quizzes || !settings) {
+    if (!users || !quizzes) {
         console.log('No data found in KV, initializing with default data.');
         const initialData = await initializeAndSaveData();
         return new Response(JSON.stringify(initialData), {
@@ -88,11 +100,12 @@ export default async function GET(request: Request) {
     }
     
     // 4. Assemble and return the data
+    // FIX: Include settings in the response, with a fallback
     const data = {
         users,
         quizzes,
-        settings,
         moduleCategories: moduleCategories || [], // Ensure it's an array
+        settings: settings || initialSettings,
     };
     
     return new Response(JSON.stringify(data), {

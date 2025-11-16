@@ -1532,12 +1532,6 @@
       ]
     }
   ],
-  "settings": {
-    "githubOwner": "",
-    "githubRepo": "",
-    "githubPath": "data.json",
-    "githubPat": ""
-  },
   "moduleCategories": [
     {
       "id": "it_security_policy",

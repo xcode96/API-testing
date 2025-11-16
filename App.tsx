@@ -9,11 +9,11 @@ import FinalReport from './components/FinalReport';
 import CompletionScreen from './components/CompletionScreen';
 import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
-import { Module, ModuleStatus, Quiz, User, UserAnswer, AppSettings, ModuleCategory, Question } from './types';
-import { fetchData, saveData, AppData, fetchFromGitHub, savePartialData } from './services/api';
+import { Module, ModuleStatus, Quiz, User, UserAnswer, ModuleCategory, Question } from './types';
+import { fetchData, saveData, AppData } from './services/api';
 
 type View = 'user_login' | 'dashboard' | 'login' | 'admin' | 'report' | 'completion';
-export type AdminView = 'users' | 'questions' | 'settings';
+export type AdminView = 'users' | 'questions';
 
 const reconcileModuleCategories = (quizzes: Quiz[], moduleCategories?: ModuleCategory[]): ModuleCategory[] => {
     if (moduleCategories && moduleCategories.length > 0) {
@@ -54,10 +54,8 @@ const reconcileModuleCategories = (quizzes: Quiz[], moduleCategories?: ModuleCat
 function App() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [users, setUsers] = useState<User[]>([]);
-  const [settings, setSettings] = useState<AppSettings | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isSyncing, setIsSyncing] = useState(false);
 
   const [moduleCategoriesState, setModuleCategoriesState] = useState<ModuleCategory[]>([]);
   
@@ -68,7 +66,6 @@ function App() {
       .then(data => {
         setQuizzes(data.quizzes);
         setUsers(data.users);
-        setSettings(data.settings);
         setModuleCategoriesState(reconcileModuleCategories(data.quizzes, data.moduleCategories));
       })
       .catch(err => {
@@ -82,14 +79,14 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (loading || !settings) return;
+    if (loading) return;
 
     if (saveTimeoutRef.current) {
       clearTimeout(saveTimeoutRef.current);
     }
 
     saveTimeoutRef.current = window.setTimeout(() => {
-      const dataToSave = { users, quizzes, settings, moduleCategories: moduleCategoriesState };
+      const dataToSave = { users, quizzes, moduleCategories: moduleCategoriesState };
       saveData(dataToSave)
         .catch(err => console.error("Failed to auto-save data:", err));
     }, 1000);
@@ -99,7 +96,7 @@ function App() {
         clearTimeout(saveTimeoutRef.current);
       }
     };
-  }, [users, quizzes, settings, loading, moduleCategoriesState]);
+  }, [users, quizzes, loading, moduleCategoriesState]);
 
   const [view, setView] = useState<View>('user_login');
   const [adminView, setAdminView] = useState<AdminView>('users');
@@ -482,114 +479,12 @@ function App() {
     setUsers(prev => [...prev, user]);
   };
   
-  const handleSyncFromGitHub = async (): Promise<{ success: boolean; error?: string }> => {
-    if (!settings?.githubPat || !settings.githubOwner || !settings.githubRepo || !settings.githubPath) {
-        return { success: false, error: "Please configure all GitHub Synchronization settings first." };
-    }
-
-    setIsSyncing(true);
-    setError(null);
-
-    try {
-        const data = await fetchFromGitHub({
-            owner: settings.githubOwner,
-            repo: settings.githubRepo,
-            path: settings.githubPath,
-            pat: settings.githubPat,
-        });
-        
-        const reconciledData: AppData = {
-            users: data.users,
-            quizzes: data.quizzes,
-            settings: {
-                ...data.settings,
-                // Preserve the GitHub PAT and connection settings from the current state,
-                // as they are not meant to be synced from the file.
-                githubOwner: settings.githubOwner,
-                githubRepo: settings.githubRepo,
-                githubPath: settings.githubPath,
-                githubPat: settings.githubPat,
-            },
-            moduleCategories: reconcileModuleCategories(data.quizzes, data.moduleCategories),
-        };
-
-        await saveData(reconciledData);
-        
-        setQuizzes(reconciledData.quizzes);
-        setUsers(reconciledData.users);
-        setSettings(reconciledData.settings);
-        if (reconciledData.moduleCategories) {
-            setModuleCategoriesState(reconciledData.moduleCategories);
-        }
-        
-        setIsSyncing(false);
-        return { success: true };
-    } catch (err: any) {
-        console.error("Failed to sync from GitHub:", err);
-        setIsSyncing(false);
-        return { success: false, error: err.message };
-    }
-  };
-
-  const handleImportAllData = async (file: File): Promise<boolean> => {
-    if (!window.confirm("Are you sure you want to import this file? This will overwrite ALL current data and cannot be undone.")) {
-      return false;
-    }
-    
-    setIsSyncing(true); // Reuse syncing state for loading indicator
-    setError(null);
-
-    try {
-      const fileContent = await file.text();
-      const data = JSON.parse(fileContent) as AppData;
-
-      if (!data.users || !data.quizzes || !data.settings) {
-        throw new Error('Imported file is missing required fields (users, quizzes, settings).');
-      }
-
-      const reconciledData: AppData = {
-        ...data,
-        moduleCategories: reconcileModuleCategories(data.quizzes, data.moduleCategories),
-      };
-
-      // Save data in chunks to avoid server payload size limits
-      const dataParts = {
-          users: reconciledData.users,
-          quizzes: reconciledData.quizzes,
-          settings: reconciledData.settings,
-          moduleCategories: reconciledData.moduleCategories || [],
-      };
-
-      const savePromises = Object.entries(dataParts).map(([key, value]) => 
-          savePartialData(key, value)
-      );
-      await Promise.all(savePromises);
-
-      // After successful save, update the local state
-      setQuizzes(reconciledData.quizzes);
-      setUsers(reconciledData.users);
-      setSettings(reconciledData.settings);
-      if (reconciledData.moduleCategories) {
-        setModuleCategoriesState(reconciledData.moduleCategories);
-      }
-
-      setIsSyncing(false);
-      return true;
-    } catch (err: any) {
-      console.error("Failed to import and save data:", err);
-      setError(`Import Failed: ${err.message}. Data was not imported.`);
-      setIsSyncing(false);
-      alert(`Import Failed: ${err.message}. Please check the file and try again.`);
-      return false;
-    }
-  };
-
   const handleManualSave = async (): Promise<{ success: boolean; error?: string }> => {
     try {
-        if (loading || !settings) {
+        if (loading) {
              return { success: false, error: "Data is not ready to be saved." };
         }
-        const dataToSave = { users, quizzes, settings, moduleCategories: moduleCategoriesState };
+        const dataToSave = { users, quizzes, moduleCategories: moduleCategoriesState };
         await saveData(dataToSave);
         return { success: true };
     } catch (err: any) {
@@ -647,7 +542,6 @@ function App() {
       case 'login':
         return <LoginPage users={users} onLogin={handleAdminLogin} />;
       case 'admin':
-        if (!settings) return <div>Loading settings...</div>;
         return <AdminPanel 
                     quizzes={quizzes}
                     users={users}
@@ -656,8 +550,6 @@ function App() {
                     onLogout={() => setView('user_login')}
                     activeView={adminView}
                     setActiveView={setAdminView}
-                    settings={settings}
-                    onSettingsChange={setSettings}
                     moduleCategories={moduleCategoriesState}
                     onCreateExamCategory={handleCreateExamCategory}
                     onEditExamCategory={handleEditExamCategory}
@@ -668,10 +560,7 @@ function App() {
                     onUpdateQuestion={handleUpdateQuestion}
                     onDeleteQuestion={handleDeleteQuestion}
                     onImportFolderStructure={handleImportFolderStructure}
-                    onSyncFromGitHub={handleSyncFromGitHub}
-                    onImportAllData={handleImportAllData}
                     onManualSave={handleManualSave}
-                    isSyncing={isSyncing}
                 />;
       case 'report':
         return <FinalReport answers={currentUser?.answers || []} onBack={() => setView('dashboard')} />;
