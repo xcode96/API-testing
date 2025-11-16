@@ -1532,20 +1532,7 @@
       ]
     }
   ],
-  "emailLog": [],
   "settings": {
-    "logo": null,
-    "companyFullName": "Cyber Security Training Consortium",
-    "signature1": null,
-    "signature1Name": "Dan Houser",
-    "signature1Title": "Chairperson",
-    "signature2": null,
-    "signature2Name": "Laurie-Anne Bourdain",
-    "signature2Title": "Secretary",
-    "courseName": "Certified Cyber Security Professional",
-    "certificationBodyText": "Having met all of the certification requirements, adoption of the Code of Ethics, and successful performance on the required competency examination, subject to recertification every three years, this individual is entitled to all of the rights and privileges associated with this designation.",
-    "certificationSeal": null,
-    "certificationCycleYears": 3,
     "githubOwner": "",
     "githubRepo": "",
     "githubPath": "data.json",
@@ -1733,4 +1720,33 @@
           "questions": 2,
           "iconKey": "DocumentText",
           "status": "Not Started",
-          "theme": { "iconBg": "bg-red-100", "icon
+          "theme": { "iconBg": "bg-red-100", "iconColor": "text-red-500" }
+        },
+        {
+          "id": "finance_procurement",
+          "title": "Procurement & Vendor Payments",
+          "questions": 2,
+          "iconKey": "BuildingOffice2",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-stone-100", "iconColor": "text-stone-500" }
+        },
+        {
+          "id": "finance_data_security",
+          "title": "Handling Financial Data",
+          "questions": 2,
+          "iconKey": "ShieldCheck",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-gray-100", "iconColor": "text-gray-500" }
+        },
+        {
+          "id": "finance_anti_fraud",
+          "title": "Anti-Fraud Policy",
+          "questions": 2,
+          "iconKey": "Warning",
+          "status": "Not Started",
+          "theme": { "iconBg": "bg-orange-100", "iconColor": "text-orange-500" }
+        }
+      ]
+    }
+  ]
+}

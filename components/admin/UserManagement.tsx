@@ -1,17 +1,12 @@
-
-
 import React, { useState, useMemo, useRef } from 'react';
-import { User, Email, AppSettings, ModuleCategory } from '../../types';
+import { User, AppSettings, ModuleCategory } from '../../types';
 import UserDetailsModal from './ReportDetailsModal';
 import ShareFeedbackModal from './ShareFeedbackModal';
-import CertificateModal from './CertificateModal';
 
 interface UserManagementProps {
     users: User[];
     onUpdateUsers: (users: User[]) => void;
     onAddNewUser: (user: User) => void;
-    onSendNotification: (emailData: Omit<Email, 'id' | 'timestamp'>) => void;
-    settings: AppSettings;
     moduleCategories: ModuleCategory[];
 }
 
@@ -23,13 +18,12 @@ const StatCard: React.FC<{ label: string; value: string | number; valueColor?: s
 );
 
 
-const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, onAddNewUser, onSendNotification, settings, moduleCategories }) => {
+const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, onAddNewUser, moduleCategories }) => {
     const [newUser, setNewUser] = useState({ fullName: '', username: '', password: '', role: 'user' as 'user' | 'admin', assignedExams: [] as string[] });
     const [filter, setFilter] = useState('All');
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [feedbackUser, setFeedbackUser] = useState<User | null>(null);
-    const [certificateUser, setCertificateUser] = useState<User | null>(null);
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
     const importFileInputRef = useRef<HTMLInputElement>(null);
 
@@ -50,14 +44,16 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
     const handleGrantRetake = (userId: number) => {
          const user = users.find(u => u.id === userId);
          if (user) {
-            // FIX: Explicitly cast 'not-started' to its literal type to prevent type widening to 'string'.
-            const updatedUsers = users.map(u => u.id === userId ? { ...u, trainingStatus: 'not-started' as const, lastScore: null, submissionDate: undefined, answers: [], moduleProgress: {} } : u);
-            onUpdateUsers(updatedUsers);
-            onSendNotification({
-                to: user.username,
-                subject: "Training Retake Granted",
-                body: `Hi ${user.fullName},\n\nYou have been granted a retake for the Cyber Security training. You can now log in and attempt the assessment again.\n\nGood luck!`,
+            // FIX: Also clear submissionDate on progress reset.
+            const updatedUsers = users.map(u => {
+              if (u.id === userId) {
+                const { submissionDate, ...rest } = u;
+                // FIX: Explicitly cast 'not-started' to its literal type to prevent type widening to 'string'.
+                return { ...rest, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {} };
+              }
+              return u;
             });
+            onUpdateUsers(updatedUsers);
          }
     };
     
@@ -95,11 +91,6 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
                 moduleProgress: {},
             };
             onAddNewUser(userToAdd); // Use the centralized handler
-            onSendNotification({
-                to: 'admin@example.com',
-                subject: 'New User Registered',
-                body: `A new user has been registered:\n\nName: ${newUser.fullName}\nUsername: ${newUser.username}\nRole: ${newUser.role}\nAssigned Exams: ${newUser.assignedExams.join(', ') || 'None'}`,
-            });
             setNewUser({ fullName: '', username: '', password: '', role: 'user', assignedExams: [] });
         } else {
             alert("Please fill out all fields.");
@@ -195,19 +186,6 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
 
                 alert(`Import complete!\n${addedCount} users added.\n${skippedCount} users skipped (already exist).`);
 
-                if (addedCount > 0 || skippedCount > 0) {
-                    let body = `User import completed.\n\n- New Users Added: ${addedCount}\n- Users Skipped (Duplicates): ${skippedCount}`;
-                    if (addedCount > 0) {
-                        const newUsersSummary = newUsersToAdd.map(u => `- ${u.fullName} (${u.username})`).join('\n');
-                        body += `\n\nDetails of Added Users:\n${newUsersSummary}`;
-                    }
-                    onSendNotification({
-                        to: 'admin@example.com',
-                        subject: 'User Import Summary',
-                        body: body
-                    });
-                }
-
             } catch (error: any) {
                 console.error("Failed to parse or process JSON file:", error);
                 alert(`Failed to import users. Please check the file format or console for details. Error: ${error.message}`);
@@ -231,8 +209,10 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
         if (window.confirm("Are you sure you want to clear all submitted reports? This action will reset the status for all passed/failed users and cannot be undone.")) {
             const updatedUsers = users.map(u => {
                 if (u.trainingStatus === 'passed' || u.trainingStatus === 'failed') {
+                    // FIX: Also clear submissionDate on progress reset.
+                    const { submissionDate, ...rest } = u;
                     // FIX: Explicitly cast 'not-started' to its literal type to prevent type widening to 'string'.
-                    return { ...u, trainingStatus: 'not-started' as const, lastScore: null, submissionDate: undefined, answers: [], moduleProgress: {} };
+                    return { ...rest, trainingStatus: 'not-started' as const, lastScore: null, answers: [], moduleProgress: {} };
                 }
                 return u;
             });
@@ -388,7 +368,6 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
                                     <div className="mt-3 pt-3 border-t border-slate-200 flex flex-wrap justify-end items-center gap-2">
                                          {user.trainingStatus === 'passed' && (
                                             <>
-                                               <button onClick={() => setCertificateUser(user)} className="text-xs font-semibold bg-slate-600 text-white rounded-md py-1.5 px-3 hover:bg-slate-700 transition-colors">Certificate</button>
                                                <button onClick={() => handleOpenDetails(user)} className="text-xs font-semibold bg-blue-500 text-white rounded-md py-1.5 px-3 hover:bg-blue-600 transition-colors">Details</button>
                                             </>
                                         )}
@@ -412,15 +391,6 @@ const UserManagement: React.FC<UserManagementProps> = ({ users, onUpdateUsers, o
             
             {feedbackUser && (
                 <ShareFeedbackModal user={feedbackUser} onClose={() => setFeedbackUser(null)} />
-            )}
-
-            {certificateUser && (
-                 <CertificateModal 
-                    isOpen={!!certificateUser} 
-                    onClose={() => setCertificateUser(null)} 
-                    user={certificateUser} 
-                    settings={settings}
-                 />
             )}
         </>
     );

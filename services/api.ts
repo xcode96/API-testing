@@ -1,10 +1,9 @@
-import { Quiz, User, Email, AppSettings, ModuleCategory } from '../types';
+import { Quiz, User, AppSettings, ModuleCategory } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
 
 export interface AppData {
     users: User[];
     quizzes: Quiz[];
-    emailLog: Email[];
     settings: AppSettings;
     moduleCategories?: ModuleCategory[];
 }
@@ -20,18 +19,6 @@ const initialUsers: User[] = [
 ];
 
 const defaultSettings: AppSettings = {
-  logo: null,
-  companyFullName: 'Cyber Security Training Consortium',
-  signature1: null,
-  signature1Name: 'Dan Houser',
-  signature1Title: 'Chairperson',
-  signature2: null,
-  signature2Name: 'Laurie-Anne Bourdain',
-  signature2Title: 'Secretary',
-  courseName: 'Certified Cyber Security Professional',
-  certificationBodyText: 'Having met all of the certification requirements, adoption of the Code of Ethics, and successful performance on the required competency examination, subject to recertification every three years, this individual is entitled to all of the rights and privileges associated with this designation.',
-  certificationSeal: null,
-  certificationCycleYears: 3,
   githubOwner: '',
   githubRepo: '',
   githubPath: 'data.json',
@@ -41,7 +28,6 @@ const defaultSettings: AppSettings = {
 const getInitialData = (): AppData => ({
     users: initialUsers,
     quizzes: INITIAL_QUIZZES,
-    emailLog: [],
     settings: defaultSettings,
 });
 // --- End: Duplicated initial data ---
@@ -91,7 +77,6 @@ export const saveData = async (data: AppData): Promise<void> => {
         const dataParts = {
             users: data.users,
             quizzes: data.quizzes,
-            emailLog: data.emailLog || [],
             settings: data.settings,
             moduleCategories: data.moduleCategories || [],
         };

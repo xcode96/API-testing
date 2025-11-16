@@ -1,11 +1,10 @@
-import { kv, KEY_USERS, KEY_QUIZZES, KEY_EMAIL_LOG, KEY_SETTINGS, KEY_MODULE_CATEGORIES } from './db';
+import { kv, KEY_USERS, KEY_QUIZZES, KEY_SETTINGS, KEY_MODULE_CATEGORIES } from './db';
 
 export const maxDuration = 60;
 
 const VALID_KEYS: Record<string, string> = {
     users: KEY_USERS,
     quizzes: KEY_QUIZZES,
-    emailLog: KEY_EMAIL_LOG,
     settings: KEY_SETTINGS,
     moduleCategories: KEY_MODULE_CATEGORIES,
 };

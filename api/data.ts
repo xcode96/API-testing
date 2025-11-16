@@ -1,5 +1,5 @@
-import { kv, LEGACY_DATA_KEY, KEY_USERS, KEY_QUIZZES, KEY_EMAIL_LOG, KEY_SETTINGS, KEY_MODULE_CATEGORIES } from './db';
-import { Quiz, User, AppSettings, Email } from '../types';
+import { kv, LEGACY_DATA_KEY, KEY_USERS, KEY_QUIZZES, KEY_SETTINGS, KEY_MODULE_CATEGORIES } from './db';
+import { Quiz, User, AppSettings } from '../types';
 import { INITIAL_QUIZZES } from '../quizzes';
 
 export const maxDuration = 60; // Increase timeout to 60 seconds
@@ -14,18 +14,6 @@ const initialUsers: User[] = [
 ];
 
 const defaultSettings: AppSettings = {
-  logo: null,
-  companyFullName: 'Cyber Security Training Consortium',
-  signature1: null,
-  signature1Name: 'Dan Houser',
-  signature1Title: 'Chairperson',
-  signature2: null,
-  signature2Name: 'Laurie-Anne Bourdain',
-  signature2Title: 'Secretary',
-  courseName: 'Certified Cyber Security Professional',
-  certificationBodyText: 'Having met all of the certification requirements, adoption of the Code of Ethics, and successful performance on the required competency examination, subject to recertification every three years, this individual is entitled to all of the rights and privileges associated with this designation.',
-  certificationSeal: null,
-  certificationCycleYears: 3,
   githubOwner: '',
   githubRepo: '',
   githubPath: 'data.json',
@@ -35,7 +23,6 @@ const defaultSettings: AppSettings = {
 const getInitialData = () => ({
     users: initialUsers,
     quizzes: INITIAL_QUIZZES,
-    emailLog: [],
     settings: defaultSettings,
 });
 
@@ -46,7 +33,6 @@ async function initializeAndSaveData() {
     const tx = kv.multi();
     tx.set(KEY_USERS, initialData.users);
     tx.set(KEY_QUIZZES, initialData.quizzes);
-    tx.set(KEY_EMAIL_LOG, initialData.emailLog);
     tx.set(KEY_SETTINGS, initialData.settings);
     await tx.exec();
     return initialData;
@@ -70,7 +56,6 @@ export default async function GET(request: Request) {
         const tx = kv.multi();
         tx.set(KEY_USERS, data.users);
         tx.set(KEY_QUIZZES, data.quizzes);
-        tx.set(KEY_EMAIL_LOG, data.emailLog || []);
         tx.set(KEY_SETTINGS, data.settings);
         if (data.moduleCategories) {
             tx.set(KEY_MODULE_CATEGORIES, data.moduleCategories);
@@ -85,10 +70,9 @@ export default async function GET(request: Request) {
     }
 
     // 2. Fetch data using the new multi-key structure
-    const [users, quizzes, emailLog, settings, moduleCategories] = await kv.mget(
+    const [users, quizzes, settings, moduleCategories] = await kv.mget(
         KEY_USERS,
         KEY_QUIZZES,
-        KEY_EMAIL_LOG,
         KEY_SETTINGS,
         KEY_MODULE_CATEGORIES
     );
@@ -107,7 +91,6 @@ export default async function GET(request: Request) {
     const data = {
         users,
         quizzes,
-        emailLog: emailLog || [],
         settings,
         moduleCategories: moduleCategories || [], // Ensure it's an array
     };

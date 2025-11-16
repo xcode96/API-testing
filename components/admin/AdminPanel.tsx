@@ -1,10 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { Quiz, User, Email, AppSettings, ModuleCategory, Question } from '../../types';
+import { Quiz, User, AppSettings, ModuleCategory, Question } from '../../types';
 import { AdminView } from '../../App';
 import AdminSidebar from './AdminSidebar';
 import DataManagement from './DataManagement';
 import UserManagement from './UserManagement';
-import NotificationLog from './NotificationLog';
 import SettingsPanel from './SettingsPanel';
 import QuestionForm from './QuestionForm';
 import { AppData } from '../../services/api';
@@ -18,8 +17,6 @@ interface AdminPanelProps {
   onLogout: () => void;
   activeView: AdminView;
   setActiveView: (view: AdminView) => void;
-  emailLog: Email[];
-  onSendNotification: (emailData: Omit<Email, 'id' | 'timestamp'>) => void;
   settings: AppSettings;
   onSettingsChange: React.Dispatch<React.SetStateAction<AppSettings | null>>;
   moduleCategories: ModuleCategory[];
@@ -46,8 +43,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onLogout,
   activeView,
   setActiveView,
-  emailLog,
-  onSendNotification,
   settings,
   onSettingsChange,
   moduleCategories,
@@ -95,19 +90,14 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
                     users={users} 
                     onUpdateUsers={onUpdateUsers}
                     onAddNewUser={onAddNewUser}
-                    onSendNotification={onSendNotification} 
-                    settings={settings} 
                     moduleCategories={moduleCategories} 
                 />;
-      case 'notifications':
-        return <NotificationLog emailLog={emailLog} />;
       case 'settings':
         return <SettingsPanel 
                     settings={settings} 
                     onSettingsChange={onSettingsChange as React.Dispatch<React.SetStateAction<AppSettings>>}
                     users={users}
                     quizzes={quizzes}
-                    emailLog={emailLog}
                     moduleCategories={moduleCategories}
                     onSyncFromGitHub={onSyncFromGitHub}
                     onImportAllData={onImportAllData}

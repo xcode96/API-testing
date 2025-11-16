@@ -47,6 +47,15 @@ export interface UserAnswer {
   isCorrect: boolean;
 }
 
+// FIX: Add missing Email interface to resolve import errors.
+export interface Email {
+  id: number;
+  to: string;
+  subject: string;
+  body: string;
+  timestamp: number;
+}
+
 export interface User {
   id: number;
   fullName: string;
@@ -56,34 +65,28 @@ export interface User {
   lastScore?: number | null;
   role: 'user' | 'admin';
   assignedExams?: string[];
-  submissionDate?: string;
   answers?: UserAnswer[];
   moduleProgress?: Record<string, ModuleStatus>;
-}
-
-export interface Email {
-  id: number;
-  to: string;
-  subject: string;
-  body: string;
-  timestamp: string;
+  // FIX: Add optional submissionDate for certificate generation.
+  submissionDate?: number | string;
 }
 
 export interface AppSettings {
-  logo: string | null;
-  companyFullName: string;
-  signature1: string | null;
-  signature1Name: string;
-  signature1Title: string;
-  signature2: string | null;
-  signature2Name: string;
-  signature2Title: string;
-  courseName: string;
-  certificationBodyText: string;
-  certificationSeal: string | null;
-  certificationCycleYears: number;
   githubOwner: string;
   githubRepo: string;
   githubPath: string;
   githubPat: string;
+  // FIX: Add optional fields for certificate generation.
+  logo?: string;
+  companyFullName?: string;
+  courseName?: string;
+  certificationBodyText?: string;
+  signature1?: string;
+  signature1Name?: string;
+  signature1Title?: string;
+  signature2?: string;
+  signature2Name?: string;
+  signature2Title?: string;
+  certificationSeal?: string;
+  certificationCycleYears?: number;
 }

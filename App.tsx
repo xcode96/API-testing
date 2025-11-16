@@ -9,12 +9,11 @@ import FinalReport from './components/FinalReport';
 import CompletionScreen from './components/CompletionScreen';
 import { ICONS, INITIAL_MODULE_CATEGORIES, THEMES } from './constants';
 import { PASSING_PERCENTAGE } from './quizzes';
-import { Module, ModuleStatus, Quiz, User, UserAnswer, Email, AppSettings, ModuleCategory, Question } from './types';
-import { sendEmail } from './services/emailService';
+import { Module, ModuleStatus, Quiz, User, UserAnswer, AppSettings, ModuleCategory, Question } from './types';
 import { fetchData, saveData, AppData, fetchFromGitHub, savePartialData } from './services/api';
 
 type View = 'user_login' | 'dashboard' | 'login' | 'admin' | 'report' | 'completion';
-export type AdminView = 'users' | 'questions' | 'notifications' | 'settings';
+export type AdminView = 'users' | 'questions' | 'settings';
 
 const reconcileModuleCategories = (quizzes: Quiz[], moduleCategories?: ModuleCategory[]): ModuleCategory[] => {
     if (moduleCategories && moduleCategories.length > 0) {
@@ -55,7 +54,6 @@ const reconcileModuleCategories = (quizzes: Quiz[], moduleCategories?: ModuleCat
 function App() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [users, setUsers] = useState<User[]>([]);
-  const [emailLog, setEmailLog] = useState<Email[]>([]);
   const [settings, setSettings] = useState<AppSettings | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -70,7 +68,6 @@ function App() {
       .then(data => {
         setQuizzes(data.quizzes);
         setUsers(data.users);
-        setEmailLog(data.emailLog || []);
         setSettings(data.settings);
         setModuleCategoriesState(reconcileModuleCategories(data.quizzes, data.moduleCategories));
       })
@@ -92,7 +89,7 @@ function App() {
     }
 
     saveTimeoutRef.current = window.setTimeout(() => {
-      const dataToSave = { users, quizzes, emailLog, settings, moduleCategories: moduleCategoriesState };
+      const dataToSave = { users, quizzes, settings, moduleCategories: moduleCategoriesState };
       saveData(dataToSave)
         .catch(err => console.error("Failed to auto-save data:", err));
     }, 1000);
@@ -102,7 +99,7 @@ function App() {
         clearTimeout(saveTimeoutRef.current);
       }
     };
-  }, [users, quizzes, emailLog, settings, loading, moduleCategoriesState]);
+  }, [users, quizzes, settings, loading, moduleCategoriesState]);
 
   const [view, setView] = useState<View>('user_login');
   const [adminView, setAdminView] = useState<AdminView>('users');
@@ -384,17 +381,10 @@ function App() {
           answers: newAnswers,
           lastScore: allModulesCompleted ? finalScore : user.lastScore,
           trainingStatus: newTrainingStatus,
-          submissionDate: allModulesCompleted ? new Date().toISOString() : user.submissionDate,
+          // FIX: Add submissionDate when all modules are completed.
+          submissionDate: allModulesCompleted ? Date.now() : user.submissionDate,
         };
         setCurrentUser(updatedUser);
-
-        if (allModulesCompleted) {
-            handleSendNotification({
-              to: user.username,
-              subject: `Training Assessment ${newTrainingStatus === 'passed' ? 'Passed' : 'Failed'}`,
-              body: `Hi ${user.fullName},\n\nYou have completed your assigned training modules with a final score of ${finalScore}%.\n\nYour status is now: ${newTrainingStatus}.\n\nPlease log in to view your report.`,
-            });
-        }
         
         return updatedUser;
       }
@@ -412,11 +402,15 @@ function App() {
   const handleResetProgress = () => {
     if (!currentUser) return;
     if (window.confirm("Are you sure you want to reset all your progress? This cannot be undone.")) {
-      const updatedUsers = users.map(user =>
-        user.id === currentUser.id
-          // FIX: Explicitly cast 'not-started' to its literal type to prevent type widening to 'string'.
-          ? { ...user, moduleProgress: {}, answers: [], lastScore: null, trainingStatus: 'not-started' as const }
-          : user
+      const updatedUsers = users.map(user => {
+          if (user.id === currentUser.id) {
+            // FIX: Also clear submissionDate on progress reset.
+            const { submissionDate, ...rest } = user;
+            // FIX: Explicitly cast 'not-started' to its literal type to prevent type widening to 'string'.
+            return { ...rest, moduleProgress: {}, answers: [], lastScore: null, trainingStatus: 'not-started' as const };
+          }
+          return user;
+        }
       );
       setUsers(updatedUsers);
       const updatedCurrentUser = updatedUsers.find(u => u.id === currentUser.id);
@@ -489,16 +483,6 @@ function App() {
     alert(`${newModules.length} new sub-topics imported successfully into "${parentCategory.title}".`);
   };
   
-  const handleSendNotification = (emailData: Omit<Email, 'id' | 'timestamp'>) => {
-    const newEmail: Email = {
-      ...emailData,
-      id: Date.now(),
-      timestamp: new Date().toISOString(),
-    };
-    sendEmail(newEmail);
-    setEmailLog(prev => [newEmail, ...prev]);
-  };
-  
   const handleAddNewUser = (user: User) => {
     setUsers(prev => [...prev, user]);
   };
@@ -522,7 +506,6 @@ function App() {
         const reconciledData: AppData = {
             users: data.users,
             quizzes: data.quizzes,
-            emailLog: data.emailLog || [],
             settings: {
                 ...data.settings,
                 // Preserve the GitHub PAT and connection settings from the current state,
@@ -539,7 +522,6 @@ function App() {
         
         setQuizzes(reconciledData.quizzes);
         setUsers(reconciledData.users);
-        setEmailLog(reconciledData.emailLog);
         setSettings(reconciledData.settings);
         if (reconciledData.moduleCategories) {
             setModuleCategoriesState(reconciledData.moduleCategories);
@@ -579,7 +561,6 @@ function App() {
       const dataParts = {
           users: reconciledData.users,
           quizzes: reconciledData.quizzes,
-          emailLog: reconciledData.emailLog || [],
           settings: reconciledData.settings,
           moduleCategories: reconciledData.moduleCategories || [],
       };
@@ -592,7 +573,6 @@ function App() {
       // After successful save, update the local state
       setQuizzes(reconciledData.quizzes);
       setUsers(reconciledData.users);
-      setEmailLog(reconciledData.emailLog || []);
       setSettings(reconciledData.settings);
       if (reconciledData.moduleCategories) {
         setModuleCategoriesState(reconciledData.moduleCategories);
@@ -614,7 +594,7 @@ function App() {
         if (loading || !settings) {
              return { success: false, error: "Data is not ready to be saved." };
         }
-        const dataToSave = { users, quizzes, emailLog, settings, moduleCategories: moduleCategoriesState };
+        const dataToSave = { users, quizzes, settings, moduleCategories: moduleCategoriesState };
         await saveData(dataToSave);
         return { success: true };
     } catch (err: any) {
@@ -681,8 +661,6 @@ function App() {
                     onLogout={() => setView('user_login')}
                     activeView={adminView}
                     setActiveView={setAdminView}
-                    emailLog={emailLog}
-                    onSendNotification={handleSendNotification}
                     settings={settings}
                     onSettingsChange={setSettings}
                     moduleCategories={moduleCategoriesState}
